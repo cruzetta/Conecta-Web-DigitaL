@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Web Digital - Criação de Sites Personalizados</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos gerais e fontes */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #020617; /* bg-slate-950 */
+            color: #d1d5db; /* text-slate-300 */
+            padding-top: 4rem; /* 64px, que é a altura do cabeçalho (h-16) */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .js-loading body {
+            opacity: 0;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- ESTILOS PARA O CABEÇALHO FIXO --- */
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e293b;
+        }
+
+        /* --- ANIMAÇÕES DE REVELAÇÃO APRIMORADAS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão principal com brilho */
+        .cta-button-glow {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            box-shadow: 0 0 25px rgba(241, 245, 249, 0.2), 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .cta-button-glow:hover {
+            background-color: #ffffff;
+            box-shadow: 0 0 35px rgba(241, 245, 249, 0.4), 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Animação de pulo para a seta */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 2.5s infinite;
+        }
+
+        /* --- EFEITO DE PARTÍCULAS (HERO) --- */
+        #hero-particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        
+        /* --- ESTILOS DA NOVA SECÇÃO FUTURISTA --- */
+        .futuristic-section {
+            background-color: #0d1117; /* Tom ligeiramente diferente para transição */
+            padding: 6rem 1rem; /* Mais espaçamento vertical */
+            position: relative;
+            overflow: hidden;
+        }
+        #futuristic-particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .futuristic-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 851px; /* Limita a largura do conteúdo para melhor leitura */
+            margin: 0 auto; /* Centra o conteúdo */
+            text-align: center;
+        }
+        .futuristic-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: clamp(2.2rem, 6vw, 3.5rem); /* Tamanho de fonte responsivo */
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5), 0 0 20px rgba(0, 191, 255, 0.3);
+        }
+        .futuristic-title span {
+            color: #00BFFF; /* DeepSkyBlue */
+            font-weight: 700;
+        }
+        .futuristic-services-container {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza os itens */
+            gap: 1rem;
+        }
+        .futuristic-service-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #cdd5e0;
+            font-family: 'Roboto', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        .futuristic-service-item svg {
+            width: 28px;
+            height: 28px;
+            color: #00BFFF;
+            stroke-width: 1.5;
+            filter: drop-shadow(0 0 5px rgba(0, 191, 255, 0.7));
+            flex-shrink: 0;
+        }
+
+        /* --- ESTILOS DA SEÇÃO DE TIMELINE ANIMADA --- */
+        .timeline-section {
+            overflow: hidden;
+        }
+        .timeline-container {
+            position: relative;
+        }
+        .timeline-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .timeline-track {
+            stroke: #334155;
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
+        .timeline-step {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, opacity 0.5s ease;
+            opacity: 0.5;
+        }
+        .timeline-step .icon-bubble {
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .timeline-step .step-content h3,
+        .timeline-step .step-content p {
+            transition: color 0.4s ease;
+        }
+        .timeline-step.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .timeline-step.active .icon-bubble {
+            background-color: #0ea5e9;
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+        .timeline-step.active .step-content h3 {
+            color: #f0f9ff;
+        }
+        .timeline-step.active .step-content p {
+            color: #e0f2fe;
+        }
+        @media (max-width: 767px) {
+            .timeline-grid {
+                grid-template-columns: 1fr;
+                padding-left: 2rem;
+            }
+            .timeline-svg {
+                top: 2rem;
+                left: calc(1rem - 1px);
+                width: 2px;
+                height: calc(100% - 4rem);
+            }
+            .timeline-step {
+                padding-left: 2rem;
+                text-align: left;
+            }
+            .timeline-step .icon-bubble {
+                position: absolute;
+                left: -1.5rem;
+                top: 0;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+    <script>document.documentElement.classList.add('js-loading');</script>
+</head>
+<body>
+
+    <!-- --- CABEÇALHO DE NAVEGAÇÃO FIXO --- -->
+    <nav id="sticky-nav" class="sticky-nav">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="relative w-40">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Flogo%20conecta.png?alt=media&token=320f1061-918f-4bda-8585-c741efd227c1" alt="Logo Conecta Web Digital" class="h-40 w-auto absolute top-1/2 left-0 -translate-y-1/2">
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#services" class="text-slate-300 hover:text-white transition-colors duration-300">Serviços</a>
+                    <a href="#how-it-works" class="text-slate-300 hover:text-white transition-colors duration-300">Como Funciona</a>
+                    <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="bg-slate-100 text-slate-900 font-bold px-5 py-2 rounded-lg hover:bg-white hover:scale-105 transform transition-all duration-300">
+                        Contato
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#services" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Serviços</a>
+                <a href="#how-it-works" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Como Funciona</a>
+                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="block bg-slate-100 text-slate-900 font-bold px-3 py-2 rounded-lg hover:bg-white text-center">
+                    Contato
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="w-full">
+
+        <!-- Seção Hero com Vídeo e Partículas -->
+        <header class="relative flex items-center justify-center min-h-screen p-4 overflow-hidden -mt-16">
+            <canvas id="hero-particle-canvas"></canvas>
+            
+            <video autoplay loop muted playsinline class="absolute z-0 w-full h-full object-cover">
+                <source src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Fvideo.mp4?alt=media&token=653fe8ab-8934-4b19-88cf-9637d2813757" type="video/mp4">
+                O seu navegador não suporta a tag de vídeo.
+            </video>
+            <div class="absolute z-10 w-full h-full bg-black/60"></div>
+            <div class="relative z-20 text-center">
+                <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight reveal" style="text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);">
+                    Não seja só mais um no Instagram.
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto reveal" style="transition-delay: 150ms;">
+                    Tenha um site que destaca o seu valor, passa confiança e atrai clientes certos.
+                </p>
+                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="cta-button-glow mt-8 inline-block font-bold text-lg px-8 py-4 rounded-lg hover:scale-105 transform transition-all duration-300 reveal" style="transition-delay: 300ms;">
+                    Vamos começar
+                </a>
+            </div>
+            <a href="#services" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce-slow" aria-label="Rolar para a próxima seção">
+                <svg class="w-8 h-8 text-white opacity-70 hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+        </header>
+
+        <!-- NOVA SECÇÃO FUTURISTA INTEGRADA -->
+        <section class="futuristic-section">
+            <canvas id="futuristic-particle-canvas"></canvas>
+            <div class="futuristic-content">
+                <h2 class="futuristic-title">Conectando sua Marca<br>ao <span>Futuro</span></h2>
+                <div class="futuristic-services-container">
+                    <div class="futuristic-service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 2v2"/><path d="M9 2v2"/></svg>
+                        <span>Websites com Inteligência Artificial</span>
+                    </div>
+                    <div class="futuristic-service-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                        <span>Estratégias de Crescimento Preditivo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Serviços -->
+        <main id="services" class="py-20 md:py-28 bg-slate-900">
+            <div class="max-w-6xl mx-auto px-4">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">Crio sites personalizados para diferentes necessidades</h2>
+                 </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
+                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
+                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site de Vendas</h3>
+                        <p class="text-slate-400">Para quem quer vender produtos ou serviços online. Inclui catálogo, carrinho, e controle de pedidos.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
+                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
+                             <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-100">Controle Financeiro</h3>
+                        <p class="text-slate-400">Para organizar as finanças com relatórios, gráficos e controle de gastos e receitas.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
+                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
+                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site Institucional</h3>
+                        <p class="text-slate-400">Para apresentar a sua empresa de forma profissional, com informações, serviços e portfólio.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
+                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
+                             <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site de Gestão</h3>
+                        <p class="text-slate-400">Para organizar processos e tarefas do dia a dia, como cadastros e controle de clientes.</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
+                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
+                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site Sob Medida</h3>
+                        <p class="text-slate-400">Tem uma ideia específica? Eu desenvolvo. Qualquer funcionalidade que o seu negócio precise.</p>
+                    </div>
+                    
+                    <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20criar%20meu%20site%20100%25%20personalizado." target="_blank" class="bg-slate-100 text-slate-900 p-8 rounded-xl shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 reveal hover:bg-white">
+                         <h3 class="text-xl font-bold">Criar meu site 100% personalizado</h3>
+                         <p class="mt-2 text-slate-600">Vamos conversar sobre seu projeto?</p>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <!-- NOVA SEÇÃO ANIMADA "COMO FUNCIONA" -->
+        <section id="how-it-works" class="py-20 md:py-28 bg-slate-950 timeline-section">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-16 md:mb-20">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">Nosso Processo de Trabalho</h2>
+                    <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto reveal" style="transition-delay: 100ms;">Quatro passos simples para transformar sua ideia em um site de sucesso.</p>
+                </div>
+                
+                <div id="timeline-container" class="timeline-container">
+                    <!-- SVG para desenhar as linhas e a faísca da timeline -->
+                    <svg class="timeline-svg" preserveAspectRatio="none">
+                        <defs>
+                            <radialGradient id="spark-gradient">
+                                <stop offset="0%" stop-color="#f0f9ff" stop-opacity="1" />
+                                <stop offset="60%" stop-color="#7dd3fc" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
+                            </radialGradient>
+                            <filter id="spark-glow">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <path class="timeline-track" d=""></path>
+                        <path id="motion-path" d="" fill="none" stroke="none"></path>
+                        
+                        <g id="spark-group" style="filter: url(#spark-glow); display: none;">
+                            <circle id="spark" r="6" fill="url(#spark-gradient)">
+                                <animateMotion id="spark-animation" dur="7s" begin="indefinite" repeatCount="indefinite" rotate="auto">
+                                    <mpath xlink:href="#motion-path" />
+                                </animateMotion>
+                            </circle>
+                            <circle r="3" fill="url(#spark-gradient)" opacity="0.7">
+                                <animateMotion dur="7s" begin="spark-animation.begin + 0.05s" repeatCount="indefinite" rotate="auto">
+                                    <mpath xlink:href="#motion-path" />
+                                </animateMotion>
+                            </circle>
+                            <circle r="2" fill="url(#spark-gradient)" opacity="0.5">
+                                <animateMotion dur="7s" begin="spark-animation.begin + 0.1s" repeatCount="indefinite" rotate="auto">
+                                    <mpath xlink:href="#motion-path" />
+                                </animateMotion>
+                            </circle>
+                        </g>
+                    </svg>
+
+                    <!-- Grid com as etapas do processo -->
+                    <div class="grid md:grid-cols-4 gap-x-8 gap-y-16 timeline-grid">
+                        
+                        <!-- Etapa 1: Conversa -->
+                        <div id="step-1" class="timeline-step text-center">
+                            <div class="relative inline-block mb-4">
+                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
+                                    <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">1</span>
+                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                </div>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="text-xl font-bold text-slate-300 mb-2">Conversa</h3>
+                                <p class="text-slate-400">Você me conta o que precisa para o seu projeto.</p>
+                            </div>
+                        </div>
+
+                        <!-- Etapa 2: Desenho -->
+                        <div id="step-2" class="timeline-step text-center">
+                            <div class="relative inline-block mb-4">
+                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
+                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">2</span>
+                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </div>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="text-xl font-bold text-slate-300 mb-2">Desenho</h3>
+                                <p class="text-slate-400">Eu desenho a solução e o design do seu futuro site.</p>
+                            </div>
+                        </div>
+
+                        <!-- Etapa 3: Desenvolvimento -->
+                        <div id="step-3" class="timeline-step text-center">
+                            <div class="relative inline-block mb-4">
+                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
+                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">3</span>
+                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                </div>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="text-xl font-bold text-slate-300 mb-2">Desenvolvimento</h3>
+                                <p class="text-slate-400">Construo o site com as melhores tecnologias.</p>
+                            </div>
+                        </div>
+
+                        <!-- Etapa 4: Entrega -->
+                        <div id="step-4" class="timeline-step text-center">
+                            <div class="relative inline-block mb-4">
+                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
+                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">4</span>
+                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                            </div>
+                            <div class="step-content">
+                                <h3 class="text-xl font-bold text-slate-300 mb-2">Entrega</h3>
+                                <p class="text-slate-400">Seu site pronto para alcançar resultados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="bg-slate-900 py-20">
+             <div class="max-w-3xl mx-auto text-center px-4">
+                 <h2 class="text-3xl font-extrabold text-white reveal">Vamos transformar a sua ideia num site de sucesso?</h2>
+                 <p class="mt-4 text-lg text-slate-400 reveal">Estou pronto para ouvir sobre o seu projeto e criar uma solução digital que traga resultados reais para o seu negócio.</p>
+                 <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20criar%20meu%20site%20100%25%20personalizado." target="_blank" class="cta-button-glow mt-8 inline-block font-bold text-lg px-8 py-4 rounded-lg hover:scale-105 transform transition-all duration-300 reveal">
+                    Conte-me o que você precisa
+                </a>
+             </div>
+        </section>
+
+        <footer class="bg-slate-950 text-slate-400 py-6">
+            <div class="max-w-6xl mx-auto text-center px-4">
+                <p>&copy; 2025 Conecta Web Digital. Todos os direitos reservados.</p>
+                <p class="mt-2"><a href="politica-de-privacidade.html" class="hover:text-white transition-colors">Política de Privacidade</a></p>
+            </div>
+        </footer>
+
+        <a href="https://wa.me/5567999093031?text=Olá!%20Tenho%20interesse%20nos%20seus%20serviços." target="_blank" class="fixed bottom-6 right-6 bg-green-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300 z-50">
+            <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.651 4.383 1.898 6.233l-.966 3.533 3.595-.942z"/>
+            </svg>
+        </a>
+    </div>
+
+    <script>
+        function runApp() {
+            // Lógica do menu mobile
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+
+            // Animação de revelação dos elementos
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 150);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            revealElements.forEach(elem => observer.observe(elem));
+
+            // --- ANIMAÇÃO DE PARTÍCULAS DO HERO ---
+            function runHeroParticles() {
+                const canvas = document.getElementById('hero-particle-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+
+                function resizeCanvas() {
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
+                }
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 1.5 + 0.5;
+                        this.speedX = Math.random() * 1 - 0.5;
+                        this.speedY = Math.random() * 1 - 0.5;
+                        this.color = 'rgba(203, 213, 225, 0.5)';
+                    }
+                    update() {
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+
+                        if (this.size > 0.1) this.size -= 0.01;
+                        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                    }
+                    draw() {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                function initParticles() {
+                    particles = [];
+                    const particleCount = Math.floor(canvas.width / 30);
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+
+                function animateParticles() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                    }
+                    requestAnimationFrame(animateParticles);
+                }
+                
+                window.addEventListener('resize', () => {
+                    resizeCanvas();
+                    initParticles();
+                });
+
+                resizeCanvas();
+                initParticles();
+                animateParticles();
+            }
+            
+            // --- ANIMAÇÃO DE PARTÍCULAS DA SECÇÃO FUTURISTA ---
+            function runFuturisticSectionAnimation() {
+                const fbCanvas = document.getElementById('futuristic-particle-canvas');
+                if (!fbCanvas) return;
+                const fbCtx = fbCanvas.getContext('2d');
+                
+                let fbWidth = fbCanvas.width = fbCanvas.parentElement.offsetWidth;
+                let fbHeight = fbCanvas.height = fbCanvas.parentElement.offsetHeight;
+                let fbParticles = [];
+
+                const particleProps = {
+                    radius: 1.5,
+                    lineDistance: 100,
+                    speed: 0.4,
+                    color: 'rgba(0, 191, 255, 0.8)'
+                };
+
+                class FBParticle {
+                    constructor() {
+                        this.x = Math.random() * fbWidth;
+                        this.y = Math.random() * fbHeight;
+                        this.vx = (Math.random() - 0.5) * particleProps.speed;
+                        this.vy = (Math.random() - 0.5) * particleProps.speed;
+                    }
+                    draw() {
+                        fbCtx.beginPath();
+                        fbCtx.arc(this.x, this.y, particleProps.radius, 0, Math.PI * 2);
+                        fbCtx.fillStyle = particleProps.color;
+                        fbCtx.fill();
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > fbWidth) this.vx *= -1;
+                        if (this.y < 0 || this.y > fbHeight) this.vy *= -1;
+                    }
+                }
+
+                function fbInit() {
+                    fbParticles = [];
+                    const area = fbWidth * fbHeight;
+                    const particleCount = Math.floor(area / 3500); 
+                    for (let i = 0; i < particleCount; i++) {
+                        fbParticles.push(new FBParticle());
+                    }
+                }
+
+                function drawLines() {
+                    for (let i = 0; i < fbParticles.length; i++) {
+                        for (let j = i + 1; j < fbParticles.length; j++) {
+                            const dist = Math.hypot(fbParticles[i].x - fbParticles[j].x, fbParticles[i].y - fbParticles[j].y);
+                            if (dist < particleProps.lineDistance) {
+                                fbCtx.beginPath();
+                                fbCtx.moveTo(fbParticles[i].x, fbParticles[i].y);
+                                fbCtx.lineTo(fbParticles[j].x, fbParticles[j].y);
+                                fbCtx.strokeStyle = `rgba(0, 191, 255, ${1 - dist / particleProps.lineDistance})`;
+                                fbCtx.lineWidth = 0.5;
+                                fbCtx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                function fbAnimate() {
+                    fbCtx.clearRect(0, 0, fbWidth, fbHeight);
+                    fbParticles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                    drawLines();
+                    requestAnimationFrame(fbAnimate);
+                }
+
+                function fbResize() {
+                    fbWidth = fbCanvas.width = fbCanvas.parentElement.offsetWidth;
+                    fbHeight = fbCanvas.height = fbCanvas.parentElement.offsetHeight;
+                    fbParticles = [];
+                    fbInit();
+                }
+
+                window.addEventListener('resize', fbResize);
+                
+                fbInit();
+                fbAnimate();
+            }
+            
+            // Inicia as animações
+            runHeroParticles();
+            runFuturisticSectionAnimation();
+        }
+
+        function runTimelineAnimation() {
+            const timelineContainer = document.getElementById('timeline-container');
+            if (!timelineContainer) return;
+
+            const track = timelineContainer.querySelector('.timeline-track');
+            const motionPath = document.getElementById('motion-path');
+            const sparkGroup = document.getElementById('spark-group');
+            const steps = [
+                document.getElementById('step-1'),
+                document.getElementById('step-2'),
+                document.getElementById('step-3'),
+                document.getElementById('step-4')
+            ];
+
+            const animationDuration = 7000; 
+            const activationPoints = [0, 30, 60, 90]; 
+            let animationInterval;
+
+            function drawPath() {
+                let pathData = '';
+                if (window.innerWidth > 767) {
+                    const y = steps[0].offsetTop + (steps[0].querySelector('.icon-bubble').offsetHeight / 2);
+                    const startX = steps[0].offsetLeft + (steps[0].offsetWidth / 2);
+                    const endX = steps[3].offsetLeft + (steps[3].offsetWidth / 2);
+                    pathData = `M ${startX},${y} L ${endX},${y}`;
+                } else {
+                    const x = 0;
+                    const startY = steps[0].offsetTop + (steps[0].querySelector('.icon-bubble').offsetHeight / 2);
+                    const endY = steps[3].offsetTop + (steps[3].querySelector('.icon-bubble').offsetHeight / 2);
+                    pathData = `M ${x},${startY} L ${x},${endY}`;
+                }
+                track.setAttribute('d', pathData);
+                motionPath.setAttribute('d', pathData);
+            }
+
+            function updateActiveStep(elapsedTime) {
+                const progress = (elapsedTime / animationDuration) * 100;
+                steps.forEach((step, index) => {
+                    const nextActivationPoint = activationPoints[index + 1] || 101;
+                    if (progress >= activationPoints[index] && progress < nextActivationPoint) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            }
+
+            function startAnimation() {
+                let startTime = performance.now();
+                sparkGroup.style.display = 'block';
+                const allAnimations = sparkGroup.querySelectorAll('animateMotion');
+                allAnimations.forEach(anim => anim.beginElement());
+
+                if (animationInterval) clearInterval(animationInterval);
+                animationInterval = setInterval(() => {
+                    const elapsedTime = (performance.now() - startTime) % animationDuration;
+                    updateActiveStep(elapsedTime);
+                }, 50);
+            }
+            
+            function stopAnimation() {
+                sparkGroup.style.display = 'none';
+                const allAnimations = sparkGroup.querySelectorAll('animateMotion');
+                allAnimations.forEach(anim => anim.endElement());
+                clearInterval(animationInterval);
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        drawPath();
+                        startAnimation();
+                    } else {
+                        stopAnimation();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(timelineContainer);
+
+            window.addEventListener('resize', () => {
+                if (timelineContainer.getBoundingClientRect().top < window.innerHeight && timelineContainer.getBoundingClientRect().bottom > 0) {
+                    drawPath();
+                    startAnimation();
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+          document.documentElement.classList.remove('js-loading');
+          runApp();
+          runTimelineAnimation();
+        });
+    </script>
+</body>
+</html>
