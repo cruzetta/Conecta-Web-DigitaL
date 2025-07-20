@@ -155,9 +155,10 @@
 
     <!-- Firebase SDKs -->
     <script type="module">
+        // CORREÇÃO: Adicionado 'getDoc' à importação
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, deleteDoc, updateDoc, addDoc, serverTimestamp, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, deleteDoc, updateDoc, addDoc, serverTimestamp, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyAlJ1UWCsKPymTE0cOvHP1wveznX8X3j1o",
@@ -178,17 +179,14 @@
         const adminDashboard = document.getElementById('admin-dashboard');
         const logoutButton = document.getElementById('logout-button');
         
-        // Navegação
         const navLinks = document.querySelectorAll('.sidebar-link');
         const contentSections = document.querySelectorAll('.content-section');
 
-        // Seção de Perguntas
         const pendingQuestionsContainer = document.getElementById('pending-questions');
         const approvedQuestionsContainer = document.getElementById('approved-questions');
         const noPendingMsg = document.getElementById('no-pending-questions');
         const noApprovedMsg = document.getElementById('no-approved-questions');
 
-        // Seção de Depoimentos
         const testimonialsListContainer = document.getElementById('testimonials-list');
         const noTestimonialsMsg = document.getElementById('no-testimonials');
         const addTestimonialButton = document.getElementById('add-testimonial-button');
@@ -233,11 +231,10 @@
             
             window.addEventListener('hashchange', () => switchTab(window.location.hash));
 
-            // Define a aba inicial
             if (window.location.hash) {
                 switchTab(window.location.hash);
             } else {
-                switchTab('#questions'); // Aba padrão
+                switchTab('#questions');
             }
         }
 
@@ -300,7 +297,7 @@
         adminDashboard.addEventListener('click', async (e) => {
             const button = e.target;
             const card = button.closest('.bg-slate-800');
-            if (!card?.dataset.id) return;
+            if (!card?.dataset.id || !card.querySelector('.answer-text')) return; // Garante que só afeta cards de perguntas
             const id = card.dataset.id;
             const questionRef = doc(db, 'questions', id);
 
@@ -318,10 +315,9 @@
             }
         });
 
-        // --- GERENCIAMENTO DE DEPOIMENTOS (NOVA LÓGICA) ---
+        // --- GERENCIAMENTO DE DEPOIMENTOS (LÓGICA CORRIGIDA) ---
         const testimonialsCollectionRef = collection(db, 'testimonials');
 
-        // Abrir/Fechar Modal
         addTestimonialButton.addEventListener('click', () => {
             testimonialForm.reset();
             testimonialIdInput.value = '';
@@ -330,32 +326,36 @@
         });
         cancelModalButton.addEventListener('click', () => testimonialModal.classList.add('hidden'));
 
-        // Enviar formulário do modal (criar ou editar)
         testimonialForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = testimonialIdInput.value;
-            const data = {
+            const commonData = {
                 clientName: document.getElementById('clientName').value,
                 clientPosition: document.getElementById('clientPosition').value,
                 photoURL: document.getElementById('photoURL').value,
                 rating: Number(document.getElementById('rating').value),
                 testimonialText: document.getElementById('testimonialText').value,
-                createdAt: serverTimestamp()
             };
 
             try {
-                if (id) { // Editando
-                    await updateDoc(doc(db, 'testimonials', id), data);
-                } else { // Criando
-                    await addDoc(testimonialsCollectionRef, data);
+                if (id) {
+                    await updateDoc(doc(db, 'testimonials', id), {
+                        ...commonData,
+                        updatedAt: serverTimestamp()
+                    });
+                } else {
+                    await addDoc(testimonialsCollectionRef, {
+                        ...commonData,
+                        createdAt: serverTimestamp()
+                    });
                 }
                 testimonialModal.classList.add('hidden');
             } catch (error) {
                 console.error("Erro ao salvar depoimento:", error);
+                alert("Ocorreu um erro ao salvar o depoimento. Por favor, tente novamente.");
             }
         });
 
-        // Ouvir por depoimentos no Firestore
         function listenForTestimonials() {
             const testimonialsQuery = query(testimonialsCollectionRef, orderBy("createdAt", "desc"));
             onSnapshot(testimonialsQuery, (snapshot) => {
@@ -370,7 +370,6 @@
             });
         }
 
-        // Criar card de depoimento para o admin
         function createTestimonialCard(id, data) {
             const card = document.createElement('div');
             card.className = 'bg-slate-800 p-4 rounded-lg shadow-md flex items-start gap-4';
@@ -385,7 +384,7 @@
                         <div>
                             <p class="font-bold text-white">${data.clientName}</p>
                             <p class="text-sm text-slate-400">${data.clientPosition}</p>
-                            <div class="flex mt-1">${'★'.repeat(data.rating)}<span class="text-amber-400/50">${'★'.repeat(5 - data.rating)}</span></div>
+                            <div class="flex mt-1 text-amber-400">${'★'.repeat(data.rating)}<span class="text-slate-600">${'★'.repeat(5 - data.rating)}</span></div>
                         </div>
                         <div class="flex gap-2">
                             <button class="edit-testimonial-button p-2 text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
@@ -398,25 +397,28 @@
             return card;
         }
 
-        // Delegação de eventos para editar/excluir depoimentos
         testimonialsListContainer.addEventListener('click', async (e) => {
             const button = e.target.closest('button');
             if (!button) return;
             
-            const card = button.closest('.bg-slate-800');
+            const card = button.closest('.bg-slate-800[data-id]');
+            if (!card) return;
             const id = card.dataset.id;
             const testimonialRef = doc(db, 'testimonials', id);
 
             if (button.classList.contains('edit-testimonial-button')) {
-                const data = (await getDoc(testimonialRef)).data();
-                modalTitle.textContent = 'Editar Depoimento';
-                testimonialIdInput.value = id;
-                document.getElementById('clientName').value = data.clientName;
-                document.getElementById('clientPosition').value = data.clientPosition;
-                document.getElementById('photoURL').value = data.photoURL;
-                document.getElementById('rating').value = data.rating;
-                document.getElementById('testimonialText').value = data.testimonialText;
-                testimonialModal.classList.remove('hidden');
+                const docSnap = await getDoc(testimonialRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    modalTitle.textContent = 'Editar Depoimento';
+                    testimonialIdInput.value = id;
+                    document.getElementById('clientName').value = data.clientName;
+                    document.getElementById('clientPosition').value = data.clientPosition;
+                    document.getElementById('photoURL').value = data.photoURL;
+                    document.getElementById('rating').value = data.rating;
+                    document.getElementById('testimonialText').value = data.testimonialText;
+                    testimonialModal.classList.remove('hidden');
+                }
             }
 
             if (button.classList.contains('delete-testimonial-button')) {
