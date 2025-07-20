@@ -34,7 +34,6 @@
         #admin-dashboard, #loader {
             display: none;
         }
-        /* Estilos para abas ativas e inativas */
         .sidebar-link {
             transition: background-color 0.2s, color 0.2s;
         }
@@ -46,7 +45,6 @@
         .sidebar-link:not(.active):hover {
             background-color: #1e293b; /* bg-slate-800 */
         }
-        /* Esconde as seções de conteúdo por padrão */
         .content-section {
             display: none;
         }
@@ -237,33 +235,27 @@
             }
         }
 
-        // --- GERENCIAMENTO DE PERGUNTAS (LÓGICA EXISTENTE) ---
+        // --- GERENCIAMENTO DE PERGUNTAS ---
         function listenForQuestions() {
+            const handleSnapshotError = (error, container) => {
+                console.error("Erro de Snapshot:", error);
+                container.innerHTML = `<div class="text-red-400 p-4 bg-red-900/20 rounded-lg">Ocorreu um erro ao carregar os dados. Verifique o console (F12) para um link de correção do índice.</div>`;
+            };
+
             const questionsCollectionRef = collection(db, 'questions');
             const pendingQuery = query(questionsCollectionRef, where("status", "==", "pending"), orderBy("createdAt", "desc"));
-            const approvedQuery = query(questionsCollectionRef, where("status", "==", "approved"), orderBy("approvedAt", "desc"));
-
             onSnapshot(pendingQuery, (snapshot) => {
                 pendingQuestionsContainer.innerHTML = '';
-                if (snapshot.empty) {
-                    pendingQuestionsContainer.appendChild(noPendingMsg);
-                    noPendingMsg.style.display = 'block';
-                } else {
-                    noPendingMsg.style.display = 'none';
-                    snapshot.docs.forEach(doc => pendingQuestionsContainer.appendChild(createQuestionCard(doc.id, doc.data(), 'pending')));
-                }
-            }, (error) => console.error("Erro ao buscar perguntas pendentes: ", error));
+                if (snapshot.empty) pendingQuestionsContainer.appendChild(noPendingMsg);
+                else snapshot.docs.forEach(doc => pendingQuestionsContainer.appendChild(createQuestionCard(doc.id, doc.data(), 'pending')));
+            }, (error) => handleSnapshotError(error, pendingQuestionsContainer));
 
+            const approvedQuery = query(questionsCollectionRef, where("status", "==", "approved"), orderBy("approvedAt", "desc"));
             onSnapshot(approvedQuery, (snapshot) => {
                 approvedQuestionsContainer.innerHTML = '';
-                if (snapshot.empty) {
-                    approvedQuestionsContainer.appendChild(noApprovedMsg);
-                    noApprovedMsg.style.display = 'block';
-                } else {
-                    noApprovedMsg.style.display = 'none';
-                    snapshot.docs.forEach(doc => approvedQuestionsContainer.appendChild(createQuestionCard(doc.id, doc.data(), 'approved')));
-                }
-            }, (error) => console.error("Erro ao buscar perguntas aprovadas: ", error));
+                if (snapshot.empty) approvedQuestionsContainer.appendChild(noApprovedMsg);
+                else snapshot.docs.forEach(doc => approvedQuestionsContainer.appendChild(createQuestionCard(doc.id, doc.data(), 'approved')));
+            }, (error) => handleSnapshotError(error, approvedQuestionsContainer));
         }
 
         function createQuestionCard(id, data, type) {
@@ -302,19 +294,14 @@
 
             if (button.classList.contains('approve-button')) {
                 const answerText = card.querySelector('.answer-text').value.trim();
-                if (answerText) {
-                    await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
-                } else {
-                    alert('Por favor, digite uma resposta.');
-                }
-            } else if (button.classList.contains('delete-button')) {
-                if (confirm('Tem certeza?')) {
-                    await deleteDoc(questionRef);
-                }
+                if (answerText) await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
+                else alert('Por favor, digite uma resposta.');
+            } else if (button.classList.contains('delete-button') && confirm('Tem certeza?')) {
+                await deleteDoc(questionRef);
             }
         });
 
-        // --- GERENCIAMENTO DE DEPOIMENTOS (LÓGICA CORRIGIDA E ROBUSTA) ---
+        // --- GERENCIAMENTO DE DEPOIMENTOS ---
         const testimonialsCollectionRef = collection(db, 'testimonials');
 
         addTestimonialButton.addEventListener('click', () => {
@@ -331,39 +318,36 @@
             const dataToSave = {
                 clientName: document.getElementById('clientName').value,
                 clientPosition: document.getElementById('clientPosition').value,
-                photoURL: document.getElementById('photoURL').value,
+                photoURL: document.getElementById('photoURL').value || '',
                 rating: Number(document.getElementById('rating').value),
                 testimonialText: document.getElementById('testimonialText').value,
             };
 
             try {
                 if (id) {
-                    // Editando: adiciona o campo updatedAt
-                    dataToSave.updatedAt = serverTimestamp();
-                    await updateDoc(doc(db, 'testimonials', id), dataToSave);
+                    await updateDoc(doc(db, 'testimonials', id), { ...dataToSave, updatedAt: serverTimestamp() });
                 } else {
-                    // Criando: adiciona o campo createdAt
-                    dataToSave.createdAt = serverTimestamp();
-                    await addDoc(testimonialsCollectionRef, dataToSave);
+                    await addDoc(testimonialsCollectionRef, { ...dataToSave, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
                 }
                 testimonialModal.classList.add('hidden');
             } catch (error) {
-                console.error("Erro ao salvar depoimento:", error);
-                alert("Ocorreu um erro ao salvar o depoimento. Por favor, tente novamente.");
+                console.error("Erro detalhado ao salvar depoimento:", error);
+                alert(`Ocorreu um erro ao salvar.\n\nDetalhes: ${error.message}\n\nVerifique o console (F12) para um link de correção do índice.`);
             }
         });
 
         function listenForTestimonials() {
-            const testimonialsQuery = query(testimonialsCollectionRef, orderBy("createdAt", "desc"));
+            const testimonialsQuery = query(testimonialsCollectionRef, orderBy("updatedAt", "desc"));
             onSnapshot(testimonialsQuery, (snapshot) => {
                 testimonialsListContainer.innerHTML = '';
                 if (snapshot.empty) {
                     testimonialsListContainer.appendChild(noTestimonialsMsg);
-                    noTestimonialsMsg.style.display = 'block';
                 } else {
-                    noTestimonialsMsg.style.display = 'none';
                     snapshot.docs.forEach(doc => testimonialsListContainer.appendChild(createTestimonialCard(doc.id, doc.data())));
                 }
+            }, (error) => {
+                console.error("Erro ao buscar depoimentos:", error);
+                testimonialsListContainer.innerHTML = `<div class="text-red-400 p-4 bg-red-900/20 rounded-lg"><p><strong>Erro ao carregar depoimentos.</strong></p><p class="mt-2 text-sm">Verifique o console (F12) para uma mensagem de erro do Firebase com um link para criar o índice necessário.</p></div>`;
             });
         }
 
@@ -371,9 +355,7 @@
             const card = document.createElement('div');
             card.className = 'bg-slate-800 p-4 rounded-lg shadow-md flex items-start gap-4';
             card.dataset.id = id;
-
             const photoSrc = data.photoURL || `https://placehold.co/100x100/e2e8f0/334155?text=${data.clientName.charAt(0)}`;
-            
             card.innerHTML = `
                 <img src="${photoSrc}" alt="Foto de ${data.clientName}" class="w-16 h-16 rounded-full object-cover flex-shrink-0">
                 <div class="flex-grow">
@@ -389,15 +371,13 @@
                         </div>
                     </div>
                     <p class="text-slate-300 mt-3 text-sm italic">"${data.testimonialText}"</p>
-                </div>
-            `;
+                </div>`;
             return card;
         }
 
         testimonialsListContainer.addEventListener('click', async (e) => {
             const button = e.target.closest('button');
             if (!button) return;
-            
             const card = button.closest('.bg-slate-800[data-id]');
             if (!card) return;
             const id = card.dataset.id;
@@ -411,17 +391,13 @@
                     testimonialIdInput.value = id;
                     document.getElementById('clientName').value = data.clientName;
                     document.getElementById('clientPosition').value = data.clientPosition;
-                    document.getElementById('photoURL').value = data.photoURL;
+                    document.getElementById('photoURL').value = data.photoURL || '';
                     document.getElementById('rating').value = data.rating;
                     document.getElementById('testimonialText').value = data.testimonialText;
                     testimonialModal.classList.remove('hidden');
                 }
-            }
-
-            if (button.classList.contains('delete-testimonial-button')) {
-                if (confirm('Tem certeza que deseja excluir este depoimento?')) {
-                    await deleteDoc(testimonialRef);
-                }
+            } else if (button.classList.contains('delete-testimonial-button') && confirm('Tem certeza?')) {
+                await deleteDoc(testimonialRef);
             }
         });
 
@@ -429,10 +405,3 @@
     </script>
 </body>
 </html>
-```
-
-### O que foi corrigido:
-
-1.  **Lógica de Timestamp:** A função que salva os dados agora verifica se você está criando um novo depoimento (e adiciona o campo `createdAt`) ou editando um existente (e adiciona o campo `updatedAt`). Isso garante que o Firestore sempre receba os dados de data corretamente, resolvendo o erro.
-
-Por favor, substitua o conteúdo do seu `admin.html` por esta nova versão. Agora, o botão "Salvar" deve funcionar sem erros. Tente novamente e me diga se deu tudo cer
