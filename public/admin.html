@@ -19,10 +19,9 @@
             background-color: #0f172a; /* bg-slate-900 */
             color: #f1f5f9; /* text-slate-100 */
         }
-        /* Estilo para o loader */
         .loader {
-            border: 4px solid #f3f3f3; /* Light grey */
-            border-top: 4px solid #3b82f6; /* Blue */
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -32,7 +31,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Esconde elementos por padrão */
         #admin-dashboard, #loader {
             display: none;
         }
@@ -47,7 +45,7 @@
     </div>
 
     <!-- Dashboard Administrativo -->
-    <div id="admin-dashboard" class="w-full h-screen flex-col">
+    <div id="admin-dashboard" class="w-full h-screen flex flex-col">
         <!-- Cabeçalho do Dashboard -->
         <header class="bg-slate-800/80 backdrop-blur-lg border-b border-slate-700 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,47 +66,23 @@
         <!-- Conteúdo Principal -->
         <main class="flex-1 p-4 sm:p-6 lg:p-8 bg-slate-900 overflow-y-auto">
             <div class="max-w-7xl mx-auto">
-                <h1 class="text-2xl font-bold text-white mb-6">Gerenciamento de Clientes</h1>
+                <h1 class="text-2xl font-bold text-white mb-6">Gerenciamento de Perguntas</h1>
 
-                <!-- Formulário para Adicionar Cliente -->
-                <div class="bg-slate-800 p-6 rounded-xl shadow-lg mb-8">
-                    <h2 class="text-xl font-semibold text-white mb-4">Adicionar Novo Cliente</h2>
-                    <form id="add-client-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label for="client-name" class="text-sm text-slate-300">Nome do Cliente</label>
-                            <input type="text" id="client-name" required class="w-full mt-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="client-project" class="text-sm text-slate-300">Projeto</label>
-                            <input type="text" id="client-project" required class="w-full mt-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        </div>
-                        <div class="md:col-span-1 flex items-end">
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors">
-                                Adicionar Cliente
-                            </button>
-                        </div>
-                    </form>
+                <!-- Seção de Perguntas Pendentes -->
+                <div class="mb-12">
+                    <h2 class="text-xl font-semibold text-white mb-4 border-b-2 border-amber-500 pb-2">Perguntas Pendentes</h2>
+                    <div id="pending-questions" class="space-y-4">
+                        <p id="no-pending-questions" class="text-slate-400">Nenhuma pergunta pendente no momento.</p>
+                        <!-- Cards de perguntas pendentes serão inseridos aqui -->
+                    </div>
                 </div>
 
-                <!-- Tabela de Clientes -->
-                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm text-left text-slate-300">
-                            <thead class="text-xs text-slate-200 uppercase bg-slate-700">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">Nome do Cliente</th>
-                                    <th scope="col" class="px-6 py-3">Projeto</th>
-                                    <th scope="col" class="px-6 py-3">Data de Adição</th>
-                                    <th scope="col" class="px-6 py-3 text-right">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody id="clients-table-body">
-                                <!-- Linhas da tabela serão inseridas aqui via JS -->
-                                <tr id="no-clients-row">
-                                    <td colspan="4" class="text-center py-8 text-slate-400">Nenhum cliente cadastrado ainda.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Seção de Perguntas Aprovadas -->
+                <div>
+                    <h2 class="text-xl font-semibold text-white mb-4 border-b-2 border-green-500 pb-2">Perguntas Aprovadas</h2>
+                    <div id="approved-questions" class="space-y-4">
+                       <p id="no-approved-questions" class="text-slate-400">Nenhuma pergunta aprovada ainda.</p>
+                       <!-- Cards de perguntas aprovadas serão inseridos aqui -->
                     </div>
                 </div>
             </div>
@@ -117,10 +91,9 @@
 
     <!-- Firebase SDKs -->
     <script type="module">
-        // Importe as funções necessárias dos SDKs do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, deleteDoc, updateDoc, serverTimestamp, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Configuração do Firebase com suas credenciais
         const firebaseConfig = {
@@ -133,116 +106,134 @@
           measurementId: "G-ETY22T8XTP"
         };
 
-        // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Referências aos elementos do DOM
         const loader = document.getElementById('loader');
         const adminDashboard = document.getElementById('admin-dashboard');
         const logoutButton = document.getElementById('logout-button');
-        const addClientForm = document.getElementById('add-client-form');
-        const clientsTableBody = document.getElementById('clients-table-body');
-        const noClientsRow = document.getElementById('no-clients-row');
+        const pendingQuestionsContainer = document.getElementById('pending-questions');
+        const approvedQuestionsContainer = document.getElementById('approved-questions');
+        const noPendingMsg = document.getElementById('no-pending-questions');
+        const noApprovedMsg = document.getElementById('no-approved-questions');
 
-        // --- LÓGICA DE AUTENTICAÇÃO ---
-
-        // Monitora o estado de autenticação do usuário
+        // --- AUTENTICAÇÃO ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Usuário está logado, mostra o dashboard
                 loader.style.display = 'none';
                 adminDashboard.style.display = 'flex';
-                listenForClients();
+                listenForQuestions();
             } else {
-                // Usuário não está logado, redireciona para a página de login
                 window.location.href = 'login.html';
             }
         });
 
-        // Evento de clique no botão de logout
-        logoutButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                // O onAuthStateChanged vai detectar a mudança e redirecionar
-            } catch (error) {
-                console.error("Erro ao sair:", error);
-            }
-        });
+        logoutButton.addEventListener('click', () => signOut(auth));
 
-        // --- LÓGICA DO FIRESTORE (GERENCIAMENTO DE CLIENTES) ---
+        // --- LÓGICA DO FIRESTORE (GERENCIAMENTO DE PERGUNTAS) ---
+        const questionsCollectionRef = collection(db, 'questions');
+        const pendingQuery = query(questionsCollectionRef, where("status", "==", "pending"), orderBy("createdAt", "desc"));
+        const approvedQuery = query(questionsCollectionRef, where("status", "==", "approved"), orderBy("approvedAt", "desc"));
 
-        const clientsCollectionRef = collection(db, 'clients');
-        // Cria uma query para ordenar os clientes pela data de criação, do mais novo para o mais antigo
-        const clientsQuery = query(clientsCollectionRef, orderBy("createdAt", "desc"));
-
-
-        // Função para escutar atualizações em tempo real na coleção de clientes
-        function listenForClients() {
-            onSnapshot(clientsQuery, (snapshot) => {
-                clientsTableBody.innerHTML = ''; // Limpa a tabela
+        function listenForQuestions() {
+            // Listener para perguntas pendentes
+            onSnapshot(pendingQuery, snapshot => {
+                pendingQuestionsContainer.innerHTML = '';
                 if (snapshot.empty) {
-                    clientsTableBody.appendChild(noClientsRow);
+                    pendingQuestionsContainer.appendChild(noPendingMsg);
                 } else {
                     snapshot.docs.forEach(doc => {
-                        const client = doc.data();
-                        const clientId = doc.id;
-                        const date = client.createdAt?.toDate().toLocaleDateString('pt-BR') || 'Data indisponível';
-                        
-                        const row = document.createElement('tr');
-                        row.className = 'bg-slate-800 border-b border-slate-700 hover:bg-slate-700/50';
-                        row.innerHTML = `
-                            <td class="px-6 py-4 font-medium text-white whitespace-nowrap">${client.name}</td>
-                            <td class="px-6 py-4">${client.project}</td>
-                            <td class="px-6 py-4">${date}</td>
-                            <td class="px-6 py-4 text-right">
-                                <button data-id="${clientId}" class="delete-client-button font-medium text-red-500 hover:underline">Excluir</button>
-                            </td>
-                        `;
-                        clientsTableBody.appendChild(row);
+                        const question = doc.data();
+                        const card = createQuestionCard(doc.id, question, 'pending');
+                        pendingQuestionsContainer.appendChild(card);
+                    });
+                }
+            });
+
+            // Listener para perguntas aprovadas
+            onSnapshot(approvedQuery, snapshot => {
+                approvedQuestionsContainer.innerHTML = '';
+                 if (snapshot.empty) {
+                    approvedQuestionsContainer.appendChild(noApprovedMsg);
+                } else {
+                    snapshot.docs.forEach(doc => {
+                        const question = doc.data();
+                        const card = createQuestionCard(doc.id, question, 'approved');
+                        approvedQuestionsContainer.appendChild(card);
                     });
                 }
             });
         }
 
-        // Evento de submit para adicionar um novo cliente
-        addClientForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = addClientForm['client-name'].value;
-            const project = addClientForm['client-project'].value;
+        function createQuestionCard(id, data, type) {
+            const card = document.createElement('div');
+            card.className = 'bg-slate-800 p-4 rounded-lg shadow-md';
+            card.dataset.id = id;
 
-            try {
-                await addDoc(clientsCollectionRef, {
-                    name: name,
-                    project: project,
-                    createdAt: serverTimestamp()
-                });
-                addClientForm.reset();
-            } catch (error) {
-                console.error("Erro ao adicionar cliente: ", error);
-                alert("Ocorreu um erro ao adicionar o cliente.");
+            const questionDate = data.createdAt?.toDate().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) || 'Data indisponível';
+
+            if (type === 'pending') {
+                card.innerHTML = `
+                    <p class="text-slate-400 text-sm mb-2">Recebida em: ${questionDate}</p>
+                    <p class="text-slate-100 mb-4">${data.questionText}</p>
+                    <textarea class="answer-text w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-white placeholder-slate-400 focus:ring-2 focus:ring-sky-500" rows="3" placeholder="Digite a resposta aqui..."></textarea>
+                    <div class="flex gap-4 mt-4">
+                        <button class="approve-button flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md transition-colors">Aprovar e Responder</button>
+                        <button class="delete-button bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md transition-colors">Rejeitar</button>
+                    </div>
+                `;
+            } else { // approved
+                card.innerHTML = `
+                    <p class="font-bold text-slate-100 mb-2">${data.questionText}</p>
+                    <p class="text-sky-300 bg-black/20 p-3 rounded-md">${data.answerText}</p>
+                    <div class="flex gap-4 mt-4">
+                        <button class="delete-button bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md transition-colors">Excluir</button>
+                    </div>
+                `;
             }
-        });
+            return card;
+        }
 
-        // Evento de clique para deletar um cliente
-        clientsTableBody.addEventListener('click', async (e) => {
-            if (e.target && e.target.classList.contains('delete-client-button')) {
-                const clientId = e.target.dataset.id;
-                if (window.confirm('Tem certeza de que deseja excluir este cliente?')) {
+        // Delegação de eventos para os botões
+        adminDashboard.addEventListener('click', async (e) => {
+            const button = e.target;
+            const card = button.closest('.bg-slate-800');
+            if (!card) return;
+            const id = card.dataset.id;
+
+            // Ação de Aprovar
+            if (button.classList.contains('approve-button')) {
+                const answerText = card.querySelector('.answer-text').value.trim();
+                if (!answerText) {
+                    alert('Por favor, digite uma resposta antes de aprovar.');
+                    return;
+                }
+                try {
+                    const questionRef = doc(db, 'questions', id);
+                    await updateDoc(questionRef, {
+                        status: 'approved',
+                        answerText: answerText,
+                        approvedAt: serverTimestamp()
+                    });
+                } catch (error) {
+                    console.error("Erro ao aprovar pergunta:", error);
+                }
+            }
+
+            // Ação de Deletar/Rejeitar
+            if (button.classList.contains('delete-button')) {
+                if (confirm('Tem certeza de que deseja excluir esta pergunta? Esta ação não pode ser desfeita.')) {
                     try {
-                        await deleteDoc(doc(db, 'clients', clientId));
+                        await deleteDoc(doc(db, 'questions', id));
                     } catch (error) {
-                        console.error("Erro ao excluir cliente: ", error);
-                        alert("Ocorreu um erro ao excluir o cliente.");
+                        console.error("Erro ao excluir pergunta:", error);
                     }
                 }
             }
         });
 
-        // Exibe o loader ao iniciar
         loader.style.display = 'flex';
-
     </script>
 </body>
 </html>
