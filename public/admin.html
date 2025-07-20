@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Conecta Web Digital</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* bg-slate-900 */
+            color: #f1f5f9; /* text-slate-100 */
+        }
+        /* Estilo para o loader */
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3b82f6; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Esconde elementos por padrão */
+        #admin-dashboard, #loader {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Loader Inicial -->
+    <div id="loader" class="flex flex-col items-center justify-center h-screen">
+        <div class="loader"></div>
+        <p class="mt-4 text-slate-400">Carregando...</p>
+    </div>
+
+    <!-- Dashboard Administrativo -->
+    <div id="admin-dashboard" class="w-full h-screen flex-col">
+        <!-- Cabeçalho do Dashboard -->
+        <header class="bg-slate-800/80 backdrop-blur-lg border-b border-slate-700 shadow-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="font-bold text-xl text-white">Dashboard</span>
+                    </div>
+                    <div>
+                        <button id="logout-button"
+                                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 bg-slate-900 overflow-y-auto">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-2xl font-bold text-white mb-6">Gerenciamento de Clientes</h1>
+
+                <!-- Formulário para Adicionar Cliente -->
+                <div class="bg-slate-800 p-6 rounded-xl shadow-lg mb-8">
+                    <h2 class="text-xl font-semibold text-white mb-4">Adicionar Novo Cliente</h2>
+                    <form id="add-client-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="client-name" class="text-sm text-slate-300">Nome do Cliente</label>
+                            <input type="text" id="client-name" required class="w-full mt-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="client-project" class="text-sm text-slate-300">Projeto</label>
+                            <input type="text" id="client-project" required class="w-full mt-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="md:col-span-1 flex items-end">
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors">
+                                Adicionar Cliente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabela de Clientes -->
+                <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left text-slate-300">
+                            <thead class="text-xs text-slate-200 uppercase bg-slate-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Nome do Cliente</th>
+                                    <th scope="col" class="px-6 py-3">Projeto</th>
+                                    <th scope="col" class="px-6 py-3">Data de Adição</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-table-body">
+                                <!-- Linhas da tabela serão inseridas aqui via JS -->
+                                <tr id="no-clients-row">
+                                    <td colspan="4" class="text-center py-8 text-slate-400">Nenhum cliente cadastrado ainda.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Importe as funções necessárias dos SDKs do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Configuração do Firebase com suas credenciais
+        const firebaseConfig = {
+          apiKey: "AIzaSyAlJ1UWCsKPymTE0cOvHP1wveznX8X3j1o",
+          authDomain: "conecta-web-digital.firebaseapp.com",
+          projectId: "conecta-web-digital",
+          storageBucket: "conecta-web-digital.appspot.com",
+          messagingSenderId: "341962931462",
+          appId: "1:341962931462:web:a4c62fe83a8db5f9bcb287",
+          measurementId: "G-ETY22T8XTP"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Referências aos elementos do DOM
+        const loader = document.getElementById('loader');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const logoutButton = document.getElementById('logout-button');
+        const addClientForm = document.getElementById('add-client-form');
+        const clientsTableBody = document.getElementById('clients-table-body');
+        const noClientsRow = document.getElementById('no-clients-row');
+
+        // --- LÓGICA DE AUTENTICAÇÃO ---
+
+        // Monitora o estado de autenticação do usuário
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuário está logado, mostra o dashboard
+                loader.style.display = 'none';
+                adminDashboard.style.display = 'flex';
+                listenForClients();
+            } else {
+                // Usuário não está logado, redireciona para a página de login
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Evento de clique no botão de logout
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                // O onAuthStateChanged vai detectar a mudança e redirecionar
+            } catch (error) {
+                console.error("Erro ao sair:", error);
+            }
+        });
+
+        // --- LÓGICA DO FIRESTORE (GERENCIAMENTO DE CLIENTES) ---
+
+        const clientsCollectionRef = collection(db, 'clients');
+        // Cria uma query para ordenar os clientes pela data de criação, do mais novo para o mais antigo
+        const clientsQuery = query(clientsCollectionRef, orderBy("createdAt", "desc"));
+
+
+        // Função para escutar atualizações em tempo real na coleção de clientes
+        function listenForClients() {
+            onSnapshot(clientsQuery, (snapshot) => {
+                clientsTableBody.innerHTML = ''; // Limpa a tabela
+                if (snapshot.empty) {
+                    clientsTableBody.appendChild(noClientsRow);
+                } else {
+                    snapshot.docs.forEach(doc => {
+                        const client = doc.data();
+                        const clientId = doc.id;
+                        const date = client.createdAt?.toDate().toLocaleDateString('pt-BR') || 'Data indisponível';
+                        
+                        const row = document.createElement('tr');
+                        row.className = 'bg-slate-800 border-b border-slate-700 hover:bg-slate-700/50';
+                        row.innerHTML = `
+                            <td class="px-6 py-4 font-medium text-white whitespace-nowrap">${client.name}</td>
+                            <td class="px-6 py-4">${client.project}</td>
+                            <td class="px-6 py-4">${date}</td>
+                            <td class="px-6 py-4 text-right">
+                                <button data-id="${clientId}" class="delete-client-button font-medium text-red-500 hover:underline">Excluir</button>
+                            </td>
+                        `;
+                        clientsTableBody.appendChild(row);
+                    });
+                }
+            });
+        }
+
+        // Evento de submit para adicionar um novo cliente
+        addClientForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = addClientForm['client-name'].value;
+            const project = addClientForm['client-project'].value;
+
+            try {
+                await addDoc(clientsCollectionRef, {
+                    name: name,
+                    project: project,
+                    createdAt: serverTimestamp()
+                });
+                addClientForm.reset();
+            } catch (error) {
+                console.error("Erro ao adicionar cliente: ", error);
+                alert("Ocorreu um erro ao adicionar o cliente.");
+            }
+        });
+
+        // Evento de clique para deletar um cliente
+        clientsTableBody.addEventListener('click', async (e) => {
+            if (e.target && e.target.classList.contains('delete-client-button')) {
+                const clientId = e.target.dataset.id;
+                if (window.confirm('Tem certeza de que deseja excluir este cliente?')) {
+                    try {
+                        await deleteDoc(doc(db, 'clients', clientId));
+                    } catch (error) {
+                        console.error("Erro ao excluir cliente: ", error);
+                        alert("Ocorreu um erro ao excluir o cliente.");
+                    }
+                }
+            }
+        });
+
+        // Exibe o loader ao iniciar
+        loader.style.display = 'flex';
+
+    </script>
+</body>
+</html>

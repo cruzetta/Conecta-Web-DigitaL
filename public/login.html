@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Painel Administrativo</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* bg-slate-900 */
+            color: #f1f5f9; /* text-slate-100 */
+        }
+        /* Estilo para o loader */
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3b82f6; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Esconde elementos por padrão */
+        #login-section, #loader {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+
+    <!-- Loader Inicial -->
+    <div id="loader" class="flex flex-col items-center justify-center">
+        <div class="loader"></div>
+        <p class="mt-4 text-slate-400">Verificando...</p>
+    </div>
+
+    <!-- Seção de Login -->
+    <div id="login-section" class="w-full max-w-md p-8 space-y-6 bg-slate-800 rounded-xl shadow-lg">
+        <div>
+            <a href="index.html" class="flex justify-center mb-4">
+                 <img src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Flogo%20conecta.png?alt=media&token=320f1061-918f-4bda-8585-c741efd227c1" alt="Logo Conecta Web Digital" class="h-24 w-auto">
+            </a>
+            <h2 class="text-3xl font-bold text-center text-white">Acesso Restrito</h2>
+            <p class="mt-2 text-sm text-center text-slate-400">Painel Administrativo</p>
+        </div>
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="email" class="text-sm font-medium text-slate-300">Email</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full px-4 py-2 mt-2 text-white bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="password" class="text-sm font-medium text-slate-300">Senha</label>
+                <input type="password" id="password" name="password" required
+                       class="w-full px-4 py-2 mt-2 text-white bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <button type="submit"
+                    class="w-full px-4 py-2 font-bold text-slate-900 bg-slate-100 rounded-lg hover:bg-white transition-colors duration-300">
+                Entrar
+            </button>
+            <p id="login-error" class="text-sm text-center text-red-400"></p>
+        </form>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Importe as funções necessárias dos SDKs do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Configuração do Firebase com suas credenciais
+        const firebaseConfig = {
+          apiKey: "AIzaSyAlJ1UWCsKPymTE0cOvHP1wveznX8X3j1o",
+          authDomain: "conecta-web-digital.firebaseapp.com",
+          projectId: "conecta-web-digital",
+          storageBucket: "conecta-web-digital.appspot.com",
+          messagingSenderId: "341962931462",
+          appId: "1:341962931462:web:a4c62fe83a8db5f9bcb287",
+          measurementId: "G-ETY22T8XTP"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Referências aos elementos do DOM
+        const loader = document.getElementById('loader');
+        const loginSection = document.getElementById('login-section');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+
+        // Monitora o estado de autenticação do usuário
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Se o usuário já está logado, redireciona para o admin.html
+                window.location.href = 'admin.html';
+            } else {
+                // Se não está logado, mostra a tela de login
+                loader.style.display = 'none';
+                loginSection.style.display = 'block';
+            }
+        });
+
+        // Evento de submit do formulário de login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginForm.email.value;
+            const password = loginForm.password.value;
+            loginError.textContent = ''; // Limpa mensagens de erro
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                // O onAuthStateChanged vai detectar a mudança e redirecionar
+            } catch (error) {
+                console.error("Erro no login:", error);
+                loginError.textContent = 'Email ou senha inválidos. Tente novamente.';
+            }
+        });
+
+        // Exibe o loader ao iniciar
+        loader.style.display = 'flex';
+    </script>
+</body>
+</html>
