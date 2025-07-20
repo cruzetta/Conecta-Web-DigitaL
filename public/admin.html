@@ -137,33 +137,47 @@
         const approvedQuery = query(questionsCollectionRef, where("status", "==", "approved"), orderBy("approvedAt", "desc"));
 
         function listenForQuestions() {
-            // Listener para perguntas pendentes
-            onSnapshot(pendingQuery, snapshot => {
-                pendingQuestionsContainer.innerHTML = '';
-                if (snapshot.empty) {
-                    pendingQuestionsContainer.appendChild(noPendingMsg);
-                } else {
-                    snapshot.docs.forEach(doc => {
-                        const question = doc.data();
-                        const card = createQuestionCard(doc.id, question, 'pending');
-                        pendingQuestionsContainer.appendChild(card);
-                    });
+            // Listener para perguntas pendentes com tratamento de erro
+            onSnapshot(pendingQuery, 
+                (snapshot) => {
+                    pendingQuestionsContainer.innerHTML = '';
+                    if (snapshot.empty) {
+                        pendingQuestionsContainer.appendChild(noPendingMsg);
+                    } else {
+                        noPendingMsg.style.display = 'none';
+                        snapshot.docs.forEach(doc => {
+                            const question = doc.data();
+                            const card = createQuestionCard(doc.id, question, 'pending');
+                            pendingQuestionsContainer.appendChild(card);
+                        });
+                    }
+                },
+                (error) => {
+                    console.error("Erro ao buscar perguntas pendentes: ", error);
+                    pendingQuestionsContainer.innerHTML = `<p class="text-red-400 p-4 bg-red-900/20 rounded-lg">Ocorreu um erro ao carregar as perguntas. Verifique o console para mais detalhes. <br><strong>Causa provável:</strong> É necessário criar um índice no Firestore. Siga as instruções no console de erros.</p>`;
                 }
-            });
+            );
 
-            // Listener para perguntas aprovadas
-            onSnapshot(approvedQuery, snapshot => {
-                approvedQuestionsContainer.innerHTML = '';
-                 if (snapshot.empty) {
-                    approvedQuestionsContainer.appendChild(noApprovedMsg);
-                } else {
-                    snapshot.docs.forEach(doc => {
-                        const question = doc.data();
-                        const card = createQuestionCard(doc.id, question, 'approved');
-                        approvedQuestionsContainer.appendChild(card);
-                    });
+            // Listener para perguntas aprovadas com tratamento de erro
+            onSnapshot(approvedQuery, 
+                (snapshot) => {
+                    approvedQuestionsContainer.innerHTML = '';
+                     if (snapshot.empty) {
+                        approvedQuestionsContainer.appendChild(noApprovedMsg);
+                    } else {
+                        noApprovedMsg.style.display = 'none';
+                        snapshot.docs.forEach(doc => {
+                            const question = doc.data();
+                            const card = createQuestionCard(doc.id, question, 'approved');
+                            approvedQuestionsContainer.appendChild(card);
+                        });
+                    }
+                },
+                (error) => {
+                    console.error("Erro ao buscar perguntas aprovadas: ", error);
+                    approvedQuestionsContainer.innerHTML = `<p class="text-red-400 p-4 bg-red-900/20 rounded-lg">Ocorreu um erro ao carregar as perguntas aprovadas.</p>`;
                 }
-            });
+            );
         }
 
         function createQuestionCard(id, data, type) {
