@@ -211,28 +211,6 @@
         .timeline-step.active .step-content p {
             color: #e0f2fe;
         }
-        @media (max-width: 767px) {
-            .timeline-grid {
-                grid-template-columns: 1fr;
-                padding-left: 2rem;
-            }
-            .timeline-svg {
-                top: 2rem;
-                left: calc(1rem - 1px);
-                width: 2px;
-                height: calc(100% - 4rem);
-            }
-            .timeline-step {
-                padding-left: 2rem;
-                text-align: left;
-            }
-            .timeline-step .icon-bubble {
-                position: absolute;
-                left: -1.5rem;
-                top: 0;
-                transform: translateX(-50%);
-            }
-        }
         
         /* --- ESTILOS PARA A SEÇÃO DE FAQ --- */
         .faq-item details > summary {
@@ -264,6 +242,79 @@
             padding-top: 1rem; /* 16px */
             padding-bottom: 1rem; /* 16px */
         }
+
+        /* --- [INÍCIO] ESTILOS RESPONSIVOS MELHORADOS PARA A TIMELINE --- */
+        @media (max-width: 767px) {
+            .timeline-grid {
+                /* Switch from grid to a simple block layout for mobile */
+                display: block;
+                padding-left: 1rem; /* Add some padding on the left */
+                padding-right: 1rem; /* Add some padding on the right */
+            }
+
+            .timeline-step {
+                /* Use flexbox for the mobile layout */
+                display: flex;
+                align-items: flex-start; /* Align items to the top */
+                gap: 1.5rem; /* Space between icon and text */
+                text-align: left;
+                position: relative; /* Important for the SVG line to be behind */
+            }
+
+            /* Add margin to space out the steps vertically */
+            .timeline-step:not(:last-child) {
+                margin-bottom: 3rem;
+            }
+
+            /* Target the icon's wrapper div */
+            .timeline-step .relative.inline-block {
+                flex-shrink: 0; /* Prevent the icon container from shrinking */
+                margin-bottom: 0; /* Override desktop margin */
+            }
+
+            .timeline-step .icon-bubble {
+                position: relative; /* Override any absolute positioning from desktop */
+                /* Make icons smaller for mobile */
+                width: 3rem; /* 48px */
+                height: 3rem; /* 48px */
+                border-width: 3px;
+            }
+
+            .timeline-step .icon-bubble span {
+                /* Adjust the number bubble on top of the icon */
+                width: 1.75rem; /* 28px */
+                height: 1.75rem; /* 28px */
+                font-size: 0.875rem; /* 14px */
+                border-width: 3px;
+                top: -0.75rem;
+                right: -0.75rem;
+            }
+
+            .timeline-step .icon-bubble svg {
+                /* Adjust the icon size inside the bubble */
+                width: 1.5rem; /* 24px */
+                height: 1.5rem; /* 24px */
+            }
+
+            .timeline-step .step-content {
+                /* Give the text a little push from the top to align nicely */
+                padding-top: 0.25rem;
+            }
+            
+            .timeline-step .step-content h3 {
+                font-size: 1.125rem; /* text-lg */
+            }
+            
+            .timeline-step .step-content p {
+                font-size: 0.95rem;
+            }
+
+            /* Deactivate the scaling animation on mobile to prevent layout shifts */
+            .timeline-step.active {
+                transform: none;
+            }
+        }
+        /* --- [FIM] ESTILOS RESPONSIVOS MELHORADOS PARA A TIMELINE --- */
     </style>
     <script>document.documentElement.classList.add('js-loading');</script>
 </head>
@@ -945,22 +996,30 @@
             const activationPoints = [0, 30, 60, 90]; 
             let animationInterval;
 
+            // --- [INÍCIO] FUNÇÃO DE ANIMAÇÃO DA TIMELINE ATUALIZADA ---
             function drawPath() {
                 let pathData = '';
                 if (window.innerWidth > 767) {
+                    // Lógica para Desktop
                     const y = steps[0].offsetTop + (steps[0].querySelector('.icon-bubble').offsetHeight / 2);
                     const startX = steps[0].offsetLeft + (steps[0].offsetWidth / 2);
                     const endX = steps[3].offsetLeft + (steps[3].offsetWidth / 2);
                     pathData = `M ${startX},${y} L ${endX},${y}`;
                 } else {
-                    const x = 0;
-                    const startY = steps[0].offsetTop + (steps[0].querySelector('.icon-bubble').offsetHeight / 2);
+                    // Lógica para Celular (corrigida)
+                    // A linha deve se alinhar ao centro dos ícones.
+                    const iconWrapper = steps[0].querySelector('.relative.inline-block');
+                    const icon = iconWrapper.querySelector('.icon-bubble');
+                    const x = iconWrapper.offsetLeft + (icon.offsetWidth / 2);
+                    
+                    const startY = steps[0].offsetTop + (icon.offsetHeight / 2);
                     const endY = steps[3].offsetTop + (steps[3].querySelector('.icon-bubble').offsetHeight / 2);
                     pathData = `M ${x},${startY} L ${x},${endY}`;
                 }
                 track.setAttribute('d', pathData);
                 motionPath.setAttribute('d', pathData);
             }
+            // --- [FIM] FUNÇÃO DE ANIMAÇÃO DA TIMELINE ATUALIZADA ---
 
             function updateActiveStep(elapsedTime) {
                 const progress = (elapsedTime / animationDuration) * 100;
