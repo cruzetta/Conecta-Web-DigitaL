@@ -3,64 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conecta Web Digital - Criação de Sites Personalizados</title>
+    <title>Conecta Web Digital - Design e Estratégia Digital</title>
     
     <!-- Meta Tags para Pré-visualização (Open Graph & Twitter) -->
-    <meta property="og:title" content="Conecta Web Digital - Criação de Sites Personalizados">
-    <meta property="og:description" content="Tenha um site que destaca o seu valor, passa confiança e atrai clientes certos.">
+    <meta property="og:title" content="Conecta Web Digital - Design e Estratégia Digital">
+    <meta property="og:description" content="Criamos sites que contam sua história, fortalecem sua marca e geram resultados.">
     <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Flogo%20conecta.png?alt=media&token=320f1061-918f-4bda-8585-c741efd227c1">
     <meta property="og:url" content="https://conectadigital.com.br/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Conecta Web Digital - Criação de Sites Personalizados">
-    <meta name="twitter:description" content="Tenha um site que destaca o seu valor, passa confiança e atrai clientes certos.">
-    <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Flogo%20conecta.png?alt=media&token=320f1061-918f-4bda-8585-c741efd227c1">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com" defer></script>
 
-    <!-- Google Fonts: Inter & Playfair Display -->
+    <!-- Google Fonts: Playfair Display & Lora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Estilos gerais e fontes */
+        /* --- CONFIGURAÇÃO DE DESIGN CLÁSSICO --- */
+        :root {
+            --cor-fundo: #1a1a1a;        /* Carvão profundo */
+            --cor-texto: #f4f4f4;       /* Marfim/Branco suave */
+            --cor-destaque: #D4AF37;    /* Dourado antigo */
+            --cor-fundo-card: #222222;  /* Carvão mais claro */
+            --cor-borda: #333333;       /* Borda sutil */
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lora', serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #020617; /* bg-slate-950 */
-            color: #d1d5db; /* text-slate-300 */
-            padding-top: 4rem; /* 64px, que é a altura do cabeçalho (h-16) */
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            padding-top: 4.5rem; /* 72px, nova altura do header */
+            opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
 
-        .js-loading body {
-            opacity: 0;
+        .loaded body {
+            opacity: 1;
         }
 
         .font-playfair {
             font-family: 'Playfair Display', serif;
         }
 
-        /* --- ESTILOS PARA O CABEÇALHO FIXO --- */
+        /* --- CABEÇALHO --- */
         .sticky-nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background-color: rgba(2, 6, 23, 0.8);
+            background-color: rgba(26, 26, 26, 0.85); /* var(--cor-fundo) com transparência */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid var(--cor-borda);
+            transition: background-color 0.3s ease;
         }
-
-        /* --- ANIMAÇÕES DE REVELAÇÃO APRIMORADAS --- */
+        
+        /* --- ANIMAÇÕES SUAVES --- */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -68,280 +75,99 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Botão principal com brilho */
-        .cta-button-glow {
-            background-color: #f1f5f9;
-            color: #0f172a;
-            box-shadow: 0 0 25px rgba(241, 245, 249, 0.2), 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .cta-button-glow:hover {
-            background-color: #ffffff;
-            box-shadow: 0 0 35px rgba(241, 245, 249, 0.4), 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Animação de pulo para a seta */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        .animate-bounce-slow {
-            animation: bounce 2.5s infinite;
-        }
-
-        /* --- EFEITO DE PARTÍCULAS (HERO) --- */
-        #hero-particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-        }
         
-        /* --- ESTILOS DA NOVA SECÇÃO FUTURISTA --- */
-        .futuristic-section {
-            background-color: #0d1117; /* Tom ligeiramente diferente para transição */
-            padding: 6rem 1rem; /* Mais espaçamento vertical */
-            position: relative;
-            overflow: hidden;
+        /* --- BOTÃO DE AÇÃO PRINCIPAL (CTA) --- */
+        .cta-button {
+            background-color: var(--cor-destaque);
+            color: var(--cor-fundo);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
         }
-        #futuristic-particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        .futuristic-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 851px; /* Limita a largura do conteúdo para melhor leitura */
-            margin: 0 auto; /* Centra o conteúdo */
-            text-align: center;
-        }
-        .futuristic-title {
-            font-family: 'Roboto', sans-serif;
-            font-size: clamp(2.2rem, 6vw, 3.5rem); /* Tamanho de fonte responsivo */
-            font-weight: 700;
-            color: #ffffff;
-            line-height: 1.2;
-            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5), 0 0 20px rgba(0, 191, 255, 0.3);
-        }
-        .futuristic-title span {
-            color: #00BFFF; /* DeepSkyBlue */
-            font-weight: 700;
-        }
-        .futuristic-services-container {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centraliza os itens */
-            gap: 1rem;
-        }
-        .futuristic-service-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: #cdd5e0;
-            font-family: 'Roboto', sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-        .futuristic-service-item svg {
-            width: 28px;
-            height: 28px;
-            color: #00BFFF;
-            stroke-width: 1.5;
-            filter: drop-shadow(0 0 5px rgba(0, 191, 255, 0.7));
-            flex-shrink: 0;
-        }
-
-        /* --- ESTILOS DA SEÇÃO DE TIMELINE ANIMADA --- */
-        .timeline-section {
-            overflow: hidden;
-        }
-        .timeline-container {
-            position: relative;
-        }
-        .timeline-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .timeline-track {
-            stroke: #334155;
-            stroke-width: 2;
-            stroke-dasharray: 5, 5;
-        }
-        .timeline-step {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease, opacity 0.5s ease;
-            opacity: 0.5;
-        }
-        .timeline-step .icon-bubble {
-            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-        .timeline-step .step-content h3,
-        .timeline-step .step-content p {
-            transition: color 0.4s ease;
-        }
-        .timeline-step.active {
-            opacity: 1;
+        .cta-button:hover {
+            background-color: var(--cor-texto);
             transform: scale(1.05);
         }
-        .timeline-step.active .icon-bubble {
-            background-color: #0ea5e9;
-            border-color: #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+
+        /* --- SEÇÃO "COMO FUNCIONA" (TIMELINE) --- */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--cor-borda);
+            transform: translateX(-50%);
         }
-        .timeline-step.active .step-content h3 {
-            color: #f0f9ff;
+        .timeline-item .icon-wrapper {
+             border-color: var(--cor-borda);
+             transition: border-color 0.4s ease, background-color 0.4s ease;
         }
-        .timeline-step.active .step-content p {
-            color: #e0f2fe;
+        .timeline-item.active .icon-wrapper {
+            background-color: var(--cor-destaque);
+            border-color: var(--cor-destaque);
         }
-        
-        /* --- ESTILOS PARA A SEÇÃO DE FAQ --- */
-        .faq-item details > summary {
-            list-style: none; /* Remove a seta padrão */
+        .timeline-item.active .icon-wrapper span,
+        .timeline-item.active .icon-wrapper svg {
+            color: var(--cor-fundo);
         }
-        .faq-item details > summary::-webkit-details-marker {
-            display: none; /* Remove a seta padrão no Chrome/Safari */
-        }
-        .faq-item summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .faq-item .faq-arrow {
-            transition: transform 0.3s ease;
-        }
-        .faq-item details[open] .faq-arrow {
-            transform: rotate(180deg);
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding-left: 1.5rem; /* 24px */
-        }
-        details[open] > .faq-answer {
-            max-height: 500px; /* Altura suficiente para a resposta */
-            padding-top: 1rem; /* 16px */
-            padding-bottom: 1rem; /* 16px */
+        .timeline-item.active h3 {
+            color: var(--cor-destaque);
         }
 
-        /* --- [INÍCIO] ESTILOS RESPONSIVOS MELHORADOS PARA A TIMELINE --- */
+        /* --- SEÇÃO FAQ --- */
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary { list-style: none; }
+        .faq-item .faq-arrow { transition: transform 0.3s ease; }
+        .faq-item details[open] .faq-arrow { transform: rotate(45deg); }
+        .faq-item details[open] summary { color: var(--cor-destaque); }
+
+        /* Responsividade */
         @media (max-width: 767px) {
-            .timeline-grid {
-                /* Switch from grid to a simple block layout for mobile */
-                display: block;
-                padding-left: 1rem; /* Add some padding on the left */
-                padding-right: 1rem; /* Add some padding on the right */
+            .timeline-line {
+                left: 1.5rem; /* 24px */
             }
-
-            .timeline-step {
-                /* Use flexbox for the mobile layout */
-                display: flex;
-                align-items: flex-start; /* Align items to the top */
-                gap: 1.5rem; /* Space between icon and text */
+            .timeline-item {
+                grid-template-columns: 3rem 1fr;
+                gap: 1.5rem;
+                padding-left: 0;
+            }
+            .timeline-item:nth-child(odd) .text-content,
+            .timeline-item:nth-child(even) .text-content {
                 text-align: left;
-                position: relative; /* Important for the SVG line to be behind */
+                grid-column: 2;
             }
-
-            /* Add margin to space out the steps vertically */
-            .timeline-step:not(:last-child) {
-                margin-bottom: 3rem;
-            }
-
-            /* Target the icon's wrapper div */
-            .timeline-step .relative.inline-block {
-                flex-shrink: 0; /* Prevent the icon container from shrinking */
-                margin-bottom: 0; /* Override desktop margin */
-            }
-
-            .timeline-step .icon-bubble {
-                position: relative; /* Override any absolute positioning from desktop */
-                /* Make icons smaller for mobile */
-                width: 3rem; /* 48px */
-                height: 3rem; /* 48px */
-                border-width: 3px;
-            }
-
-            .timeline-step .icon-bubble span {
-                /* Adjust the number bubble on top of the icon */
-                width: 1.75rem; /* 28px */
-                height: 1.75rem; /* 28px */
-                font-size: 0.875rem; /* 14px */
-                border-width: 3px;
-                top: -0.75rem;
-                right: -0.75rem;
-            }
-
-            .timeline-step .icon-bubble svg {
-                /* Adjust the icon size inside the bubble */
-                width: 1.5rem; /* 24px */
-                height: 1.5rem; /* 24px */
-            }
-
-            .timeline-step .step-content {
-                /* Give the text a little push from the top to align nicely */
-                padding-top: 0.25rem;
-            }
-            
-            .timeline-step .step-content h3 {
-                font-size: 1.125rem; /* text-lg */
-            }
-            
-            .timeline-step .step-content p {
-                font-size: 0.95rem;
-            }
-
-            /* Deactivate the scaling animation on mobile to prevent layout shifts */
-            .timeline-step.active {
-                transform: none;
+             .timeline-item:nth-child(odd) .icon-wrapper,
+            .timeline-item:nth-child(even) .icon-wrapper {
+                grid-column: 1;
+                grid-row: 1;
+                margin: 0;
             }
         }
-        /* --- [FIM] ESTILOS RESPONSIVOS MELHORADOS PARA A TIMELINE --- */
     </style>
-    <script>document.documentElement.classList.add('js-loading');</script>
 </head>
 <body>
 
-    <!-- --- CABEÇALHO DE NAVEGAÇÃO FIXO --- -->
+    <!-- --- CABEÇALHO DE NAVEGAÇÃO --- -->
     <nav id="sticky-nav" class="sticky-nav">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <a href="#" class="relative w-40">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Flogo%20conecta.png?alt=media&token=320f1061-918f-4bda-8585-c741efd227c1" alt="Logo Conecta Web Digital" class="h-40 w-auto absolute top-1/2 left-0 -translate-y-1/2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[72px]">
+                <a href="#" class="flex-shrink-0">
+                    <span class="text-2xl font-playfair font-bold text-white">Conecta Web</span>
                 </a>
                 
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="https://platamais.web.app" target="_blank" class="bg-white/10 text-white font-medium px-4 py-1.5 rounded-lg hover:bg-white/20 transition-colors duration-300">LOJA</a>
-                    <a href="#services" class="text-slate-300 hover:text-white transition-colors duration-300">Serviços</a>
-                    <a href="#how-it-works" class="text-slate-300 hover:text-white transition-colors duration-300">Como Funciona</a>
-                    <a href="#testimonials" class="text-slate-300 hover:text-white transition-colors duration-300">Depoimentos</a>
-                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors duration-300">FAQ</a>
-                    <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="bg-slate-100 text-slate-900 font-bold px-5 py-2 rounded-lg hover:bg-white hover:scale-105 transform transition-all duration-300">
-                        Contato
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-300 hover:text-white transition-colors duration-300">Serviços</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white transition-colors duration-300">Projetos</a>
+                    <a href="#how-it-works" class="text-gray-300 hover:text-white transition-colors duration-300">Processo</a>
+                    <a href="#testimonials" class="text-gray-300 hover:text-white transition-colors duration-300">Depoimentos</a>
+                    <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-300">FAQ</a>
+                    <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="cta-button font-semibold text-sm px-6 py-2.5 rounded-md">
+                        Iniciar Projeto
                     </a>
                 </div>
 
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" class="text-white focus:outline-none">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
@@ -349,15 +175,15 @@
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="https://platamais.web.app" target="_blank" class="block bg-white/10 text-white font-medium px-3 py-2 rounded-lg hover:bg-white/20 transition-colors duration-300 text-base">Projetos</a>
-                <a href="#services" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Serviços</a>
-                <a href="#how-it-works" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Como Funciona</a>
-                <a href="#testimonials" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">Depoimentos</a>
-                <a href="#faq" class="block text-slate-300 hover:text-white px-3 py-2 rounded-md text-base font-medium">FAQ</a>
-                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="block bg-slate-100 text-slate-900 font-bold px-3 py-2 rounded-lg hover:bg-white text-center">
-                    Contato
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900">
+            <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3">
+                <a href="#services" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Serviços</a>
+                <a href="#projects" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Projetos</a>
+                <a href="#how-it-works" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Processo</a>
+                <a href="#testimonials" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">Depoimentos</a>
+                <a href="#faq" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md font-medium">FAQ</a>
+                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="block mt-4 text-center cta-button font-semibold px-3 py-3 rounded-md">
+                    Iniciar Projeto
                 </a>
             </div>
         </div>
@@ -366,283 +192,247 @@
     <!-- Container Principal -->
     <div class="w-full">
 
-        <!-- Seção Hero com Vídeo e Partículas -->
-        <header class="relative flex items-center justify-center min-h-screen p-4 overflow-hidden -mt-16">
-            <canvas id="hero-particle-canvas"></canvas>
-            
-            <video autoplay loop muted playsinline class="absolute z-0 w-full h-full object-cover">
-                <source src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Fvideo.mp4?alt=media&token=653fe8ab-8934-4b19-88cf-9637d2813757" type="video/mp4">
-                O seu navegador não suporta a tag de vídeo.
-            </video>
-            <div class="absolute z-10 w-full h-full bg-black/60"></div>
-            <div class="relative z-20 text-center">
-                <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight reveal" style="text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);">
-                    Não seja só mais um no Instagram.
+        <!-- Seção Hero com Vídeo -->
+        <header class="relative -mt-[72px] h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full z-0">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/projeto%20vm%2Fvideo.mp4?alt=media&token=653fe8ab-8934-4b19-88cf-9637d2813757" type="video/mp4">
+                    O seu navegador não suporta a tag de vídeo.
+                </video>
+                <!-- Overlay para escurecer o vídeo e garantir a legibilidade do texto -->
+                <div class="absolute top-0 left-0 w-full h-full bg-black/70"></div>
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight reveal">
+                    Arte, Código e Estratégia
                 </h1>
-                <p class="mt-4 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto reveal" style="transition-delay: 150ms;">
-                    Tenha um site que destaca o seu valor, passa confiança e atrai clientes certos.
+                <p class="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto reveal" style="transition-delay: 150ms;">
+                    Criamos sites que contam sua história, fortalecem sua marca e geram resultados.
                 </p>
-                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="cta-button-glow mt-8 inline-block font-bold text-lg px-8 py-4 rounded-lg hover:scale-105 transform transition-all duration-300 reveal" style="transition-delay: 300ms;">
-                    Vamos começar
+                <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20criação%20de%20sites." target="_blank" class="cta-button mt-10 inline-block font-semibold text-lg px-10 py-4 rounded-md reveal" style="transition-delay: 300ms;">
+                    Vamos Conversar
                 </a>
             </div>
-            <a href="#services" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce-slow" aria-label="Rolar para a próxima seção">
-                <svg class="w-8 h-8 text-white opacity-70 hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </a>
         </header>
 
-        <!-- NOVA SECÇÃO FUTURISTA INTEGRADA -->
-        <section class="futuristic-section">
-            <canvas id="futuristic-particle-canvas"></canvas>
-            <div class="futuristic-content">
-                <h2 class="futuristic-title">Conectando sua Marca<br>ao <span>Futuro</span></h2>
-                <div class="futuristic-services-container">
-                    <div class="futuristic-service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 2v2"/><path d="M9 2v2"/></svg>
-                        <span>Websites com Inteligência Artificial</span>
-                    </div>
-                    <div class="futuristic-service-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
-                        <span>Estratégias de Crescimento Preditivo</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Seção de Serviços -->
-        <main id="services" class="py-20 md:py-28 bg-slate-900">
-            <div class="max-w-6xl mx-auto px-4">
-                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">Crio sites personalizados para diferentes necessidades</h2>
-                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <main id="services" class="py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 md:mb-20">
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Soluções Digitais Sob Medida</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto reveal">Da concepção à entrega, criamos a presença online que seu negócio merece.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
-                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
-                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <!-- Card de Serviço -->
+                    <div class="bg-[var(--cor-fundo-card)] p-8 rounded-lg border border-[var(--cor-borda)] transition-all duration-300 hover:border-[var(--cor-destaque)] hover:-translate-y-2 reveal">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 bg-neutral-700/50 rounded-lg mb-6">
+                            <svg class="w-7 h-7 text-[var(--cor-destaque)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site de Vendas</h3>
-                        <p class="text-slate-400">Para quem quer vender produtos ou serviços online. Inclui catálogo, carrinho, e controle de pedidos.</p>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-100">Sites Institucionais</h3>
+                        <p class="text-gray-400 leading-relaxed">Apresente sua empresa de forma profissional, com design elegante, portfólio e informações claras.</p>
                     </div>
 
-                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
-                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
-                             <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <!-- Card de Serviço -->
+                    <div class="bg-[var(--cor-fundo-card)] p-8 rounded-lg border border-[var(--cor-borda)] transition-all duration-300 hover:border-[var(--cor-destaque)] hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 bg-neutral-700/50 rounded-lg mb-6">
+                            <svg class="w-7 h-7 text-[var(--cor-destaque)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-100">Controle Financeiro</h3>
-                        <p class="text-slate-400">Para organizar as finanças com relatórios, gráficos e controle de gastos e receitas.</p>
-                    </div>
-
-                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
-                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
-                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site Institucional</h3>
-                        <p class="text-slate-400">Para apresentar a sua empresa de forma profissional, com informações, serviços e portfólio.</p>
-                    </div>
-
-                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
-                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
-                             <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site de Gestão</h3>
-                        <p class="text-slate-400">Para organizar processos e tarefas do dia a dia, como cadastros e controle de clientes.</p>
-                    </div>
-
-                    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg text-center flex flex-col items-center reveal transition-all duration-300 hover:scale-105 hover:shadow-slate-600/20 hover:border-slate-500">
-                        <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-5">
-                            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-slate-100">Site Sob Medida</h3>
-                        <p class="text-slate-400">Tem uma ideia específica? Eu desenvolvo. Qualquer funcionalidade que o seu negócio precise.</p>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-100">Lojas Virtuais (E-commerce)</h3>
+                        <p class="text-gray-400 leading-relaxed">Venda produtos ou serviços online com uma plataforma completa: catálogo, pagamentos e gestão de pedidos.</p>
                     </div>
                     
-                    <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20criar%20meu%20site%20100%25%20personalizado." target="_blank" class="bg-slate-100 text-slate-900 p-8 rounded-xl shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 reveal hover:bg-white">
-                         <h3 class="text-xl font-bold">Criar meu site 100% personalizado</h3>
-                         <p class="mt-2 text-slate-600">Vamos conversar sobre seu projeto?</p>
-                    </a>
+                    <!-- Card de Serviço -->
+                    <div class="bg-[var(--cor-fundo-card)] p-8 rounded-lg border border-[var(--cor-borda)] transition-all duration-300 hover:border-[var(--cor-destaque)] hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 bg-neutral-700/50 rounded-lg mb-6">
+                            <svg class="w-7 h-7 text-[var(--cor-destaque)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-100">Sistemas de Gestão</h3>
+                        <p class="text-gray-400 leading-relaxed">Organize processos e tarefas do dia a dia, como cadastros, finanças e controle de clientes.</p>
+                    </div>
+
                 </div>
             </div>
         </main>
-        
-        <!-- NOVA SEÇÃO ANIMADA "COMO FUNCIONA" -->
-        <section id="how-it-works" class="py-20 md:py-28 bg-slate-950 timeline-section">
-            <div class="max-w-6xl mx-auto px-4">
+
+        <!-- Seção de Projetos Recentes -->
+        <section id="projects" class="py-24 md:py-32 bg-black/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 md:mb-20">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">Nosso Processo de Trabalho</h2>
-                    <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto reveal" style="transition-delay: 100ms;">Quatro passos simples para transformar sua ideia em um site de sucesso.</p>
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Projetos Recentes</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto reveal">Uma amostra do nosso trabalho e da paixão que dedicamos a cada detalhe.</p>
                 </div>
-                
-                <div id="timeline-container" class="timeline-container">
-                    <!-- SVG para desenhar as linhas e a faísca da timeline -->
-                    <svg class="timeline-svg" preserveAspectRatio="none">
-                        <defs>
-                            <radialGradient id="spark-gradient">
-                                <stop offset="0%" stop-color="#f0f9ff" stop-opacity="1" />
-                                <stop offset="60%" stop-color="#7dd3fc" stop-opacity="1" />
-                                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
-                            </radialGradient>
-                            <filter id="spark-glow">
-                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        
-                        <path class="timeline-track" d=""></path>
-                        <path id="motion-path" d="" fill="none" stroke="none"></path>
-                        
-                        <g id="spark-group" style="filter: url(#spark-glow); display: none;">
-                            <circle id="spark" r="6" fill="url(#spark-gradient)">
-                                <animateMotion id="spark-animation" dur="7s" begin="indefinite" repeatCount="indefinite" rotate="auto">
-                                    <mpath xlink:href="#motion-path" />
-                                </animateMotion>
-                            </circle>
-                            <circle r="3" fill="url(#spark-gradient)" opacity="0.7">
-                                <animateMotion dur="7s" begin="spark-animation.begin + 0.05s" repeatCount="indefinite" rotate="auto">
-                                    <mpath xlink:href="#motion-path" />
-                                </animateMotion>
-                            </circle>
-                            <circle r="2" fill="url(#spark-gradient)" opacity="0.5">
-                                <animateMotion dur="7s" begin="spark-animation.begin + 0.1s" repeatCount="indefinite" rotate="auto">
-                                    <mpath xlink:href="#motion-path" />
-                                </animateMotion>
-                            </circle>
-                        </g>
-                    </svg>
-
-                    <!-- Grid com as etapas do processo -->
-                    <div class="grid md:grid-cols-4 gap-x-8 gap-y-16 timeline-grid">
-                        
-                        <!-- Etapa 1: Conversa -->
-                        <div id="step-1" class="timeline-step text-center">
-                            <div class="relative inline-block mb-4">
-                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
-                                    <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">1</span>
-                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                                </div>
-                            </div>
-                            <div class="step-content">
-                                <h3 class="text-xl font-bold text-slate-300 mb-2">Conversa</h3>
-                                <p class="text-slate-400">Você me conta o que precisa para o seu projeto.</p>
-                            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                    <!-- Projeto 1 -->
+                    <div class="group reveal">
+                        <div class="overflow-hidden rounded-lg">
+                            <img src="https://placehold.co/800x600/222222/D4AF37?text=Projeto+Alfa" alt="Imagem do Projeto Alfa" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                         </div>
-
-                        <!-- Etapa 2: Desenho -->
-                        <div id="step-2" class="timeline-step text-center">
-                            <div class="relative inline-block mb-4">
-                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
-                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">2</span>
-                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                </div>
-                            </div>
-                            <div class="step-content">
-                                <h3 class="text-xl font-bold text-slate-300 mb-2">Desenho</h3>
-                                <p class="text-slate-400">Eu desenho a solução e o design do seu futuro site.</p>
-                            </div>
+                        <div class="mt-5">
+                            <h3 class="text-2xl font-semibold text-gray-100 group-hover:text-[var(--cor-destaque)] transition-colors">Marca de Luxo Alfa</h3>
+                            <p class="text-gray-400 mt-1">E-commerce & Identidade Visual</p>
                         </div>
-
-                        <!-- Etapa 3: Desenvolvimento -->
-                        <div id="step-3" class="timeline-step text-center">
-                            <div class="relative inline-block mb-4">
-                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
-                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">3</span>
-                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                                </div>
-                            </div>
-                            <div class="step-content">
-                                <h3 class="text-xl font-bold text-slate-300 mb-2">Desenvolvimento</h3>
-                                <p class="text-slate-400">Construo o site com as melhores tecnologias.</p>
-                            </div>
+                    </div>
+                    <!-- Projeto 2 -->
+                    <div class="group reveal" style="transition-delay: 150ms;">
+                         <div class="overflow-hidden rounded-lg">
+                            <img src="https://placehold.co/800x600/222222/D4AF37?text=Projeto+Beta" alt="Imagem do Projeto Beta" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                         </div>
-
-                        <!-- Etapa 4: Entrega -->
-                        <div id="step-4" class="timeline-step text-center">
-                            <div class="relative inline-block mb-4">
-                                <div class="icon-bubble w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center border-4 border-slate-700">
-                                     <span class="absolute -top-3 -right-3 flex items-center justify-center w-10 h-10 bg-sky-500 text-white font-bold text-lg rounded-full border-4 border-slate-950">4</span>
-                                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                </div>
-                            </div>
-                            <div class="step-content">
-                                <h3 class="text-xl font-bold text-slate-300 mb-2">Entrega</h3>
-                                <p class="text-slate-400">Seu site pronto para alcançar resultados.</p>
-                            </div>
+                        <div class="mt-5">
+                            <h3 class="text-2xl font-semibold text-gray-100 group-hover:text-[var(--cor-destaque)] transition-colors">Consultoria Beta</h3>
+                            <p class="text-gray-400 mt-1">Site Institucional & Blog</p>
+                        </div>
+                    </div>
+                     <!-- Projeto 3 -->
+                    <div class="group reveal" style="transition-delay: 300ms;">
+                         <div class="overflow-hidden rounded-lg">
+                            <img src="https://placehold.co/800x600/222222/D4AF37?text=Projeto+Gama" alt="Imagem do Projeto Gama" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-2xl font-semibold text-gray-100 group-hover:text-[var(--cor-destaque)] transition-colors">Estúdio Gama</h3>
+                            <p class="text-gray-400 mt-1">Portfólio Criativo</p>
+                        </div>
+                    </div>
+                     <!-- Projeto 4 -->
+                    <div class="group reveal" style="transition-delay: 450ms;">
+                         <div class="overflow-hidden rounded-lg">
+                            <img src="https://placehold.co/800x600/222222/D4AF37?text=Projeto+Delta" alt="Imagem do Projeto Delta" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-2xl font-semibold text-gray-100 group-hover:text-[var(--cor-destaque)] transition-colors">Sistema Delta</h3>
+                            <p class="text-gray-400 mt-1">Plataforma de Gestão</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- NOVA SEÇÃO DE DEPOIMENTOS -->
-        <section id="testimonials" class="py-20 md:py-28 bg-slate-900">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">O Que Nossos Clientes Dizem</h2>
-                    <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto reveal" style="transition-delay: 100ms;">A confiança e o sucesso dos nossos parceiros são o nosso maior orgulho.</p>
+        <!-- Seção "Como Funciona" - Timeline Clássica -->
+        <section id="how-it-works" class="py-24 md:py-32">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 md:mb-20">
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Nosso Processo Criativo</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto reveal">Quatro passos para transformar sua visão em realidade digital.</p>
+                </div>
+                
+                <div id="timeline-container" class="relative">
+                    <div class="timeline-line hidden md:block"></div>
+                    
+                    <!-- Etapa 1 -->
+                    <div class="timeline-item relative grid md:grid-cols-2 gap-8 items-center mb-16 reveal">
+                        <div class="icon-wrapper w-16 h-16 rounded-full border-2 bg-[var(--cor-fundo-card)] flex items-center justify-center mx-auto md:order-2 md:ml-auto md:mr-0">
+                            <span class="font-playfair text-2xl text-gray-400">1</span>
+                        </div>
+                        <div class="text-content md:order-1 md:text-right">
+                            <h3 class="text-2xl font-semibold text-gray-200 mb-2 transition-colors">Imersão e Estratégia</h3>
+                            <p class="text-gray-400">Conversamos para entender profundamente seus objetivos, seu público e sua marca. Definimos a estratégia para o sucesso do projeto.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 2 -->
+                    <div class="timeline-item relative grid md:grid-cols-2 gap-8 items-center mb-16 reveal">
+                        <div class="icon-wrapper w-16 h-16 rounded-full border-2 bg-[var(--cor-fundo-card)] flex items-center justify-center mx-auto md:order-1 md:mr-auto md:ml-0">
+                             <span class="font-playfair text-2xl text-gray-400">2</span>
+                        </div>
+                        <div class="text-content md:order-2 md:text-left">
+                            <h3 class="text-2xl font-semibold text-gray-200 mb-2 transition-colors">Design e Prototipação</h3>
+                            <p class="text-gray-400">Criamos um design visual que traduz a identidade da sua marca e focamos na experiência do usuário para garantir uma navegação intuitiva.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 3 -->
+                    <div class="timeline-item relative grid md:grid-cols-2 gap-8 items-center mb-16 reveal">
+                        <div class="icon-wrapper w-16 h-16 rounded-full border-2 bg-[var(--cor-fundo-card)] flex items-center justify-center mx-auto md:order-2 md:ml-auto md:mr-0">
+                            <span class="font-playfair text-2xl text-gray-400">3</span>
+                        </div>
+                        <div class="text-content md:order-1 md:text-right">
+                            <h3 class="text-2xl font-semibold text-gray-200 mb-2 transition-colors">Desenvolvimento</h3>
+                            <p class="text-gray-400">Escrevemos um código limpo e eficiente, transformando o design em um site rápido, seguro e totalmente funcional.</p>
+                        </div>
+                    </div>
+
+                    <!-- Etapa 4 -->
+                    <div class="timeline-item relative grid md:grid-cols-2 gap-8 items-center reveal">
+                        <div class="icon-wrapper w-16 h-16 rounded-full border-2 bg-[var(--cor-fundo-card)] flex items-center justify-center mx-auto md:order-1 md:mr-auto md:ml-0">
+                            <span class="font-playfair text-2xl text-gray-400">4</span>
+                        </div>
+                        <div class="text-content md:order-2 md:text-left">
+                            <h3 class="text-2xl font-semibold text-gray-200 mb-2 transition-colors">Lançamento e Suporte</h3>
+                            <p class="text-gray-400">Realizamos a entrega, publicação e oferecemos o suporte necessário para garantir que seu site continue performando com excelência.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Depoimentos -->
+        <section id="testimonials" class="py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 md:mb-20">
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Parcerias de Sucesso</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto reveal">A confiança e os resultados dos nossos clientes são nosso maior orgulho.</p>
                 </div>
                 <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <p id="testimonials-loading" class="text-center text-gray-400 col-span-full">Carregando depoimentos...</p>
                     <!-- Depoimentos serão inseridos aqui pelo JavaScript -->
-                     <p id="testimonials-loading" class="text-center text-slate-400 col-span-full">Carregando depoimentos...</p>
                 </div>
             </div>
         </section>
 
-        <section class="bg-slate-900 py-20">
+        <!-- Seção de CTA Final -->
+        <section class="bg-black/20 py-24 md:py-32">
              <div class="max-w-3xl mx-auto text-center px-4">
-                 <h2 class="text-3xl font-extrabold text-white reveal">Vamos transformar a sua ideia num site de sucesso?</h2>
-                 <p class="mt-4 text-lg text-slate-400 reveal">Estou pronto para ouvir sobre o seu projeto e criar uma solução digital que traga resultados reais para o seu negócio.</p>
-                 <a href="https://wa.me/5567999093031?text=Olá!%20Gostaria%20de%20criar%20meu%20site%20100%25%20personalizado." target="_blank" class="cta-button-glow mt-8 inline-block font-bold text-lg px-8 py-4 rounded-lg hover:scale-105 transform transition-all duration-300 reveal">
-                    Conte-me o que você precisa
+                 <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Vamos construir algo incrível juntos?</h2>
+                 <p class="mt-6 text-lg text-gray-400 reveal">Estou pronto para ouvir sobre seu projeto e criar uma solução digital que traga resultados reais para o seu negócio.</p>
+                 <a href="https://wa.me/5567999093031?text=Olá!%20Tenho%20um%20projeto%20em%20mente%20e%20gostaria%20de%20conversar." target="_blank" class="cta-button mt-10 inline-block font-semibold text-lg px-10 py-4 rounded-md reveal">
+                     Conte-me sua Ideia
                 </a>
              </div>
         </section>
 
-        <!-- NOVA SEÇÃO DE PERGUNTAS E RESPOSTAS (FAQ) -->
-        <section id="faq" class="py-20 md:py-28 bg-slate-950">
-            <div class="max-w-4xl mx-auto px-4">
+        <!-- Seção de FAQ -->
+        <section id="faq" class="py-24 md:py-32">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white reveal">Perguntas Frequentes</h2>
-                    <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto reveal" style="transition-delay: 100ms;">Tire suas dúvidas ou envie uma nova pergunta.</p>
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white reveal">Perguntas Frequentes</h2>
                 </div>
 
-                <!-- Lista de Perguntas Aprovadas -->
-                <div id="faq-list" class="space-y-4 mb-12">
-                    <!-- Perguntas e respostas serão inseridas aqui pelo JavaScript -->
-                    <p id="faq-loading" class="text-center text-slate-400">Carregando perguntas...</p>
+                <div id="faq-list" class="space-y-4 mb-16">
+                    <p id="faq-loading" class="text-center text-gray-400">Carregando perguntas...</p>
+                    <!-- Perguntas e respostas serão inseridas aqui -->
                 </div>
 
-                <!-- Formulário para Novas Perguntas -->
-                <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-2xl reveal">
-                    <h3 class="text-2xl font-bold text-white mb-4">Não encontrou sua resposta?</h3>
-                    <p class="text-slate-400 mb-6">Envie sua pergunta e responderemos assim que possível.</p>
-                    <form id="faq-form" class="space-y-4">
+                <div class="bg-[var(--cor-fundo-card)] border border-[var(--cor-borda)] p-8 md:p-10 rounded-lg reveal">
+                    <h3 class="text-2xl font-semibold text-white mb-2">Não encontrou sua resposta?</h3>
+                    <p class="text-gray-400 mb-6">Envie sua pergunta e responderemos assim que possível.</p>
+                    <form id="faq-form" class="space-y-5">
                         <div>
-                            <label for="user-name" class="block text-sm font-medium text-slate-300 mb-1">Seu Nome</label>
-                            <input type="text" id="user-name" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-3 text-white placeholder-slate-400 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition" placeholder="Como podemos te chamar?" required>
+                            <label for="user-name" class="block text-sm font-medium text-gray-300 mb-1">Seu Nome</label>
+                            <input type="text" id="user-name" class="w-full bg-neutral-700/60 border border-neutral-600 rounded-md p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-[var(--cor-destaque)] focus:border-[var(--cor-destaque)] transition" placeholder="Como podemos te chamar?" required>
                         </div>
                         <div>
-                            <label for="question-text" class="block text-sm font-medium text-slate-300 mb-1">Sua Pergunta</label>
-                            <textarea id="question-text" rows="4" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-3 text-white placeholder-slate-400 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition" placeholder="Digite sua pergunta aqui..." required></textarea>
+                            <label for="question-text" class="block text-sm font-medium text-gray-300 mb-1">Sua Pergunta</label>
+                            <textarea id="question-text" rows="4" class="w-full bg-neutral-700/60 border border-neutral-600 rounded-md p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-[var(--cor-destaque)] focus:border-[var(--cor-destaque)] transition" placeholder="Digite sua pergunta aqui..." required></textarea>
                         </div>
-                        <button type="submit" id="faq-submit-button" class="w-full md:w-auto bg-sky-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-sky-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <button type="submit" id="faq-submit-button" class="w-full sm:w-auto cta-button font-semibold px-8 py-3 rounded-md disabled:opacity-50 disabled:cursor-not-allowed">
                             Enviar Pergunta
                         </button>
-                        <p id="faq-success-message" class="text-green-400 mt-2" style="display: none;">Obrigado! Sua pergunta foi enviada com sucesso.</p>
+                        <p id="faq-success-message" class="text-green-400 mt-3" style="display: none;">Obrigado! Sua pergunta foi enviada com sucesso.</p>
                     </form>
                 </div>
             </div>
         </section>
 
-        <footer class="bg-slate-950 text-slate-400 py-6">
-            <div class="max-w-6xl mx-auto text-center px-4">
+        <!-- Rodapé -->
+        <footer class="border-t border-[var(--cor-borda)] py-8">
+            <div class="max-w-7xl mx-auto text-center px-4 text-gray-500">
                 <p>&copy; 2025 Conecta Web Digital. Todos os direitos reservados.</p>
-                <p class="mt-2"><a href="politica-de-privacidade.html" class="hover:text-white transition-colors">Política de Privacidade</a></p>
+                <p class="mt-2 text-sm"><a href="politica-de-privacidade.html" class="hover:text-[var(--cor-destaque)] transition-colors">Política de Privacidade</a></p>
             </div>
         </footer>
 
+        <!-- Botão Flutuante WhatsApp -->
         <a href="https://wa.me/5567999093031?text=Olá!%20Tenho%20interesse%20nos%20seus%20serviços." target="_blank" class="fixed bottom-6 right-6 bg-green-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300 z-50">
             <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.651 4.383 1.898 6.233l-.966 3.533 3.595-.942z"/>
@@ -650,11 +440,12 @@
         </a>
     </div>
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDKs e Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // A sua configuração do Firebase foi mantida.
         const firebaseConfig = {
           apiKey: "AIzaSyAlJ1UWCsKPymTE0cOvHP1wveznX8X3j1o",
           authDomain: "conecta-web-digital.firebaseapp.com",
@@ -668,37 +459,33 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         
-        // --- LÓGICA DO FAQ ---
+        // --- LÓGICA DO FAQ (ATUALIZADA PARA O NOVO DESIGN) ---
         const faqList = document.getElementById('faq-list');
         const faqLoading = document.getElementById('faq-loading');
         const faqForm = document.getElementById('faq-form');
-        const userNameInput = document.getElementById('user-name');
-        const questionText = document.getElementById('question-text');
         const faqSubmitButton = document.getElementById('faq-submit-button');
         const faqSuccessMessage = document.getElementById('faq-success-message');
 
-        const questionsCollectionRef = collection(db, 'questions');
-        const approvedQuestionsQuery = query(questionsCollectionRef, where("status", "==", "approved"), orderBy("approvedAt", "desc"));
-
-        onSnapshot(approvedQuestionsQuery, (snapshot) => {
+        onSnapshot(query(collection(db, 'questions'), where("status", "==", "approved"), orderBy("approvedAt", "desc")), (snapshot) => {
+            if (!faqList || !faqLoading) return;
             faqLoading.style.display = 'none';
+            faqList.innerHTML = '';
             if (snapshot.empty) {
-                faqList.innerHTML = '<p class="text-center text-slate-400">Nenhuma pergunta frequente ainda. Seja o primeiro a perguntar!</p>';
+                faqList.innerHTML = '<p class="text-center text-gray-400">Nenhuma pergunta frequente ainda.</p>';
             } else {
-                faqList.innerHTML = '';
                 snapshot.docs.forEach(doc => {
                     const qa = doc.data();
                     const faqItem = document.createElement('div');
-                    faqItem.className = 'faq-item bg-slate-800/50 border border-slate-700 rounded-lg reveal';
+                    faqItem.className = 'faq-item bg-[var(--cor-fundo-card)] border border-[var(--cor-borda)] rounded-lg reveal';
                     faqItem.innerHTML = `
                         <details>
-                            <summary class="p-4 font-semibold text-slate-100 text-lg">
+                            <summary class="p-5 font-semibold text-gray-200 text-lg cursor-pointer flex justify-between items-center transition-colors hover:text-[var(--cor-destaque)]">
                                 ${qa.questionText}
-                                <svg class="faq-arrow w-6 h-6 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg class="faq-arrow w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </summary>
-                            <div class="faq-answer border-t border-slate-700 pr-4">
-                                <p class="text-slate-300">${qa.answerText}</p>
-                                <p class="text-xs text-slate-400 italic mt-4">Pergunta feita por: ${qa.userName || 'Anônimo'}</p>
+                            <div class="px-5 pb-5 border-t border-[var(--cor-borda)]">
+                                <p class="text-gray-300 pt-4 leading-relaxed">${qa.answerText}</p>
+                                <p class="text-xs text-gray-500 italic mt-4">Pergunta feita por: ${qa.userName || 'Anônimo'}</p>
                             </div>
                         </details>
                     `;
@@ -707,379 +494,112 @@
             }
         });
 
-        faqForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            faqSubmitButton.disabled = true;
-            faqSubmitButton.textContent = 'Enviando...';
-            try {
-                await addDoc(questionsCollectionRef, {
-                    userName: userNameInput.value.trim(),
-                    questionText: questionText.value.trim(),
-                    status: 'pending',
-                    createdAt: serverTimestamp()
-                });
-                faqForm.reset();
-                faqSuccessMessage.style.display = 'block';
-                setTimeout(() => faqSuccessMessage.style.display = 'none', 4000);
-            } catch (error) {
-                console.error("Erro ao enviar pergunta:", error);
-            } finally {
-                faqSubmitButton.disabled = false;
-                faqSubmitButton.textContent = 'Enviar Pergunta';
-            }
-        });
+        if (faqForm) {
+            faqForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                faqSubmitButton.disabled = true;
+                faqSubmitButton.textContent = 'Enviando...';
+                try {
+                    await addDoc(collection(db, 'questions'), {
+                        userName: document.getElementById('user-name').value.trim(),
+                        questionText: document.getElementById('question-text').value.trim(),
+                        status: 'pending',
+                        createdAt: serverTimestamp()
+                    });
+                    faqForm.reset();
+                    faqSuccessMessage.style.display = 'block';
+                    setTimeout(() => faqSuccessMessage.style.display = 'none', 4000);
+                } catch (error) {
+                    console.error("Erro ao enviar pergunta:", error);
+                } finally {
+                    faqSubmitButton.disabled = false;
+                    faqSubmitButton.textContent = 'Enviar Pergunta';
+                }
+            });
+        }
 
-        // --- LÓGICA DOS DEPOIMENTOS ---
+        // --- LÓGICA DOS DEPOIMENTOS (ATUALIZADA PARA O NOVO DESIGN) ---
         const testimonialsGrid = document.getElementById('testimonials-grid');
         const testimonialsLoading = document.getElementById('testimonials-loading');
-        const testimonialsCollectionRef = collection(db, 'testimonials');
-        const testimonialsQuery = query(testimonialsCollectionRef, orderBy("createdAt", "desc"));
 
-        onSnapshot(testimonialsQuery, (snapshot) => {
+        onSnapshot(query(collection(db, 'testimonials'), orderBy("createdAt", "desc")), (snapshot) => {
+            if (!testimonialsGrid || !testimonialsLoading) return;
             testimonialsLoading.style.display = 'none';
-            testimonialsGrid.innerHTML = ''; // Limpa os depoimentos existentes
+            testimonialsGrid.innerHTML = ''; 
             if (snapshot.empty) {
-                testimonialsGrid.innerHTML = '<p class="text-center text-slate-400 col-span-full">Ainda não há depoimentos de clientes.</p>';
+                testimonialsGrid.innerHTML = '<p class="text-center text-gray-400 col-span-full">Ainda não há depoimentos de clientes.</p>';
             } else {
-                snapshot.docs.forEach(doc => {
-                    const testimonial = doc.data();
-                    const card = createTestimonialCard(testimonial);
+                snapshot.docs.forEach((doc, index) => {
+                    const card = createTestimonialCard(doc.data(), index);
                     testimonialsGrid.appendChild(card);
                 });
             }
         });
 
-        function createTestimonialCard(data) {
+        function createTestimonialCard(data, index) {
             const card = document.createElement('div');
-            card.className = 'bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-lg flex flex-col reveal transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/10 hover:border-cyan-500';
-            
-            let starsHTML = '';
-            for (let i = 0; i < 5; i++) {
-                starsHTML += `<svg class="w-5 h-5 ${i < data.rating ? 'text-amber-400' : 'text-slate-600'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
-            }
+            card.className = 'bg-[var(--cor-fundo-card)] p-8 rounded-lg border border-[var(--cor-borda)] flex flex-col reveal';
+            card.style.transitionDelay = `${index * 100}ms`;
 
-            const photoSrc = data.photoURL || `https://placehold.co/100x100/e2e8f0/334155?text=${data.clientName.charAt(0)}`;
+            const photoSrc = data.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(data.clientName)}&background=333&color=D4AF37&bold=true`;
 
             card.innerHTML = `
-                <div class="flex-grow mb-4">
-                    <div class="flex items-center mb-2">${starsHTML}</div>
-                    <p class="text-slate-300 italic">"${data.testimonialText}"</p>
+                <div class="flex-grow mb-6">
+                    <svg class="w-10 h-10 text-[var(--cor-destaque)] opacity-30 mb-4" fill="currentColor" viewBox="0 0 32 32"><path d="M12.031 6.031c-3.313 0-6.031 2.688-6.031 6.031 0 1.25 0.375 2.406 1.031 3.375-0.938 1.438-2.25 2.688-3.938 3.375 0.938 1.125 1.875 2.063 3.438 2.781 2.844 1.313 5.438-1.25 5.438-1.25s-2.063 0.375-3.563-0.844c1.125 0.5 2.375 0.75 3.656 0.75 3.313 0 6.031-2.688 6.031-6.031s-2.719-6.219-6.031-6.219zM26.031 6.031c-3.313 0-6.031 2.688-6.031 6.031 0 1.25 0.375 2.406 1.031 3.375-0.938 1.438-2.25 2.688-3.938 3.375 0.938 1.125 1.875 2.063 3.438 2.781 2.844 1.313 5.438-1.25 5.438-1.25s-2.063 0.375-3.563-0.844c1.125 0.5 2.375 0.75 3.656 0.75 3.313 0 6.031-2.688 6.031-6.031s-2.719-6.219-6.031-6.219z"></path></svg>
+                    <p class="text-gray-300 italic text-lg leading-relaxed">“${data.testimonialText}”</p>
                 </div>
-                <div class="flex items-center mt-auto">
+                <div class="flex items-center mt-auto pt-6 border-t border-[var(--cor-borda)]">
                     <img class="w-12 h-12 rounded-full object-cover mr-4" src="${photoSrc}" alt="Foto de ${data.clientName}">
                     <div>
-                        <p class="font-bold text-slate-100">${data.clientName}</p>
-                        <p class="text-sm text-slate-400">${data.clientPosition}</p>
+                        <p class="font-semibold text-gray-100">${data.clientName}</p>
+                        <p class="text-sm text-gray-400">${data.clientPosition}</p>
                     </div>
                 </div>
             `;
             return card;
         }
 
-
-        function runApp() {
-            // Lógica do menu mobile
+        // --- SCRIPTS GERAIS DA PÁGINA ---
+        function runPageScripts() {
+            // Menu mobile
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            
             if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-                mobileMenuLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
-                    });
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
                 });
             }
 
-            // Animação de revelação dos elementos
-            const observer = new IntersectionObserver((entries) => {
+            // Animação de revelação com Intersection Observer
+            const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, 150);
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
+            }, { threshold: 0.15 });
             
-            // Observa os elementos estáticos
-            document.querySelectorAll('.reveal').forEach(elem => observer.observe(elem));
-            
-            // Re-aplica o observer para elementos dinâmicos (FAQ e Depoimentos)
-            const dynamicContentObserver = new MutationObserver(mutations => {
-                mutations.forEach(mutation => {
-                    mutation.addedNodes.forEach(node => {
-                        if (node.nodeType === 1 && node.classList.contains('reveal')) {
-                            observer.observe(node);
-                        }
-                    });
-                });
-            });
+            document.querySelectorAll('.reveal').forEach(elem => revealObserver.observe(elem));
 
-            if (faqList) dynamicContentObserver.observe(faqList, { childList: true });
-            if (testimonialsGrid) dynamicContentObserver.observe(testimonialsGrid, { childList: true });
-
-
-            // --- ANIMAÇÃO DE PARTÍCULAS DO HERO ---
-            function runHeroParticles() {
-                const canvas = document.getElementById('hero-particle-canvas');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                let particles = [];
-
-                function resizeCanvas() {
-                    canvas.width = canvas.offsetWidth;
-                    canvas.height = canvas.offsetHeight;
-                }
-
-                class Particle {
-                    constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
-                        this.size = Math.random() * 1.5 + 0.5;
-                        this.speedX = Math.random() * 1 - 0.5;
-                        this.speedY = Math.random() * 1 - 0.5;
-                        this.color = 'rgba(203, 213, 225, 0.5)';
-                    }
-                    update() {
-                        this.x += this.speedX;
-                        this.y += this.speedY;
-
-                        if (this.size > 0.1) this.size -= 0.01;
-                        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                    }
-                    draw() {
-                        ctx.fillStyle = this.color;
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
-
-                function initParticles() {
-                    particles = [];
-                    const particleCount = Math.floor(canvas.width / 30);
-                    for (let i = 0; i < particleCount; i++) {
-                        particles.push(new Particle());
-                    }
-                }
-
-                function animateParticles() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    for (let i = 0; i < particles.length; i++) {
-                        particles[i].update();
-                        particles[i].draw();
-                    }
-                    requestAnimationFrame(animateParticles);
-                }
-                
-                window.addEventListener('resize', () => {
-                    resizeCanvas();
-                    initParticles();
-                });
-
-                resizeCanvas();
-                initParticles();
-                animateParticles();
-            }
-            
-            // --- ANIMAÇÃO DE PARTÍCULAS DA SECÇÃO FUTURISTA ---
-            function runFuturisticSectionAnimation() {
-                const fbCanvas = document.getElementById('futuristic-particle-canvas');
-                if (!fbCanvas) return;
-                const fbCtx = fbCanvas.getContext('2d');
-                
-                let fbWidth = fbCanvas.width = fbCanvas.parentElement.offsetWidth;
-                let fbHeight = fbCanvas.height = fbCanvas.parentElement.offsetHeight;
-                let fbParticles = [];
-
-                const particleProps = {
-                    radius: 1.5,
-                    lineDistance: 100,
-                    speed: 0.4,
-                    color: 'rgba(0, 191, 255, 0.8)'
-                };
-
-                class FBParticle {
-                    constructor() {
-                        this.x = Math.random() * fbWidth;
-                        this.y = Math.random() * fbHeight;
-                        this.vx = (Math.random() - 0.5) * particleProps.speed;
-                        this.vy = (Math.random() - 0.5) * particleProps.speed;
-                    }
-                    draw() {
-                        fbCtx.beginPath();
-                        fbCtx.arc(this.x, this.y, particleProps.radius, 0, Math.PI * 2);
-                        fbCtx.fillStyle = particleProps.color;
-                        fbCtx.fill();
-                    }
-                    update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
-                        if (this.x < 0 || this.x > fbWidth) this.vx *= -1;
-                        if (this.y < 0 || this.y > fbHeight) this.vy *= -1;
-                    }
-                }
-
-                function fbInit() {
-                    fbParticles = [];
-                    const area = fbWidth * fbHeight;
-                    const particleCount = Math.floor(area / 3500); 
-                    for (let i = 0; i < particleCount; i++) {
-                        fbParticles.push(new FBParticle());
-                    }
-                }
-
-                function drawLines() {
-                    for (let i = 0; i < fbParticles.length; i++) {
-                        for (let j = i + 1; j < fbParticles.length; j++) {
-                            const dist = Math.hypot(fbParticles[i].x - fbParticles[j].x, fbParticles[i].y - fbParticles[j].y);
-                            if (dist < particleProps.lineDistance) {
-                                fbCtx.beginPath();
-                                fbCtx.moveTo(fbParticles[i].x, fbParticles[i].y);
-                                fbCtx.lineTo(fbParticles[j].x, fbParticles[j].y);
-                                fbCtx.strokeStyle = `rgba(0, 191, 255, ${1 - dist / particleProps.lineDistance})`;
-                                fbCtx.lineWidth = 0.5;
-                                fbCtx.stroke();
-                            }
-                        }
-                    }
-                }
-
-                function fbAnimate() {
-                    fbCtx.clearRect(0, 0, fbWidth, fbHeight);
-                    fbParticles.forEach(p => {
-                        p.update();
-                        p.draw();
-                    });
-                    drawLines();
-                    requestAnimationFrame(fbAnimate);
-                }
-
-                function fbResize() {
-                    fbWidth = fbCanvas.width = fbCanvas.parentElement.offsetWidth;
-                    fbHeight = fbCanvas.height = fbCanvas.parentElement.offsetHeight;
-                    fbParticles = [];
-                    fbInit();
-                }
-
-                window.addEventListener('resize', fbResize);
-                
-                fbInit();
-                fbAnimate();
-            }
-            
-            // Inicia as animações
-            runHeroParticles();
-            runFuturisticSectionAnimation();
-        }
-
-        function runTimelineAnimation() {
-            const timelineContainer = document.getElementById('timeline-container');
-            if (!timelineContainer) return;
-
-            const track = timelineContainer.querySelector('.timeline-track');
-            const motionPath = document.getElementById('motion-path');
-            const sparkGroup = document.getElementById('spark-group');
-            const steps = [
-                document.getElementById('step-1'),
-                document.getElementById('step-2'),
-                document.getElementById('step-3'),
-                document.getElementById('step-4')
-            ];
-
-            const animationDuration = 7000; 
-            const activationPoints = [0, 30, 60, 90]; 
-            let animationInterval;
-
-            // --- [INÍCIO] FUNÇÃO DE ANIMAÇÃO DA TIMELINE ATUALIZADA ---
-            function drawPath() {
-                let pathData = '';
-                if (window.innerWidth > 767) {
-                    // Lógica para Desktop
-                    const y = steps[0].offsetTop + (steps[0].querySelector('.icon-bubble').offsetHeight / 2);
-                    const startX = steps[0].offsetLeft + (steps[0].offsetWidth / 2);
-                    const endX = steps[3].offsetLeft + (steps[3].offsetWidth / 2);
-                    pathData = `M ${startX},${y} L ${endX},${y}`;
-                } else {
-                    // Lógica para Celular (corrigida)
-                    // A linha deve se alinhar ao centro dos ícones.
-                    const iconWrapper = steps[0].querySelector('.relative.inline-block');
-                    const icon = iconWrapper.querySelector('.icon-bubble');
-                    const x = iconWrapper.offsetLeft + (icon.offsetWidth / 2);
-                    
-                    const startY = steps[0].offsetTop + (icon.offsetHeight / 2);
-                    const endY = steps[3].offsetTop + (steps[3].querySelector('.icon-bubble').offsetHeight / 2);
-                    pathData = `M ${x},${startY} L ${x},${endY}`;
-                }
-                track.setAttribute('d', pathData);
-                motionPath.setAttribute('d', pathData);
-            }
-            // --- [FIM] FUNÇÃO DE ANIMAÇÃO DA TIMELINE ATUALIZADA ---
-
-            function updateActiveStep(elapsedTime) {
-                const progress = (elapsedTime / animationDuration) * 100;
-                steps.forEach((step, index) => {
-                    const nextActivationPoint = activationPoints[index + 1] || 101;
-                    if (progress >= activationPoints[index] && progress < nextActivationPoint) {
-                        step.classList.add('active');
-                    } else {
-                        step.classList.remove('active');
-                    }
-                });
-            }
-
-            function startAnimation() {
-                let startTime = performance.now();
-                sparkGroup.style.display = 'block';
-                const allAnimations = sparkGroup.querySelectorAll('animateMotion');
-                allAnimations.forEach(anim => anim.beginElement());
-
-                if (animationInterval) clearInterval(animationInterval);
-                animationInterval = setInterval(() => {
-                    const elapsedTime = (performance.now() - startTime) % animationDuration;
-                    updateActiveStep(elapsedTime);
-                }, 50);
-            }
-            
-            function stopAnimation() {
-                sparkGroup.style.display = 'none';
-                const allAnimations = sparkGroup.querySelectorAll('animateMotion');
-                allAnimations.forEach(anim => anim.endElement());
-                clearInterval(animationInterval);
-            }
-
-            const observer = new IntersectionObserver((entries) => {
+             // Animação da Timeline
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        drawPath();
-                        startAnimation();
+                        entry.target.classList.add('active');
                     } else {
-                        stopAnimation();
+                         entry.target.classList.remove('active');
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { rootMargin: "-40% 0px -40% 0px" });
 
-            observer.observe(timelineContainer);
-
-            window.addEventListener('resize', () => {
-                if (timelineContainer.getBoundingClientRect().top < window.innerHeight && timelineContainer.getBoundingClientRect().bottom > 0) {
-                    drawPath();
-                    startAnimation();
-                }
-            });
+            timelineItems.forEach(item => timelineObserver.observe(item));
         }
 
         window.addEventListener('load', () => {
-          document.documentElement.classList.remove('js-loading');
-          runApp();
-          runTimelineAnimation();
+            document.documentElement.classList.add('loaded');
+            runPageScripts();
         });
     </script>
 </body>
