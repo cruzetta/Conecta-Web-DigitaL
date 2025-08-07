@@ -223,14 +223,25 @@
         const navLinks = document.querySelectorAll('.sidebar-link');
         const contentSections = document.querySelectorAll('.content-section');
         
+        const pendingQuestionsContainer = document.getElementById('pending-questions');
+        const approvedQuestionsContainer = document.getElementById('approved-questions');
+        const noPendingMsg = document.getElementById('no-pending-questions');
+        const noApprovedMsg = document.getElementById('no-approved-questions');
+        const testimonialsListContainer = document.getElementById('testimonials-list');
+        const noTestimonialsMsg = document.getElementById('no-testimonials');
+        const addTestimonialButton = document.getElementById('add-testimonial-button');
+        const testimonialModal = document.getElementById('testimonial-modal');
+        const testimonialForm = document.getElementById('testimonial-form');
+        const cancelModalButton = document.getElementById('cancel-modal-button');
+        const modalTitle = document.getElementById('modal-title');
+        const testimonialIdInput = document.getElementById('testimonial-id');
+
         // --- AUTENTICAÇÃO E INICIALIZAÇÃO ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loader.style.display = 'none';
                 adminDashboard.style.display = 'flex';
                 setupNavigation();
-                setupAppearanceManagement(); // Nova função
-                // O restante da inicialização (perguntas, depoimentos) será chamado pela navegação
             } else {
                 window.location.href = 'login.html';
             }
@@ -254,7 +265,6 @@
                     section.style.display = section.id === `content-${hash.substring(1)}` ? 'block' : 'none';
                 });
 
-                // Executa a função específica da aba, se existir
                 if (tabFunctions[hash]) {
                     tabFunctions[hash]();
                 }
@@ -269,19 +279,17 @@
             
             window.addEventListener('hashchange', () => switchTab(window.location.hash));
 
-            // Define a aba inicial
             const initialHash = window.location.hash || '#appearance';
             window.location.hash = initialHash;
             switchTab(initialHash);
         }
 
-        // --- GERENCIAMENTO DE APARÊNCIA (NOVO) ---
+        // --- GERENCIAMENTO DE APARÊNCIA ---
         async function setupAppearanceManagement() {
             const form = document.getElementById('appearance-form');
             const successMessage = document.getElementById('appearance-success-message');
             const configRef = doc(db, 'config', 'backgrounds');
 
-            // Carrega os dados existentes
             try {
                 const docSnap = await getDoc(configRef);
                 if (docSnap.exists()) {
@@ -296,7 +304,6 @@
                 console.error("Erro ao carregar configurações de aparência:", error);
             }
 
-            // Salva os dados
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const dataToSave = {
@@ -308,7 +315,7 @@
                 };
 
                 try {
-                    await setDoc(configRef, dataToSave);
+                    await setDoc(configRef, dataToSave, { merge: true });
                     successMessage.style.display = 'block';
                     setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
                 } catch (error) {
@@ -318,30 +325,42 @@
             });
         }
 
-        // --- GERENCIAMENTO DE PERGUNTAS (EXISTENTE, SEM ALTERAÇÃO DE LÓGICA) ---
+        // --- GERENCIAMENTO DE PERGUNTAS (CORRIGIDO) ---
         function listenForQuestions() {
-            // ... (código existente para gerenciar perguntas)
-        }
+            const pendingQuery = query(collection(db, 'questions'), where("status", "==", "pending"), orderBy("createdAt", "desc"));
+            onSnapshot(pendingQuery, (snapshot) => {
+                pendingQuestionsContainer.innerHTML = '';
+                if (snapshot.empty) {
+                    noPendingMsg.style.display = 'block';
+                } else {
+                    noPendingMsg.style.display = 'none';
+                    snapshot.docs.forEach(doc => {
+                        const card = createQuestionCard(doc.id, doc.data(), 'pending');
+                        pendingQuestionsContainer.appendChild(card);
+                    });
+                }
+            }, (error) => {
+                console.error("Erro ao buscar perguntas pendentes: ", error);
+                pendingQuestionsContainer.innerHTML = `<p class="text-red-400">Erro ao carregar perguntas. Verifique o console para mais detalhes.</p>`;
+            });
 
-        // --- GERENCIAMENTO DE DEPOIMENTOS (EXISTENTE, SEM ALTERAÇÃO DE LÓGICA) ---
-        function listenForTestimonials() {
-            // ... (código existente para gerenciar depoimentos)
+            const approvedQuery = query(collection(db, 'questions'), where("status", "==", "approved"), orderBy("approvedAt", "desc"));
+            onSnapshot(approvedQuery, (snapshot) => {
+                approvedQuestionsContainer.innerHTML = '';
+                if (snapshot.empty) {
+                    noApprovedMsg.style.display = 'block';
+                } else {
+                    noApprovedMsg.style.display = 'none';
+                    snapshot.docs.forEach(doc => {
+                        const card = createQuestionCard(doc.id, doc.data(), 'approved');
+                        approvedQuestionsContainer.appendChild(card);
+                    });
+                }
+            }, (error) => {
+                console.error("Erro ao buscar perguntas aprovadas: ", error);
+                approvedQuestionsContainer.innerHTML = `<p class="text-red-400">Erro ao carregar perguntas. Verifique o console para mais detalhes.</p>`;
+            });
         }
-        
-        // --- CÓDIGO COMPLETOS DAS FUNÇÕES DE PERGUNTAS E DEPOIMENTOS ---
-        // (Colando o código que já existia para manter a funcionalidade)
-        const pendingQuestionsContainer = document.getElementById('pending-questions');
-        const approvedQuestionsContainer = document.getElementById('approved-questions');
-        const noPendingMsg = document.getElementById('no-pending-questions');
-        const noApprovedMsg = document.getElementById('no-approved-questions');
-        const testimonialsListContainer = document.getElementById('testimonials-list');
-        const noTestimonialsMsg = document.getElementById('no-testimonials');
-        const addTestimonialButton = document.getElementById('add-testimonial-button');
-        const testimonialModal = document.getElementById('testimonial-modal');
-        const testimonialForm = document.getElementById('testimonial-form');
-        const cancelModalButton = document.getElementById('cancel-modal-button');
-        const modalTitle = document.getElementById('modal-title');
-        const testimonialIdInput = document.getElementById('testimonial-id');
 
         function createQuestionCard(id, data, type) {
             const card = document.createElement('div');
@@ -358,12 +377,12 @@
                         <button class="approve-button flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md">Aprovar e Responder</button>
                         <button class="delete-button bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Rejeitar</button>
                     </div>`;
-            } else {
+            } else { // 'approved'
                 card.innerHTML = `
                     <p class="text-slate-200 font-semibold">De: <span class="text-sky-400 font-bold">${data.userName || 'Anônimo'}</span></p>
                     <p class="font-bold text-slate-100 my-2">${data.questionText}</p>
                     <p class="text-sky-300 bg-black/20 p-3 rounded-md">${data.answerText}</p>
-                    <div class="flex gap-4 mt-3">
+                    <div class="flex justify-end gap-4 mt-3">
                         <button class="delete-button bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Excluir</button>
                     </div>`;
             }
@@ -371,23 +390,62 @@
         }
 
         adminDashboard.addEventListener('click', async (e) => {
-            const button = e.target;
-            const card = button.closest('.bg-slate-800');
-            if (!card?.dataset.id) return;
+            const button = e.target.closest('button');
+            if (!button) return;
+
+            const card = button.closest('.bg-slate-800[data-id]');
+            if (!card) return;
+
             const id = card.dataset.id;
-            
-            if (card.querySelector('.answer-text')) { // Ação de pergunta
-                const questionRef = doc(db, 'questions', id);
+            const questionRef = doc(db, 'questions', id);
+
+            // Ação em pergunta PENDENTE
+            if (card.querySelector('.answer-text')) {
                 if (button.classList.contains('approve-button')) {
                     const answerText = card.querySelector('.answer-text').value.trim();
-                    if (answerText) await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
-                    else alert('Por favor, digite uma resposta.');
-                } else if (button.classList.contains('delete-button') && confirm('Tem certeza que deseja rejeitar/excluir esta pergunta?')) {
-                    await deleteDoc(questionRef);
+                    if (answerText) {
+                        try {
+                            await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
+                        } catch (error) {
+                            console.error("Erro ao aprovar pergunta: ", error);
+                            alert("Erro ao aprovar. Verifique o console.");
+                        }
+                    } else {
+                        alert('Por favor, digite uma resposta.');
+                    }
+                } else if (button.classList.contains('delete-button')) {
+                    if (confirm('Tem certeza que deseja REJEITAR esta pergunta? A ação não pode ser desfeita.')) {
+                        await deleteDoc(questionRef);
+                    }
+                }
+            } 
+            // Ação em pergunta APROVADA
+            else {
+                 if (button.classList.contains('delete-button')) {
+                    if (confirm('Tem certeza que deseja EXCLUIR esta pergunta aprovada? A ação não pode ser desfeita.')) {
+                        await deleteDoc(questionRef);
+                    }
                 }
             }
         });
 
+        // --- GERENCIAMENTO DE DEPOIMENTOS ---
+        function listenForTestimonials() {
+            const testimonialsQuery = query(collection(db, 'testimonials'), orderBy("createdAt", "desc"));
+            onSnapshot(testimonialsQuery, (snapshot) => {
+                testimonialsListContainer.innerHTML = '';
+                if (snapshot.empty) {
+                    noTestimonialsMsg.style.display = 'block';
+                } else {
+                    noTestimonialsMsg.style.display = 'none';
+                    snapshot.docs.forEach(doc => {
+                        const card = createTestimonialCard(doc.id, doc.data());
+                        testimonialsListContainer.appendChild(card);
+                    });
+                }
+            });
+        }
+        
         addTestimonialButton.addEventListener('click', () => {
             testimonialForm.reset();
             testimonialIdInput.value = '';
@@ -416,7 +474,7 @@
                 testimonialModal.classList.add('hidden');
             } catch (error) {
                 console.error("Erro detalhado ao salvar depoimento:", error);
-                alert(`Ocorreu um erro ao salvar.\n\nDetalhes: ${error.message}\n\nVerifique o console (F12) para um link de correção do índice.`);
+                alert(`Ocorreu um erro ao salvar.\n\nDetalhes: ${error.message}`);
             }
         });
 
@@ -465,11 +523,14 @@
                     document.getElementById('testimonialText').value = data.testimonialText;
                     testimonialModal.classList.remove('hidden');
                 }
-            } else if (button.classList.contains('delete-testimonial-button') && confirm('Tem certeza?')) {
-                await deleteDoc(testimonialRef);
+            } else if (button.classList.contains('delete-testimonial-button')) {
+                if (confirm('Tem certeza que deseja excluir este depoimento?')) {
+                    await deleteDoc(testimonialRef);
+                }
             }
         });
 
+        // Exibe o loader ao iniciar
         loader.style.display = 'flex';
     </script>
 </body>
