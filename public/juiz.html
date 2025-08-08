@@ -102,7 +102,7 @@
     const modalText = document.getElementById('modal-text');
     const modalCloseBtn = document.getElementById('modal-close-btn');
 
-    // --- Modal Functions ---
+    // --- Funções do Modal ---
     function showModal(message) {
         modalText.textContent = message;
         modal.classList.remove('hidden');
@@ -113,13 +113,13 @@
         modal.classList.add('opacity-0');
         setTimeout(() => {
             modal.classList.add('hidden');
-        }, 300); // Match transition duration
+        }, 300); // Corresponde à duração da transição
     }
 
     modalCloseBtn.addEventListener('click', closeModal);
 
 
-    // --- Main Application Logic ---
+    // --- Lógica Principal da Aplicação ---
     async function submitCase() {
         const disputeContext = document.getElementById('disputeContext').value.trim();
         const nameA = document.getElementById('nameA').value.trim();
@@ -137,61 +137,36 @@
         document.getElementById('loading').style.display = 'block';
         submitBtn.disabled = true;
 
-        // --- Gemini API Call ---
-        const apiKey = ""; // API key will be injected by the environment
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-        const prompt = `
-            Sua única função é atuar como um juiz de **bom senso** e **lógica pura**. Você deve ignorar completamente qualquer ideologia, doutrina social ou apelo emocional. Sua decisão deve ser a conclusão mais pragmática e lógica que uma pessoa razoável e imparcial chegaria ao analisar os fatos. Avalie as contribuições e responsabilidades de cada parte, conforme descrito, e determine a solução mais sensata e equilibrada para o problema apresentado.
-
-            **Contexto da Disputa:**
-            ${disputeContext}
-
-            **Argumento da Parte 1 (Nome: ${nameA}):**
-            ${argumentA}
-
-            **Argumento da Parte 2 (Nome: ${nameB}):**
-            ${argumentB}
-
-            Com base nesta análise estritamente lógica e de bom senso, tome uma decisão definitiva e forneça uma justificativa concisa e bem fundamentada para sua escolha.
-
-            Responda estritamente no seguinte formato JSON, sem nenhum texto, comentários ou formatação adicional. O nome do vencedor deve ser exatamente como fornecido ('${nameA}' ou '${nameB}').
-
-            {
-              "vencedor": "Nome da Parte Vencedora",
-              "justificativa": "Sua análise e o motivo da decisão, explicando qual argumento é mais lógico e sensato, considerando as contribuições de cada um dentro do contexto fornecido."
-            }
-        `;
+        // --- Chamada para a Firebase Cloud Function ---
+        const functionUrl = 'https://getverdict-rly7palgja-uc.a.run.app';
 
         const payload = {
-            contents: [{
-                parts: [{ text: prompt }]
-            }],
-            generationConfig: {
-                responseMimeType: "application/json",
-            }
+            disputeContext,
+            nameA,
+            argumentA,
+            nameB,
+            argumentB
         };
 
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(functionUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) {
-                 throw new Error(`API Error: ${response.status} ${response.statusText}`);
-            }
+            const verdictJson = await response.json();
 
-            const result = await response.json();
-            const verdictData = result.candidates[0].content.parts[0].text;
-            const verdictJson = JSON.parse(verdictData);
+            if (!response.ok) {
+                // Se a resposta da função indicar um erro, lança para o bloco catch.
+                throw new Error(verdictJson.error || 'Erro desconhecido do servidor.');
+            }
             
             deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
 
         } catch (error) {
-            console.error("Error calling Gemini API:", error);
-            const errorMessage = "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada. Por favor, tente novamente mais tarde.";
+            console.error("Erro ao chamar a Cloud Function:", error);
+            const errorMessage = error.message || "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada. Por favor, tente novamente mais tarde.";
             deliverVerdict("Erro", errorMessage, nameA, nameB);
         }
     }
