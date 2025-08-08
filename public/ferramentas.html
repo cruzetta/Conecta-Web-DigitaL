@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramentas - Conecta Web Digital</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #020617; /* bg-slate-950 */
+            color: #d1d5db; /* text-slate-300 */
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .tool-card {
+            background-color: #1e293b; /* bg-slate-800 */
+            border: 1px solid #334155; /* border-slate-700 */
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: #0ea5e9; /* border-sky-500 */
+        }
+
+        .tool-card-button {
+            background-color: #0ea5e9; /* bg-sky-500 */
+            color: #ffffff;
+            transition: background-color 0.3s ease;
+        }
+
+        .tool-card-button:hover {
+            background-color: #0284c7; /* bg-sky-600 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container Principal -->
+    <div class="w-full min-h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="bg-slate-900 shadow-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <a href="index.html" class="flex-shrink-0">
+                        <span class="text-2xl font-playfair font-bold text-white">Conecta Web</span>
+                    </a>
+                    <a href="index.html#services" class="hidden sm:inline-block text-slate-300 hover:text-white transition-colors">
+                        Voltar ao Início
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo da Página de Ferramentas -->
+        <main class="flex-grow py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-12 md:mb-16">
+                    <h1 class="font-playfair text-4xl md:text-5xl font-bold text-white">
+                        Nossas Ferramentas
+                    </h1>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+                        Uma seleção de utilitários para otimizar seu fluxo de trabalho e impulsionar seus projetos.
+                    </p>
+                </div>
+
+                <!-- Container da Ferramenta -->
+                <div class="flex justify-center">
+
+                    <!-- Card da Ferramenta (Juiz) -->
+                    <div class="tool-card rounded-lg p-8 flex flex-col w-full max-w-md">
+                        <div class="flex-shrink-0 mb-5">
+                            <svg class="w-10 h-10 text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.153.34c-1.325 0-2.61-.212-3.85-.621m-4.5 0c-1.01.143-2.01.317-3 .52m0 0l-2.62 10.726c-.122.499.106 1.028.589 1.202a5.989 5.989 0 002.153.34c1.325 0 2.61-.212 3.85-.621" />
+                            </svg>
+                        </div>
+                         <div class="flex-grow">
+                            <h2 class="text-xl font-semibold text-white mb-2">O Juiz Imparcial</h2>
+                            <p class="text-slate-400 leading-relaxed">
+                                Resolva disputas e quebre impasses com um veredito final baseado em lógica e bom senso.
+                            </p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="juiz.html" class="tool-card-button font-bold py-2 px-5 rounded-md inline-block">
+                                Acessar Ferramenta
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-950 text-slate-400 py-8 mt-auto">
+            <div class="max-w-7xl mx-auto text-center px-4">
+                <p>&copy; 2025 Conecta Web Digital. Todos os direitos reservados.</p>
+                 <p class="mt-2 text-sm"><a href="politica-de-privacidade.html" class="hover:text-sky-400 transition-colors">Política de Privacidade</a></p>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Juiz Imparcial - Veredito Final</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Using a more classic font for the court theme */
+        body {
+            font-family: 'Georgia', serif;
+        }
+        /* Custom color for the theme */
+        .theme-color {
+            color: #a0785a;
+        }
+        .theme-bg {
+            background-color: #a0785a;
+        }
+        .theme-border {
+            border-color: #a0785a;
+        }
+        .theme-bg-hover:hover {
+            background-color: #8c6147;
+        }
+        /* Custom styles for the modal */
+        #modal {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+<div class="container bg-white p-8 rounded-lg shadow-xl max-w-4xl w-full">
+    <header class="text-center mb-8 pb-4 border-b-4 theme-border">
+        <h1 class="text-4xl font-bold theme-color">🏛️ O Juiz Imparcial 🏛️</h1>
+        <p class="text-lg italic text-gray-600 mt-2">Um tribunal neutro para resolver suas disputas mais difíceis.</p>
+    </header>
+
+    <div id="formArea">
+        <p class="mb-6 text-center">Bem-vindos. Este tribunal digital foi estabelecido para fornecer uma decisão final e inquestionável. Primeiro, descreva o contexto da disputa e, em seguida, cada parte deve apresentar seus argumentos de forma clara e objetiva.</p>
+
+        <!-- New Context Section -->
+        <div class="mb-6">
+            <label for="disputeContext" class="block font-bold mb-2 text-lg text-center theme-color">Contexto da Disputa:</label>
+            <textarea id="disputeContext" placeholder="Descreva a situação ou o problema central que precisa ser resolvido. Por exemplo: 'A disputa é sobre quem deve lavar a louça hoje à noite.' ou 'Estamos decidindo qual filme assistir.'" class="w-full p-3 border border-gray-300 rounded-md h-28 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+        </div>
+
+        <div class="case-section grid md:grid-cols-2 gap-6 mb-6">
+            <div class="party bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-2xl font-bold mb-4 text-center theme-color">Parte 1</h2>
+                <label for="nameA" class="block font-bold mb-1">Nome:</label>
+                <input type="text" id="nameA" placeholder="Seu nome" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600 focus:border-transparent">
+                <label for="argumentA" class="block font-bold mt-4 mb-1">Seu Argumento:</label>
+                <textarea id="argumentA" placeholder="Explique seu ponto de vista, apresente fatos e por que você está certo(a)." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+            </div>
+
+            <div class="party bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-2xl font-bold mb-4 text-center theme-color">Parte 2</h2>
+                <label for="nameB" class="block font-bold mb-1">Nome:</label>
+                <input type="text" id="nameB" placeholder="O nome da outra parte" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600 focus:border-transparent">
+                <label for="argumentB" class="block font-bold mt-4 mb-1">Seu Argumento:</label>
+                <textarea id="argumentB" placeholder="Explique o ponto de vista da outra parte." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+            </div>
+        </div>
+
+        <div class="submit-area text-center mt-6">
+            <button id="submitBtn" onclick="submitCase()" class="theme-bg text-white font-bold py-3 px-8 rounded-lg text-lg theme-bg-hover transition-colors duration-300 shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:cursor-wait">
+                Submeter para Julgamento
+            </button>
+        </div>
+    </div>
+
+    <div id="loading" class="hidden text-center py-10">
+        <h2 class="text-3xl font-bold theme-color animate-pulse">Deliberando... ⚖️</h2>
+        <p class="mt-4 text-lg">O Juiz está analisando o contexto, os fatos e a lógica de ambas as partes.</p>
+    </div>
+
+    <div id="verdict" class="hidden text-center py-10">
+        <div class="verdict-title text-3xl font-bold theme-color mb-4">O Tribunal Chegou a um Veredito</div>
+        <p class="mb-6">Após cuidadosa consideração de todos os argumentos apresentados, a decisão é a seguinte:</p>
+        <p class="winner text-2xl font-bold text-green-600 mb-6" id="winnerName"></p>
+        <div class="reasoning bg-gray-50 p-6 rounded-lg border-l-8 theme-border text-left italic" id="reasoningText"></div>
+        <p class="mt-8 text-sm text-gray-500"><i>Lembre-se: o objetivo desta ferramenta é quebrar o impasse, não criar mais conflito. Caso encerrado.</i></p>
+        <button onclick="resetCourt()" class="mt-8 theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover transition-colors duration-300 shadow-md hover:shadow-lg">Iniciar Novo Julgamento</button>
+    </div>
+</div>
+
+<!-- Modal for alerts -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50" onclick="closeModal()">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center" onclick="event.stopPropagation()">
+        <h3 class="text-xl font-bold mb-4 theme-color">Atenção</h3>
+        <p id="modal-text" class="mb-6"></p>
+        <button id="modal-close-btn" class="theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover transition-colors duration-300">Entendido</button>
+    </div>
+</div>
+
+
+<script>
+    const modal = document.getElementById('modal');
+    const modalText = document.getElementById('modal-text');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    // --- Modal Functions ---
+    function showModal(message) {
+        modalText.textContent = message;
+        modal.classList.remove('hidden');
+        modal.classList.add('opacity-100');
+    }
+
+    function closeModal() {
+        modal.classList.add('opacity-0');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300); // Match transition duration
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+
+    // --- Main Application Logic ---
+    async function submitCase() {
+        const disputeContext = document.getElementById('disputeContext').value.trim();
+        const nameA = document.getElementById('nameA').value.trim();
+        const argumentA = document.getElementById('argumentA').value.trim();
+        const nameB = document.getElementById('nameB').value.trim();
+        const argumentB = document.getElementById('argumentB').value.trim();
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (!disputeContext || !nameA || !argumentA || !nameB || !argumentB) {
+            showModal("Erro no processo! O contexto e os argumentos de ambas as partes devem ser preenchidos.");
+            return;
+        }
+
+        document.getElementById('formArea').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+        submitBtn.disabled = true;
+
+        // --- Gemini API Call ---
+        const apiKey = ""; // API key will be injected by the environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        const prompt = `
+            Sua única função é atuar como um juiz de **bom senso** e **lógica pura**. Você deve ignorar completamente qualquer ideologia, doutrina social ou apelo emocional. Sua decisão deve ser a conclusão mais pragmática e lógica que uma pessoa razoável e imparcial chegaria ao analisar os fatos. Avalie as contribuições e responsabilidades de cada parte, conforme descrito, e determine a solução mais sensata e equilibrada para o problema apresentado.
+
+            **Contexto da Disputa:**
+            ${disputeContext}
+
+            **Argumento da Parte 1 (Nome: ${nameA}):**
+            ${argumentA}
+
+            **Argumento da Parte 2 (Nome: ${nameB}):**
+            ${argumentB}
+
+            Com base nesta análise estritamente lógica e de bom senso, tome uma decisão definitiva e forneça uma justificativa concisa e bem fundamentada para sua escolha.
+
+            Responda estritamente no seguinte formato JSON, sem nenhum texto, comentários ou formatação adicional. O nome do vencedor deve ser exatamente como fornecido ('${nameA}' ou '${nameB}').
+
+            {
+              "vencedor": "Nome da Parte Vencedora",
+              "justificativa": "Sua análise e o motivo da decisão, explicando qual argumento é mais lógico e sensato, considerando as contribuições de cada um dentro do contexto fornecido."
+            }
+        `;
+
+        const payload = {
+            contents: [{
+                parts: [{ text: prompt }]
+            }],
+            generationConfig: {
+                responseMimeType: "application/json",
+            }
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                 throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            const verdictData = result.candidates[0].content.parts[0].text;
+            const verdictJson = JSON.parse(verdictData);
+            
+            deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
+
+        } catch (error) {
+            console.error("Error calling Gemini API:", error);
+            const errorMessage = "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada. Por favor, tente novamente mais tarde.";
+            deliverVerdict("Erro", errorMessage, nameA, nameB);
+        }
+    }
+
+    function deliverVerdict(winner, reason, nameA, nameB) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('verdict').style.display = 'block';
+
+        const winnerNameEl = document.getElementById('winnerName');
+        const reasoningTextEl = document.getElementById('reasoningText');
+
+        if (winner === "Erro" || (winner !== nameA && winner !== nameB)) {
+            winnerNameEl.innerText = "Ocorreu um Erro no Julgamento";
+            winnerNameEl.classList.remove('text-green-600');
+            winnerNameEl.classList.add('text-red-600');
+            reasoningTextEl.innerText = reason;
+        } else {
+            winnerNameEl.innerText = winner + " apresentou o argumento mais forte!";
+            reasoningTextEl.innerText = "Justificativa: " + reason;
+        }
+    }
+
+    function resetCourt() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
