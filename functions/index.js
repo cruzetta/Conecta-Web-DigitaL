@@ -1,42 +1,43 @@
 /* eslint-disable max-len */
 
-/**
- * Importa os módulos necessários do Firebase e do Google Generative AI.
- */
-const functions = require("firebase-functions");
+// Importa os módulos para Cloud Functions v2
+const {onRequest} = require("firebase-functions/v2/https");
+const {defineString} = require("firebase-functions/params");
 const {GoogleGenerativeAI} = require("@google/generative-ai");
-const cors = require("cors")({origin: true});
 
-// Inicializa o cliente da API do Gemini com a chave de API das configurações de ambiente.
-const genAI = new GoogleGenerativeAI(functions.config().gemini.key);
+// Define o parâmetro para a chave da API de forma segura.
+// O Firebase solicitará o valor deste parâmetro no primeiro deploy.
+const geminiApiKey = defineString("GEMINI_KEY");
 
 /**
  * Define a Cloud Function 'getVerdict' que será acionada por uma requisição HTTP.
+ * A opção {cors: true} instrui o Firebase a lidar com as requisições CORS automaticamente.
  */
-exports.getVerdict = functions.https.onRequest((req, res) => {
-  // Habilita o CORS para permitir que o seu site chame esta função.
-  cors(req, res, async () => {
-    // Verifica se o método da requisição é POST.
-    if (req.method !== "POST") {
-      return res.status(405).send("Método não permitido. Use POST.");
-    }
+exports.getVerdict = onRequest({cors: true}, async (req, res) => {
+  // A verificação de método continua sendo uma boa prática.
+  if (req.method !== "POST") {
+    res.status(405).send("Método não permitido. Use POST.");
+    return;
+  }
 
-    // Extrai os dados da disputa do corpo da requisição (sem espaços extras).
-    const {disputeContext, nameA, argumentA, nameB, argumentB} = req.body;
+  // Extrai os dados da disputa do corpo da requisição.
+  const {disputeContext, nameA, argumentA, nameB, argumentB} = req.body;
 
-    // Valida se todos os campos necessários foram fornecidos.
-    if (!disputeContext || !nameA || !argumentA || !nameB || !argumentB) {
-      return res.status(400).json({
-        error: "Erro no processo! O contexto e os argumentos de ambas as partes devem ser preenchidos.",
-      });
-    }
+  // Valida se todos os campos necessários foram fornecidos.
+  if (!disputeContext || !nameA || !argumentA || !nameB || !argumentB) {
+    res.status(400).json({
+      error: "Erro no processo! O contexto e os argumentos de ambas as partes devem ser preenchidos.",
+    });
+    return;
+  }
 
-    try {
-      // Define o modelo do Gemini a ser usado.
-      const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
+  try {
+    // Inicializa o cliente da API do Gemini com a chave do parâmetro.
+    const genAI = new GoogleGenerativeAI(geminiApiKey.value());
+    const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 
-      // Monta o prompt para a IA, instruindo-a a agir como um juiz lógico.
-      const prompt = `
+    // Monta o prompt para a IA, instruindo-a a agir como um juiz lógico.
+    const prompt = `
         Sua única função é atuar como um juiz de **bom senso** e **lógica pura**. Você deve ignorar completamente qualquer ideologia, doutrina social ou apelo emocional. Sua decisão deve ser a conclusão mais pragmática e lógica que uma pessoa razoável e imparcial chegaria ao analisar os fatos. Avalie as contribuições e responsabilidades de cada parte, conforme descrito, e determine a solução mais sensata e equilibrada para o problema apresentado.
 
         **Contexto da Disputa:**
@@ -58,18 +59,17 @@ exports.getVerdict = functions.https.onRequest((req, res) => {
         }
       `;
 
-      // Gera o conteúdo usando a API do Gemini.
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+    // Gera o conteúdo usando a API do Gemini.
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-      // Envia a resposta JSON de volta para o cliente (o site).
-      res.status(200).send(text);
-    } catch (error) {
-      console.error("Erro ao chamar a API do Gemini:", error);
-      res.status(500).json({
-        error: "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada.",
-      });
-    }
-  });
+    // Envia a resposta JSON de volta para o cliente (o site).
+    res.status(200).send(text);
+  } catch (error) {
+    console.error("Erro ao chamar a API do Gemini:", error);
+    res.status(500).json({
+      error: "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada.",
+    });
+  }
 });
