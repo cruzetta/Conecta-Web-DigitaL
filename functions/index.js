@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /**
  * Importa os módulos necessários do Firebase e do Google Generative AI.
  */
