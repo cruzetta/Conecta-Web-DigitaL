@@ -4,13 +4,13 @@
 const {onRequest} = require("firebase-functions/v2/https");
 const {defineString} = require("firebase-functions/params");
 const {GoogleGenerativeAI} = require("@google/generative-ai");
-const cors = require("cors")({origin: true}); // Importa e configura o middleware CORS
 
 // Define o parâmetro para a chave da API de forma segura.
 const geminiApiKey = defineString("GEMINI_KEY");
 
 /**
  * Define a Cloud Function 'getVerdict' que será acionada por uma requisição HTTP.
+ * A opção {cors: true} instrui o Firebase a lidar com as requisições CORS automaticamente.
  */
 exports.getVerdict = onRequest({cors: true}, async (req, res) => {
   // A verificação de método continua a ser uma boa prática.
@@ -63,14 +63,12 @@ exports.getVerdict = onRequest({cors: true}, async (req, res) => {
     const response = await result.response;
     let text = response.text();
 
-    // **INÍCIO DA CORREÇÃO**
     // Limpa a resposta para garantir que é um JSON válido, removendo o wrapper de markdown.
     if (text.startsWith("```json")) {
       text = text.substring(7, text.length - 3).trim();
     } else if (text.startsWith("```")) {
       text = text.substring(3, text.length - 3).trim();
     }
-    // **FIM DA CORREÇÃO**
 
     // Tenta fazer o parse do texto limpo e envia o objeto JSON.
     try {
