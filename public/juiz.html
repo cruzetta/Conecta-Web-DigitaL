@@ -99,12 +99,43 @@
     </div>
 </div>
 
-<script>
-    // --- Gerenciamento de Estado da Aplicação ---
+<!-- Firebase SDKs -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // A sua configuração do Firebase.
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlJ1UWCsKPymTE0cOvHP1wveznX8X3j1o",
+      authDomain: "conecta-web-digital.firebaseapp.com",
+      projectId: "conecta-web-digital",
+      storageBucket: "conecta-web-digital.appspot.com",
+      messagingSenderId: "341962931462",
+      appId: "1:341962931462:web:a4c62fe83a8db5f9bcb287",
+      measurementId: "G-ETY22T8XTP"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // --- LÓGICA DO CONTADOR DE VISITAS ---
+    async function incrementViewCount() {
+        const counterRef = doc(db, 'pageViews', 'juiz');
+        try {
+            // Usa a função 'increment' do Firestore para aumentar o valor atomicamente
+            await setDoc(counterRef, { count: increment(1) }, { merge: true });
+        } catch (error) {
+            console.error("Erro ao incrementar contador de visitas: ", error);
+        }
+    }
+    
+    // Chama a função para incrementar o contador assim que a página carregar
+    window.addEventListener('load', incrementViewCount);
+
+    // --- O restante do seu script original ---
     let conversationHistory = [];
     let caseData = {};
 
-    // --- Elementos do DOM ---
     const formArea = document.getElementById('formArea');
     const questionArea = document.getElementById('questionArea');
     const loading = document.getElementById('loading');
@@ -113,7 +144,6 @@
     const modalText = document.getElementById('modal-text');
     const modalCloseBtn = document.getElementById('modal-close-btn');
 
-    // --- Funções do Modal ---
     function showModal(message) {
         modalText.textContent = message;
         modal.classList.remove('hidden');
@@ -123,7 +153,6 @@
     }
     modalCloseBtn.addEventListener('click', closeModal);
 
-    // --- Funções de UI ---
     function showSection(section) {
         formArea.style.display = 'none';
         questionArea.style.display = 'none';
@@ -132,8 +161,7 @@
         section.style.display = 'block';
     }
 
-    // --- Lógica Principal ---
-    function submitCase() {
+    window.submitCase = function() {
         caseData = {
             disputeContext: document.getElementById('disputeContext').value.trim(),
             nameA: document.getElementById('nameA').value.trim(),
@@ -148,7 +176,7 @@
         callJudge();
     }
 
-    function submitResponse() {
+    window.submitResponse = function() {
         const respostaA = document.getElementById('respostaA').value.trim();
         const respostaB = document.getElementById('respostaB').value.trim();
         if (!respostaA || !respostaB) {
@@ -218,7 +246,7 @@
         showSection(verdict);
     }
 
-    function resetCourt() {
+    window.resetCourt = function() {
         location.reload();
     }
 </script>

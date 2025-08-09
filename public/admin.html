@@ -67,7 +67,13 @@
             </div>
             <nav class="flex-grow">
                 <h3 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Gerir Site</h3>
-                <a href="#appearance" id="nav-appearance" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-300">
+                <a href="#dashboard" id="nav-dashboard" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-300">
+                    <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25A2.25 2.25 0 0113.5 8.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                    </svg>
+                    Painel
+                </a>
+                <a href="#appearance" id="nav-appearance" class="sidebar-link flex items-center mt-2 px-3 py-2.5 rounded-lg text-slate-300">
                      <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l2 2m7-7l-2 2"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.5 3.5l-1.5 1.5M18 2l-2 2m-2-2l2 2m-2-2l-2 2m5.5 1.5l-1.5 1.5"></path></svg>
                     Aparência
                 </a>
@@ -91,6 +97,19 @@
         <!-- Conteúdo Principal -->
         <main class="flex-1 bg-slate-950 overflow-y-auto">
             
+            <!-- Seção do Painel (Dashboard) -->
+            <div id="content-dashboard" class="content-section p-4 sm:p-6 lg:p-8">
+                <h1 class="text-2xl font-bold text-white mb-6">Painel de Controle</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card de Visitas -->
+                    <div class="bg-slate-900 p-6 rounded-lg">
+                        <h2 class="text-sm font-medium text-slate-400">Visitas na Página "O Juiz"</h2>
+                        <p id="juiz-view-count" class="text-4xl font-bold text-sky-400 mt-2">0</p>
+                    </div>
+                    <!-- Outros cards podem ser adicionados aqui -->
+                </div>
+            </div>
+
             <!-- Seção de Gerenciamento de Aparência -->
             <div id="content-appearance" class="content-section p-4 sm:p-6 lg:p-8">
                 <h1 class="text-2xl font-bold text-white mb-2">Gerenciar Aparência</h1>
@@ -241,6 +260,7 @@
         const loader = document.getElementById('loader');
         const adminDashboard = document.getElementById('admin-dashboard');
         const logoutButton = document.getElementById('logout-button');
+        const juizViewCountEl = document.getElementById('juiz-view-count');
         
         const navLinks = document.querySelectorAll('.sidebar-link');
         const contentSections = document.querySelectorAll('.content-section');
@@ -266,7 +286,6 @@
         const questionTextDisplay = document.getElementById('question-text-display');
         const questionAnswerText = document.getElementById('question-answer-text');
 
-
         // --- AUTENTICAÇÃO E INICIALIZAÇÃO ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -280,9 +299,26 @@
 
         logoutButton.addEventListener('click', () => signOut(auth));
 
+        // --- LÓGICA DO CONTADOR DE VISITAS ---
+        function listenToViewCount() {
+            const counterRef = doc(db, 'pageViews', 'juiz');
+            onSnapshot(counterRef, (doc) => {
+                if (doc.exists()) {
+                    const count = doc.data().count;
+                    juizViewCountEl.textContent = count.toLocaleString('pt-BR');
+                } else {
+                    juizViewCountEl.textContent = '0';
+                }
+            }, (error) => {
+                console.error("Erro ao ouvir o contador de visitas: ", error);
+                juizViewCountEl.textContent = 'Erro';
+            });
+        }
+
         // --- NAVEGAÇÃO POR ABAS ---
         function setupNavigation() {
             const tabFunctions = {
+                '#dashboard': listenToViewCount,
                 '#appearance': setupAppearanceManagement,
                 '#questions': listenForQuestions,
                 '#testimonials': listenForTestimonials
@@ -310,7 +346,7 @@
             
             window.addEventListener('hashchange', () => switchTab(window.location.hash));
 
-            const initialHash = window.location.hash || '#appearance';
+            const initialHash = window.location.hash || '#dashboard';
             window.location.hash = initialHash;
             switchTab(initialHash);
         }
@@ -356,7 +392,7 @@
             });
         }
 
-        // --- GERENCIAMENTO DE PERGUNTAS (CORRIGIDO) ---
+        // --- GERENCIAMENTO DE PERGUNTAS ---
         function listenForQuestions() {
             const pendingQuery = query(collection(db, 'questions'), where("status", "==", "pending"), orderBy("createdAt", "desc"));
             onSnapshot(pendingQuery, (snapshot) => {
@@ -371,10 +407,7 @@
                         pendingQuestionsContainer.appendChild(card);
                     });
                 }
-            }, (error) => {
-                console.error("Erro ao buscar perguntas pendentes: ", error);
-                pendingQuestionsContainer.innerHTML = `<p class="text-red-400">Erro ao carregar perguntas. Verifique o console para mais detalhes.</p>`;
-            });
+            }, (error) => console.error("Erro ao buscar perguntas pendentes: ", error));
 
             const approvedQuery = query(collection(db, 'questions'), where("status", "==", "approved"), orderBy("approvedAt", "desc"));
             onSnapshot(approvedQuery, (snapshot) => {
@@ -389,10 +422,7 @@
                         approvedQuestionsContainer.appendChild(card);
                     });
                 }
-            }, (error) => {
-                console.error("Erro ao buscar perguntas aprovadas: ", error);
-                approvedQuestionsContainer.innerHTML = `<p class="text-red-400">Erro ao carregar perguntas. Verifique o console para mais detalhes.</p>`;
-            });
+            }, (error) => console.error("Erro ao buscar perguntas aprovadas: ", error));
         }
 
         function createQuestionCard(id, data, type) {
@@ -410,8 +440,7 @@
                         <button class="approve-button flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md">Aprovar e Responder</button>
                         <button class="delete-button bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Rejeitar</button>
                     </div>`;
-            } else { // 'approved'
-                // **FIX: Replace newline characters with <br> tags for proper display**
+            } else {
                 const formattedAnswer = data.answerText.replace(/\n/g, '<br>');
                 card.innerHTML = `
                     <p class="text-slate-200 font-semibold">De: <span class="text-sky-400 font-bold">${data.userName || 'Anônimo'}</span></p>
@@ -419,10 +448,10 @@
                     <p class="text-sky-300 bg-black/20 p-3 rounded-md">${formattedAnswer}</p>
                     <div class="flex justify-end items-center gap-2 mt-3">
                         <button class="edit-question-button p-2 text-slate-400 hover:text-white rounded-md transition-colors" title="Editar Resposta">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                         </button>
                         <button class="delete-button p-2 text-slate-400 hover:text-red-500 rounded-md transition-colors" title="Excluir Pergunta">
-                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>`;
             }
@@ -438,45 +467,27 @@
 
             const id = card.dataset.id;
             
-            // Ações em perguntas
             if (card.closest('#content-questions')) {
                 const questionRef = doc(db, 'questions', id);
-                
-                // Ação em pergunta PENDENTE
-                if (card.querySelector('.answer-text')) {
-                    if (button.classList.contains('approve-button')) {
-                        const answerText = card.querySelector('.answer-text').value.trim();
-                        if (answerText) {
-                            try {
-                                await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
-                            } catch (error) {
-                                console.error("Erro ao aprovar pergunta: ", error);
-                                alert("Erro ao aprovar. Verifique o console.");
-                            }
-                        } else {
-                            alert('Por favor, digite uma resposta.');
-                        }
-                    } else if (button.classList.contains('delete-button')) {
-                        if (confirm('Tem certeza que deseja REJEITAR esta pergunta? A ação não pode ser desfeita.')) {
-                            await deleteDoc(questionRef);
-                        }
+                if (button.classList.contains('approve-button')) {
+                    const answerText = card.querySelector('.answer-text').value.trim();
+                    if (answerText) {
+                        await updateDoc(questionRef, { status: 'approved', answerText, approvedAt: serverTimestamp() });
+                    } else {
+                        alert('Por favor, digite uma resposta.');
                     }
-                } 
-                // Ação em pergunta APROVADA
-                else {
-                    if (button.classList.contains('edit-question-button')) {
-                        const docSnap = await getDoc(questionRef);
-                        if (docSnap.exists()) {
-                            const data = docSnap.data();
-                            questionIdInput.value = id;
-                            questionTextDisplay.textContent = data.questionText;
-                            questionAnswerText.value = data.answerText;
-                            questionModal.classList.remove('hidden');
-                        }
-                    } else if (button.classList.contains('delete-button')) {
-                        if (confirm('Tem certeza que deseja EXCLUIR esta pergunta aprovada? A ação não pode ser desfeita.')) {
-                            await deleteDoc(questionRef);
-                        }
+                } else if (button.classList.contains('delete-button')) {
+                    if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
+                        await deleteDoc(questionRef);
+                    }
+                } else if (button.classList.contains('edit-question-button')) {
+                    const docSnap = await getDoc(questionRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        questionIdInput.value = id;
+                        questionTextDisplay.textContent = data.questionText;
+                        questionAnswerText.value = data.answerText;
+                        questionModal.classList.remove('hidden');
                     }
                 }
             }
@@ -527,8 +538,8 @@
                 }
                 testimonialModal.classList.add('hidden');
             } catch (error) {
-                console.error("Erro detalhado ao salvar depoimento:", error);
-                alert(`Ocorreu um erro ao salvar.\n\nDetalhes: ${error.message}`);
+                console.error("Erro ao salvar depoimento:", error);
+                alert(`Ocorreu um erro ao salvar: ${error.message}`);
             }
         });
 
@@ -591,13 +602,11 @@
             e.preventDefault();
             const id = questionIdInput.value;
             if (!id) return;
-
             const answerText = questionAnswerText.value.trim();
             if (!answerText) {
                 alert('A resposta não pode ficar em branco.');
                 return;
             }
-
             const questionRef = doc(db, 'questions', id);
             try {
                 await updateDoc(questionRef, {
