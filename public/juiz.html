@@ -102,7 +102,7 @@
 <!-- Firebase SDKs -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // A sua configuração do Firebase.
     const firebaseConfig = {
@@ -118,12 +118,23 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // --- LÓGICA DO CONTADOR DE VISITAS ---
+    // --- LÓGICA DO CONTADOR DE VISITAS ÚNICAS POR SESSÃO ---
     async function incrementViewCount() {
+        // Verifica se a visita já foi contada nesta sessão do navegador
+        if (sessionStorage.getItem('juizPageVisited')) {
+            console.log("Visita já contada nesta sessão.");
+            return; // Sai da função se já foi contada
+        }
+
         const counterRef = doc(db, 'pageViews', 'juiz');
         try {
             // Usa a função 'increment' do Firestore para aumentar o valor atomicamente
             await setDoc(counterRef, { count: increment(1) }, { merge: true });
+            
+            // Marca no sessionStorage que a visita foi contada para esta sessão
+            sessionStorage.setItem('juizPageVisited', 'true');
+            console.log("Visita única contada e registrada na sessão.");
+
         } catch (error) {
             console.error("Erro ao incrementar contador de visitas: ", error);
         }
