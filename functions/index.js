@@ -63,25 +63,31 @@ exports.getVerdict = onRequest({cors: true}, async (req, res) => {
     const response = await result.response;
     let text = response.text();
 
-    // Limpa a resposta para garantir que é um JSON válido, removendo o wrapper de markdown.
+    // **INÍCIO DA CORREÇÃO**
+    // Limpa a resposta para garantir que é um JSON válido, removendo o wrapper de markdown e outros caracteres indesejados.
     if (text.startsWith("```json")) {
       text = text.substring(7, text.length - 3).trim();
     } else if (text.startsWith("```")) {
       text = text.substring(3, text.length - 3).trim();
     }
+    
+    // Tenta encontrar o início e o fim de um objeto JSON na string
+    const jsonStart = text.indexOf('{');
+    const jsonEnd = text.lastIndexOf('}');
+
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+        text = text.substring(jsonStart, jsonEnd + 1);
+    } else {
+        // Se não encontrar um JSON, lança um erro.
+        throw new Error("A resposta da IA não continha um formato JSON reconhecível.");
+    }
+    // **FIM DA CORREÇÃO**
+
 
     // Tenta fazer o parse do texto limpo e envia o objeto JSON.
     try {
-      // **INÍCIO DA CORREÇÃO**
-      // Valida se o texto parece ser um JSON antes de tentar o parse.
-      if (text.trim().startsWith("{") && text.trim().endsWith("}")) {
-        const jsonResponse = JSON.parse(text);
-        res.status(200).json(jsonResponse);
-      } else {
-        // Se não for um JSON, lança um erro específico.
-        throw new Error("A resposta do tribunal não veio no formato esperado. Tente reformular os argumentos.");
-      }
-      // **FIM DA CORREÇÃO**
+      const jsonResponse = JSON.parse(text);
+      res.status(200).json(jsonResponse);
     } catch (parseError) {
       console.error("Erro ao fazer o parse do JSON da API:", parseError);
       console.error("Texto recebido da API que causou o erro:", text);

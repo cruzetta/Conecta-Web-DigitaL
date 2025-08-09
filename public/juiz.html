@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O Juiz Imparcial - Veredito Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap)" rel="stylesheet">
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
     <style>
         /* Using a more classic font for the court theme */
         body {
@@ -138,7 +138,7 @@
         submitBtn.disabled = true;
 
         // --- Chamada para a Firebase Cloud Function ---
-        const functionUrl = 'https://getverdict-rly7palgja-uc.a.run.app';
+        const functionUrl = '[https://getverdict-rly7palgja-uc.a.run.app](https://getverdict-rly7palgja-uc.a.run.app)';
 
         const payload = {
             disputeContext,
@@ -155,15 +155,22 @@
                 body: JSON.stringify(payload)
             });
 
+            // **INÍCIO DA CORREÇÃO**
+            // Verifica se a requisição foi bem-sucedida (status 2xx)
+            if (!response.ok) {
+                // Tenta extrair uma mensagem de erro do corpo da resposta
+                const errorData = await response.json().catch(() => ({ error: 'Erro desconhecido do servidor.' }));
+                throw new Error(errorData.error || `Erro ${response.status}: ${response.statusText}`);
+            }
+
             const verdictJson = await response.json();
 
-            // **INÍCIO DA CORREÇÃO**
-            // Verifica se a resposta é um objeto JSON válido e contém as chaves esperadas.
-            if (response.ok && verdictJson && typeof verdictJson === 'object' && 'vencedor' in verdictJson && 'justificativa' in verdictJson) {
+            // Verifica se o JSON recebido tem a estrutura esperada
+            if (verdictJson && typeof verdictJson === 'object' && 'vencedor' in verdictJson && 'justificativa' in verdictJson) {
                 deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
             } else {
-                // Se não for, lança um erro com a mensagem do servidor, se houver.
-                throw new Error(verdictJson.error || 'A resposta do tribunal foi malformada.');
+                // Se o JSON não tiver a estrutura correta, trata como resposta malformada
+                throw new Error('A resposta do tribunal foi malformada.');
             }
             // **FIM DA CORREÇÃO**
 
