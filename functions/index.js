@@ -72,11 +72,20 @@ exports.getVerdict = onRequest({cors: true}, async (req, res) => {
 
     // Tenta fazer o parse do texto limpo e envia o objeto JSON.
     try {
-      const jsonResponse = JSON.parse(text);
-      res.status(200).json(jsonResponse);
+      // **INÍCIO DA CORREÇÃO**
+      // Valida se o texto parece ser um JSON antes de tentar o parse.
+      if (text.trim().startsWith("{") && text.trim().endsWith("}")) {
+        const jsonResponse = JSON.parse(text);
+        res.status(200).json(jsonResponse);
+      } else {
+        // Se não for um JSON, lança um erro específico.
+        throw new Error("A resposta do tribunal não veio no formato esperado. Tente reformular os argumentos.");
+      }
+      // **FIM DA CORREÇÃO**
     } catch (parseError) {
       console.error("Erro ao fazer o parse do JSON da API:", parseError);
       console.error("Texto recebido da API que causou o erro:", text);
+      // Lança o erro para ser pego pelo bloco catch principal.
       throw new Error("A resposta do tribunal foi malformada.");
     }
   } catch (error) {
