@@ -157,16 +157,19 @@
 
             const verdictJson = await response.json();
 
-            if (!response.ok) {
-                // Se a resposta da função indicar um erro, lança para o bloco catch.
-                throw new Error(verdictJson.error || 'Erro desconhecido do servidor.');
+            // **INÍCIO DA CORREÇÃO**
+            // Verifica se a resposta é um objeto JSON válido e contém as chaves esperadas.
+            if (response.ok && verdictJson && typeof verdictJson === 'object' && 'vencedor' in verdictJson && 'justificativa' in verdictJson) {
+                deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
+            } else {
+                // Se não for, lança um erro com a mensagem do servidor, se houver.
+                throw new Error(verdictJson.error || 'A resposta do tribunal foi malformada.');
             }
-            
-            deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
+            // **FIM DA CORREÇÃO**
 
         } catch (error) {
-            console.error("Erro ao chamar a Cloud Function:", error);
-            const errorMessage = error.message || "Ocorreu um erro de comunicação com o tribunal superior. A sessão foi adiada. Por favor, tente novamente mais tarde.";
+            console.error("Erro ao chamar a Cloud Function ou processar a resposta:", error);
+            const errorMessage = error.message || "Ocorreu um erro de comunicação com o tribunal superior. Por favor, tente novamente mais tarde.";
             deliverVerdict("Erro", errorMessage, nameA, nameB);
         }
     }
