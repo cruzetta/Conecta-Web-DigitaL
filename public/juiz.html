@@ -7,27 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Using a more classic font for the court theme */
-        body {
-            font-family: 'Georgia', serif;
-        }
-        /* Custom color for the theme */
-        .theme-color {
-            color: #a0785a;
-        }
-        .theme-bg {
-            background-color: #a0785a;
-        }
-        .theme-border {
-            border-color: #a0785a;
-        }
-        .theme-bg-hover:hover {
-            background-color: #8c6147;
-        }
-        /* Custom styles for the modal */
-        #modal {
-            transition: opacity 0.3s ease;
-        }
+        body { font-family: 'Georgia', serif; }
+        .theme-color { color: #a0785a; }
+        .theme-bg { background-color: #a0785a; }
+        .theme-border { border-color: #a0785a; }
+        .theme-bg-hover:hover { background-color: #8c6147; }
+        #modal { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
@@ -35,69 +20,95 @@
 <div class="container bg-white p-8 rounded-lg shadow-xl max-w-4xl w-full">
     <header class="text-center mb-8 pb-4 border-b-4 theme-border">
         <h1 class="text-4xl font-bold theme-color">🏛️ O Juiz Imparcial 🏛️</h1>
-        <p class="text-lg italic text-gray-600 mt-2">Um tribunal neutro para resolver suas disputas mais difíceis.</p>
+        <p class="text-lg italic text-gray-600 mt-2">Um tribunal neutro para resolver suas disputas.</p>
     </header>
 
+    <!-- ÁREA INICIAL DO FORMULÁRIO -->
     <div id="formArea">
-        <p class="mb-6 text-center">Bem-vindos. Este tribunal digital foi estabelecido para fornecer uma decisão final e inquestionável. Primeiro, descreva o contexto da disputa e, em seguida, cada parte deve apresentar seus argumentos de forma clara e objetiva.</p>
-
-        <!-- New Context Section -->
+        <p class="mb-6 text-center">Apresentem o caso. Descrevam o contexto da disputa e, em seguida, cada parte deve apresentar seus argumentos de forma clara e objetiva.</p>
         <div class="mb-6">
             <label for="disputeContext" class="block font-bold mb-2 text-lg text-center theme-color">Contexto da Disputa:</label>
-            <textarea id="disputeContext" placeholder="Descreva a situação ou o problema central que precisa ser resolvido. Por exemplo: 'A disputa é sobre quem deve lavar a louça hoje à noite.' ou 'Estamos decidindo qual filme assistir.'" class="w-full p-3 border border-gray-300 rounded-md h-28 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+            <textarea id="disputeContext" placeholder="Descreva a situação ou o problema central..." class="w-full p-3 border border-gray-300 rounded-md h-28 resize-none focus:ring-2 focus:ring-amber-600"></textarea>
         </div>
-
         <div class="case-section grid md:grid-cols-2 gap-6 mb-6">
             <div class="party bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <h2 class="text-2xl font-bold mb-4 text-center theme-color">Parte 1</h2>
                 <label for="nameA" class="block font-bold mb-1">Nome:</label>
-                <input type="text" id="nameA" placeholder="Seu nome" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600 focus:border-transparent">
-                <label for="argumentA" class="block font-bold mt-4 mb-1">Seu Argumento:</label>
-                <textarea id="argumentA" placeholder="Explique seu ponto de vista, apresente fatos e por que você está certo(a)." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+                <input type="text" id="nameA" placeholder="Seu nome" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600">
+                <label for="argumentA" class="block font-bold mt-4 mb-1">Argumento:</label>
+                <textarea id="argumentA" placeholder="Explique seu ponto de vista..." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600"></textarea>
             </div>
-
             <div class="party bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <h2 class="text-2xl font-bold mb-4 text-center theme-color">Parte 2</h2>
                 <label for="nameB" class="block font-bold mb-1">Nome:</label>
-                <input type="text" id="nameB" placeholder="O nome da outra parte" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600 focus:border-transparent">
-                <label for="argumentB" class="block font-bold mt-4 mb-1">Seu Argumento:</label>
-                <textarea id="argumentB" placeholder="Explique o ponto de vista da outra parte." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600 focus:border-transparent"></textarea>
+                <input type="text" id="nameB" placeholder="Nome da outra parte" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-amber-600">
+                <label for="argumentB" class="block font-bold mt-4 mb-1">Argumento:</label>
+                <textarea id="argumentB" placeholder="Explique o ponto de vista da outra parte." class="w-full p-2 border border-gray-300 rounded-md h-48 resize-none focus:ring-2 focus:ring-amber-600"></textarea>
             </div>
         </div>
-
-        <div class="submit-area text-center mt-6">
-            <button id="submitBtn" onclick="submitCase()" class="theme-bg text-white font-bold py-3 px-8 rounded-lg text-lg theme-bg-hover transition-colors duration-300 shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:cursor-wait">
-                Submeter para Julgamento
-            </button>
+        <div class="text-center mt-6">
+            <button id="submitBtn" onclick="submitCase()" class="theme-bg text-white font-bold py-3 px-8 rounded-lg text-lg theme-bg-hover transition-colors shadow-md hover:shadow-lg disabled:bg-gray-400">Submeter para Julgamento</button>
         </div>
     </div>
 
-    <div id="loading" class="hidden text-center py-10">
-        <h2 class="text-3xl font-bold theme-color animate-pulse">Deliberando... ⚖️</h2>
-        <p class="mt-4 text-lg">O Juiz está analisando o contexto, os fatos e a lógica de ambas as partes.</p>
+    <!-- ÁREA DE PERGUNTAS DO JUIZ -->
+    <div id="questionArea" class="hidden">
+        <h2 class="text-2xl font-bold theme-color text-center mb-4">O Juiz Requer Esclarecimentos</h2>
+        <div class="bg-amber-50 p-6 rounded-lg border-l-4 theme-border mb-6">
+            <p class="font-bold text-lg">Pergunta do Juiz:</p>
+            <p id="judgeQuestionText" class="italic text-gray-700 mt-2"></p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="respostaA" id="labelRespostaA" class="block font-bold mb-1">Resposta da Parte 1:</label>
+                <textarea id="respostaA" class="w-full p-2 border border-gray-300 rounded-md h-32 resize-none focus:ring-2 focus:ring-amber-600"></textarea>
+            </div>
+            <div>
+                <label for="respostaB" id="labelRespostaB" class="block font-bold mb-1">Resposta da Parte 2:</label>
+                <textarea id="respostaB" class="w-full p-2 border border-gray-300 rounded-md h-32 resize-none focus:ring-2 focus:ring-amber-600"></textarea>
+            </div>
+        </div>
+        <div class="text-center mt-6">
+            <button id="submitResponseBtn" onclick="submitResponse()" class="theme-bg text-white font-bold py-3 px-8 rounded-lg text-lg theme-bg-hover transition-colors shadow-md hover:shadow-lg disabled:bg-gray-400">Enviar Respostas e Continuar</button>
+        </div>
     </div>
 
+    <!-- ÁREA DE DELIBERAÇÃO (LOADING) -->
+    <div id="loading" class="hidden text-center py-10">
+        <h2 class="text-3xl font-bold theme-color animate-pulse">Deliberando... ⚖️</h2>
+        <p class="mt-4 text-lg">O Juiz está analisando o caso.</p>
+    </div>
+
+    <!-- ÁREA DO VEREDITO FINAL -->
     <div id="verdict" class="hidden text-center py-10">
-        <div class="verdict-title text-3xl font-bold theme-color mb-4">O Tribunal Chegou a um Veredito</div>
-        <p class="mb-6">Após cuidadosa consideração de todos os argumentos apresentados, a decisão é a seguinte:</p>
-        <p class="winner text-2xl font-bold text-green-600 mb-6" id="winnerName"></p>
-        <div class="reasoning bg-gray-50 p-6 rounded-lg border-l-8 theme-border text-left italic" id="reasoningText"></div>
-        <p class="mt-8 text-sm text-gray-500"><i>Lembre-se: o objetivo desta ferramenta é quebrar o impasse, não criar mais conflito. Caso encerrado.</i></p>
-        <button onclick="resetCourt()" class="mt-8 theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover transition-colors duration-300 shadow-md hover:shadow-lg">Iniciar Novo Julgamento</button>
+        <h2 class="text-3xl font-bold theme-color mb-4">O Tribunal Chegou a um Veredito</h2>
+        <p class="mb-6">Após consideração, a decisão é a seguinte:</p>
+        <p class="text-2xl font-bold text-green-600 mb-6" id="winnerName"></p>
+        <div class="bg-gray-50 p-6 rounded-lg border-l-8 theme-border text-left italic" id="reasoningText"></div>
+        <p class="mt-8 text-sm text-gray-500"><i>Lembre-se: o objetivo é quebrar o impasse, não criar conflito. Caso encerrado.</i></p>
+        <button onclick="resetCourt()" class="mt-8 theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover transition-colors shadow-md hover:shadow-lg">Iniciar Novo Julgamento</button>
     </div>
 </div>
 
-<!-- Modal for alerts -->
+<!-- MODAL DE ALERTA -->
 <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50" onclick="closeModal()">
     <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center" onclick="event.stopPropagation()">
         <h3 class="text-xl font-bold mb-4 theme-color">Atenção</h3>
         <p id="modal-text" class="mb-6"></p>
-        <button id="modal-close-btn" class="theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover transition-colors duration-300">Entendido</button>
+        <button id="modal-close-btn" class="theme-bg text-white font-bold py-2 px-6 rounded-lg theme-bg-hover">Entendido</button>
     </div>
 </div>
 
-
 <script>
+    // --- Gerenciamento de Estado da Aplicação ---
+    let conversationHistory = [];
+    let caseData = {};
+
+    // --- Elementos do DOM ---
+    const formArea = document.getElementById('formArea');
+    const questionArea = document.getElementById('questionArea');
+    const loading = document.getElementById('loading');
+    const verdict = document.getElementById('verdict');
     const modal = document.getElementById('modal');
     const modalText = document.getElementById('modal-text');
     const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -106,47 +117,53 @@
     function showModal(message) {
         modalText.textContent = message;
         modal.classList.remove('hidden');
-        modal.classList.add('opacity-100');
     }
-
     function closeModal() {
-        modal.classList.add('opacity-0');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300); // Corresponde à duração da transição
+        modal.classList.add('hidden');
     }
-
     modalCloseBtn.addEventListener('click', closeModal);
 
+    // --- Funções de UI ---
+    function showSection(section) {
+        formArea.style.display = 'none';
+        questionArea.style.display = 'none';
+        loading.style.display = 'none';
+        verdict.style.display = 'none';
+        section.style.display = 'block';
+    }
 
-    // --- Lógica Principal da Aplicação ---
-    async function submitCase() {
-        const disputeContext = document.getElementById('disputeContext').value.trim();
-        const nameA = document.getElementById('nameA').value.trim();
-        const argumentA = document.getElementById('argumentA').value.trim();
-        const nameB = document.getElementById('nameB').value.trim();
-        const argumentB = document.getElementById('argumentB').value.trim();
-        const submitBtn = document.getElementById('submitBtn');
-
-        if (!disputeContext || !nameA || !argumentA || !nameB || !argumentB) {
-            showModal("Erro no processo! O contexto e os argumentos de ambas as partes devem ser preenchidos.");
+    // --- Lógica Principal ---
+    function submitCase() {
+        caseData = {
+            disputeContext: document.getElementById('disputeContext').value.trim(),
+            nameA: document.getElementById('nameA').value.trim(),
+            argumentA: document.getElementById('argumentA').value.trim(),
+            nameB: document.getElementById('nameB').value.trim(),
+            argumentB: document.getElementById('argumentB').value.trim(),
+        };
+        if (!caseData.disputeContext || !caseData.nameA || !caseData.argumentA || !caseData.nameB || !caseData.argumentB) {
+            showModal("Todos os campos iniciais devem ser preenchidos.");
             return;
         }
+        callJudge();
+    }
 
-        document.getElementById('formArea').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
-        submitBtn.disabled = true;
+    function submitResponse() {
+        const respostaA = document.getElementById('respostaA').value.trim();
+        const respostaB = document.getElementById('respostaB').value.trim();
+        if (!respostaA || !respostaB) {
+            showModal("Ambas as partes devem responder à pergunta do Juiz.");
+            return;
+        }
+        const lastTurn = conversationHistory[conversationHistory.length - 1];
+        lastTurn.respostas = { respostaA, respostaB };
+        callJudge();
+    }
 
-        // --- Chamada para a Firebase Cloud Function ---
+    async function callJudge() {
+        showSection(loading);
         const functionUrl = 'https://getverdict-rly7palgja-uc.a.run.app';
-
-        const payload = {
-            disputeContext,
-            nameA,
-            argumentA,
-            nameB,
-            argumentB
-        };
+        const payload = { ...caseData, historico: conversationHistory };
 
         try {
             const response = await fetch(functionUrl, {
@@ -155,48 +172,50 @@
                 body: JSON.stringify(payload)
             });
 
-            // **INÍCIO DA CORREÇÃO**
-            // Verifica se a requisição foi bem-sucedida (status 2xx)
             if (!response.ok) {
-                // Tenta extrair uma mensagem de erro do corpo da resposta
                 const errorData = await response.json().catch(() => ({ error: 'Erro desconhecido do servidor.' }));
                 throw new Error(errorData.error || `Erro ${response.status}: ${response.statusText}`);
             }
 
-            const verdictJson = await response.json();
+            const result = await response.json();
 
-            // Verifica se o JSON recebido tem a estrutura esperada
-            if (verdictJson && typeof verdictJson === 'object' && 'vencedor' in verdictJson && 'justificativa' in verdictJson) {
-                deliverVerdict(verdictJson.vencedor, verdictJson.justificativa, nameA, nameB);
+            if (result.status === 'veredito') {
+                deliverVerdict(result.vencedor, result.justificativa);
+            } else if (result.status === 'pergunta') {
+                conversationHistory.push({ juiz: result.pergunta });
+                askQuestion(result.pergunta);
             } else {
-                // Se o JSON não tiver a estrutura correta, trata como resposta malformada
-                throw new Error('A resposta do tribunal foi malformada.');
+                throw new Error('Resposta do tribunal em formato inesperado.');
             }
-            // **FIM DA CORREÇÃO**
-
         } catch (error) {
-            console.error("Erro ao chamar a Cloud Function ou processar a resposta:", error);
-            const errorMessage = error.message || "Ocorreu um erro de comunicação com o tribunal superior. Por favor, tente novamente mais tarde.";
-            deliverVerdict("Erro", errorMessage, nameA, nameB);
+            console.error("Erro na chamada da função:", error);
+            deliverVerdict("Erro", error.message);
         }
     }
 
-    function deliverVerdict(winner, reason, nameA, nameB) {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('verdict').style.display = 'block';
+    function askQuestion(question) {
+        document.getElementById('judgeQuestionText').innerText = question;
+        document.getElementById('labelRespostaA').innerText = `Resposta de ${caseData.nameA}:`;
+        document.getElementById('labelRespostaB').innerText = `Resposta de ${caseData.nameB}:`;
+        document.getElementById('respostaA').value = '';
+        document.getElementById('respostaB').value = '';
+        showSection(questionArea);
+    }
 
+    function deliverVerdict(winner, reason) {
         const winnerNameEl = document.getElementById('winnerName');
         const reasoningTextEl = document.getElementById('reasoningText');
 
-        if (winner === "Erro" || (winner !== nameA && winner !== nameB)) {
+        if (winner === "Erro" || (winner !== caseData.nameA && winner !== caseData.nameB)) {
             winnerNameEl.innerText = "Ocorreu um Erro no Julgamento";
-            winnerNameEl.classList.remove('text-green-600');
-            winnerNameEl.classList.add('text-red-600');
+            winnerNameEl.className = 'text-2xl font-bold text-red-600 mb-6';
             reasoningTextEl.innerText = reason;
         } else {
-            winnerNameEl.innerText = winner + " apresentou o argumento mais forte!";
-            reasoningTextEl.innerText = "Justificativa: " + reason;
+            winnerNameEl.innerText = `${winner} apresentou o argumento mais forte!`;
+            winnerNameEl.className = 'text-2xl font-bold text-green-600 mb-6';
+            reasoningTextEl.innerText = `Justificativa: ${reason}`;
         }
+        showSection(verdict);
     }
 
     function resetCourt() {

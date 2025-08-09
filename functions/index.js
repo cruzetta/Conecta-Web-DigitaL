@@ -9,89 +9,100 @@ const {GoogleGenerativeAI} = require("@google/generative-ai");
 const geminiApiKey = defineString("GEMINI_KEY");
 
 /**
- * Define a Cloud Function 'getVerdict' que será acionada por uma requisição HTTP.
- * A opção {cors: true} instrui o Firebase a lidar com as requisições CORS automaticamente.
+ * Cloud Function que atua como um juiz, podendo dar um veredito ou fazer perguntas.
  */
 exports.getVerdict = onRequest({cors: true}, async (req, res) => {
-  // A verificação de método continua a ser uma boa prática.
   if (req.method !== "POST") {
-    res.status(405).send("Método não permitido. Use POST.");
-    return;
+    return res.status(405).send("Método não permitido. Use POST.");
   }
 
-  // Extrai os dados da disputa do corpo da requisição.
-  const {disputeContext, nameA, argumentA, nameB, argumentB} = req.body;
+  const {disputeContext, nameA, argumentA, nameB, argumentB, historico} = req.body;
 
-  // Valida se todos os campos necessários foram fornecidos.
   if (!disputeContext || !nameA || !argumentA || !nameB || !argumentB) {
-    res.status(400).json({
-      error: "Erro no processo! O contexto e os argumentos de ambas as partes devem ser preenchidos.",
+    return res.status(400).json({
+      error: "O contexto e os argumentos iniciais de ambas as partes são obrigatórios.",
     });
-    return;
   }
 
   try {
-    // Inicializa o cliente da API do Gemini com a chave do parâmetro.
     const genAI = new GoogleGenerativeAI(geminiApiKey.value());
     const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 
-    // Monta o prompt para a IA, instruindo-a a agir como um juiz lógico.
-    const prompt = `
-        Sua única função é atuar como um juiz de **bom senso** e **lógica pura**. Você deve ignorar completamente qualquer ideologia, doutrina social ou apelo emocional. Sua decisão deve ser a conclusão mais pragmática e lógica que uma pessoa razoável e imparcial chegaria ao analisar os fatos. Avalie as contribuições e responsabilidades de cada parte, conforme descrito, e determine a solução mais sensata e equilibrada para o problema apresentado.
+    // Constrói a string do histórico para incluir no prompt
+    const historyString = (historico || []).map((turn) => {
+      if (turn.juiz) {
+        return `PERGUNTA ANTERIOR DO JUIZ: ${turn.juiz}`;
+      }
+      if (turn.respostas) {
+        return `RESPOSTAS DAS PARTES:\n- ${nameA}: ${turn.respostas.respostaA}\n- ${nameB}: ${turn.respostas.respostaB}`;
+      }
+      return "";
+    }).join("\n\n");
 
-        **Contexto da Disputa:**
+    const prompt = `
+        Você é "O Juiz", uma entidade de lógica pura e bom senso. Sua tarefa é resolver uma disputa entre duas partes.
+
+        REGRAS PRINCIPAIS:
+        1.  **DECISÃO OBRIGATÓRIA:** Você NUNCA deve empatar ou ficar "em cima do muro". Ao final, uma parte DEVE ser declarada vencedora.
+        2.  **ANÁLISE CRÍTICA:** Analise os argumentos com base na lógica, bom senso, responsabilidade e contribuição de cada parte dentro do contexto. Ignore apelos emocionais ou ideologias.
+        3.  **BUSCA POR CLAREZA:** Se os argumentos forem ambíguos, muito parecidos, ou se ambos forem igualmente fortes/fracos a ponto de impedir uma decisão clara, sua primeira ação NÃO é decidir, mas sim FAZER UMA PERGUNTA.
+        4.  **A PERGUNTA:** Formule UMA única pergunta crítica e específica, direcionada a ambas as partes, que seja a mais eficaz para desequilibrar o impasse e revelar o argumento mais forte. A pergunta deve extrair informações novas e decisivas.
+
+        **CONTEXTO DA DISPUTA:**
         ${disputeContext}
 
-        **Argumento da Parte 1 (Nome: ${nameA}):**
+        **ARGUMENTO INICIAL - PARTE 1 (${nameA}):**
         ${argumentA}
 
-        **Argumento da Parte 2 (Nome: ${nameB}):**
+        **ARGUMENTO INICIAL - PARTE 2 (${nameB}):**
         ${argumentB}
 
-        Com base nesta análise estritamente lógica e de bom senso, tome uma decisão definitiva e forneça uma justificativa concisa e bem fundamentada para sua escolha.
+        ${historyString ? `\nHISTÓRICO DA DISCUSSÃO:\n${historyString}` : ""}
 
-        Responda estritamente no seguinte formato JSON, sem nenhum texto, comentários ou formatação adicional. O nome do vencedor deve ser exatamente como fornecido ('${nameA}' ou '${nameB}').
+        **SUA AÇÃO:**
+        -   **SE** você já tem informações suficientes para declarar um vencedor de forma lógica e justa, responda com o JSON de "veredito".
+        -   **SE NÃO**, responda com o JSON de "pergunta".
 
+        **FORMATOS DE RESPOSTA (JSON ESTRITO, SEM TEXTO ADICIONAL):**
+
+        Formato para Veredito:
         {
+          "status": "veredito",
           "vencedor": "Nome da Parte Vencedora",
-          "justificativa": "Sua análise e o motivo da decisão, explicando qual argumento é mais lógico e sensato, considerando as contribuições de cada um dentro do contexto fornecido."
+          "justificativa": "Análise concisa explicando por que o argumento do vencedor foi mais lógico e sensato, levando em conta todo o histórico da discussão."
+        }
+
+        Formato para Pergunta (use este se precisar de mais informações):
+        {
+          "status": "pergunta",
+          "pergunta": "Sua pergunta crítica e específica aqui."
         }
       `;
 
-    // Gera o conteúdo usando a API do Gemini.
     const result = await model.generateContent(prompt);
     const response = await result.response;
     let text = response.text();
 
-    // **INÍCIO DA CORREÇÃO**
-    // Limpa a resposta para garantir que é um JSON válido, removendo o wrapper de markdown e outros caracteres indesejados.
+    // Limpa a resposta para garantir que é um JSON válido
     if (text.startsWith("```json")) {
       text = text.substring(7, text.length - 3).trim();
     } else if (text.startsWith("```")) {
       text = text.substring(3, text.length - 3).trim();
     }
 
-    // Tenta encontrar o início e o fim de um objeto JSON na string
     const jsonStart = text.indexOf("{");
     const jsonEnd = text.lastIndexOf("}");
 
-    if (jsonStart !== -1 && jsonEnd !== -1) {
-      text = text.substring(jsonStart, jsonEnd + 1);
-    } else {
-      // Se não encontrar um JSON, lança um erro.
+    if (jsonStart === -1 || jsonEnd === -1) {
       throw new Error("A resposta da IA não continha um formato JSON reconhecível.");
     }
-    // **FIM DA CORREÇÃO**
+    text = text.substring(jsonStart, jsonEnd + 1);
 
-
-    // Tenta fazer o parse do texto limpo e envia o objeto JSON.
     try {
       const jsonResponse = JSON.parse(text);
       res.status(200).json(jsonResponse);
     } catch (parseError) {
-      console.error("Erro ao fazer o parse do JSON da API:", parseError);
-      console.error("Texto recebido da API que causou o erro:", text);
-      // Lança o erro para ser pego pelo bloco catch principal.
+      console.error("Erro ao fazer o parse do JSON da API:", parseError, "Texto recebido:", text);
       throw new Error("A resposta do tribunal foi malformada.");
     }
   } catch (error) {
