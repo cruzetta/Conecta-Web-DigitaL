@@ -2,16 +2,18 @@
 
 // Importa os módulos para Cloud Functions v2
 const {onRequest} = require("firebase-functions/v2/https");
-const {defineString} = require("firebase-functions/params");
+// Alterado de defineString para defineSecret
+const {defineSecret} = require("firebase-functions/params"); 
 const {GoogleGenerativeAI} = require("@google/generative-ai");
 
-// Define o parâmetro para a chave da API de forma segura.
-const geminiApiKey = defineString("GEMINI_KEY");
+// Define o parâmetro para usar o segredo armazenado no Secret Manager.
+const geminiApiKey = defineSecret("GEMINI_KEY");
 
 /**
  * Cloud Function que atua como um juiz, podendo dar um veredito ou fazer perguntas.
  */
-exports.getVerdict = onRequest({cors: true}, async (req, res) => {
+// Adicionado 'secrets: [geminiApiKey]' para que a função tenha acesso ao segredo
+exports.getVerdict = onRequest({cors: true, secrets: [geminiApiKey]}, async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).send("Método não permitido. Use POST.");
   }
