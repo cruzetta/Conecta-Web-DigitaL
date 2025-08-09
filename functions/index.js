@@ -70,16 +70,16 @@ exports.getVerdict = onRequest({cors: true}, async (req, res) => {
     } else if (text.startsWith("```")) {
       text = text.substring(3, text.length - 3).trim();
     }
-    
+
     // Tenta encontrar o início e o fim de um objeto JSON na string
-    const jsonStart = text.indexOf('{');
-    const jsonEnd = text.lastIndexOf('}');
+    const jsonStart = text.indexOf("{");
+    const jsonEnd = text.lastIndexOf("}");
 
     if (jsonStart !== -1 && jsonEnd !== -1) {
-        text = text.substring(jsonStart, jsonEnd + 1);
+      text = text.substring(jsonStart, jsonEnd + 1);
     } else {
-        // Se não encontrar um JSON, lança um erro.
-        throw new Error("A resposta da IA não continha um formato JSON reconhecível.");
+      // Se não encontrar um JSON, lança um erro.
+      throw new Error("A resposta da IA não continha um formato JSON reconhecível.");
     }
     // **FIM DA CORREÇÃO**
 
