@@ -260,7 +260,6 @@
         const loader = document.getElementById('loader');
         const adminDashboard = document.getElementById('admin-dashboard');
         const logoutButton = document.getElementById('logout-button');
-        const juizViewCountEl = document.getElementById('juiz-view-count');
         
         const navLinks = document.querySelectorAll('.sidebar-link');
         const contentSections = document.querySelectorAll('.content-section');
@@ -301,6 +300,10 @@
 
         // --- LÓGICA DO CONTADOR DE VISITAS ---
         function listenToViewCount() {
+            // **CORREÇÃO**: Acessa o elemento só quando a função é chamada
+            const juizViewCountEl = document.getElementById('juiz-view-count');
+            if (!juizViewCountEl) return; // Garante que o elemento exista
+
             const counterRef = doc(db, 'pageViews', 'juiz');
             onSnapshot(counterRef, (doc) => {
                 if (doc.exists()) {
