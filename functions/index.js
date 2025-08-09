@@ -83,28 +83,24 @@ exports.getVerdict = onRequest({cors: true, secrets: [geminiApiKey]}, async (req
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    let text = response.text();
+    const text = response.text();
 
-    // Limpa a resposta para garantir que é um JSON válido
-    if (text.startsWith("```json")) {
-      text = text.substring(7, text.length - 3).trim();
-    } else if (text.startsWith("```")) {
-      text = text.substring(3, text.length - 3).trim();
-    }
-
+    // **LÓGICA DE LIMPEZA MELHORADA**
+    // Encontra o primeiro '{' e o último '}' para extrair apenas o objeto JSON.
     const jsonStart = text.indexOf("{");
-    const jsonEnd = text.lastIndexOf("}");
+    const jsonEnd = text.lastIndexOf("}") + 1;
 
-    if (jsonStart === -1 || jsonEnd === -1) {
-      throw new Error("A resposta da IA não continha um formato JSON reconhecível.");
+    if (jsonStart === -1 || jsonEnd === 0) {
+      console.error("Resposta da IA não continha um JSON válido:", text);
+      throw new Error("A resposta do tribunal veio no formato esperado. Tente reformular os argumentos.");
     }
-    text = text.substring(jsonStart, jsonEnd + 1);
+    const jsonString = text.substring(jsonStart, jsonEnd);
 
     try {
-      const jsonResponse = JSON.parse(text);
+      const jsonResponse = JSON.parse(jsonString);
       res.status(200).json(jsonResponse);
     } catch (parseError) {
-      console.error("Erro ao fazer o parse do JSON da API:", parseError, "Texto recebido:", text);
+      console.error("Erro ao fazer o parse do JSON da API:", parseError, "String recebida para parse:", jsonString);
       throw new Error("A resposta do tribunal foi malformada.");
     }
   } catch (error) {
