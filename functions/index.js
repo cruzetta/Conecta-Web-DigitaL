@@ -3,7 +3,7 @@
 // Importa os módulos para Cloud Functions v2
 const {onRequest} = require("firebase-functions/v2/https");
 // Alterado de defineString para defineSecret
-const {defineSecret} = require("firebase-functions/params"); 
+const {defineSecret} = require("firebase-functions/params");
 const {GoogleGenerativeAI} = require("@google/generative-ai");
 
 // Define o parâmetro para usar o segredo armazenado no Secret Manager.
