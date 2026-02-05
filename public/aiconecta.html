@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Automate - Inteligência Artificial para WhatsApp</title>
+    
+    <!-- Meta Tags -->
+    <meta property="og:title" content="Conecta Automate - IA e Automação">
+    <meta property="og:description" content="Automatize seu atendimento no WhatsApp com a elegância e estratégia da Conecta Web Digital.">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Playfair Display & Lora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        conecta: {
+                            bg: '#1a1a1a',
+                            card: '#222222',
+                            border: '#333333',
+                            gold: '#D4AF37',
+                            goldHover: '#B5952F',
+                            text: '#f4f4f4',
+                            muted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        lora: ['"Lora"', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- ESTILO BASE CONECTA --- */
+        body {
+            background-color: #1a1a1a;
+            color: #f4f4f4;
+            font-family: 'Lora', serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Scrollbar Premium */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border: 1px solid #444;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        /* Utilitários de Animação */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão Dourado */
+        .btn-gold {
+            background-color: #D4AF37;
+            color: #1a1a1a;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            background-color: #f4f4f4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Inputs Customizados */
+        .input-conecta {
+            background-color: rgba(34, 34, 34, 0.8);
+            border: 1px solid #333;
+            color: #f4f4f4;
+            transition: border-color 0.3s ease;
+        }
+        .input-conecta:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 1px #D4AF37;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- --- NAV (Estilo Conecta) --- -->
+    <nav class="fixed w-full z-50 bg-[#1a1a1a]/90 backdrop-blur-md border-b border-conecta-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[72px]">
+                <div class="flex items-center gap-2">
+                    <!-- Ícone estilizado em Dourado -->
+                    <div class="w-8 h-8 border border-conecta-gold flex items-center justify-center rounded-sm">
+                        <i data-lucide="bot" class="text-conecta-gold w-5 h-5"></i>
+                    </div>
+                    <span class="text-2xl font-playfair font-bold text-white tracking-wide">Conecta<span class="text-conecta-gold">AI</span></span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#demo" class="text-gray-300 hover:text-conecta-gold transition-colors">A Inteligência</a>
+                    <a href="#otimizador" class="text-gray-300 hover:text-conecta-gold transition-colors">Otimizador</a>
+                    <a href="#estrategia" class="text-gray-300 hover:text-conecta-gold transition-colors">Estratégia</a>
+                    <a href="https://wa.me/5567999093031" target="_blank" class="btn-gold px-6 py-2 rounded-sm">
+                        Agendar Consultoria
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-conecta-card border-b border-conecta-border">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#demo" class="block text-gray-300 hover:text-conecta-gold">A Inteligência</a>
+                <a href="#otimizador" class="block text-gray-300 hover:text-conecta-gold">Otimizador</a>
+                <a href="#estrategia" class="block text-gray-300 hover:text-conecta-gold">Estratégia</a>
+                <a href="https://wa.me/5567999093031" class="block text-conecta-gold font-bold mt-4">Agendar Consultoria</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --- HERO SECTION --- -->
+    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center">
+        <!-- Fundo sutil animado -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 right-0 w-3/4 h-3/4 bg-conecta-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gray-800/20 rounded-full blur-[100px] pointer-events-none"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <!-- Texto Hero -->
+                <div class="flex-1 text-center lg:text-left reveal visible">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 border border-conecta-gold/30 rounded-full mb-6 bg-conecta-card/50">
+                        <span class="w-1.5 h-1.5 rounded-full bg-conecta-gold animate-pulse"></span>
+                        <span class="text-conecta-gold text-xs uppercase tracking-widest font-semibold">Tecnologia Conecta Web</span>
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                        Atendimento Premium <br>
+                        <span class="text-conecta-gold italic">no Piloto Automático</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 font-lora leading-relaxed">
+                        Eleve o padrão do seu WhatsApp. Nossa Inteligência Artificial conversa, qualifica e vende mantendo a elegância e o tom de voz da sua marca, 24 horas por dia.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <!-- Botão com Scroll Suave para o Chat -->
+                        <a href="#demo" class="btn-gold px-8 py-4 rounded-sm flex items-center justify-center gap-2 group">
+                            Testar a IA Agora
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#estrategia" class="px-8 py-4 border border-conecta-border text-white hover:border-conecta-gold hover:text-conecta-gold transition-colors rounded-sm flex items-center justify-center gap-2">
+                            Gerar Estratégia
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Demonstração do Chatbot (Visual Premium) -->
+                <!-- ADICIONADO id="demo" e scroll-mt-32 AQUI PARA O LINK FUNCIONAR -->
+                <div id="demo" class="flex-1 w-full max-w-md lg:max-w-lg reveal visible scroll-mt-32" style="transition-delay: 200ms;">
+                    <div class="relative bg-conecta-card border border-conecta-border rounded-lg shadow-2xl flex flex-col h-[600px]">
+                        <!-- Chat Header -->
+                        <div class="bg-[#151515] p-5 border-b border-conecta-border flex items-center gap-4 rounded-t-lg">
+                            <div class="w-12 h-12 rounded-full border border-conecta-gold/50 p-1">
+                                <div class="w-full h-full rounded-full bg-conecta-gold flex items-center justify-center">
+                                    <i data-lucide="bot" class="text-conecta-bg w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-playfair font-bold text-white text-lg">Assistente Conecta</h3>
+                                <p class="text-xs text-conecta-gold flex items-center gap-1 uppercase tracking-wider">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Online
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages -->
+                        <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#1a1a1a]">
+                            <!-- Mensagem Inicial -->
+                            <div class="flex justify-start">
+                                <div class="max-w-[85%] p-4 bg-conecta-card border border-conecta-border text-gray-200 text-sm shadow-sm relative">
+                                    <span class="absolute top-0 left-0 w-0.5 h-full bg-conecta-gold"></span>
+                                    Olá. Sou a IA da Conecta Web. Estamos aqui para revolucionar suas vendas. O que você gostaria de saber sobre nossos serviços?
+                                    <button onclick="playText('Olá. Sou a IA da Conecta Web. Estamos aqui para revolucionar suas vendas. O que você gostaria de saber sobre nossos serviços?', this)" class="block mt-2 text-xs text-gray-500 hover:text-conecta-gold transition-colors flex items-center gap-1">
+                                        <i data-lucide="volume-2" class="w-3 h-3"></i> Ouvir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <div class="p-4 bg-[#151515] border-t border-conecta-border rounded-b-lg">
+                            <form id="chat-form" class="flex gap-2">
+                                <input id="chat-input" type="text" placeholder="Digite sua mensagem..." class="flex-1 input-conecta px-4 py-3 text-sm rounded-sm placeholder-gray-600" />
+                                
+                                <!-- Botão de Áudio (Novo) -->
+                                <button type="button" id="mic-btn" class="bg-conecta-card border border-conecta-border text-gray-400 p-3 rounded-sm hover:text-conecta-gold transition-colors hidden sm:flex items-center justify-center" title="Gravar áudio">
+                                    <i data-lucide="mic" class="w-5 h-5"></i>
+                                </button>
+
+                                <button type="submit" id="chat-submit-btn" class="bg-conecta-gold text-conecta-bg p-3 rounded-sm hover:bg-white transition-colors disabled:opacity-50">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                </button>
+                            </form>
+                            <p class="text-center text-[10px] text-gray-600 mt-2 font-lora italic">
+                                Ambiente de demonstração. Powered by Gemini.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- --- FEATURE: OTIMIZADOR DE MENSAGENS --- -->
+    <section id="otimizador" class="py-24 border-y border-conecta-border bg-[#151515]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                        Refinamento <span class="text-conecta-gold">Instantâneo</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Muitas vezes, a venda é perdida no tom de voz. Nossa IA transforma rascunhos brutos em mensagens persuasivas, elegantes e focadas em conversão.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start">
+                            <div class="w-10 h-10 rounded-sm bg-conecta-card border border-conecta-border flex items-center justify-center shrink-0 text-conecta-gold">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">Proteção de Marca</h4>
+                                <p class="text-sm text-gray-500">A IA nunca sai do personagem, garantindo que sua empresa seja sempre vista com profissionalismo.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="w-10 h-10 rounded-sm bg-conecta-card border border-conecta-border flex items-center justify-center shrink-0 text-conecta-gold">
+                                <i data-lucide="trending-up" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">Foco em Conversão</h4>
+                                <p class="text-sm text-gray-500">Cada palavra é escolhida para mover o cliente para a próxima etapa do funil.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-conecta-card border border-conecta-border p-8 rounded-sm shadow-xl reveal" style="transition-delay: 200ms;">
+                    <h3 class="font-playfair text-2xl text-white mb-6 flex items-center gap-2">
+                        <i data-lucide="edit-3" class="w-5 h-5 text-conecta-gold"></i> Teste o Otimizador
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase tracking-widest mb-2 block">Rascunho (O que você quer dizer)</label>
+                            <input id="optimizer-input" type="text" placeholder='Ex: "tá muito caro, não quero"' class="w-full input-conecta p-4 rounded-sm" />
+                        </div>
+                        
+                        <button id="optimize-btn" class="w-full btn-gold py-3 rounded-sm flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            Refinar com IA
+                        </button>
+
+                        <div id="optimizer-result-container" class="hidden mt-6 pt-6 border-t border-conecta-border animate-fade-in">
+                            <label class="text-xs text-conecta-gold uppercase tracking-widest mb-2 block">Sugestão Conecta</label>
+                            <div class="bg-[#1a1a1a] border-l-2 border-conecta-gold p-4 text-gray-300 italic relative group">
+                                "<span id="optimizer-result-text"></span>"
+                                <button id="copy-btn" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs bg-conecta-card border border-conecta-border hover:text-conecta-gold px-2 py-1">
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- FEATURE: PLANEJADOR DE ESTRATÉGIA --- -->
+    <section id="estrategia" class="py-24 bg-[#1a1a1a]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 reveal">
+                Arquitetura de <span class="text-conecta-gold">Vendas</span>
+            </h2>
+            <p class="text-gray-400 text-lg mb-12 reveal">
+                Não sabe por onde começar a automatizar? Informe seu nicho e nossa IA desenhará um plano estratégico preliminar para sua empresa.
+            </p>
+
+            <div class="bg-conecta-card border border-conecta-border p-1 rounded-sm flex flex-col md:flex-row gap-2 reveal shadow-lg">
+                <input id="strategy-niche" type="text" placeholder="Ex: Clínica de Estética, Imobiliária de Luxo, Advocacia..." class="flex-1 bg-[#1a1a1a] text-white px-6 py-4 focus:outline-none placeholder-gray-600 font-lora" />
+                <button id="strategy-btn" class="btn-gold px-8 py-4 md:w-auto w-full font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2">
+                    Gerar Plano
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Resultado da Estratégia -->
+            <div id="strategy-result" class="hidden mt-12 text-left animate-fade-in">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Coluna Fluxos -->
+                    <div class="md:col-span-2 bg-conecta-card border border-conecta-border p-8 rounded-sm">
+                        <h4 class="text-conecta-gold font-playfair text-xl mb-6 border-b border-conecta-border pb-4">
+                            Fluxos Recomendados para <span id="result-niche-name" class="text-white"></span>
+                        </h4>
+                        <ul id="result-fluxos-list" class="space-y-4">
+                            <!-- Inserido via JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Coluna Métricas -->
+                    <div class="space-y-6">
+                        <div class="bg-conecta-card border border-conecta-border p-6 rounded-sm text-center">
+                            <i data-lucide="clock" class="w-8 h-8 text-conecta-gold mx-auto mb-3"></i>
+                            <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Economia Estimada</p>
+                            <p class="text-4xl font-playfair font-bold text-white"><span id="result-hours"></span>h</p>
+                            <p class="text-gray-500 text-xs mt-1">por semana</p>
+                        </div>
+                        
+                        <div class="bg-conecta-gold/10 border border-conecta-gold/20 p-6 rounded-sm">
+                            <p class="text-conecta-gold text-sm font-lora italic text-center">
+                                "<span id="result-benefit"></span>"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <a href="https://wa.me/5567999093031" target="_blank" class="text-gray-400 text-sm hover:text-conecta-gold underline transition-colors">
+                        Deseja implementar este plano? Fale com nossa equipe.
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CTA FINAL --- -->
+    <section class="py-24 relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-8 font-playfair reveal">
+                O Futuro da sua Empresa Começa com um <span class="text-conecta-gold">Olá</span>.
+            </h2>
+            <p class="text-xl text-gray-300 mb-10 font-lora reveal">
+                Transforme conversas em contratos. Agende uma demonstração personalizada e veja a Conecta AI em ação no seu negócio.
+            </p>
+            <a href="https://wa.me/5567999093031?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20automação%20de%20WhatsApp." target="_blank" class="btn-gold inline-block px-10 py-4 text-lg rounded-sm reveal">
+                Iniciar Projeto de Automação
+            </a>
+        </div>
+    </section>
+
+    <!-- --- FOOTER --- -->
+    <footer class="border-t border-conecta-border py-12 bg-[#151515]">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <i data-lucide="bot" class="text-conecta-gold w-6 h-6"></i>
+                <span class="text-2xl font-playfair font-bold text-white">Conecta Web Digital</span>
+            </div>
+            <p class="text-gray-500 mb-6 max-w-lg mx-auto">
+                Estratégia, Design e Tecnologia. Criando experiências digitais que geram resultados reais.
+            </p>
+            <p class="text-gray-600 text-sm">&copy; 2025 Conecta Web Digital. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- --- SCRIPTS (Lógica da IA) --- -->
+    <script>
+        // Inicializa ícones
+        lucide.createIcons();
+
+        // Reveal Animation
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(elem => revealObserver.observe(elem));
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- GEMINI AI INTEGRATION ---
+        
+        // Configuração da API
+        const apiKey = "AIzaSyC8BqGxkXepv3cEVL7cCv4Wag7fmA_hSbw"; // A chave será injetada pelo ambiente (ou use a sua se estiver testando localmente)
+        const model = "gemini-2.5-flash-preview-09-2025";
+
+        // Helper para loading
+        function setLoading(btn, isLoading, originalText, icon = '') {
+            btn.disabled = isLoading;
+            if (isLoading) {
+                btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-current inline mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processando...`;
+            } else {
+                btn.innerHTML = icon ? `${icon} ${originalText}` : originalText;
+                lucide.createIcons(); // Re-render icons inside button
+            }
+        }
+
+        // --- TEXT TO SPEECH LOGIC (GEMINI) ---
+        let currentAudioSource = null;
+        let audioContext = null;
+
+        // Helper para converter Base64 em ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            var binaryString = window.atob(base64);
+            var len = binaryString.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        async function playText(text, btn) {
+            // Parar áudio anterior se houver
+            if (currentAudioSource) {
+                try { currentAudioSource.stop(); } catch(e) {}
+                currentAudioSource = null;
+            }
+            
+            // Toggle: Se clicou no botão que já está tocando, apenas para.
+            if (btn.classList.contains('active-speaker')) {
+                resetAudioButtons();
+                return;
+            }
+
+            resetAudioButtons();
+
+            // UI Loading
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="animate-spin w-3 h-3 border-2 border-current border-t-transparent rounded-full inline-block"></i> Carregando voz neural...';
+            btn.classList.add('text-conecta-gold');
+
+            try {
+                if (!apiKey) throw new Error("Sem API Key");
+
+                // Request Gemini TTS
+                const response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: text }] }],
+                            generationConfig: {
+                                responseModalities: ["AUDIO"],
+                                speechConfig: {
+                                    voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } // Voz feminina agradável
+                                }
+                            }
+                        })
+                    }
+                );
+
+                if (!response.ok) throw new Error("Erro na API");
+
+                const data = await response.json();
+                const audioContent = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                
+                if (!audioContent) throw new Error("Sem áudio na resposta");
+
+                // Play Audio
+                if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                const pcmData = base64ToArrayBuffer(audioContent);
+                const int16Array = new Int16Array(pcmData);
+                const float32Array = new Float32Array(int16Array.length);
+                
+                // Converter PCM16 para Float32 para o AudioContext
+                for (let i = 0; i < int16Array.length; i++) {
+                    float32Array[i] = int16Array[i] / 32768;
+                }
+
+                const audioBuffer = audioContext.createBuffer(1, float32Array.length, 24000); // Sample rate padrão do Gemini TTS
+                audioBuffer.copyToChannel(float32Array, 0);
+
+                const source = audioContext.createBufferSource();
+                source.buffer = audioBuffer;
+                source.connect(audioContext.destination);
+                
+                source.onended = () => resetAudioButtons();
+                
+                source.start(0);
+                currentAudioSource = source;
+
+                // UI Playing
+                btn.innerHTML = '<i data-lucide="stop-circle" class="w-3 h-3"></i> Parar';
+                btn.classList.add('active-speaker');
+                lucide.createIcons();
+
+            } catch (error) {
+                console.warn("Falha no Gemini TTS, usando fallback nativo:", error);
+                // Fallback para a voz robótica se a API falhar (ou sem chave)
+                playNative(text, btn);
+            }
+        }
+
+        // Função de Fallback (Voz Robótica antiga)
+        function playNative(text, btn) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR';
+            
+            btn.innerHTML = '<i data-lucide="stop-circle" class="w-3 h-3"></i> Parar';
+            btn.classList.add('active-speaker');
+            lucide.createIcons();
+
+            utterance.onend = () => resetAudioButtons();
+            synth.speak(utterance);
+        }
+
+        function resetAudioButtons() {
+            document.querySelectorAll('.active-speaker').forEach(b => {
+                b.innerHTML = '<i data-lucide="volume-2" class="w-3 h-3"></i> Ouvir';
+                b.classList.remove('active-speaker', 'text-conecta-gold');
+                lucide.createIcons();
+            });
+        }
+
+
+        // --- 1. CHATBOT LOGIC ---
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatSubmitBtn = document.getElementById('chat-submit-btn');
+        const micBtn = document.getElementById('mic-btn'); // Novo botão
+        let messageHistory = [];
+        let lastUserMessageText = ""; // Armazena a última mensagem para reenvio
+
+        // --- LÓGICA DE ÁUDIO (Speech Recognition) ---
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            micBtn.classList.remove('hidden'); // Mostra o botão se o navegador suportar
+            micBtn.classList.add('flex');
+
+            micBtn.addEventListener('click', () => {
+                if (micBtn.classList.contains('recording')) {
+                    recognition.stop();
+                } else {
+                    recognition.start();
+                }
+            });
+
+            recognition.onstart = () => {
+                micBtn.classList.add('recording', 'text-red-500', 'border-red-500/50', 'bg-red-900/10');
+                micBtn.innerHTML = '<i data-lucide="mic-off" class="w-5 h-5 animate-pulse"></i>';
+                lucide.createIcons();
+                chatInput.placeholder = "Ouvindo...";
+            };
+
+            recognition.onend = () => {
+                micBtn.classList.remove('recording', 'text-red-500', 'border-red-500/50', 'bg-red-900/10');
+                micBtn.innerHTML = '<i data-lucide="mic" class="w-5 h-5"></i>';
+                lucide.createIcons();
+                chatInput.placeholder = "Digite sua mensagem...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                // Append text instead of overwriting
+                const currentText = chatInput.value;
+                if (currentText.trim().length > 0) {
+                    chatInput.value = currentText + ' ' + transcript;
+                } else {
+                    chatInput.value = transcript;
+                }
+                chatInput.focus();
+                // Opcional: Enviar automaticamente após falar
+                // processMessage(transcript, false); 
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Erro no reconhecimento de voz:", event.error);
+                chatInput.placeholder = "Erro ao ouvir. Tente digitar.";
+            };
+        } else {
+            // Esconde botão se não suportado (já está hidden por padrão, mas garante)
+            micBtn.style.display = 'none';
+        }
+
+        function addMessage(role, text) {
+            const div = document.createElement('div');
+            div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            // Estilo condicional para User vs Assistant
+            const bubbleStyle = role === 'user' 
+                ? 'bg-[#1a1a1a] border border-conecta-gold text-conecta-gold' // User style
+                : 'bg-conecta-card border border-conecta-border text-gray-200 relative'; // AI style
+            
+            const accent = role === 'assistant' ? '<span class="absolute top-0 left-0 w-0.5 h-full bg-conecta-gold"></span>' : '';
+
+            // Lógica para transformar links do WhatsApp em Botões Bonitos
+            // Regex procura URLs
+            const formattedText = text.replace(/(https?:\/\/[^\s]+)/g, (url) => {
+                if (url.includes('wa.me')) {
+                    return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-2 mt-3 bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-sm transition-all transform hover:scale-105 no-underline"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg> Continuar no WhatsApp</a>`;
+                }
+                return `<a href="${url}" target="_blank" class="text-conecta-gold underline hover:text-white">${url}</a>`;
+            });
+
+            // Botão de Áudio para o Assistente
+            let audioButton = '';
+            if (role === 'assistant') {
+                // Remove URLs
+                let cleanTextForSpeech = text.replace(/(https?:\/\/[^\s]+)/g, 'link');
+                // Remove Markdown formatting (asterisks, etc) that might sound weird or break attributes
+                cleanTextForSpeech = cleanTextForSpeech.replace(/[*#]/g, '');
+                
+                // Escape critical characters for the HTML attribute
+                // 1. Escape backslashes first
+                // 2. Escape single quotes (since we use ' ' for the attribute value wrapper in the onclick)
+                // 3. Replace newlines with space to prevent syntax error in inline JS
+                const safeText = cleanTextForSpeech
+                    .replace(/\\/g, '\\\\') 
+                    .replace(/'/g, "\\'")
+                    .replace(/"/g, '&quot;')
+                    .replace(/\n/g, ' ');
+
+                audioButton = `
+                    <button onclick="playText('${safeText}', this)" class="block mt-2 text-xs text-gray-500 hover:text-conecta-gold transition-colors flex items-center gap-1">
+                        <i data-lucide="volume-2" class="w-3 h-3"></i> Ouvir
+                    </button>
+                `;
+            }
+
+            div.innerHTML = `
+                <div class="max-w-[85%] p-4 text-sm shadow-sm ${bubbleStyle}">
+                    ${accent}
+                    ${formattedText}
+                    ${audioButton}
+                </div>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons(); // Garante que ícones novos sejam renderizados
+        }
+
+        // Função para mostrar botão de erro e reenvio
+        function addRetryButton() {
+            const div = document.createElement('div');
+            div.className = 'flex justify-start';
+            div.innerHTML = `
+                <div class="max-w-[85%] p-3 text-sm bg-red-900/20 border border-red-500/50 text-red-200 rounded-sm">
+                    <p class="mb-2 text-xs">Falha na conexão.</p>
+                    <button onclick="retryLastMessage(this)" class="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-sm transition-colors flex items-center gap-1">
+                        <i data-lucide="refresh-cw" class="w-3 h-3"></i> Tentar Novamente
+                    </button>
+                </div>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons();
+        }
+
+        // Função global para reenvio
+        window.retryLastMessage = function(btnElement) {
+            // Remove a bolha de erro
+            btnElement.closest('.flex').remove();
+            // Chama o processamento novamente com a flag de retry
+            processMessage(lastUserMessageText, true);
+        }
+
+        async function processMessage(text, isRetry = false) {
+            // Se não for reenvio, adiciona a mensagem do usuário visualmente
+            if (!isRetry) {
+                addMessage('user', text);
+                messageHistory.push({ role: 'user', text });
+                chatInput.value = '';
+            }
+
+            // Loading visual no botão de envio
+            chatSubmitBtn.innerHTML = '<i class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full"></i>';
+            chatSubmitBtn.disabled = true;
+
+            try {
+                if (!apiKey) {
+                    throw new Error("No API Key"); // Force catch para demo
+                }
+
+                // --- INSTRUÇÕES ESTRATÉGICAS (SYSTEM PROMPT) ---
+                const systemPrompt = `
+                    Você é o Especialista em Vendas e Automação da Conecta Web Digital.
+                    
+                    SEUS SERVIÇOS:
+                    - Criação de Sites
+                    - Desenvolvimento de Aplicativos
+                    - Softwares Personalizados
+                    - Automação de WhatsApp (Chatbots, disparos, funis)
+
+                    SEU OBJETIVO:
+                    - Atuar como um funil de vendas inteligente.
+                    - Convencer o usuário a agendar um contato/consultoria.
+                    - JAMAIS dar preços ou orçamentos. Diga que "depende da complexidade do projeto".
+                    - NÃO invente informações que você não possui.
+
+                    ESTRATÉGIA DE CONVERSÃO (O GRANDE FINAL):
+                    - Quando o usuário demonstrar interesse ou você tiver apresentado a solução ideal, DIREICIONE-O para o WhatsApp Oficial para fechar.
+                    - NÃO peça para ele salvar o número.
+                    - FORNEÇA UM LINK DIRETAMENTE com uma mensagem personalizada sobre a dor dele.
+                    - Formato do link: https://wa.me/5567999093031?text=[Mensagem Personalizada codificada]
+                    - Exemplo 1 (Imobiliária): https://wa.me/5567999093031?text=Olá,%20tenho%20uma%20imobiliária%20e%20preciso%20qualificar%20leads.
+                    - Exemplo 2 (Geral): https://wa.me/5567999093031?text=Olá,%20quero%20saber%20mais%20sobre%20automação.
+                    - Ao mandar o link, diga algo como: "Para iniciarmos esse projeto, clique no botão abaixo que preparei para você:"
+
+                    SUA ESTRATÉGIA DE ARGUMENTAÇÃO:
+                    1. Identifique a necessidade ou o ramo do usuário.
+                    2. Crie argumentos específicos para esse ramo (Ex: Se for Pizzaria, fale de automação de pedidos; Se for Imobiliária, fale de qualificação de leads).
+                    3. Mostre o valor da automação (economia de tempo, atendimento 24h, profissionalismo).
+                    
+                    ESTILO:
+                    - Mensagens curtas, interessantes e persuasivas (máximo 3 frases).
+                    - Tom profissional, elegante, mas acessível.
+                `;
+
+                const response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ 
+                                parts: [{ 
+                                    text: `${systemPrompt}\n\nHistórico da conversa: ${JSON.stringify(messageHistory)}.\n\nUsuário disse: "${text}"` 
+                                }] 
+                            }]
+                        })
+                    }
+                );
+                
+                const data = await response.json();
+                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, tive um problema de conexão.";
+                
+                addMessage('assistant', aiText);
+                messageHistory.push({ role: 'assistant', text: aiText });
+
+            } catch (error) {
+                // Em caso de erro, mostra o botão de reenvio em vez de apenas texto
+                addRetryButton();
+            } finally {
+                chatSubmitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i>';
+                lucide.createIcons();
+                chatSubmitBtn.disabled = false;
+            }
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            
+            lastUserMessageText = text; // Salva para possível reenvio
+            processMessage(text, false);
+        });
+
+        // --- 2. OPTIMIZER LOGIC ---
+        const optimizerBtn = document.getElementById('optimize-btn');
+        const optimizerInput = document.getElementById('optimizer-input');
+        const optimizerResult = document.getElementById('optimizer-result-container');
+        const optimizerText = document.getElementById('optimizer-result-text');
+
+        optimizerBtn.addEventListener('click', async () => {
+            const text = optimizerInput.value.trim();
+            if (!text) return;
+            
+            setLoading(optimizerBtn, true, "Refinar com IA");
+
+            try {
+                 if (!apiKey) {
+                    throw new Error("No API Key"); // Force catch for demo fallback
+                }
+                const response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ 
+                                parts: [{ 
+                                    text: `Reescreva esta mensagem para um tom de vendas profissional e empático no WhatsApp. Seja elegante e persuasivo. Mensagem: "${text}"` 
+                                }] 
+                            }]
+                        })
+                    }
+                );
+                const data = await response.json();
+                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                optimizerText.textContent = aiText;
+                optimizerResult.classList.remove('hidden');
+            } catch (e) {
+                // Fallback Simulado
+                optimizerText.textContent = "Compreendo sua preocupação com o valor. No entanto, gostaria de apresentar o retorno sobre o investimento que nossa solução proporciona, que supera o custo inicial. Podemos conversar sobre isso?";
+                optimizerResult.classList.remove('hidden');
+            } finally {
+                setLoading(optimizerBtn, false, "Refinar com IA", '<i data-lucide="sparkles" class="w-4 h-4 mr-2 inline"></i>');
+            }
+        });
+
+        // --- 3. STRATEGY GENERATOR ---
+        const strategyBtn = document.getElementById('strategy-btn');
+        const strategyNiche = document.getElementById('strategy-niche');
+        const strategyResult = document.getElementById('strategy-result');
+
+        strategyBtn.addEventListener('click', async () => {
+            const niche = strategyNiche.value.trim();
+            if (!niche) return;
+
+            setLoading(strategyBtn, true, "Gerar Plano");
+            
+            // Simulação de tempo de processamento para efeito visual
+            setTimeout(async () => {
+                try {
+                     if (!apiKey) {
+                        throw new Error("No API Key"); // Force catch for demo fallback
+                    }
+                    const response = await fetch(
+                        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                contents: [{ 
+                                    parts: [{ 
+                                        text: `Gere um JSON para um negócio do nicho "${niche}". Formato: { "fluxos": ["fluxo 1", "fluxo 2", "fluxo 3"], "beneficio_principal": "frase curta", "horas_economizadas": "numero" }` 
+                                    }],
+                                }],
+                                generationConfig: { responseMimeType: "application/json" }
+                            })
+                        }
+                    );
+                    const data = await response.json();
+                    const json = JSON.parse(data.candidates[0].content.parts[0].text);
+                    renderStrategy(niche, json);
+                } catch (e) {
+                    // Fallback Demo Data
+                    renderStrategy(niche, {
+                        fluxos: [
+                            "Qualificação automática de leads 24h",
+                            "Agendamento e follow-up automático",
+                            "Recuperação de clientes inativos"
+                        ],
+                        beneficio_principal: "Elevação da percepção de valor da marca e atendimento imediato.",
+                        horas_economizadas: "25"
+                    });
+                } finally {
+                    setLoading(strategyBtn, false, "Gerar Plano", '<i data-lucide="chevron-right" class="w-4 h-4 mr-2 inline"></i>');
+                }
+            }, 1000);
+        });
+
+        function renderStrategy(niche, data) {
+            document.getElementById('result-niche-name').textContent = niche;
+            document.getElementById('result-hours').textContent = data.horas_economizadas;
+            document.getElementById('result-benefit').textContent = data.beneficio_principal;
+            
+            const list = document.getElementById('result-fluxos-list');
+            list.innerHTML = '';
+            data.fluxos.forEach((fluxo, i) => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-3 text-gray-300";
+                li.innerHTML = `<span class="text-conecta-gold font-bold">0${i+1}.</span> ${fluxo}`;
+                list.appendChild(li);
+            });
+            strategyResult.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
