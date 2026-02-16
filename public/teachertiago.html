@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Tiago Costa | Inglês Corporativo e para Viagens</title>
+    <meta name="description" content="Aulas de inglês com Teacher Tiago Costa. Foco em inglês corporativo, viagens e dia a dia. Experiência internacional de 4 anos. Garanta sua vaga.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuração de Cores -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1a2b4a',    /* Azul Profundo (Terno) */
+                            gold: '#d4af37',    /* Dourado Sutil */
+                            beige: '#f5f5f0',   /* Fundo do Cartão */
+                            red: '#bf1e2e',     /* Detalhe Bandeira */
+                            green: '#25D366'    /* WhatsApp */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animações sutis */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26,43,74,0.95) 0%, rgba(26,43,74,0.8) 100%), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Efeito de vidro no menu mobile */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-brand-beige text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 shadow-sm bg-white" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-brand-navy text-2xl"></i>
+                    <span class="font-heading font-bold text-xl text-brand-navy tracking-tight">
+                        Teacher <span class="text-brand-red">Tiago</span>
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-brand-navy hover:text-brand-red font-semibold transition">Início</a>
+                    <a href="#sobre" class="text-brand-navy hover:text-brand-red font-semibold transition">Sobre</a>
+                    <a href="#servicos" class="text-brand-navy hover:text-brand-red font-semibold transition">Aulas</a>
+                    <a href="#contato" class="bg-brand-navy text-white px-6 py-2 rounded-full font-bold hover:bg-brand-red transition shadow-lg transform hover:-translate-y-0.5">
+                        Agendar Agora
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-navy focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-3 text-brand-navy font-bold hover:bg-gray-50 rounded-lg">Início</a>
+                <a href="#sobre" class="block px-3 py-3 text-brand-navy font-bold hover:bg-gray-50 rounded-lg">Sobre Mim</a>
+                <a href="#servicos" class="block px-3 py-3 text-brand-navy font-bold hover:bg-gray-50 rounded-lg">Tipos de Aula</a>
+                <a href="#contato" class="block px-3 py-3 text-brand-red font-bold hover:bg-gray-50 rounded-lg">Entre em Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-28 pb-20 lg:pt-40 lg:pb-32 hero-gradient text-white overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center">
+            
+            <div class="w-full md:w-1/2 text-center md:text-left mb-12 md:mb-0 fade-in-up" style="animation-delay: 0.1s;">
+                <div class="inline-block bg-brand-red/20 border border-brand-red/30 rounded-full px-4 py-1 mb-6">
+                    <span class="text-brand-gold font-bold text-sm tracking-wide uppercase">⚡ Vagas Abertas 1º Semestre 2026</span>
+                </div>
+                <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    Inglês que transforma <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">sua carreira e viagens.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-lg mx-auto md:mx-0">
+                    Método prático focado no dia a dia e no ambiente corporativo. Aprenda com quem tem 4 anos de experiência internacional.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="https://wa.me/5567992066855?text=Ol%C3%A1%20Teacher%20Tiago!%20Gostaria%20de%20saber%20mais%20sobre%20as%20aulas." target="_blank" class="bg-brand-green hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        Garantir Minha Vaga
+                    </a>
+                    <a href="#servicos" class="bg-transparent border-2 border-white hover:bg-white hover:text-brand-navy text-white font-bold py-4 px-8 rounded-xl transition flex items-center justify-center">
+                        Conhecer Método
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 flex justify-center relative fade-in-up" style="animation-delay: 0.3s;">
+                <!-- Círculo decorativo -->
+                <div class="absolute w-72 h-72 md:w-96 md:h-96 bg-brand-gold rounded-full blur-3xl opacity-20 -z-10 top-10"></div>
+                
+                <!-- Placeholder para a foto do usuário -->
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Teacher Tiago Costa" class="relative z-10 w-72 h-72 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border-4 border-white transform rotate-3 hover:rotate-0 transition duration-500">
+                    
+                    <!-- Badge Flutuante -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <i class="fa-solid fa-earth-americas text-brand-navy text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-bold uppercase">Experiência</p>
+                            <p class="font-heading font-bold text-brand-navy">Internacional</p>
+                        </div>
+                    </div>
+                     <!-- Flag Badge -->
+                     <div class="absolute -top-6 -right-6 bg-white p-2 rounded-full shadow-lg z-20 w-16 h-16 flex items-center justify-center border-4 border-gray-100">
+                        <i class="fa-solid fa-flag-usa text-3xl text-brand-red"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-brand-beige p-6 rounded-2xl text-center">
+                            <span class="block text-4xl font-extrabold text-brand-navy mb-2">4+</span>
+                            <span class="text-gray-600 font-semibold">Anos de Vivência<br>Internacional</span>
+                        </div>
+                        <div class="bg-brand-beige p-6 rounded-2xl text-center">
+                            <span class="block text-4xl font-extrabold text-brand-navy mb-2">100%</span>
+                            <span class="text-gray-600 font-semibold">Foco no seu<br>Objetivo</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-brand-red font-bold uppercase tracking-widest text-sm mb-2">Quem sou eu</h2>
+                    <h3 class="font-heading text-3xl md:text-4xl font-bold text-brand-navy mb-6">Teacher Tiago Costa</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Muito mais do que apenas gramática. Minha missão é destravar sua comunicação para o mundo real. Com 4 anos vivendo e trabalhando fora, trago para a sala de aula não apenas o idioma, mas a cultura e as nuances que os livros não ensinam.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-brand-green"></i>
+                            <span class="text-gray-700">Metodologia adaptada à sua rotina</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-brand-green"></i>
+                            <span class="text-gray-700">Foco em pronúncia e confiança</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-brand-green"></i>
+                            <span class="text-gray-700">Material didático moderno e dinâmico</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-20 bg-brand-beige">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-brand-navy mb-4">Escolha o seu Foco</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Aulas personalizadas para atender exatamente o que você precisa neste momento da sua vida.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border-t-4 border-brand-navy">
+                    <div class="w-16 h-16 bg-brand-navy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-navy transition">
+                        <i class="fa-solid fa-briefcase text-2xl text-brand-navy group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-navy mb-3">Inglês Corporativo</h3>
+                    <p class="text-gray-600 mb-6">
+                        Prepare-se para reuniões, apresentações, e-mails e entrevistas. Vocabulário técnico e postura profissional em inglês.
+                    </p>
+                    <a href="#contato" class="text-brand-red font-bold hover:underline flex items-center gap-2">
+                        Saiba mais <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border-t-4 border-brand-red relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MAIS PROCURADO</div>
+                    <div class="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-red transition">
+                        <i class="fa-solid fa-plane-departure text-2xl text-brand-red group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-navy mb-3">Inglês para Viagens</h3>
+                    <p class="text-gray-600 mb-6">
+                        Do check-in à imigração, passando por restaurantes e emergências. Viaje sem medo de travar na hora de falar.
+                    </p>
+                    <a href="#contato" class="text-brand-red font-bold hover:underline flex items-center gap-2">
+                        Saiba mais <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border-t-4 border-brand-gold">
+                    <div class="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold transition">
+                        <i class="fa-solid fa-comments text-2xl text-brand-gold group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-brand-navy mb-3">Inglês do Dia a Dia</h3>
+                    <p class="text-gray-600 mb-6">
+                        Para quem quer assistir filmes sem legenda, entender músicas e conversar com nativos sobre qualquer assunto.
+                    </p>
+                    <a href="#contato" class="text-brand-red font-bold hover:underline flex items-center gap-2">
+                        Saiba mais <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgency/CTA Section -->
+    <section class="py-20 bg-brand-navy relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6">
+                Vagas limitadas para o <br>
+                <span class="text-brand-gold">1º Semestre de 2026</span>
+            </h2>
+            <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
+                Não deixe para depois. A fluência que você busca para o próximo ano começa com uma decisão hoje. Agenda aberta.
+            </p>
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 inline-block">
+                <p class="text-white font-bold text-xl mb-4">Entre em contato e garanta a sua!</p>
+                <a href="https://wa.me/5567992066855" target="_blank" class="inline-flex items-center gap-3 bg-brand-green hover:bg-green-500 text-white text-xl font-bold py-4 px-10 rounded-full transition shadow-lg transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-3xl"></i>
+                    (67) 99206-6855
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-graduation-cap text-brand-gold text-2xl"></i>
+                        <span class="font-heading font-bold text-xl tracking-tight">Teacher Tiago</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Transformando vidas através do ensino de inglês personalizado. Experiência internacional ao seu alcance.
+                    </p>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4 text-brand-gold">Contato</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="https://wa.me/5567992066855" class="flex items-center gap-3 text-gray-300 hover:text-white transition">
+                                <i class="fa-brands fa-whatsapp text-brand-green"></i>
+                                (67) 99206-6855
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <i class="fa-solid fa-location-dot text-brand-red"></i>
+                            Campo Grande, MS (e Online)
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <i class="fa-solid fa-envelope text-blue-400"></i>
+                            contato@teachertiago.com
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4 text-brand-gold">Redes Sociais</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-brand-red transition">
+                            <i class="fa-brands fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fa-brands fa-linkedin-in text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2026 Teacher Tiago Costa. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5567992066855?text=Ol%C3%A1%20Teacher%20Tiago!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais." target="_blank" class="fixed bottom-6 right-6 bg-brand-green text-white p-4 rounded-full shadow-2xl z-50 hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center w-16 h-16 animate-bounce" style="animation-duration: 3s; animation-iteration-count: infinite;">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.add('py-0');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Simple Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Apply fade-in animation to sections
+        document.querySelectorAll('section > div').forEach((el) => {
+            el.classList.add('transition', 'duration-1000', 'ease-out');
+            el.style.opacity = "0";
+            el.style.transform = "translateY(20px)";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

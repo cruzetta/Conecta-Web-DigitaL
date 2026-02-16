@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VICTOR CRUZETTA | SYSTEM OVERRIDE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-red: #ff0055;
+            --bg-dark: #020202;
+            --glass: rgba(10, 15, 20, 0.65);
+            --border-glow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; user-select: none; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- UI LAYER (Fica acima do Canvas 3D) --- */
+        #ui-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; /* Deixa o mouse passar para o 3D onde não tem botão */
+        }
+
+        .hud-container {
+            pointer-events: auto; /* Reativa o mouse nos botões */
+            width: 90%;
+            max-width: 480px;
+            perspective: 1000px;
+            opacity: 0; /* Começa invisível para o boot */
+        }
+
+        .cyber-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 30px;
+            border-radius: 2px;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            clip-path: polygon(
+                20px 0, 100% 0, 
+                100% calc(100% - 20px), calc(100% - 20px) 100%, 
+                0 100%, 0 20px
+            );
+        }
+
+        /* Borda Animada RGB */
+        .cyber-card::after {
+            content: ''; position: absolute; inset: 0;
+            border-radius: 2px; padding: 1px;
+            background: linear-gradient(45deg, transparent, var(--neon-cyan), transparent, var(--neon-purple));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: border-rotate 4s linear infinite;
+        }
+
+        /* --- PERFIL --- */
+        .profile-header { text-align: center; margin-bottom: 2.5rem; transform: translateZ(20px); }
+
+        .hex-avatar-container {
+            width: 130px; height: 130px; margin: 0 auto 1.5rem;
+            position: relative; display: flex; justify-content: center; align-items: center;
+        }
+        
+        .hex-avatar {
+            width: 120px; height: 120px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: #000;
+            position: relative;
+            z-index: 2;
+        }
+        .hex-avatar img {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.9; transition: 0.5s;
+        }
+        .hex-avatar:hover img { opacity: 1; filter: contrast(1.2); }
+
+        /* Spinner ao redor do avatar */
+        .hex-spinner {
+            position: absolute; width: 100%; height: 100%;
+            border: 2px solid var(--neon-cyan);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: spin-hex 10s linear infinite;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 4px;
+            margin-bottom: 5px; position: relative; display: inline-block;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .role-badge {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem; color: var(--neon-purple);
+            background: rgba(188, 19, 254, 0.1);
+            padding: 4px 12px; border: 1px solid rgba(188, 19, 254, 0.3);
+            display: inline-block; letter-spacing: 2px;
+        }
+
+        /* --- BOTÕES --- */
+        .links-grid { display: flex; flex-direction: column; gap: 1.2rem; transform: translateZ(40px); }
+
+        .cyber-link {
+            position: relative; text-decoration: none;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s ease; overflow: hidden;
+            group: hover;
+        }
+        
+        .cyber-link::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--neon-cyan);
+            transform: scaleY(0); transition: transform 0.3s;
+        }
+
+        .cyber-link:hover {
+            background: rgba(0, 243, 255, 0.05);
+            border-color: var(--neon-cyan);
+            padding-left: 2rem;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+        .cyber-link:hover::before { transform: scaleY(1); }
+
+        .link-info h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .link-info p { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #aaa; }
+        .link-arrow { color: var(--neon-cyan); opacity: 0; transform: translateX(-10px); transition: 0.3s; }
+        .cyber-link:hover .link-arrow { opacity: 1; transform: translateX(0); }
+
+        /* --- FOOTER --- */
+        .sys-footer {
+            margin-top: 2rem; font-family: 'Share Tech Mono', monospace;
+            font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1px;
+            display: flex; justify-content: space-between; width: 100%;
+        }
+
+        /* --- CURSOR --- */
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            border: 1.5px solid var(--neon-cyan); border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+            mix-blend-mode: exclusion;
+        }
+        #cursor-dot {
+            position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+            background: var(--neon-cyan); border-radius: 50%;
+            pointer-events: none; z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- BOOT SCREEN (NOVO DESIGN TRIUNFAL) --- */
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 2000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Share Tech Mono', monospace;
+            overflow: hidden;
+        }
+
+        /* Container central do boot */
+        .boot-container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Texto grande de status */
+        .boot-status {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--neon-cyan);
+            opacity: 0; /* JS controla isso */
+        }
+        
+        .boot-status.access-granted {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+        }
+
+        /* Barra de progresso cibernética */
+        .progress-container {
+            width: 300px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            position: relative;
+        }
+
+        /* Detalhes decorativos do boot */
+        .boot-detail {
+            font-size: 12px;
+            color: var(--neon-purple);
+            margin-top: 10px;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        /* Anel de carregamento */
+        .loader-ring {
+            width: 80px; height: 80px;
+            border: 2px solid transparent;
+            border-top-color: var(--neon-cyan);
+            border-bottom-color: var(--neon-purple);
+            border-radius: 50%;
+            animation: spin-hex 1s linear infinite;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Efeito de grade de fundo no boot */
+        .boot-grid {
+            position: absolute; inset: 0;
+            background: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+            perspective: 500px;
+            transform-origin: center;
+        }
+
+        /* --- SCANLINES & VIGNETTE --- */
+        .scanlines {
+            position: fixed; inset: 0; pointer-events: none; z-index: 900;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 3px;
+        }
+        .vignette {
+            position: fixed; inset: 0; pointer-events: none; z-index: 901;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* --- CANVAS --- */
+        #canvas-container { position: fixed; inset: 0; z-index: 0; }
+
+        /* KEYFRAMES */
+        @keyframes border-rotate { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+        @keyframes spin-hex { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .cyber-card { padding: 25px 20px; width: 95%; }
+            #cursor, #cursor-dot { display: none; } /* Remove custom cursor on mobile */
+            .boot-status { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- TELA DE BOOT TRIUNFAL -->
+    <div id="boot-screen">
+        <div class="boot-grid"></div>
+        
+        <div class="boot-container">
+            <div class="loader-ring"></div>
+            <div class="boot-status" id="boot-text">INICIALIZANDO</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="boot-bar"></div>
+            </div>
+            
+            <div class="boot-detail" id="boot-sub">ESTABELECENDO CONEXÃO SEGURA...</div>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <div id="ui-layer">
+        <div class="hud-container" id="tilt-card">
+            <div class="cyber-card">
+                
+                <div class="profile-header">
+                    <div class="hex-avatar-container">
+                        <div class="hex-spinner"></div>
+                        <div class="hex-avatar">
+                            <img src="https://github.com/github.png" alt="Avatar">
+                        </div>
+                    </div>
+                    <h1 class="glitch-text">VICTOR CRUZETTA</h1>
+                    <br>
+                    <span class="role-badge">AI ARCHITECT // DEV</span>
+                </div>
+
+                <div class="links-grid">
+                    <a href="https://wa.me/5567999093031?text=Ol%C3%A1%20Victor!%20Quero%20escalar%20meu%20neg%C3%B3cio%20com%20um%20Site%20profissional%20e%20Automa%C3%A7%C3%A3o." target="_blank" class="cyber-link">
+                        <div class="link-info">
+                            <h3>ESCALAR NEGÓCIO</h3>
+                            <p>Sites Profissionais & Automação</p>
+                        </div>
+                        <div class="link-arrow">➜</div>
+                    </a>
+
+                    <a href="https://wa.me/5567999093031?text=Fala%20Victor!%20Quero%20aprender%20a%20criar%20qualquer%20coisa%20com%20Intelig%C3%AAncia%20Artificial." target="_blank" class="cyber-link">
+                        <div class="link-info">
+                            <h3>DOMINAR A.I.</h3>
+                            <p>Mentoria & Criação com IA</p>
+                        </div>
+                        <div class="link-arrow">➜</div>
+                    </a>
+
+                    <a href="#" class="cyber-link" style="border-color: rgba(255, 0, 85, 0.3);">
+                        <div class="link-info">
+                            <h3 style="color: var(--neon-red);">SECRET PROJECT</h3>
+                            <p>Acesso Restrito [Em Breve]</p>
+                        </div>
+                        <div class="link-arrow" style="color: var(--neon-red);">⚠</div>
+                    </a>
+                </div>
+
+                <div class="sys-footer">
+                    <span>SYS: ONLINE</span>
+                    <span>LOC: CG-MS-BR</span>
+                    <span>VER: 3.0.1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        // --- CONFIGURAÇÃO INICIAL ---
+        const scene = new THREE.Scene();
+        // Fog para profundidade (esconde o fim do grid)
+        scene.fog = new THREE.FogExp2(0x000000, 0.035);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" }); // Antialias false para performance do Bloom
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // --- POST PROCESSING (BLOOM / GLOW INSANO) ---
+        const renderScene = new RenderPass(scene, camera);
+        
+        // Bloom Parameters: Resolution, Strength, Radius, Threshold
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+        bloomPass.threshold = 0;
+        bloomPass.strength = 1.2; // Intensidade do brilho
+        bloomPass.radius = 0.5;
+
+        const composer = new EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // --- OBJETOS 3D ---
+        
+        // 1. O NÚCLEO (Icosaedro)
+        const geometry = new THREE.IcosahedronGeometry(4, 1);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x00f3ff, 
+            wireframe: true,
+            transparent: true, opacity: 0.15 
+        });
+        const core = new THREE.Mesh(geometry, material);
+        scene.add(core);
+
+        // 2. NÚCLEO INTERNO (Energia Pura)
+        const innerGeo = new THREE.IcosahedronGeometry(2.5, 0);
+        const innerMat = new THREE.MeshBasicMaterial({ color: 0xbc13fe, wireframe: true });
+        const innerCore = new THREE.Mesh(innerGeo, innerMat);
+        scene.add(innerCore);
+
+        // 3. ANÉIS DE DADOS (Torus)
+        const torusGeo = new THREE.TorusGeometry(6, 0.05, 16, 100);
+        const torusMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff });
+        const ring1 = new THREE.Mesh(torusGeo, torusMat);
+        const ring2 = new THREE.Mesh(torusGeo, torusMat);
+        const ring3 = new THREE.Mesh(torusGeo, torusMat);
+        
+        ring1.rotation.x = Math.PI / 2;
+        ring2.rotation.y = Math.PI / 2;
+        
+        scene.add(ring1);
+        scene.add(ring2);
+        scene.add(ring3);
+
+        // 4. GRID DE CHÃO (Cyberpunk Floor)
+        const gridHelper = new THREE.GridHelper(60, 40, 0xff0055, 0x222222);
+        gridHelper.position.y = -6;
+        scene.add(gridHelper);
+
+        const topGrid = new THREE.GridHelper(60, 40, 0x00f3ff, 0x222222);
+        topGrid.position.y = 6;
+        scene.add(topGrid);
+
+        // 5. STARFIELD (Partículas de Warp)
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 2000;
+        const starPos = new Float32Array(starCount * 3);
+        
+        for(let i=0; i<starCount*3; i++) {
+            starPos[i] = (Math.random() - 0.5) * 80;
+        }
+        
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+        const stars = new THREE.Points(starGeo, starMat);
+        scene.add(stars);
+
+        camera.position.z = 12;
+
+        // --- VARIÁVEIS DE INTERAÇÃO ---
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        
+        // Variáveis do Giroscópio (Mobile)
+        let gyroX = 0, gyroY = 0;
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        // --- EVENT LISTENER (MOUSE) ---
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
+            mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
+            
+            // Mover cursor customizado
+            const cursor = document.getElementById('cursor');
+            const dot = document.getElementById('cursor-dot');
+            if (cursor && dot) {
+                gsap.to(cursor, { x: event.clientX, y: event.clientY, duration: 0.15 });
+                gsap.to(dot, { x: event.clientX, y: event.clientY, duration: 0 });
+            }
+        });
+
+        // --- EVENT LISTENER (GYROSCOPE MOBILE) ---
+        if (isMobile && window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (e) => {
+                // Limitando e suavizando
+                gyroX = (e.beta || 0) * 0.02;  // Inclinação frente/trás
+                gyroY = (e.gamma || 0) * 0.02; // Inclinação esquerda/direita
+            });
+        }
+
+        // --- TILT EFFECT NO CARD HTML (DOM) ---
+        const card = document.getElementById('tilt-card');
+        document.addEventListener('mousemove', (e) => {
+            if (!card) return;
+            const xVal = (e.clientX / window.innerWidth - 0.5) * 20;
+            const yVal = (e.clientY / window.innerHeight - 0.5) * -20;
+
+            gsap.to(card, {
+                rotationY: xVal,
+                rotationX: yVal,
+                ease: "power2.out",
+                duration: 0.5,
+                transformPerspective: 1000
+            });
+        });
+
+        // --- LOOP DE ANIMAÇÃO ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // 1. Rotação do Objeto Central
+            core.rotation.y += 0.005;
+            core.rotation.x += 0.002;
+            innerCore.rotation.y -= 0.01;
+            innerCore.rotation.z += 0.005;
+
+            // 2. Anéis girando aleatoriamente
+            ring1.rotation.x += 0.002; ring1.rotation.y += 0.005;
+            ring2.rotation.x -= 0.003; ring2.rotation.z += 0.002;
+            ring3.rotation.y -= 0.004;
+
+            // 3. Efeito de Respiração (Pulsar com a música imaginária)
+            const scale = 1 + Math.sin(elapsedTime * 1.5) * 0.05;
+            core.scale.set(scale, scale, scale);
+
+            // 4. Grid Movimento Infinito (Synthwave vibe)
+            gridHelper.position.z = (elapsedTime * 2) % 2; 
+            topGrid.position.z = (elapsedTime * 2) % 2;
+
+            // 5. Câmera e Interação (Mouse + Giroscópio)
+            targetX = mouseX * 5 + gyroY * 5;
+            targetY = mouseY * 5 + gyroX * 5;
+
+            camera.position.x += (targetX - camera.position.x) * 0.05;
+            camera.position.y += (-targetY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            // Renderizar com Bloom
+            composer.render();
+        }
+
+        // --- BOOT SEQUENCE TRIUNFAL (NEW) ---
+        function scrambleText(element, finalText, duration, callback) {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&*";
+            let iterations = 0;
+            const totalIterations = duration * 30; // Aproximação de frames
+            
+            const interval = setInterval(() => {
+                element.innerText = finalText
+                    .split("")
+                    .map((letter, index) => {
+                        if (index < (iterations / totalIterations) * finalText.length) {
+                            return finalText[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join("");
+                
+                if (iterations >= totalIterations) {
+                    clearInterval(interval);
+                    element.innerText = finalText;
+                    if(callback) callback();
+                }
+                iterations++;
+            }, 30);
+        }
+
+        function startBoot() {
+            const bootText = document.getElementById('boot-text');
+            const bootBar = document.getElementById('boot-bar');
+            const bootSub = document.getElementById('boot-sub');
+            const bootScreen = document.getElementById('boot-screen');
+            const hud = document.querySelector('.hud-container');
+
+            // Timeline GSAP
+            const tl = gsap.timeline();
+
+            // 1. Fade In Inicial do texto
+            tl.to(bootText, { opacity: 1, duration: 0.5 });
+            
+            // 2. Efeito de Scramble "SYSTEM WAKE UP"
+            tl.call(() => {
+                scrambleText(bootText, "SOLICITANDO ACESSO", 1.5);
+            });
+
+            // 3. Encher a barra de progresso
+            tl.to(bootBar, { 
+                width: "100%", 
+                duration: 1.8, 
+                ease: "power2.inOut",
+                onUpdate: function() {
+                    // Texto mudando aleatoriamente embaixo
+                    if(Math.random() > 0.8) {
+                        const logs = ["BURLANDO FIREWALL...", "CARREGANDO INTERFACE...", "DECIFRANDO DADOS..."];
+                        bootSub.innerText = logs[Math.floor(Math.random() * logs.length)];
+                    }
+                }
+            });
+
+            // 4. MOMENTO DO CLÍMAX: ACCESS GRANTED
+            tl.call(() => {
+                bootText.innerText = "ACESSO PERMITIDO";
+                bootText.classList.add("access-granted");
+                bootSub.innerText = "BEM-VINDO(A).";
+                document.querySelector('.loader-ring').style.borderColor = "var(--neon-cyan)";
+            });
+
+            // Explosão de escala no texto
+            tl.to(bootText, { scale: 1.2, duration: 0.2, ease: "back.out(2)" });
+            
+            // 5. A TRANSIÇÃO TRIUNFAL (Shutter Effect)
+            tl.to(bootScreen, {
+                delay: 0.5,
+                clipPath: "inset(50% 0 50% 0)", // Fecha verticalmente como um olho piscando invertido ou porta abrindo
+                duration: 0.8,
+                ease: "power4.inOut"
+            }, "reveal");
+
+            // 6. ZOOM IN no conteúdo 3D ao mesmo tempo
+            tl.fromTo(hud, 
+                { scale: 0.5, opacity: 0, z: -100 },
+                { scale: 1, opacity: 1, z: 0, duration: 1.2, ease: "expo.out" }, 
+                "reveal+=0.1" // Começa um pouquinho depois da porta abrir
+            );
+
+            // Iniciar render 3D logo antes de abrir a porta
+            tl.call(() => {
+                animate();
+            }, null, "reveal-=0.5");
+        }
+
+        // --- RESIZE HANDLER ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            bloomPass.resolution.set(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Iniciar Boot Sequence
+        startBoot();
+
+    </script>
+</body>
+</html>

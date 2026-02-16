@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Bianca Cardoso | Odontologia Estética em Porto Alegre</title>
+    <meta name="description" content="Consultório odontológico Dra. Bianca Cardoso no Bonfim, Porto Alegre. Odontologia estética e funcional com atendimento exclusivo.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração de Cores Personalizadas -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-wine': '#4A0404',
+                        'brand-wine-light': '#721b29',
+                        'brand-gold': '#D4AF37',
+                        'brand-dark': '#121212',
+                        'brand-gray': '#f4f4f4'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #121212 0%, #4A0404 100%);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-brand-gray overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-2xl text-brand-wine tracking-widest font-bold">
+                        DRA. BIANCA <span class="text-black">CARDOSO</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#sobre" class="text-gray-700 hover:text-brand-wine transition-colors uppercase text-sm tracking-wider">Sobre</a>
+                    <a href="#servicos" class="text-gray-700 hover:text-brand-wine transition-colors uppercase text-sm tracking-wider">Tratamentos</a>
+                    <a href="#casos" class="text-gray-700 hover:text-brand-wine transition-colors uppercase text-sm tracking-wider">Antes e Depois</a>
+                    <a href="#localizacao" class="text-gray-700 hover:text-brand-wine transition-colors uppercase text-sm tracking-wider">Localização</a>
+                    <a href="https://wa.me/555185882555" class="bg-brand-wine text-white px-6 py-2 rounded-full hover:bg-black transition-colors duration-300">
+                        Agendar
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-wine hover:text-black focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#sobre" class="block px-3 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-wine">Sobre</a>
+                <a href="#servicos" class="block px-3 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-wine">Tratamentos</a>
+                <a href="#casos" class="block px-3 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-wine">Antes e Depois</a>
+                <a href="#localizacao" class="block px-3 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-wine">Localização</a>
+                <a href="https://wa.me/555185882555" class="block mt-4 bg-brand-wine text-white px-5 py-3 rounded-md mx-4">Agendar Consulta</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-24 pb-16 md:pt-32 md:pb-24 flex items-center min-h-[85vh] hero-gradient text-white overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-black opacity-30 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left reveal active">
+                <span class="text-brand-gold tracking-[0.2em] uppercase text-sm font-bold mb-4 block">Odontologia de Excelência</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6 leading-tight">
+                    Sorrisos que <br/>
+                    <span class="text-brand-gold italic">transformam</span> vidas.
+                </h1>
+                <p class="text-gray-300 text-lg mb-8 max-w-md mx-auto md:mx-0 font-light">
+                    Localizada no coração do Bonfim. Tecnologia avançada e atendimento humanizado para revelar a sua melhor versão.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="https://wa.me/555185882555" class="bg-brand-gold text-black px-8 py-4 rounded-sm font-bold hover:bg-white transition-all duration-300 shadow-lg text-center">
+                        <i class="fab fa-whatsapp mr-2"></i> Agendar Avaliação
+                    </a>
+                    <a href="#servicos" class="border border-white text-white px-8 py-4 rounded-sm hover:bg-white hover:text-black transition-all duration-300 text-center">
+                        Conhecer Tratamentos
+                    </a>
+                </div>
+                <p class="mt-6 text-sm text-gray-400 flex items-center justify-center md:justify-start">
+                    <i class="fas fa-clock mr-2 text-brand-gold"></i> Somente com hora marcada
+                </p>
+            </div>
+            
+            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center reveal delay-200 relative">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <div class="absolute inset-0 border-2 border-brand-gold rounded-full transform rotate-6 scale-105 opacity-50"></div>
+                    <div class="absolute inset-0 border border-white rounded-full transform -rotate-3 scale-110 opacity-20"></div>
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dra. Bianca Cardoso" class="w-full h-full object-cover rounded-full shadow-2xl border-4 border-brand-wine">
+                    
+                    <div class="absolute bottom-4 right-0 bg-white text-brand-wine px-4 py-2 rounded-lg shadow-lg flex items-center animate-bounce duration-[3000ms]">
+                        <div class="bg-green-100 text-green-600 rounded-full p-1 mr-2">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold">Aberta Agora</p>
+                            <p class="text-[10px] text-gray-500">Agende seu horário</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 relative reveal">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-lg shadow-lg translate-y-8" alt="Consultório detalhe">
+                        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-lg shadow-lg" alt="Sorriso saudável">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-brand-wine text-white p-6 rounded-lg shadow-xl hidden md:block">
+                        <p class="font-serif text-3xl font-bold">10+</p>
+                        <p class="text-sm opacity-80">Anos de Experiência</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 reveal">
+                    <h2 class="text-brand-wine font-serif text-4xl mb-6">Sobre a Dra. Bianca Cardoso</h2>
+                    <div class="w-20 h-1 bg-brand-gold mb-8"></div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Comprometida com a excelência em cada detalhe, a Dra. Bianca Cardoso oferece um atendimento personalizado em seu consultório no bairro Bonfim. 
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Combinamos tecnologia de ponta com um ambiente acolhedor para garantir que sua experiência odontológica seja tranquila e transformadora. Especialista em harmonizar saúde e estética.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-brand-gold mr-3"></i> Atendimento personalizado
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-brand-gold mr-3"></i> Ambiente moderno e esterilizado
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-brand-gold mr-3"></i> Técnicas minimamente invasivas
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-wine font-bold tracking-wider uppercase text-sm">Especialidades</span>
+                <h2 class="font-serif text-4xl text-gray-900 mt-2">Tratamentos Exclusivos</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="service-card bg-white p-8 rounded-xl border border-gray-100 reveal">
+                    <div class="w-14 h-14 bg-brand-wine text-brand-gold rounded-full flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-gray-900">Estética Dental</h3>
+                    <p class="text-gray-500 mb-4">Lentes de contato, facetas e clareamento dental para um sorriso radiante e harmônico.</p>
+                    <a href="#" class="text-brand-wine font-bold text-sm hover:text-black">Saiba mais <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card bg-white p-8 rounded-xl border border-gray-100 reveal delay-100">
+                    <div class="w-14 h-14 bg-brand-wine text-brand-gold rounded-full flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-gray-900">Harmonização</h3>
+                    <p class="text-gray-500 mb-4">Procedimentos faciais que complementam o sorriso, trazendo equilíbrio e jovialidade.</p>
+                    <a href="#" class="text-brand-wine font-bold text-sm hover:text-black">Saiba mais <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card bg-white p-8 rounded-xl border border-gray-100 reveal delay-200">
+                    <div class="w-14 h-14 bg-brand-wine text-brand-gold rounded-full flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-notes-medical"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-gray-900">Clínica Geral</h3>
+                    <p class="text-gray-500 mb-4">Prevenção, restaurações e cuidados essenciais para manter sua saúde bucal em dia.</p>
+                    <a href="#" class="text-brand-wine font-bold text-sm hover:text-black">Saiba mais <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nova Seção: Antes e Depois -->
+    <section id="casos" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-wine font-bold tracking-wider uppercase text-sm">Resultados Reais</span>
+                <h2 class="font-serif text-4xl text-gray-900 mt-2">Antes & Depois</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Confira algumas das transformações de sorrisos realizadas em nosso consultório. Cada caso é planejado individualmente.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Case 1 -->
+                <div class="reveal">
+                    <div class="relative group overflow-hidden rounded-xl shadow-lg mb-4">
+                        <!-- Images Container -->
+                        <div class="grid grid-cols-2 gap-1 bg-gray-100">
+                            <div class="relative h-64">
+                                <img src="https://images.unsplash.com/photo-1571772996211-2f02c9727629?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Antes" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500">
+                                <span class="absolute bottom-2 left-2 bg-black/70 text-white text-[10px] font-bold tracking-wider px-2 py-1 rounded">ANTES</span>
+                            </div>
+                            <div class="relative h-64">
+                                <img src="https://images.unsplash.com/photo-1588776813158-cef3266f6a8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Depois" class="w-full h-full object-cover">
+                                <span class="absolute bottom-2 right-2 bg-brand-wine text-white text-[10px] font-bold tracking-wider px-2 py-1 rounded">DEPOIS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-2xl text-gray-900">Lentes de Contato em Porcelana</h3>
+                    <p class="text-gray-500 text-sm mt-2">Harmonização do formato e cor dos dentes para um sorriso natural, iluminado e simétrico.</p>
+                </div>
+
+                <!-- Case 2 -->
+                 <div class="reveal delay-100">
+                    <div class="relative group overflow-hidden rounded-xl shadow-lg mb-4">
+                        <!-- Images Container -->
+                        <div class="grid grid-cols-2 gap-1 bg-gray-100">
+                            <div class="relative h-64">
+                                <img src="https://images.unsplash.com/photo-1609607847926-6b95cf786195?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Antes" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500">
+                                <span class="absolute bottom-2 left-2 bg-black/70 text-white text-[10px] font-bold tracking-wider px-2 py-1 rounded">ANTES</span>
+                            </div>
+                            <div class="relative h-64">
+                                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Depois" class="w-full h-full object-cover">
+                                <span class="absolute bottom-2 right-2 bg-brand-wine text-white text-[10px] font-bold tracking-wider px-2 py-1 rounded">DEPOIS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-2xl text-gray-900">Clareamento Dental</h3>
+                    <p class="text-gray-500 text-sm mt-2">Protocolo combinado para remoção de pigmentações profundas e devolução do brilho natural.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                 <a href="https://wa.me/555185882555" class="inline-block border-b-2 border-brand-wine text-brand-wine font-bold hover:text-black hover:border-black transition-colors pb-1">Ver mais casos no Instagram <i class="fab fa-instagram ml-1"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato e Mapa -->
+    <section id="localizacao" class="relative bg-brand-dark text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <!-- Informações de Contato -->
+                <div class="reveal">
+                    <h2 class="font-serif text-4xl mb-2">Agende sua visita</h2>
+                    <p class="text-gray-400 mb-8">Estamos prontos para cuidar do seu sorriso.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-brand-gold shrink-0">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">Endereço</h4>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    Rua Felipe Camarão, 751, Bonfim<br>
+                                    Porto Alegre RS, 90035-141, Brasil
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-brand-gold shrink-0">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">Contato</h4>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    <a href="tel:+555185882555" class="hover:text-white transition">+55 51 8588-2555</a>
+                                </p>
+                                <p class="text-gray-500 text-xs mt-1">Atendimento via WhatsApp</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-brand-gold shrink-0">
+                                <i class="far fa-clock text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">Horários</h4>
+                                <p class="text-gray-400 text-sm mt-1">Somente com hora marcada.</p>
+                                <div class="inline-block mt-2 px-3 py-1 border border-brand-gold text-brand-gold text-xs rounded uppercase tracking-wider">
+                                    Aberto Agora
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <a href="https://wa.me/555185882555" class="inline-flex items-center bg-brand-gold text-black px-8 py-4 rounded font-bold hover:bg-white transition-colors w-full md:w-auto justify-center">
+                            <i class="fab fa-whatsapp text-xl mr-2"></i> Chamar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="h-96 w-full rounded-xl overflow-hidden shadow-2xl border border-gray-800 reveal delay-100 bg-gray-900 relative">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.088663853109!2d-51.2144!3d-30.0355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951978546f6f6f6f%3A0x0!2sR.%20Felipe%20Camar%C3%A3o%2C%20751%20-%20Bonfim%2C%20Porto%20Alegre%20-%20RS%2C%2090035-141!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(100%) invert(90%) contrast(85%);" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                    <div class="absolute bottom-4 left-4 bg-brand-wine text-white text-xs px-3 py-1 rounded shadow-lg">
+                        Rua Felipe Camarão, 751
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-500 py-8 border-t border-gray-900">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-serif text-xl text-white font-bold tracking-widest">DRA. BIANCA CARDOSO</span>
+            </div>
+            <div class="text-sm text-center md:text-right">
+                <p>&copy; 2024 Dra. Bianca Cardoso. Todos os direitos reservados.</p>
+                <p class="text-xs mt-1">Dentista e consultório odontológico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/555185882555" class="whatsapp-float bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:bg-green-600 transition-colors" target="_blank" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idiomas para o Mundo - Escola de Idiomas</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#FFD200', // Amarelo vibrante da imagem
+                            purple: '#4B0082', // Roxo profundo da imagem
+                            purpleLight: '#6A0DAD',
+                            dark: '#1a1a1a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4B0082;
+            border-radius: 5px;
+        }
+        
+        .blob-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FFD200' d='M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.1,22.9,71.1,34.6C60.1,46.3,49.5,56.1,37.3,63.9C25.1,71.7,11.3,77.6,-1.7,80.5C-14.7,83.4,-28.1,83.4,-40.3,77.3C-52.5,71.2,-63.5,59.1,-71.4,45.8C-79.3,32.5,-84.1,18,-83.5,3.8C-82.9,-10.4,-76.9,-24.3,-67.7,-36.1C-58.5,-47.9,-46.1,-57.6,-33.1,-65.4C-20.1,-73.2,-6.5,-79.1,4.9,-87.6L16.4,-107.5Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, #4B0082, #6A0DAD);
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(75, 0, 130, 0.3);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo area based on image -->
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-brand-yellow font-bold border-2 border-brand-yellow">
+                    Im!
+                </div>
+                <span class="font-bold text-brand-purple text-lg leading-tight">Idiomas<br><span class="text-sm font-normal text-gray-600">para o mundo</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 text-brand-purple font-medium">
+                <a href="#home" class="hover:text-brand-yellow transition">Início</a>
+                <a href="#cursos" class="hover:text-brand-yellow transition">Cursos</a>
+                <a href="#sobre" class="hover:text-brand-yellow transition">A Escola</a>
+                <a href="#contato" class="bg-brand-yellow text-brand-purple px-5 py-2 rounded-full font-bold hover:bg-yellow-400 transition shadow-md">
+                    Agendar Agora
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-brand-purple">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 flex flex-col gap-4 shadow-lg absolute w-full">
+            <a href="#home" class="block py-2 text-brand-purple font-medium">Início</a>
+            <a href="#cursos" class="block py-2 text-brand-purple font-medium">Cursos</a>
+            <a href="#sobre" class="block py-2 text-brand-purple font-medium">A Escola</a>
+            <a href="#contato" class="block py-2 bg-brand-yellow text-brand-purple text-center rounded-lg font-bold">Agendar Agora</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-20 overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-yellow opacity-10 rounded-bl-[100px] -z-10"></div>
+        
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+            <div data-aos="fade-right">
+                <span class="bg-brand-purple/10 text-brand-purple px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
+                    <i class="fas fa-star text-brand-yellow mr-1"></i> Recomendado por 88% dos alunos
+                </span>
+                <h1 class="text-4xl md:text-6xl font-bold text-brand-purple leading-tight mb-4">
+                    Abra as portas <br> <span class="text-brand-yellow bg-brand-purple px-2 rounded-lg transform -rotate-2 inline-block">do mundo!</span>
+                </h1>
+                <p class="text-gray-600 text-lg mb-8 max-w-md">
+                    Aprenda Inglês, Espanhol e Italiano com metodologia prática e envolvente em Campo Grande. O futuro fala o seu novo idioma.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/5567999103199?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20cursos." target="_blank" class="cta-btn text-white px-8 py-4 rounded-full font-bold text-center flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fab fa-whatsapp text-xl"></i> Falar no WhatsApp
+                    </a>
+                    <a href="#cursos" class="border-2 border-brand-purple text-brand-purple px-8 py-4 rounded-full font-bold text-center hover:bg-brand-purple hover:text-white transition">
+                        Ver Cursos
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative" data-aos="fade-left">
+                <!-- Abstract yellow blob background behind image -->
+                <div class="blob-bg w-full h-[350px] md:h-[500px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-50"></div>
+                <!-- Placeholder for Image -->
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estudantes felizes" class="relative z-10 rounded-2xl shadow-2xl w-full object-cover h-[400px] md:h-[500px] border-4 border-white transform rotate-2 hover:rotate-0 transition duration-500">
+                
+                <!-- Floating badge -->
+                <div class="absolute -bottom-6 -left-4 z-20 bg-white p-4 rounded-xl shadow-xl border-l-4 border-brand-yellow animate-bounce hidden md:block">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-brand-purple text-white w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Turmas abertas</p>
+                            <p class="font-bold text-brand-purple">Matricule-se já</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="cursos" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-brand-purple mb-2">Nossos Idiomas</h2>
+                <div class="w-20 h-1 bg-brand-yellow mx-auto rounded-full"></div>
+                <p class="text-gray-600 mt-4">Escolha sua próxima conquista pessoal e profissional</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- English Card -->
+                <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 bg-blue-600 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1526857240824-92be52581d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Inglês" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-4 w-full bg-gradient-to-t from-black/70 to-transparent">
+                            <h3 class="text-white text-2xl font-bold">Inglês</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">O idioma universal. Essencial para viagens, negócios e entretenimento global.</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-500">
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Conversação desde a 1ª aula</li>
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Certificado Reconhecido</li>
+                        </ul>
+                        <a href="#contato" class="block w-full py-2 border border-brand-purple text-brand-purple text-center rounded-lg font-bold group-hover:bg-brand-purple group-hover:text-white transition">Saiba Mais</a>
+                    </div>
+                </div>
+
+                <!-- Spanish Card -->
+                <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-red-600 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1568444438385-ece31a33ce78?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Espanhol" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-4 w-full bg-gradient-to-t from-black/70 to-transparent">
+                            <h3 class="text-white text-2xl font-bold">Espanhol</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Conecte-se com a América Latina e a Espanha. Um diferencial competitivo enorme.</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-500">
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Foco em cultura latina</li>
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Material didático atualizado</li>
+                        </ul>
+                        <a href="#contato" class="block w-full py-2 border border-brand-purple text-brand-purple text-center rounded-lg font-bold group-hover:bg-brand-purple group-hover:text-white transition">Saiba Mais</a>
+                    </div>
+                </div>
+
+                <!-- Italian Card -->
+                <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-green-600 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Italiano" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 p-4 w-full bg-gradient-to-t from-black/70 to-transparent">
+                            <h3 class="text-white text-2xl font-bold">Italiano</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">A língua da arte, da música e da gastronomia. Apaixone-se por aprender.</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-500">
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Imersão cultural</li>
+                            <li><i class="fas fa-check text-brand-yellow mr-2"></i> Turmas reduzidas</li>
+                        </ul>
+                        <a href="#contato" class="block w-full py-2 border border-brand-purple text-brand-purple text-center rounded-lg font-bold group-hover:bg-brand-purple group-hover:text-white transition">Saiba Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us / Features -->
+    <section id="sobre" class="py-16 bg-brand-purple text-white relative overflow-hidden">
+        <!-- Decoration Circles -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-yellow opacity-10 rounded-full translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Por que escolher o <br><span class="text-brand-yellow">Idiomas para o mundo?</span></h2>
+                    <p class="text-gray-200 mb-8 leading-relaxed">
+                        Somos mais que uma escola, somos um passaporte para o seu futuro. Localizada no coração de Campo Grande, oferecemos um ambiente acolhedor e professores apaixonados pelo que fazem.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-yellow text-brand-purple w-12 h-12 rounded-lg flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Metodologia Dinâmica</h4>
+                                <p class="text-sm text-gray-300">Aulas que fogem da rotina e focam na prática real.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-yellow text-brand-purple w-12 h-12 rounded-lg flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Localização Privilegiada</h4>
+                                <p class="text-sm text-gray-300">Fácil acesso na Av. Noroeste, com estrutura confortável.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-yellow text-brand-purple w-12 h-12 rounded-lg flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Preço Justo</h4>
+                                <p class="text-sm text-gray-300">Educação de qualidade com um investimento que cabe no bolso ($$).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
+                    <div class="space-y-4 translate-y-8">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="rounded-2xl shadow-lg w-full h-40 object-cover" alt="Estudantes">
+                        <div class="bg-brand-yellow p-6 rounded-2xl shadow-lg text-brand-purple text-center flex flex-col items-center justify-center h-40">
+                            <span class="text-4xl font-bold block">+15 mil</span>
+                            <span class="text-sm font-semibold">Seguidores</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20 text-center flex flex-col items-center justify-center h-40">
+                            <i class="fas fa-globe-americas text-4xl text-brand-yellow mb-2"></i>
+                            <span class="font-bold">3 Idiomas</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="rounded-2xl shadow-lg w-full h-40 object-cover" alt="Sala de aula">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section id="contato" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                <div class="grid md:grid-cols-2">
+                    <div class="p-8 md:p-12">
+                        <span class="text-brand-yellow font-bold tracking-wider uppercase text-sm mb-2 block">Entre em contato</span>
+                        <h2 class="text-3xl font-bold text-brand-purple mb-6">Venha nos visitar!</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-purple/10 w-10 h-10 rounded-full flex items-center justify-center text-brand-purple shrink-0">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Endereço</p>
+                                    <p class="text-gray-600">Av. Noroeste, 1288<br>Campo Grande, MS, 79008-520</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-purple/10 w-10 h-10 rounded-full flex items-center justify-center text-brand-purple shrink-0">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">WhatsApp</p>
+                                    <p class="text-gray-600">(67) 99910-3199</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-purple/10 w-10 h-10 rounded-full flex items-center justify-center text-brand-purple shrink-0">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Atendimento</p>
+                                    <p class="text-gray-600">Segunda a Sexta: 08:00 - 18:00<br>Sábado: 08:00 - 12:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <a href="https://wa.me/5567999103199" target="_blank" class="block w-full bg-[#25D366] text-white font-bold py-4 rounded-xl text-center hover:bg-[#20bd5a] transition shadow-lg flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-2xl"></i> Agendar Aula Experimental
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Placeholder -->
+                    <div class="h-64 md:h-auto bg-gray-200 relative">
+                         <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.4590393278284!2d-54.61864852398579!3d-20.44634025453051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9486e88106208a09%3A0x6442654d62b9a103!2sAv.%20Noroeste%2C%201288%20-%20Vila%20Planalto%2C%20Campo%20Grande%20-%20MS%2C%2079008-520!5e0!3m2!1spt-BR!2sbr!4v1707570000000!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="grayscale hover:grayscale-0 transition duration-500">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-purple text-white py-10 border-t border-white/10">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                    <div class="w-8 h-8 bg-brand-yellow rounded-full flex items-center justify-center text-brand-purple font-bold border border-white">
+                        Im!
+                    </div>
+                    <span class="font-bold text-lg">Idiomas para o mundo</span>
+                </div>
+                <p class="text-sm text-gray-300">© 2026 Todos os direitos reservados.</p>
+            </div>
+            
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-purple transition"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-purple transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/5567999103199" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-purple transition"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS (Animation on Scroll)
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

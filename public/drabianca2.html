@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Bianca Cardoso | Odontologia de Alta Performance</title>
+    <meta name="description" content="Consultório odontológico Dra. Bianca Cardoso no Bonfim, Porto Alegre. Odontologia estética e funcional com tecnologia de ponta.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração de Cores e Fontes -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-wine': '#4A0404',
+                        'brand-wine-dark': '#2a0101',
+                        'brand-gold': '#C5A059',
+                        'brand-gold-light': '#E5C585',
+                        'brand-dark': '#0a0a0a',
+                        'brand-gray': '#f8f8f8'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Cursor Personalizado */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #C5A059;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Animações de Background */
+        .animated-bg {
+            background: linear-gradient(-45deg, #1a0505, #2a0808, #000000, #1a0505);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Float Animation */
+        .float-img {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Reveal Animation Classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Slider Comparativo (Antes e Depois) */
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1rem;
+            cursor: ew-resize;
+        }
+        
+        .comparison-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .comparison-before {
+            width: 50%; /* Initial state */
+            z-index: 2;
+            border-right: 2px solid white;
+        }
+
+        .handle-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            z-index: 3;
+            pointer-events: none; /* Let clicks pass through to container */
+        }
+
+        /* Glassmorphism Refinado */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Card Tilt Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        
+        .tilt-content {
+            transform: translateZ(20px);
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-dark antialiased bg-brand-gray overflow-x-hidden selection:bg-brand-gold selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
+    <div class="cursor-outline hidden md:block" id="cursor-outline"></div>
+
+    <!-- Navbar Transparente -->
+    <nav class="fixed w-full z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <a href="#" class="group flex flex-col items-start z-50">
+                    <span class="font-serif text-2xl tracking-widest font-bold text-white group-hover:text-brand-gold transition-colors">DRA. BIANCA</span>
+                    <span class="text-[10px] tracking-[0.3em] uppercase text-gray-300">Odontologia</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-12 items-center">
+                    <a href="#sobre" class="text-gray-200 hover:text-brand-gold transition-colors text-xs tracking-widest uppercase relative group">
+                        Sobre
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#tratamentos" class="text-gray-200 hover:text-brand-gold transition-colors text-xs tracking-widest uppercase relative group">
+                        Tratamentos
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#transformacoes" class="text-gray-200 hover:text-brand-gold transition-colors text-xs tracking-widest uppercase relative group">
+                        Casos Reais
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://wa.me/555185882555" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-3 rounded-full hover:bg-brand-gold hover:border-brand-gold hover:text-black transition-all duration-300 text-xs font-bold tracking-wider">
+                        AGENDAR VISITA
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white z-50 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex items-center justify-center">
+            <div class="flex flex-col space-y-8 text-center">
+                <a href="#sobre" class="text-2xl font-serif text-white hover:text-brand-gold mobile-link">Sobre</a>
+                <a href="#tratamentos" class="text-2xl font-serif text-white hover:text-brand-gold mobile-link">Tratamentos</a>
+                <a href="#transformacoes" class="text-2xl font-serif text-white hover:text-brand-gold mobile-link">Transformações</a>
+                <a href="https://wa.me/555185882555" class="text-2xl font-serif text-brand-gold mobile-link">Agendar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center animated-bg text-white overflow-hidden pt-20">
+        <!-- Elementos Decorativos de Fundo -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-wine opacity-30 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-gold opacity-10 rounded-full blur-[100px]" style="animation-delay: 2s;"></div>
+        
+        <!-- Texture overlay -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                
+                <!-- Texto -->
+                <div class="md:w-1/2 text-center md:text-left">
+                    <div class="reveal-up">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 border border-brand-gold/30 rounded-full bg-black/20 backdrop-blur-sm mb-6">
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            <span class="text-[10px] uppercase tracking-widest text-brand-gold-light">Novos horários disponíveis</span>
+                        </div>
+                        
+                        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-6">
+                            Sorrisos que <br/>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-white italic">transformam</span><br/>
+                            vidas.
+                        </h1>
+                        
+                        <p class="text-gray-300 text-lg font-light mb-10 max-w-md mx-auto md:mx-0 leading-relaxed">
+                            No coração do Bonfim, unimos tecnologia digital avançada à sensibilidade artística para revelar a sua melhor versão.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                            <a href="https://wa.me/555185882555" class="group relative px-8 py-4 bg-brand-gold overflow-hidden rounded-sm text-brand-dark font-bold tracking-wider hover:text-white transition-colors duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+                                <span class="absolute inset-0 w-full h-full bg-brand-wine transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0"></span>
+                                <span class="relative z-10 flex items-center justify-center">
+                                    AGENDAR AVALIAÇÃO <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                </span>
+                            </a>
+                            <a href="#tratamentos" class="px-8 py-4 border border-white/30 text-white rounded-sm hover:bg-white hover:text-black transition-all duration-300 tracking-wider">
+                                CONHECER
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem Dra -->
+                <div class="md:w-1/2 flex justify-center md:justify-end relative reveal-up" style="transition-delay: 200ms;">
+                    <div class="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px]">
+                        <!-- Círculos de fundo animados -->
+                        <div class="absolute inset-0 border border-brand-gold/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute inset-4 border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                        
+                        <!-- Foto -->
+                        <div class="absolute inset-0 rounded-full overflow-hidden border-4 border-brand-gold/30 shadow-2xl float-img bg-gradient-to-b from-transparent to-brand-wine/50">
+                             <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dentistasalealeatorio%2Fbianca.png?alt=media&token=945d7105-faf4-4e2f-858a-369aefc7f88a" 
+                                  alt="Dra. Bianca Cardoso" 
+                                  class="w-full h-full object-cover transform scale-105 hover:scale-110 transition-transform duration-700">
+                        </div>
+
+                        <!-- Badge Flutuante -->
+                        <div class="absolute bottom-10 -left-4 bg-white/90 backdrop-blur text-brand-wine p-4 rounded-xl shadow-lg float-img" style="animation-delay: 1s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-wine rounded-full flex items-center justify-center text-brand-gold">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm">Estética Dental</p>
+                                    <p class="text-xs text-gray-500">Especialista</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <a href="#sobre" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/50 hover:text-white transition-colors animate-bounce">
+            <i class="fas fa-chevron-down text-xl"></i>
+        </a>
+    </header>
+
+    <!-- Sobre Section (Clean & Elegant) -->
+    <section id="sobre" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 relative reveal-up">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Consultório" class="w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-brand-wine/10 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <!-- Elemento decorativo atrás -->
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-brand-gold rounded-2xl z-0"></div>
+                </div>
+                
+                <div class="lg:w-1/2 reveal-up" style="transition-delay: 150ms;">
+                    <span class="text-brand-gold font-bold tracking-[0.2em] text-sm uppercase mb-2 block">Nossa Filosofia</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mb-6">
+                        Excelência em cada <span class="italic text-brand-wine">detalhe</span>.
+                    </h2>
+                    <p class="text-gray-600 leading-loose mb-6 font-light text-lg">
+                        Acreditamos que um sorriso bonito é consequência de saúde e equilíbrio. No consultório da Dra. Bianca Cardoso, cada procedimento é planejado digitalmente para harmonizar com suas características únicas.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold text-xl mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Tecnologia Digital</h4>
+                                <p class="text-sm text-gray-500">Escaneamento e planejamento 3D.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-brand-gold text-xl mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Minimamente Invasivo</h4>
+                                <p class="text-sm text-gray-500">Preservação da estrutura dental.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tratamentos com Efeito Tilt -->
+    <section id="tratamentos" class="py-24 bg-brand-gray relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[100px] opacity-60"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal-up">
+                <span class="text-brand-wine font-bold tracking-widest uppercase text-xs">Especialidades</span>
+                <h2 class="font-serif text-4xl md:text-5xl mt-3">Tratamentos Exclusivos</h2>
+                <div class="w-16 h-[2px] bg-brand-gold mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="tilt-card-container reveal-up">
+                    <div class="tilt-card bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-transparent hover:border-brand-gold/30 h-full group cursor-none-target">
+                        <div class="tilt-content">
+                            <div class="w-16 h-16 bg-brand-wine/5 rounded-full flex items-center justify-center text-3xl text-brand-wine mb-8 group-hover:bg-brand-wine group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-tooth"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-4 group-hover:text-brand-wine transition-colors">Lentes de Contato</h3>
+                            <p class="text-gray-500 font-light leading-relaxed mb-6">
+                                Facetas ultrafinas de porcelana desenhadas digitalmente para corrigir cor, formato e posição dos dentes.
+                            </p>
+                            <a href="#" class="text-xs font-bold tracking-widest uppercase text-brand-gold border-b border-brand-gold pb-1 group-hover:text-brand-wine group-hover:border-brand-wine transition-colors">Saiba mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="tilt-card-container reveal-up" style="transition-delay: 100ms;">
+                    <div class="tilt-card bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-transparent hover:border-brand-gold/30 h-full group cursor-none-target">
+                        <div class="tilt-content">
+                            <div class="w-16 h-16 bg-brand-wine/5 rounded-full flex items-center justify-center text-3xl text-brand-wine mb-8 group-hover:bg-brand-wine group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-4 group-hover:text-brand-wine transition-colors">Invisalign</h3>
+                            <p class="text-gray-500 font-light leading-relaxed mb-6">
+                                Alinhamento dental discreto e confortável com alinhadores transparentes de alta tecnologia.
+                            </p>
+                            <a href="#" class="text-xs font-bold tracking-widest uppercase text-brand-gold border-b border-brand-gold pb-1 group-hover:text-brand-wine group-hover:border-brand-wine transition-colors">Saiba mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="tilt-card-container reveal-up" style="transition-delay: 200ms;">
+                    <div class="tilt-card bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-transparent hover:border-brand-gold/30 h-full group cursor-none-target">
+                        <div class="tilt-content">
+                            <div class="w-16 h-16 bg-brand-wine/5 rounded-full flex items-center justify-center text-3xl text-brand-wine mb-8 group-hover:bg-brand-wine group-hover:text-white transition-colors duration-300">
+                                <i class="far fa-gem"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-4 group-hover:text-brand-wine transition-colors">Clareamento</h3>
+                            <p class="text-gray-500 font-light leading-relaxed mb-6">
+                                Protocolos combinados (consultório + home care) para resultados rápidos, duradouros e sem sensibilidade.
+                            </p>
+                            <a href="#" class="text-xs font-bold tracking-widest uppercase text-brand-gold border-b border-brand-gold pb-1 group-hover:text-brand-wine group-hover:border-brand-wine transition-colors">Saiba mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Interativa Antes e Depois -->
+    <section id="transformacoes" class="py-24 bg-brand-dark text-white relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/3 reveal-up">
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs">Transformações</span>
+                    <h2 class="font-serif text-4xl mb-6 mt-2">Veja a diferença real.</h2>
+                    <p class="text-gray-400 mb-8 font-light">
+                        Arraste a barra para comparar o sorriso antes e depois do tratamento com lentes de porcelana.
+                    </p>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center text-sm text-gray-300">
+                            <div class="w-8 h-px bg-brand-gold mr-3"></div> 10 Facetas de Porcelana
+                        </div>
+                        <div class="flex items-center text-sm text-gray-300">
+                            <div class="w-8 h-px bg-brand-gold mr-3"></div> Recontorno Gengival
+                        </div>
+                        <div class="flex items-center text-sm text-gray-300">
+                            <div class="w-8 h-px bg-brand-gold mr-3"></div> Cor BL2 (Natural White)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Interativo -->
+                <div class="lg:w-2/3 w-full reveal-up" style="transition-delay: 200ms;">
+                    <div class="comparison-slider aspect-[4/3] md:aspect-[16/9] shadow-2xl shadow-brand-gold/10" id="comparison-slider">
+                        <!-- Imagem DEPOIS (Fundo) -->
+                        <div class="comparison-item" style="background-image: url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                            <span class="absolute top-4 right-4 bg-brand-gold text-black text-xs font-bold px-3 py-1 rounded">DEPOIS</span>
+                        </div>
+                        
+                        <!-- Imagem ANTES (Frente) -->
+                        <div class="comparison-item comparison-before" id="comparison-before" style="background-image: url('https://images.unsplash.com/photo-1609607847926-6b95cf786195?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); filter: grayscale(100%);">
+                            <span class="absolute top-4 left-4 bg-black/70 text-white text-xs font-bold px-3 py-1 rounded">ANTES</span>
+                        </div>
+
+                        <!-- Handle -->
+                        <div class="handle-circle" id="handle-circle" style="left: 50%;">
+                            <i class="fas fa-arrows-alt-h text-brand-wine text-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-4 uppercase tracking-widest"><i class="fas fa-hand-pointer mr-2"></i> Arraste para comparar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Localização e Contato -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-12 bg-brand-wine text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                    
+                    <h3 class="font-serif text-3xl mb-8">Visite nosso espaço</h3>
+                    
+                    <div class="space-y-8 relative z-10">
+                        <div class="flex items-start group">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 group-hover:bg-brand-gold group-hover:text-black transition-colors duration-300">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-lg">Bonfim, Porto Alegre</p>
+                                <p class="text-white/70 font-light">Rua Felipe Camarão, 751</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start group">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4 group-hover:bg-brand-gold group-hover:text-black transition-colors duration-300">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-lg">Agendamentos</p>
+                                <a href="https://wa.me/555185882555" class="text-white/70 font-light hover:text-brand-gold transition-colors">+55 51 8588-2555</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                        <a href="https://wa.me/555185882555" class="block w-full py-4 bg-brand-gold text-center text-brand-wine font-bold uppercase tracking-widest rounded hover:bg-white transition-colors">
+                            Chamar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 h-80 md:h-auto bg-gray-200 relative">
+                     <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.088663853109!2d-51.2144!3d-30.0355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951978546f6f6f6f%3A0x0!2sR.%20Felipe%20Camar%C3%A3o%2C%20751%20-%20Bonfim%2C%20Porto%20Alegre%20-%20RS%2C%2090035-141!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(100%);" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-500 py-10 border-t border-gray-900 text-sm">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-serif text-xl text-white mb-2">DRA. BIANCA CARDOSO</p>
+            <p>&copy; 2024. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante -->
+    <a href="https://wa.me/555185882555" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-lg hover:scale-110 transition-transform z-40 group">
+        <i class="fab fa-whatsapp"></i>
+        <span class="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded shadow text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Agende agora</span>
+    </a>
+
+    <!-- Scripts de Interatividade -->
+    <script>
+        // --- Custom Cursor ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Pequeno delay para o círculo maior (efeito de arrasto)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover Effect on Links/Buttons to grow cursor
+        const interactiveElements = document.querySelectorAll('a, button, .comparison-slider, .cursor-none-target');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // --- Slider de Comparação (Antes/Depois) ---
+        const slider = document.getElementById('comparison-slider');
+        const beforeImage = document.getElementById('comparison-before');
+        const handle = document.getElementById('handle-circle');
+
+        if(slider) {
+            const moveSlider = (e) => {
+                const rect = slider.getBoundingClientRect();
+                let x = (e.clientX || e.touches[0].clientX) - rect.left;
+                
+                // Limites
+                if(x < 0) x = 0;
+                if(x > rect.width) x = rect.width;
+                
+                const percentage = (x / rect.width) * 100;
+                
+                beforeImage.style.width = `${percentage}%`;
+                handle.style.left = `${percentage}%`;
+            }
+
+            slider.addEventListener('mousemove', moveSlider);
+            slider.addEventListener('touchmove', moveSlider);
+        }
+
+        // --- Tilt Effect para Cards ---
+        const cards = document.querySelectorAll('.tilt-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Inverte eixo Y
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+
+        // --- Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal-up');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/90', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-black/90', 'backdrop-blur-md', 'shadow-lg');
+            }
+        });
+
+        // --- Mobile Menu ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            const isOpen = !menu.classList.contains('translate-x-full');
+            if(isOpen) {
+                menu.classList.add('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            } else {
+                menu.classList.remove('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('translate-x-full');
+                btn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            });
+        });
+    </script>
+</body>
+</html>

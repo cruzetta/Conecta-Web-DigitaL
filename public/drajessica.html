@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jéssica Ketlyn | Estética Avançada</title>
+    <meta name="description" content="Rejuvenescimento Facial e Corporal em Porto Alegre. Resultados naturais e sofisticados.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            wine: '#5D0E1D',
+                            dark: '#2C050C',
+                            gold: '#D4AF37',
+                            goldlight: '#F3E5AB',
+                            cream: '#FAF9F6',
+                            gray: '#F4F4F4'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'gold': '0 4px 20px -5px rgba(212, 175, 55, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Personalizados */
+        body {
+            background-color: #FAF9F6;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at top right, #4a0404 0%, #1a0101 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de grão sutil no fundo */
+        .hero-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D4AF37, #F3E5AB, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Esconder barra de rolagem no mobile mas manter funcionalidade */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animações de entrada */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Imagem Hero com Borda Orgânica */
+        .organic-border {
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            animation: morph 8s ease-in-out infinite;
+            box-shadow: 0 0 0 8px rgba(255,255,255,0.05), 0 0 0 16px rgba(255,255,255,0.02);
+        }
+        
+        @keyframes morph {
+            0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+            50% { border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%; }
+            100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+        }
+
+        /* Sticky Bottom Bar no Mobile */
+        .mobile-sticky-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased pb-20 md:pb-0">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav top-0 left-0" id="navbar">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex flex-col leading-none group">
+                    <span class="font-serif text-2xl text-brand-wine tracking-widest font-semibold group-hover:text-brand-gold transition-colors">JÉSSICA</span>
+                    <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-gray-500 ml-0.5">Ketlyn</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-10 items-center">
+                    <a href="#sobre" class="text-sm font-medium hover:text-brand-wine transition-colors uppercase tracking-widest">Sobre</a>
+                    <a href="#servicos" class="text-sm font-medium hover:text-brand-wine transition-colors uppercase tracking-widest">Procedimentos</a>
+                    <a href="#resultados" class="text-sm font-medium hover:text-brand-wine transition-colors uppercase tracking-widest">Resultados</a>
+                    <a href="https://wa.me/555185882555" class="bg-brand-wine text-white px-8 py-2.5 rounded-full hover:bg-brand-dark transition-all duration-300 shadow-gold transform hover:-translate-y-0.5">
+                        Agendar
+                    </a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button id="mobile-menu-btn" class="md:hidden text-brand-wine p-2 focus:outline-none">
+                    <div class="w-6 h-0.5 bg-brand-wine mb-1.5 transition-all duration-300 origin-right"></div>
+                    <div class="w-6 h-0.5 bg-brand-wine mb-1.5 transition-all duration-300"></div>
+                    <div class="w-6 h-0.5 bg-brand-wine transition-all duration-300 origin-right"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl transform -translate-y-[150%] transition-transform duration-500 ease-in-out -z-10">
+            <div class="px-6 py-8 space-y-6 text-center">
+                <a href="#sobre" class="block text-xl font-serif text-brand-wine" onclick="toggleMenu()">Sobre a Jéssica</a>
+                <a href="#servicos" class="block text-xl font-serif text-brand-wine" onclick="toggleMenu()">Procedimentos</a>
+                <a href="#resultados" class="block text-xl font-serif text-brand-wine" onclick="toggleMenu()">Antes & Depois</a>
+                <a href="#localizacao" class="block text-xl font-serif text-brand-wine" onclick="toggleMenu()">Localização</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Mobile Optimized) -->
+    <header class="relative pt-28 pb-16 md:pt-40 md:pb-32 hero-bg text-white min-h-[90vh] flex items-center">
+        <!-- Elementos decorativos de fundo -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold opacity-10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                
+                <!-- Text Content -->
+                <div class="md:w-1/2 text-center md:text-left order-2 md:order-1 reveal-up active">
+                    <div class="inline-block px-4 py-1.5 border border-white/20 rounded-full bg-white/5 backdrop-blur-sm mb-6">
+                        <span class="text-brand-goldlight text-xs tracking-[0.2em] uppercase font-bold">Estética Avançada</span>
+                    </div>
+                    
+                    <h1 class="font-serif text-5xl md:text-7xl mb-6 leading-[1.1]">
+                        Sua beleza, <br class="hidden md:block" />
+                        <span class="italic font-light text-brand-goldlight">elevada ao</span> <br/>
+                        <span class="gold-gradient-text font-semibold">máximo.</span>
+                    </h1>
+                    
+                    <p class="text-gray-300 text-lg mb-8 max-w-md mx-auto md:mx-0 font-light leading-relaxed">
+                        Clínica premium em Porto Alegre especializada em realçar sua beleza natural através de tecnologia e ciência.
+                    </p>
+                    
+                    <div class="hidden md:flex gap-4">
+                        <a href="#servicos" class="bg-brand-gold text-brand-dark px-8 py-3.5 rounded-full font-bold hover:bg-white transition-all shadow-gold">
+                            Conhecer Procedimentos
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Content -->
+                <div class="md:w-1/2 flex justify-center order-1 md:order-2 reveal-up delay-100">
+                    <div class="relative w-64 h-64 md:w-[450px] md:h-[450px]">
+                        <!-- Imagem com Borda Orgânica -->
+                        <div class="w-full h-full organic-border overflow-hidden relative z-10 bg-brand-wine">
+                            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jéssica Ketlyn Estética" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Floating Badges (Vidro) -->
+                        <div class="absolute -bottom-4 -left-4 md:bottom-10 md:-left-10 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl z-20 animate-bounce duration-[3000ms]">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-brand-gold rounded-full p-2 text-brand-dark">
+                                    <i class="fas fa-star text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-300 uppercase tracking-wider">Certificação</p>
+                                    <p class="font-serif text-lg leading-none">Internacional</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-pulse hidden md:block">
+            <i class="fas fa-chevron-down text-white/30 text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- Seção de Serviços Mobile-First (Swipe Horizontal) -->
+    <section id="servicos" class="py-20 bg-brand-cream relative overflow-hidden">
+        <!-- Decoração de fundo -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+            <div class="absolute top-10 right-10 text-9xl font-serif text-brand-wine rotate-12">JK</div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex justify-between items-end mb-10 px-2 reveal-up">
+                <div>
+                    <span class="text-brand-wine text-xs font-bold tracking-[0.2em] uppercase block mb-2">Especialidades</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-brand-dark">Nossos <span class="italic text-brand-wine">Procedimentos</span></h2>
+                </div>
+                <!-- Indicador de swipe para mobile -->
+                <div class="md:hidden text-brand-wine/50 animate-pulse text-sm">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- Container Horizontal Scroll com Snap -->
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-10 -mx-6 px-6 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:mx-0 md:px-0 no-scrollbar">
+                
+                <!-- Card 1 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl p-8 shadow-soft border border-gray-100 group hover:border-brand-gold/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-wine/5 rounded-bl-[100px] -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="w-12 h-12 bg-brand-wine text-brand-gold rounded-xl flex items-center justify-center text-xl mb-6 relative z-10">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-brand-dark group-hover:text-brand-wine transition-colors">Rejuvenescimento</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Tratamentos focados em devolver a vitalidade da pele, suavizando linhas e recuperando o viço natural.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold text-xs mr-2"></i> Bioestimuladores</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold text-xs mr-2"></i> Toxina Botulínica</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl p-8 shadow-soft border border-gray-100 group hover:border-brand-gold/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-bl-[100px] -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="w-12 h-12 bg-brand-gold text-white rounded-xl flex items-center justify-center text-xl mb-6 relative z-10">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-brand-dark group-hover:text-brand-wine transition-colors">Harmonização</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Equilíbrio estético que respeita sua anatomia. Pequenos ajustes que fazem toda a diferença.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check text-brand-wine text-xs mr-2"></i> Preenchimento Labial</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-wine text-xs mr-2"></i> Rinomodelação</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl p-8 shadow-soft border border-gray-100 group hover:border-brand-gold/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-wine/5 rounded-bl-[100px] -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="w-12 h-12 bg-brand-dark text-brand-gold rounded-xl flex items-center justify-center text-xl mb-6 relative z-10">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-3 text-brand-dark group-hover:text-brand-wine transition-colors">Corporal</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Protocolos exclusivos para gordura localizada, flacidez e contorno corporal.</p>
+                    <ul class="space-y-2 mb-6 text-sm text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold text-xs mr-2"></i> Enzimas</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold text-xs mr-2"></i> Tecnologias Avançadas</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Minimalista -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 relative reveal-up">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Consultório" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-wine/80 to-transparent flex items-end p-8">
+                            <p class="text-white font-serif text-xl italic">"Realçar sem transformar."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 reveal-up delay-100">
+                    <h2 class="font-serif text-4xl text-brand-dark mb-6">A Especialista</h2>
+                    <div class="w-16 h-1 bg-brand-gold mb-8"></div>
+                    
+                    <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+                        Olá, sou <strong class="text-brand-wine">Jéssica Ketlyn</strong>. Minha missão é proporcionar bem-estar e autoestima através de procedimentos estéticos seguros e personalizados.
+                    </p>
+                    <p class="text-gray-500 mb-8 leading-relaxed font-light">
+                        Com certificações internacionais e uma visão humanizada, acredito que cada rosto conta uma história única que merece ser celebrada, não apagada.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-4 bg-brand-cream rounded-xl">
+                            <span class="block text-3xl font-serif text-brand-wine mb-1">+5k</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-500">Procedimentos</span>
+                        </div>
+                        <div class="text-center p-4 bg-brand-cream rounded-xl">
+                            <span class="block text-3xl font-serif text-brand-wine mb-1">100%</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-500">Segurança</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados (Antes e Depois) -->
+    <section id="resultados" class="py-20 bg-brand-dark text-white relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-gold mb-4">Resultados Reais</h2>
+                <p class="text-white/60 font-light max-w-xl mx-auto">Confira algumas transformações realizadas em nossa clínica.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Case 1 -->
+                <div class="group relative overflow-hidden rounded-xl reveal-up">
+                    <div class="aspect-[4/3] relative">
+                        <!-- Imagem Slider (Simulação visual) -->
+                        <div class="absolute inset-0 grid grid-cols-2">
+                            <div class="bg-gray-800 relative border-r border-white/10">
+                                <img src="https://placehold.co/600x400/333/999?text=ANTES" class="w-full h-full object-cover opacity-50 mix-blend-overlay">
+                                <span class="absolute bottom-4 left-4 text-xs font-bold bg-black/50 px-2 py-1 rounded">ANTES</span>
+                            </div>
+                            <div class="bg-gray-800 relative">
+                                <img src="https://placehold.co/600x400/5D0E1D/D4AF37?text=DEPOIS" class="w-full h-full object-cover opacity-80 mix-blend-overlay">
+                                <span class="absolute bottom-4 right-4 text-xs font-bold bg-brand-gold text-black px-2 py-1 rounded">DEPOIS</span>
+                            </div>
+                        </div>
+                        <!-- Círculo central decorativo -->
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
+                            <i class="fas fa-arrows-alt-h text-brand-dark text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm p-4 border-t border-white/10">
+                        <h4 class="font-serif text-xl text-brand-gold">Harmonização Facial</h4>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="group relative overflow-hidden rounded-xl reveal-up delay-100">
+                    <div class="aspect-[4/3] relative">
+                         <div class="absolute inset-0 grid grid-cols-2">
+                            <div class="bg-gray-800 relative border-r border-white/10">
+                                <img src="https://placehold.co/600x400/333/999?text=ANTES" class="w-full h-full object-cover opacity-50 mix-blend-overlay">
+                                <span class="absolute bottom-4 left-4 text-xs font-bold bg-black/50 px-2 py-1 rounded">ANTES</span>
+                            </div>
+                            <div class="bg-gray-800 relative">
+                                <img src="https://placehold.co/600x400/5D0E1D/D4AF37?text=DEPOIS" class="w-full h-full object-cover opacity-80 mix-blend-overlay">
+                                <span class="absolute bottom-4 right-4 text-xs font-bold bg-brand-gold text-black px-2 py-1 rounded">DEPOIS</span>
+                            </div>
+                        </div>
+                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
+                            <i class="fas fa-arrows-alt-h text-brand-dark text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm p-4 border-t border-white/10">
+                        <h4 class="font-serif text-xl text-brand-gold">Preenchimento Labial</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="https://instagram.com" class="inline-flex items-center text-sm tracking-widest uppercase hover:text-brand-gold transition-colors pb-1 border-b border-white/20 hover:border-brand-gold">
+                    <i class="fab fa-instagram mr-2"></i> Ver portfólio completo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Localização e Footer -->
+    <section id="localizacao" class="bg-white pt-20 pb-24 md:pb-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-8 mb-12">
+                <div class="md:w-1/3 reveal-up">
+                    <h2 class="font-serif text-3xl text-brand-wine mb-6">Visite-nos</h2>
+                    <p class="text-gray-600 mb-6">
+                        R. São Manoel, 456 - Sala 305<br>
+                        Rio Branco, Porto Alegre - RS
+                    </p>
+                    <div class="flex items-center gap-3 text-brand-wine mb-2">
+                        <i class="fab fa-whatsapp"></i> 
+                        <span class="font-bold">+55 51 8588-2555</span>
+                    </div>
+                    <p class="text-sm text-gray-400">Atendimento com hora marcada.</p>
+                </div>
+                <div class="md:w-2/3 h-64 md:h-auto rounded-2xl overflow-hidden shadow-lg reveal-up delay-100 bg-gray-200">
+                   <iframe 
+                        src="https://maps.google.com/maps?q=R.%20S%C3%A3o%20Manoel%2C%20456%2C%20Rio%20Branco%2C%20Porto%20Alegre&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(100%);" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <p>&copy; 2026 Jéssica Ketlyn Estética.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-brand-wine">Privacidade</a>
+                    <a href="#" class="hover:text-brand-wine">Termos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOBILE STICKY BOTTOM BAR (Apenas Celular) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full mobile-sticky-bar z-50 border-t border-gray-100 flex justify-between items-center px-6 py-3">
+        <div class="flex flex-col">
+            <span class="text-[10px] uppercase text-gray-400 tracking-wider">Agende agora</span>
+            <span class="text-brand-wine font-serif font-bold text-lg">Avaliação</span>
+        </div>
+        <a href="https://wa.me/555185882555" class="bg-brand-wine text-white px-6 py-2.5 rounded-full font-bold shadow-lg flex items-center gap-2 hover:bg-brand-dark transition-colors">
+            <i class="fab fa-whatsapp"></i> Chamar
+        </a>
+    </div>
+
+    <!-- DESKTOP Floating WhatsApp (Apenas Computador) -->
+    <a href="https://wa.me/555185882555" class="hidden md:flex fixed bottom-8 right-8 bg-green-500 text-white w-14 h-14 rounded-full items-center justify-center text-2xl shadow-lg hover:bg-green-600 transition-all z-50 hover:scale-110" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('-translate-y-[150%]');
+                menu.classList.add('translate-y-0');
+                // Animate hamburger to X
+                btn.children[0].classList.add('rotate-45', 'translate-y-2');
+                btn.children[1].classList.add('opacity-0');
+                btn.children[2].classList.add('-rotate-45', '-translate-y-2');
+            } else {
+                menu.classList.add('-translate-y-[150%]');
+                menu.classList.remove('translate-y-0');
+                // Animate X back to hamburger
+                btn.children[0].classList.remove('rotate-45', 'translate-y-2');
+                btn.children[1].classList.remove('opacity-0');
+                btn.children[2].classList.remove('-rotate-45', '-translate-y-2');
+            }
+        }
+
+        btn.addEventListener('click', toggleMenu);
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal-up');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // Navbar Shadow on Scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-sm');
+            }
+        });
+    </script>
+</body>
+</html>

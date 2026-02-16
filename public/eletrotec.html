@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotec.rj | Manutenção Elétrica Especializada</title>
+    <meta name="description" content="Manutenção e Instalação Elétrica no Rio de Janeiro - Z.O Guaratiba. Tec. Bruno Gomes. Planos a partir de R$ 599,90.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuração de Cores e Fontes -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#FFE600', // Amarelo vibrante da marca
+                            dark: '#121212',
+                            gray: '#1E1E1E',
+                            accent: '#FFD700'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para barra de rolagem e efeitos */
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Efeito de vidro */
+        .glass-effect {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 230, 0, 0.1);
+        }
+
+        /* Destaque de texto */
+        .text-gradient {
+            background: linear-gradient(to right, #FFE600, #FFAA00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animação de entrada */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- Header Fixo Mobile -->
+    <header class="fixed top-0 w-full z-50 glass-effect border-b border-yellow-500/20">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-bolt text-brand-yellow text-2xl animate-pulse"></i>
+                <h1 class="font-display font-black text-xl tracking-tighter">ELETROTEC<span class="text-brand-yellow">.RJ</span></h1>
+            </div>
+            <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." class="bg-brand-yellow text-black font-bold text-sm px-4 py-2 rounded-full hover:bg-white transition shadow-[0_0_15px_rgba(255,230,0,0.5)]">
+                CONTATO
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-12 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-yellow rounded-full filter blur-[100px] opacity-20 -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-yellow-600 rounded-full filter blur-[80px] opacity-10 -z-10"></div>
+
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+            
+            <!-- Texto Hero -->
+            <div class="w-full md:w-1/2 text-center md:text-left z-10 order-2 md:order-1">
+                <div class="inline-block px-3 py-1 mb-4 border border-brand-yellow/30 rounded-full bg-brand-yellow/10">
+                    <span class="text-brand-yellow text-xs font-bold tracking-wider uppercase"><i class="fas fa-map-marker-alt mr-1"></i> RIO DE JANEIRO - Z.O GUARATIBA</span>
+                </div>
+                
+                <h2 class="font-display font-black text-4xl md:text-6xl leading-tight mb-4">
+                    SOLUÇÕES ELÉTRICAS <br>
+                    <span class="text-gradient">SOB MEDIDA</span>
+                </h2>
+                
+                <p class="text-gray-400 text-lg mb-8 font-light">
+                    Tecnologia, agilidade e segurança para sua residência ou empresa com o <strong>Tec. Bruno Gomes</strong>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#planos" class="group relative px-8 py-4 bg-brand-yellow text-black font-black font-display rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(255,230,0,0.4)] transition-transform hover:-translate-y-1">
+                        <span class="relative z-10 flex items-center justify-center gap-2">
+                            VER PLANOS <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                        </span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </a>
+                    
+                    <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20preciso%20de%20ajuda%20com%20el%C3%A9trica." class="px-8 py-4 border border-gray-700 bg-gray-800 rounded-xl hover:bg-gray-700 transition flex items-center justify-center gap-2 font-bold">
+                        <i class="fab fa-whatsapp text-green-400 text-xl"></i> Falar no Zap
+                    </a>
+                </div>
+            </div>
+
+            <!-- Imagem Hero -->
+            <div class="w-full md:w-1/2 relative order-1 md:order-2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                    <!-- Círculo decorativo atrás -->
+                    <div class="absolute inset-0 border-2 border-brand-yellow/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                    <div class="absolute inset-2 border border-dashed border-brand-yellow/60 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                    
+                    <!-- Foto -->
+                    <div class="absolute inset-4 rounded-full overflow-hidden border-4 border-brand-yellow shadow-[0_0_30px_rgba(255,230,0,0.3)] bg-brand-yellow">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/eletrotec.html%2FWhatsApp%20Image%202026-02-15%20at%2002.56.57.jpeg?alt=media&token=a0953078-7f98-4162-afef-00ea3cb0a3b8" 
+                             alt="Tec. Bruno Gomes" 
+                             class="w-full h-full object-cover object-top hover:scale-110 transition duration-500">
+                    </div>
+
+                    <!-- Badge -->
+                    <div class="absolute bottom-4 right-0 bg-white text-black px-4 py-2 rounded-lg font-bold shadow-lg transform rotate-3 hover:rotate-0 transition animate-float">
+                        <div class="flex items-center gap-1 text-xs">
+                            <i class="fas fa-star text-brand-yellow"></i>
+                            <span>ESPECIALISTA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Benefícios Rápidos -->
+    <section class="py-8 bg-brand-gray border-y border-gray-800">
+        <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="reveal p-4">
+                <i class="fas fa-bolt text-brand-yellow text-3xl mb-2"></i>
+                <h3 class="font-bold">Agilidade</h3>
+                <p class="text-xs text-gray-400">Atendimento Rápido</p>
+            </div>
+            <div class="reveal p-4 delay-100">
+                <i class="fas fa-shield-alt text-brand-yellow text-3xl mb-2"></i>
+                <h3 class="font-bold">Segurança</h3>
+                <p class="text-xs text-gray-400">Normas Técnicas</p>
+            </div>
+            <div class="reveal p-4 delay-200">
+                <i class="fas fa-tools text-brand-yellow text-3xl mb-2"></i>
+                <h3 class="font-bold">Manutenção</h3>
+                <p class="text-xs text-gray-400">Preventiva e Corretiva</p>
+            </div>
+            <div class="reveal p-4 delay-300">
+                <i class="fas fa-clock text-brand-yellow text-3xl mb-2"></i>
+                <h3 class="font-bold">24 Horas</h3>
+                <p class="text-xs text-gray-400">Suporte Emergencial</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabela de Planos -->
+    <section id="planos" class="py-16 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 reveal">
+                <h2 class="font-display font-black text-3xl md:text-4xl uppercase mb-2">Nossos <span class="text-brand-yellow">Planos</span></h2>
+                <p class="text-gray-400">Escolha a melhor opção para sua segurança elétrica</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Plano Silver -->
+                <div class="reveal bg-gray-900 border border-gray-700 rounded-2xl p-6 flex flex-col hover:border-brand-yellow/50 transition duration-300">
+                    <div class="mb-4">
+                        <span class="bg-gray-800 text-gray-300 text-xs font-bold px-3 py-1 rounded-full uppercase">Básico</span>
+                    </div>
+                    <h3 class="font-display font-black text-3xl text-white mb-2">PLANO SILVER</h3>
+                    <p class="text-sm text-gray-400 mb-6 border-b border-gray-800 pb-4">Ideal para quem precisa do básico funcionando.</p>
+                    
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Manutenção preventiva do quadro de distribuição.</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Reparo em cabeamentos, tomadas e interruptores.</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Relatório mensal das atividades.</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-auto">
+                        <p class="text-xs text-gray-500 mb-1">A partir de</p>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm">R$</span>
+                            <span class="text-4xl font-black text-white">599,90</span>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Tenho%20interesse%20no%20PLANO%20SILVER." class="block w-full py-3 border border-white/20 hover:bg-white hover:text-black text-white text-center font-bold rounded-xl transition uppercase">
+                            Contratar Silver
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Plano Gold (Destaque) -->
+                <div class="reveal bg-gray-800 border-2 border-brand-yellow rounded-2xl p-6 flex flex-col transform md:-translate-y-4 shadow-[0_0_30px_rgba(255,230,0,0.15)] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-yellow text-black text-xs font-bold px-4 py-1 rounded-bl-lg">
+                        MAIS POPULAR
+                    </div>
+                    <div class="mb-4 mt-2">
+                        <span class="bg-brand-yellow/20 text-brand-yellow text-xs font-bold px-3 py-1 rounded-full uppercase">Intermediário</span>
+                    </div>
+                    <h3 class="font-display font-black text-3xl text-brand-yellow mb-2">PLANO GOLD</h3>
+                    <p class="text-sm text-gray-300 mb-6 border-b border-gray-700 pb-4">Mais segurança e suporte em qualquer situação.</p>
+                    
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm font-bold text-white">
+                            <i class="fas fa-plus-circle text-brand-yellow mt-1"></i>
+                            <span>TUDO DO PLANO SILVER</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Análise termográfica (pistola de temperatura).</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Atendimento Emergencial 24/7.</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Troca de tomadas/interruptores (até 4 unid).</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-auto">
+                        <p class="text-xs text-gray-400 mb-1">A partir de</p>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-brand-yellow">R$</span>
+                            <span class="text-5xl font-black text-brand-yellow">729,90</span>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Tenho%20interesse%20no%20PLANO%20GOLD." class="block w-full py-4 bg-brand-yellow text-black text-center font-black rounded-xl hover:bg-white transition uppercase shadow-lg hover:shadow-xl">
+                            Contratar Gold
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Plano Platinum -->
+                <div class="reveal bg-gray-900 border border-gray-700 rounded-2xl p-6 flex flex-col hover:border-brand-yellow/50 transition duration-300">
+                    <div class="mb-4">
+                        <span class="bg-gray-800 text-gray-300 text-xs font-bold px-3 py-1 rounded-full uppercase">Premium</span>
+                    </div>
+                    <h3 class="font-display font-black text-3xl text-white mb-2">PLATINUM</h3>
+                    <p class="text-sm text-gray-400 mb-6 border-b border-gray-800 pb-4">Tecnologia, agilidade e soluções sob medida.</p>
+                    
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm font-bold text-white">
+                            <i class="fas fa-plus-circle text-brand-yellow mt-1"></i>
+                            <span>TUDO DO PLANO GOLD</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Projetos para novas instalações.</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Modernização e upgrades elétricos.</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Prioridade em emergências (até 24h).</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm">
+                            <i class="fas fa-check text-brand-yellow mt-1"></i>
+                            <span>Consultoria contínua.</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-auto">
+                        <p class="text-xs text-gray-500 mb-1">A partir de</p>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm">R$</span>
+                            <span class="text-4xl font-black text-white">799,90</span>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Tenho%20interesse%20no%20PLANO%20PLATINUM." class="block w-full py-3 border border-white/20 hover:bg-white hover:text-black text-white text-center font-bold rounded-xl transition uppercase">
+                            Contratar Platinum
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Links Sociais / Conecta -->
+    <section class="py-12 bg-gradient-to-t from-black to-gray-900">
+        <div class="container mx-auto px-4 max-w-2xl">
+            <div class="text-center mb-8 reveal">
+                <h2 class="font-display font-bold text-2xl text-white">Acompanhe nosso trabalho</h2>
+                <div class="h-1 w-20 bg-brand-yellow mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="space-y-4 reveal">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/eletrotec.rj?igsh=MTUzZ2E2c2ZqZGx4bg%3D%3D&utm_source=qr" target="_blank" class="flex items-center justify-between p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-pink-500 hover:bg-gray-700 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </div>
+                        <span class="font-bold text-lg">Instagram</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@eletrotec.rj?_r=1&_t=ZS-92Jvg21Q6Wm" target="_blank" class="flex items-center justify-between p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-cyan-400 hover:bg-gray-700 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-black border border-gray-600 flex items-center justify-center text-white shadow-[2px_2px_0px_#0ff,-2px_-2px_0px_#f00]">
+                            <i class="fab fa-tiktok text-xl"></i>
+                        </div>
+                        <span class="font-bold text-lg">TikTok</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                </a>
+
+                <!-- Mercado Livre -->
+                <a href="https://www.mercadolivre.com.br/social/eletrotecrj/lists/6197847b-21d2-4897-ab3c-a110d613e121?matt_tool=10525851&forceInApp=true" target="_blank" class="flex items-center justify-between p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-yellow-400 hover:bg-gray-700 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-blue-900">
+                            <i class="fas fa-handshake text-xl"></i>
+                        </div>
+                        <span class="font-bold text-lg">Mercado Livre</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/people/eletrotecrj/100084041808895/?mibextid=wwXIfr&rdid=WmU7KTh6EYpmslnJ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17oER7aksz%2F%3Fmibextid%3DwwXIfr" target="_blank" class="flex items-center justify-between p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-600 hover:bg-gray-700 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </div>
+                        <span class="font-bold text-lg">Facebook</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-16 bg-brand-yellow text-black text-center px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-20"></div>
+        <div class="container mx-auto relative z-10">
+            <h2 class="font-display font-black text-3xl md:text-5xl mb-4">PRECISA DE UM ORÇAMENTO?</h2>
+            <p class="text-lg font-medium mb-8 max-w-2xl mx-auto opacity-80">Não arrisque com a elétrica. Contrate quem entende do assunto. Atendimento com prioridade no WhatsApp.</p>
+            <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition shadow-2xl">
+                <i class="fab fa-whatsapp text-2xl text-green-400"></i>
+                CHAMAR AGORA
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-4">
+                <i class="fas fa-bolt text-brand-yellow"></i>
+                <h3 class="font-display font-bold text-xl text-white">ELETROTEC.RJ</h3>
+            </div>
+            <p class="text-gray-500 text-sm mb-4">Tec. Bruno Gomes • Rio de Janeiro • Z.O Guaratiba</p>
+            <p class="text-gray-600 text-xs">© 2026 Eletrotec.rj. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://api.whatsapp.com/send?phone=5521985193825&text=Ol%C3%A1!%20Preciso%20de%20atendimento%20el%C3%A9trico." class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.5)] hover:scale-110 transition animate-bounce">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Reveal Animation on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Media Experience 360 - O produto de mídia definitivo para eventos iGaming.">
+    <title>Media Experience 360 | Conexão Bet</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Three.js for 3D Elements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050505',
+                            card: '#0F0F0F',
+                            primary: '#0047FF',
+                            accent: '#00D1FF',
+                            purple: '#7B2CBF',
+                            success: '#00E096'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            'from': { boxShadow: '0 0 10px #00D1FF, 0 0 20px #00D1FF' },
+                            'to': { boxShadow: '0 0 20px #0047FF, 0 0 30px #0047FF' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --neon-blue: #00D1FF;
+            --neon-purple: #7B2CBF;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 3D Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--neon-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(0, 209, 255, 0.15);
+        }
+
+        /* Text Gradients */
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-text-purple {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Audio Visualizer Bars */
+        .equalizer-bar {
+            animation: bounce 1.2s infinite ease-in-out;
+            transform-origin: bottom;
+        }
+        .equalizer-bar:nth-child(1) { animation-duration: 1s; animation-delay: 0.0s; }
+        .equalizer-bar:nth-child(2) { animation-duration: 1.1s; animation-delay: 0.1s; }
+        .equalizer-bar:nth-child(3) { animation-duration: 0.9s; animation-delay: 0.2s; }
+        .equalizer-bar:nth-child(4) { animation-duration: 1.3s; animation-delay: 0.1s; }
+        
+        @keyframes bounce {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        /* Timeline Connector */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple), transparent);
+            z-index: 0;
+        }
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Modal Transitions */
+        .modal-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.hidden-modal {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .modal-content {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hidden-modal .modal-content {
+            transform: scale(0.95) translateY(10px);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-accent selection:text-black">
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 border-b border-white/10 bg-black/80 backdrop-blur-md transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-accent rounded-lg flex items-center justify-center font-bold text-black transform group-hover:rotate-12 transition-transform duration-300">
+                    <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="font-display font-bold text-xl tracking-wider text-white">CONEXÃO</span>
+                    <span class="font-display font-bold text-sm tracking-widest text-brand-accent">BET</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300 items-center">
+                <a href="#concept" class="hover:text-brand-accent transition-colors py-2 relative group">
+                    O Conceito
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#features" class="hover:text-brand-accent transition-colors py-2 relative group">
+                    Soluções
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#pricing" class="hover:text-brand-accent transition-colors py-2 relative group">
+                    Planos
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="bg-white hover:bg-brand-accent hover:text-black text-black px-6 py-2.5 rounded-full transition-all duration-300 text-xs font-black tracking-wide uppercase shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(0,209,255,0.6)]">
+                    Fale Conosco
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white hover:text-brand-accent transition-colors" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 closed md:hidden">
+        <button class="absolute top-6 right-6 text-white/50 hover:text-white" onclick="toggleMenu()">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <a href="#concept" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">O Conceito</a>
+        <a href="#features" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">Soluções</a>
+        <a href="#pricing" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">Planos</a>
+        <a href="#contact" onclick="toggleMenu()" class="text-xl font-bold bg-brand-primary px-8 py-3 rounded-full">Fale Conosco</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Abstract Glow/Nebula -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[120px] animate-pulse-slow pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 text-center relative z-10 w-full">
+            
+            <!-- Animated Audio Equalizer -->
+            <div class="mb-8 flex justify-center items-end gap-1.5 h-16 equalizer-container">
+                <div class="w-2.5 bg-gradient-to-t from-brand-primary to-brand-accent equalizer-bar rounded-sm h-full"></div>
+                <div class="w-2.5 bg-gradient-to-t from-brand-primary to-brand-accent equalizer-bar rounded-sm h-1/2"></div>
+                <div class="w-2.5 bg-gradient-to-t from-brand-purple to-brand-accent equalizer-bar rounded-sm h-3/4"></div>
+                <div class="w-2.5 bg-gradient-to-t from-brand-primary to-white equalizer-bar rounded-sm h-1/4"></div>
+                <div class="w-2.5 bg-gradient-to-t from-brand-purple to-brand-accent equalizer-bar rounded-sm h-full"></div>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+                <span class="text-brand-accent text-xs font-bold tracking-widest uppercase">Media Experience 360</span>
+            </div>
+            
+            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-none mb-6 tracking-tight">
+                AUTORIDADE <br> 
+                <span class="gradient-text relative inline-block">
+                    REAL
+                    <!-- Text Decoration -->
+                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-accent" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+                </span>
+            </h1>
+
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Transformamos sua presença física em ativos digitais de alto impacto. <br class="hidden md:block">
+                Cobertura completa. Visibilidade estratégica.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#pricing" class="group relative px-8 py-4 bg-white text-black font-bold text-sm rounded-full overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(0,209,255,0.4)] transition-all">
+                    <span class="relative z-10 flex items-center gap-2">VER PLANOS <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i></span>
+                    <div class="absolute inset-0 bg-brand-accent transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 z-0"></div>
+                </a>
+                <a href="#concept" class="px-8 py-4 border border-white/20 rounded-full hover:bg-white/5 hover:border-brand-accent/50 transition-all flex items-center gap-2 text-sm font-bold tracking-wide">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-brand-accent"></i> ENTENDA O CONCEITO
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer" onclick="document.getElementById('concept').scrollIntoView({behavior: 'smooth'})">
+            <span class="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Concept Section -->
+    <section id="concept" class="py-24 relative bg-black/50 overflow-hidden">
+        <!-- Decorative bg elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-primary/5 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="gsap-reveal">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 leading-tight">
+                        NÃO É APENAS COBERTURA. <br>
+                        <span class="gradient-text-purple">É POSICIONAMENTO.</span>
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-gray-300 text-lg leading-relaxed border-l-2 border-brand-accent pl-6">
+                            Participar de um evento é importante. <br>
+                            <span class="text-white font-bold">Ser visto, lembrado e reconhecido é estratégico.</span>
+                        </p>
+                        
+                        <p class="text-gray-400">
+                            O <strong>Media Experience 360</strong> transforma a presença física da sua empresa em autoridade no mercado através de:
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-1 gap-4">
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-accent/30 transition-colors group">
+                            <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                                <i data-lucide="video" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-bold text-gray-200">Conteúdo Profissional & Ativos Reutilizáveis</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-accent/30 transition-colors group">
+                            <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-black transition-colors">
+                                <i data-lucide="radio" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-bold text-gray-200">Transmissão em Tempo Real</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual Element: The Media Experience -->
+                <div class="relative gsap-reveal delay-200 flex justify-center">
+                    <!-- Stylized Phone Container -->
+                    <div class="relative z-10 w-[300px] h-[580px] border-4 border-gray-800 bg-black rounded-[3rem] shadow-2xl transform rotate-[-5deg] hover:rotate-0 transition-transform duration-700 overflow-hidden">
+                        <!-- Screen -->
+                        <div class="w-full h-full bg-gray-900 relative">
+                            <!-- Header UI -->
+                            <div class="absolute top-0 w-full p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/80 to-transparent">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-brand-primary border border-white"></div>
+                                    <span class="text-xs font-bold">Conexão Bet</span>
+                                </div>
+                                <span class="bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse">LIVE</span>
+                            </div>
+
+                            <!-- Video Content Simulation -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center opacity-30">
+                                    <i data-lucide="clapperboard" class="w-20 h-20 mx-auto mb-4"></i>
+                                    <p class="uppercase font-display font-bold tracking-widest">Entrevista Exclusiva</p>
+                                </div>
+                                <!-- Floating comments simulation -->
+                                <div class="absolute bottom-24 left-4 space-y-2 w-3/4">
+                                    <div class="bg-black/40 backdrop-blur-sm p-2 rounded-lg text-[10px] text-white/90 animate-float" style="animation-delay: 0s;">
+                                        <span class="font-bold text-brand-accent">User1:</span> Conteúdo incrível! 🔥
+                                    </div>
+                                    <div class="bg-black/40 backdrop-blur-sm p-2 rounded-lg text-[10px] text-white/90 animate-float" style="animation-delay: 1s;">
+                                        <span class="font-bold text-brand-purple">User2:</span> Grande parceria 👏👏
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom UI -->
+                            <div class="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black to-transparent z-20">
+                                <div class="flex justify-between items-end">
+                                    <div class="space-y-1">
+                                        <div class="h-1 w-24 bg-white/20 rounded"></div>
+                                        <div class="h-1 w-16 bg-white/20 rounded"></div>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                                        <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
+                                        <i data-lucide="send" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background Blobs -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-brand-primary/30 rounded-full blur-[80px] -z-10"></div>
+                    <div class="absolute bottom-0 right-0 w-[200px] h-[200px] bg-brand-purple/20 rounded-full blur-[60px] -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Grid -->
+    <section id="features" class="py-24 bg-[#0a0a0a] relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 gsap-reveal">
+                <span class="text-brand-accent font-bold tracking-widest uppercase text-xs mb-2 block">O que entregamos</span>
+                <h2 class="font-display text-4xl font-bold mb-4 text-white">PROPOSTA DE <span class="text-brand-primary">VALOR</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Durante o evento, sua empresa recebe uma experiência completa de mídia, garantindo que sua marca seja onipresente.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="mic-2" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-brand-primary/10 rounded-xl flex items-center justify-center mb-6 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(0,71,255,0.1)]">
+                        <i data-lucide="mic" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Entrevistas no Estande</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Cobertura profissional in-loco com equipe de reportagem dedicada, captando a essência da sua marca.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="youtube" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-red-500/10 rounded-xl flex items-center justify-center mb-6 text-red-500 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="play" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Vídeo para YouTube</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo editado em alta qualidade (4K) para plataformas horizontais, ideal para institucional.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="smartphone" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-brand-purple/10 rounded-xl flex items-center justify-center mb-6 text-brand-purple group-hover:bg-brand-purple group-hover:text-white transition-all duration-300">
+                        <i data-lucide="instagram" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Vídeos Verticais</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Reels e TikToks dinâmicos e otimizados para viralização e engajamento rápido nas redes.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="file-text" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-500 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="newspaper" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Matéria Editorial</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo jornalístico estratégico escrito com técnicas de SEO e destaque no Hub de Notícias.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="radio" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-yellow-500/10 rounded-xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300">
+                        <i data-lucide="radio-tower" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Participação em Lives</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Entrada ao vivo durante a programação diária do evento, conectando sua marca à audiência em tempo real.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                        <i data-lucide="globe" class="w-32 h-32"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-blue-400/10 rounded-xl flex items-center justify-center mb-6 text-blue-400 group-hover:bg-blue-400 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="share-2" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Distribuição Massiva</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Disparo multicanal em toda a rede do ConexaoBet.com, ampliando o alcance da sua mensagem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section (Marquee) -->
+    <section class="py-16 border-y border-white/5 bg-black/80 backdrop-blur-sm relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
+            <h3 class="text-gray-400 uppercase tracking-[0.2em] text-xs font-bold">Disponível nos principais eventos de 2026</h3>
+        </div>
+        
+        <!-- Marquee Container -->
+        <div class="relative flex overflow-x-hidden group mask-linear">
+             <!-- Gradient Masks for smoothness -->
+            <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10"></div>
+
+            <div class="animate-marquee whitespace-nowrap flex gap-20 items-center">
+                <!-- Logos Text Representation -->
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">SBC EVENTS</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">SiGMA</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">ICE BARCELONA</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">CGS EVENTS</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">IGI EXPO</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">NEXT.io</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">G2E</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">iGB LIVE</span>
+                
+                <!-- Duplicate for seamless loop -->
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">SBC EVENTS</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">SiGMA</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">ICE BARCELONA</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">CGS EVENTS</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">IGI EXPO</span>
+                <span class="text-3xl font-display font-bold text-white/30 hover:text-white transition-colors cursor-default">NEXT.io</span>
+            </div>
+        </div>
+
+        <div class="text-center mt-10">
+            <p class="text-xs text-gray-500 max-w-lg mx-auto">
+                *Estamos formalizando o Conexão Bet como Media Partner nos demais eventos. Consulte disponibilidade.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 gsap-reveal">
+                <h2 class="font-display text-4xl font-bold mb-4">ESCOLHA SEU <span class="gradient-text">PACOTE</span></h2>
+                <p class="text-gray-400">Investimento estratégico para alavancar sua marca.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 items-start">
+                
+                <!-- Start Plan -->
+                <div class="glass-card rounded-3xl p-8 border-t-4 border-gray-500 hover:border-white transition-all duration-300 flex flex-col h-full gsap-reveal">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Start</h3>
+                        <p class="text-gray-400 text-sm">Entrada essencial.</p>
+                    </div>
+                    <div class="text-3xl font-bold mb-8 text-white">R$ 9.990<span class="text-lg font-normal text-gray-500">,00</span></div>
+                    
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-grow">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Entrevista gravada (2)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo vertical (2)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Matéria editorial exclusiva (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
+                        <li class="flex items-center gap-3 opacity-40"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0"></i> Matéria destaque home</li>
+                        <li class="flex items-center gap-3 opacity-40"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0"></i> Live ao vivo</li>
+                    </ul>
+                    
+                    <button onclick="openModal('Start')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition-all font-bold tracking-wide">ASSINAR</button>
+                </div>
+
+                <!-- Growth Plan (Highlighted) -->
+                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-accent transform lg:-translate-y-4 relative bg-gradient-to-b from-white/5 to-transparent flex flex-col h-full gsap-reveal delay-100 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-primary to-brand-accent px-4 py-1 rounded-full text-xs font-bold text-black uppercase shadow-lg shadow-brand-accent/30">Mais Popular</div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-brand-accent">Growth</h3>
+                        <p class="text-gray-400 text-sm">Visibilidade ampliada.</p>
+                    </div>
+                    <div class="text-4xl font-bold mb-8 text-white">R$ 14.990<span class="text-xl font-normal text-gray-500">,00</span></div>
+                    
+                    <ul class="space-y-4 mb-8 text-sm text-gray-200 flex-grow">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Entrevistas gravadas (1)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Vídeos verticais (1)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (1)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
+                        <li class="flex items-center gap-3"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0 opacity-40"></i> Matéria destaque home</li>
+                        <li class="flex items-center gap-3"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0 opacity-40"></i> Live ao vivo</li>
+                    </ul>
+                    
+                    <button onclick="openModal('Growth')" class="w-full py-4 bg-brand-accent text-black rounded-xl hover:bg-white hover:text-black transition-all font-bold shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 transform hover:-translate-y-1">ASSINAR AGORA</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-purple hover:border-brand-purple/80 transition-all duration-300 flex flex-col h-full gsap-reveal delay-200">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Enterprise</h3>
+                        <p class="text-gray-400 text-sm">Domínio completo.</p>
+                    </div>
+                    <div class="text-3xl font-bold mb-8 text-white">R$ 19.990<span class="text-lg font-normal text-gray-500">,00</span></div>
+                    
+                    <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-grow">
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Entrevista gravada (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo vertical (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (2)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Matéria destaque home</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Live ao vivo</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Selo "Empresa Destaque"</strong></li>
+                    </ul>
+                    
+                    <button onclick="openModal('Enterprise')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-brand-purple hover:text-white transition-all font-bold tracking-wide">ASSINAR</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline / Steps -->
+    <section class="py-24 bg-[#080808] border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold mb-16 text-center">PRÓXIMOS <span class="text-brand-accent">PASSOS</span></h2>
+            
+            <div class="relative timeline-line space-y-16">
+                <!-- Step 1 -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">1</div>
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all hover:-translate-y-1">
+                        <h4 class="font-bold text-lg mb-2 text-white">Escolher o plano ideal</h4>
+                        <p class="text-gray-400 text-sm">Selecione a solução que melhor atende às necessidades do seu negócio, garantindo recursos alinhados aos seus objetivos.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">2</div>
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
+                        <h4 class="font-bold text-lg mb-2 text-white">Assinar o contrato</h4>
+                        <p class="text-gray-400 text-sm">Finalize seu compromisso com total segurança e praticidade, assinando eletronicamente sem burocracia.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">3</div>
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all hover:-translate-y-1">
+                        <h4 class="font-bold text-lg mb-2 text-white">Realizar o pagamento</h4>
+                        <p class="text-gray-400 text-sm">Efetue o pagamento de forma simples e segura, liberando o início imediato dos serviços contratados.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">4</div>
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
+                        <h4 class="font-bold text-lg mb-2 text-white">Iniciar onboarding</h4>
+                        <p class="text-gray-400 text-sm">Conte com um processo operacional ágil e organizado para auxiliar sua equipe na melhor estratégia.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                    <div class="flex items-center justify-center w-14 h-14 rounded-full bg-brand-accent text-black font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_30px_rgba(0,209,255,0.6)] mb-4 md:mb-0 text-2xl animate-pulse-slow">5</div>
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-gradient-to-br from-brand-primary/20 to-brand-accent/10 p-8 rounded-2xl border border-brand-primary/50 hover:border-brand-accent transition-all hover:-translate-y-1">
+                        <h4 class="font-bold text-lg mb-2 text-brand-accent">Go Live</h4>
+                        <p class="text-gray-200 text-sm">Comece a usufruir de nossas soluções personalizadas e experimente resultados reais desde o primeiro dia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-black border-t border-white/10 pt-24 pb-12 relative overflow-hidden">
+        <!-- Footer Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent shadow-[0_0_20px_#00D1FF]"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <div class="mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Pronto para impulsionar sua marca?</h2>
+                <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Entre em contato com nosso time e descubra como o Conexão Bet pode gerar visibilidade e conexões valiosas.</p>
+                
+                <div class="inline-flex flex-col md:flex-row items-center gap-6 glass-card p-8 rounded-2xl hover:border-brand-primary/50 transition-colors">
+                    <div class="flex items-center gap-4 text-left">
+                         <div class="w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center border border-white/10">
+                             <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
+                         </div>
+                         <div>
+                            <h4 class="text-xl font-bold text-white">Heitor Leal</h4>
+                            <p class="text-brand-accent text-sm font-medium">Diretor Comercial</p>
+                         </div>
+                    </div>
+                    
+                    <div class="h-px w-full md:w-px md:h-12 bg-white/10"></div>
+
+                    <div class="flex flex-col gap-3 w-full md:w-auto">
+                        <a href="mailto:heitorleal@conexaobet.com" class="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-lg hover:bg-brand-primary transition-all text-sm group">
+                            <i data-lucide="mail" class="w-4 h-4 text-brand-accent group-hover:text-white"></i> heitorleal@conexaobet.com
+                        </a>
+                        <a href="https://wa.me/5581999028510" class="flex items-center gap-3 px-6 py-3 bg-green-600/10 text-green-500 border border-green-500/20 rounded-lg hover:bg-green-600 hover:text-white transition-all text-sm">
+                            <i data-lucide="phone" class="w-4 h-4"></i> +55 (81) 99902-8510
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Conexão Bet. Todos os direitos reservados.</p>
+                <div class="flex gap-6 mt-4 md:mt-0 font-medium">
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                    <a href="https://conexaobet.com" target="_blank" class="hover:text-brand-accent transition-colors">www.conexaobet.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CONTRATAÇÃO -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden-modal modal-overlay">
+        <div class="modal-content bg-[#111] border border-white/10 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden relative">
+            
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-white/10 bg-gradient-to-r from-brand-primary/10 to-transparent flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-white">Solicitar Contratação</h3>
+                    <p class="text-sm text-gray-400">Plano selecionado: <span id="modal-plan-name" class="text-brand-accent font-bold">Start</span></p>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form id="lead-form" class="p-6 space-y-4" onsubmit="handleFormSubmit(event)">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nome Completo</label>
+                    <input type="text" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="Seu nome">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Empresa</label>
+                    <input type="text" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="Nome da sua empresa">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">E-mail Corporativo</label>
+                    <input type="email" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="seu@email.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Telefone / WhatsApp</label>
+                    <input type="tel" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="(00) 00000-0000">
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-primary text-black font-bold py-4 rounded-lg transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>SOLICITAR CONTATO</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <p class="text-[10px] text-gray-500 text-center mt-3">Nosso time entrará em contato em até 24h úteis.</p>
+                </div>
+            </form>
+            
+            <!-- Success Message (Hidden by default) -->
+            <div id="success-message" class="absolute inset-0 bg-[#111] z-10 flex flex-col items-center justify-center text-center p-8 hidden">
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center text-green-500 mb-4 animate-bounce">
+                    <i data-lucide="check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Solicitação Enviada!</h3>
+                <p class="text-gray-400 mb-6">Recebemos seus dados. Em breve o Heitor ou nossa equipe entrará em contato.</p>
+                <button onclick="closeModal()" class="px-6 py-2 border border-white/20 rounded-full text-sm font-bold hover:bg-white hover:text-black transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // ------------------------------------------------------------------
+        // INTERACTIVE UI LOGIC
+        // ------------------------------------------------------------------
+        
+        // Mobile Menu
+        const toggleMenu = () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('closed');
+        }
+
+        // Modal Logic
+        const openModal = (planName) => {
+            const modal = document.getElementById('modal-overlay');
+            const planText = document.getElementById('modal-plan-name');
+            const successMsg = document.getElementById('success-message');
+            const form = document.getElementById('lead-form');
+
+            // Reset state
+            successMsg.classList.add('hidden');
+            form.reset();
+            
+            planText.innerText = planName;
+            modal.classList.remove('hidden-modal');
+        }
+
+        const closeModal = () => {
+            const modal = document.getElementById('modal-overlay');
+            modal.classList.add('hidden-modal');
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Form Submission Simulation
+        const handleFormSubmit = (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            // Loading state
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Enviando...';
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                document.getElementById('success-message').classList.remove('hidden');
+                btn.innerHTML = originalText;
+            }, 1500);
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'bg-black/95');
+                nav.classList.remove('bg-black/80');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-black/95');
+                nav.classList.add('bg-black/80');
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // THREE.JS BACKGROUND (Interactive Particles)
+        // ------------------------------------------------------------------
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 20; 
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.03,
+                color: 0x00D1FF,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, material);
+            scene.add(particlesMesh);
+
+            // Abstract Lines
+            const geometry = new THREE.IcosahedronGeometry(2, 0);
+            const wireframe = new THREE.WireframeGeometry(geometry);
+            const line = new THREE.LineSegments(wireframe);
+            line.material.depthTest = false;
+            line.material.opacity = 0.05;
+            line.material.transparent = true;
+            line.material.color = new THREE.Color(0x7B2CBF);
+            scene.add(line);
+            line.position.x = 4;
+            line.position.y = 1;
+
+
+            camera.position.z = 6;
+
+            // Mouse Interaction
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX / window.innerWidth - 0.5;
+                mouseY = event.clientY / window.innerHeight - 0.5;
+            });
+
+            const clock = new THREE.Clock();
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+
+                targetX = mouseX * 0.5;
+                targetY = mouseY * 0.5;
+
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += (targetY - particlesMesh.rotation.x) * 0.05;
+                particlesMesh.rotation.y += (targetX - particlesMesh.rotation.y) * 0.05;
+
+                // Subtle wave effect
+                line.rotation.x += 0.002;
+                line.rotation.y += 0.002;
+
+                renderer.render(scene, camera);
+            };
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        // ------------------------------------------------------------------
+        // GSAP ANIMATIONS
+        // ------------------------------------------------------------------
+        const initGSAP = () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Staggered Reveals
+            const revealElements = document.querySelectorAll('.gsap-reveal');
+            revealElements.forEach(element => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 60,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            // Timeline line drawing effect
+            gsap.from(".timeline-line::before", {
+                scrollTrigger: {
+                    trigger: ".timeline-line",
+                    start: "top 70%",
+                },
+                height: 0,
+                duration: 2,
+                ease: "power2.inOut"
+            });
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            initGSAP();
+        });
+
+        // Tailwind Config Extension for Marquee
+        tailwind.config.theme.extend.keyframes = {
+            ...tailwind.config.theme.extend.keyframes,
+            marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' },
+            }
+        };
+        tailwind.config.theme.extend.animation = {
+            ...tailwind.config.theme.extend.animation,
+            marquee: 'marquee 30s linear infinite',
+        };
+
+    </script>
+</body>
+</html>

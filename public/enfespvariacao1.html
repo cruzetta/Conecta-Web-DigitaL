@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfesp - Escola Técnica de Enfermagem</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Configuração Tailwind e Estilos Personalizados -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',     // Deep Navy
+                            950: '#082f49',
+                        },
+                        teal: {
+                            400: '#2dd4bf',     // Acentuador vibrante
+                            500: '#14b8a6',
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+                        'glow': '0 0 20px rgba(45, 212, 191, 0.5)',
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=2000')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Personalizado para Efeitos Premium */
+        body {
+            background-color: #f8fafc;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; /* Remove highlight azul ao tocar no mobile */
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Efeito de Vidro (Glassmorphism) */
+        .glass {
+            background: rgba(255, 255, 255, 0.85); /* Mais opaco no mobile para leitura */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        @media (min-width: 768px) {
+            .glass {
+                background: rgba(255, 255, 255, 0.7); /* Mais transparente no desktop */
+            }
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animações de Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pulse Customizado */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); }
+            80%, 100% { opacity: 0; }
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0.8); }
+        }
+        .pulse-ring {
+            position: absolute;
+            height: 100%; 
+            width: 100%; 
+            border-radius: 50%; 
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            background-color: rgba(45, 212, 191, 0.5); /* Teal */
+        }
+        .pulse-dot {
+            animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
+        }
+
+        /* Gradiente Animado de Fundo */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: moveBlob 10s infinite alternate;
+        }
+        @keyframes moveBlob {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="text-slate-600 antialiased selection:bg-teal-400 selection:text-white">
+
+    <!-- Navbar Flutuante -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 md:py-6">
+        <div class="glass w-full max-w-6xl mx-auto rounded-2xl md:rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-glass transition-all duration-300 relative" id="nav-container">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="bg-medical-900 text-white p-2 rounded-lg group-hover:bg-teal-500 transition-colors duration-300">
+                    <i data-lucide="activity" class="w-5 h-5"></i>
+                </div>
+                <div class="text-xl font-bold tracking-tight text-medical-900 group-hover:text-teal-600 transition-colors">
+                    ENFESP<span class="text-teal-400 text-2xl">.</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#inicio" class="px-5 py-2 text-sm font-semibold text-slate-600 hover:text-medical-600 rounded-full hover:bg-slate-50 transition-all">Início</a>
+                <a href="#cursos" class="px-5 py-2 text-sm font-semibold text-slate-600 hover:text-medical-600 rounded-full hover:bg-slate-50 transition-all">Cursos</a>
+                <a href="#sobre" class="px-5 py-2 text-sm font-semibold text-slate-600 hover:text-medical-600 rounded-full hover:bg-slate-50 transition-all">Sobre</a>
+                <a href="#contato" class="px-5 py-2 text-sm font-semibold text-slate-600 hover:text-medical-600 rounded-full hover:bg-slate-50 transition-all">Contato</a>
+            </div>
+
+            <!-- CTA Button Desktop -->
+            <div class="hidden md:block">
+                <button onclick="handleWhatsAppClick()" class="bg-medical-900 hover:bg-teal-500 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-glow transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <span>Matricule-se</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-medical-900 p-2 active:bg-slate-100 rounded-lg transition-colors" onclick="toggleMenu()" aria-label="Menu">
+                <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Dropdown Glass) -->
+        <div id="mobile-menu" class="hidden absolute top-[4.5rem] left-4 right-4 glass rounded-3xl p-6 flex-col gap-4 shadow-2xl md:hidden origin-top animate-[scaleUp_0.3s_ease-out] z-40 border border-slate-200/50">
+            <a href="#inicio" onclick="toggleMenu()" class="flex items-center gap-3 text-lg font-bold text-slate-700 p-3 rounded-xl active:bg-slate-50 transition-colors">
+                <i data-lucide="home" class="w-5 h-5 text-teal-500"></i> Início
+            </a>
+            <a href="#cursos" onclick="toggleMenu()" class="flex items-center gap-3 text-lg font-bold text-slate-700 p-3 rounded-xl active:bg-slate-50 transition-colors">
+                <i data-lucide="book-open" class="w-5 h-5 text-teal-500"></i> Cursos
+            </a>
+            <a href="#sobre" onclick="toggleMenu()" class="flex items-center gap-3 text-lg font-bold text-slate-700 p-3 rounded-xl active:bg-slate-50 transition-colors">
+                <i data-lucide="info" class="w-5 h-5 text-teal-500"></i> Sobre
+            </a>
+            <a href="#contato" onclick="toggleMenu()" class="flex items-center gap-3 text-lg font-bold text-slate-700 p-3 rounded-xl active:bg-slate-50 transition-colors">
+                <i data-lucide="phone" class="w-5 h-5 text-teal-500"></i> Contato
+            </a>
+            <button onclick="handleWhatsAppClick()" class="w-full bg-medical-900 text-white py-4 rounded-xl font-bold mt-2 shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                Matricule-se Agora
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="relative min-h-screen flex items-center pt-28 pb-12 md:pt-20 overflow-hidden bg-slate-50">
+        <!-- Blobs Decorativos -->
+        <div class="blob bg-teal-200 w-64 h-64 md:w-96 md:h-96 rounded-full top-0 right-0 mix-blend-multiply filter blur-xl opacity-70"></div>
+        <div class="blob bg-blue-200 w-64 h-64 md:w-96 md:h-96 rounded-full bottom-0 left-0 mix-blend-multiply filter blur-xl opacity-70 animation-delay-2000"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Texto -->
+                <div class="reveal active order-2 lg:order-1 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 shadow-sm mb-6 mx-auto lg:mx-0">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
+                        </span>
+                        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Escola Técnica e Cursos Livres</span>
+                    </div>
+                    
+                    <!-- Mobile First Font Sizes -->
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight">
+                        Excelência e Ética na <span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-800 to-teal-400">Enfermagem</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg md:text-xl text-slate-500 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                        Formando profissionais técnicos comprometidos com a excelência na assistência ao ser humano. Domine a teoria e a prática com quem é referência.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' })" class="w-full sm:w-auto bg-medical-900 hover:bg-medical-800 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg shadow-medical-900/20 transition-all transform active:scale-95 flex items-center justify-center gap-2 group">
+                            Ver Cursos
+                            <i data-lucide="chevron-down" class="group-hover:translate-y-1 transition-transform"></i>
+                        </button>
+                        <button onclick="handleWhatsAppClick()" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-2xl font-bold text-lg shadow-sm transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="message-circle" class="text-teal-500"></i>
+                            Fale Conosco
+                        </button>
+                    </div>
+
+                    <!-- Stats Rápidos -->
+                    <div class="mt-12 grid grid-cols-3 gap-2 md:gap-6 border-t border-slate-200 pt-8">
+                        <div>
+                            <p class="text-2xl md:text-3xl font-bold text-medical-900">+10</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-medium">Anos de Experiência</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl md:text-3xl font-bold text-medical-900">100%</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-medium">Aulas Práticas</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl md:text-3xl font-bold text-medical-900">5.0</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-medium">Avaliação Alunos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem com Máscara e Efeito -->
+                <div class="relative order-1 lg:order-2 reveal delay-200 px-4 lg:px-0">
+                    <div class="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] md:border-[8px] border-white">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200" alt="Enfermagem" class="w-full h-[350px] md:h-[600px] object-cover scale-105 hover:scale-100 transition-transform duration-700">
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute bottom-4 left-4 right-4 md:right-auto md:bottom-8 md:left-8 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 flex items-center gap-4 animate-[bounce_3s_infinite]">
+                            <div class="bg-green-100 p-3 rounded-full text-green-600 shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 md:w-6 md:h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold">Status</p>
+                                <p class="text-sm md:text-base text-medical-900 font-bold">Matrículas Abertas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section (Sobre) -->
+    <section id="sobre" class="py-16 md:py-24 bg-white relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16 reveal">
+                <span class="text-teal-500 font-bold text-sm tracking-widest uppercase mb-2 block">Diferenciais Enfesp</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Por que escolher nossa escola?</h2>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-medical-800 to-teal-400 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Feature 1 -->
+                <div class="group p-6 md:p-8 rounded-3xl bg-slate-50 hover:bg-white border border-slate-100 hover:border-teal-100 shadow-sm hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 reveal delay-100">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-medical-900 transition-colors duration-300">
+                        <i data-lucide="star" class="w-7 h-7 md:w-8 md:h-8 text-medical-900 group-hover:text-teal-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3">Excelência</h3>
+                    <p class="text-sm md:text-base text-slate-500 leading-relaxed">Ensino focado na qualidade técnica e atendimento humanizado, preparando você para os melhores hospitais.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group p-6 md:p-8 rounded-3xl bg-slate-50 hover:bg-white border border-slate-100 hover:border-teal-100 shadow-sm hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 reveal delay-200">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-medical-900 transition-colors duration-300">
+                        <i data-lucide="activity" class="w-7 h-7 md:w-8 md:h-8 text-medical-900 group-hover:text-teal-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3">Prática Real</h3>
+                    <p class="text-sm md:text-base text-slate-500 leading-relaxed">Não ficamos só na teoria. Cursos com laboratórios equipados, forte componente prático e estágios garantidos.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group p-6 md:p-8 rounded-3xl bg-slate-50 hover:bg-white border border-slate-100 hover:border-teal-100 shadow-sm hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 reveal delay-300">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:bg-medical-900 transition-colors duration-300">
+                        <i data-lucide="graduation-cap" class="w-7 h-7 md:w-8 md:h-8 text-medical-900 group-hover:text-teal-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3">Professores Experts</h3>
+                    <p class="text-sm md:text-base text-slate-500 leading-relaxed">Aprenda diretamente com profissionais renomados que atuam ativamente no mercado de saúde.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="cursos" class="py-16 md:py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-4 reveal">
+                <div class="max-w-2xl">
+                    <span class="text-teal-500 font-bold text-sm tracking-widest uppercase mb-2 block">Sua Carreira Começa Aqui</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Nossos Cursos</h2>
+                    <p class="text-slate-500 text-base md:text-lg">Escolha o caminho para o seu sucesso profissional. Matrículas abertas!</p>
+                </div>
+                <button onclick="handleWhatsAppClick()" class="hidden md:flex items-center gap-2 text-medical-900 font-bold hover:text-teal-500 transition-colors">
+                    Falar com Consultor <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- Cards Gerados via JS -->
+            </div>
+            
+            <div class="mt-12 text-center md:hidden">
+                <button onclick="handleWhatsAppClick()" class="w-full py-4 rounded-xl font-bold bg-medical-900 text-white shadow-lg active:scale-95 transition-transform">
+                    Falar com Consultor
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location/Contact Section (Dark Theme) -->
+    <section id="contato" class="py-16 md:py-24 bg-medical-950 relative overflow-hidden text-white">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-medical-900 to-transparent opacity-50"></div>
+        <div class="absolute bottom-0 left-0 p-12 opacity-5 pointer-events-none">
+            <i data-lucide="heart-pulse" class="w-64 h-64 md:w-96 md:h-96 text-white"></i>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Info Column -->
+                <div class="reveal">
+                    <span class="inline-block py-1 px-3 rounded-lg bg-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider mb-6">Localização Premium</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Venha nos visitar</h2>
+                    <p class="text-slate-300 text-base md:text-lg mb-10 leading-relaxed border-l-4 border-teal-500 pl-6">
+                        Estamos localizados em uma área privilegiada de Sorocaba, com fácil acesso e infraestrutura completa para o seu aprendizado.
+                    </p>
+
+                    <div class="space-y-8">
+                        <!-- Item 1 -->
+                        <div class="flex items-start gap-4 md:gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-teal-500 transition-colors">
+                                <i data-lucide="map-pin" class="text-white w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg md:text-xl mb-1">Endereço</h4>
+                                <p class="text-slate-400 group-hover:text-white transition-colors text-sm md:text-base">Rua Claudio Manoel da Costa, 140<br/>Jardim Vergueiro, Sorocaba - SP, 18030-083</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex items-start gap-4 md:gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-teal-500 transition-colors">
+                                <i data-lucide="phone" class="text-white w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg md:text-xl mb-1">Contato</h4>
+                                <p class="text-xl md:text-2xl font-bold text-teal-400 mb-1">(15) 99885-2296</p>
+                                <p class="text-sm text-slate-400">Atendimento via WhatsApp</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex items-start gap-4 md:gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-teal-500 transition-colors">
+                                <i data-lucide="instagram" class="text-white w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg md:text-xl mb-1">Redes Sociais</h4>
+                                <a href="https://www.instagram.com/enfesp.enf/" target="_blank" class="text-slate-400 hover:text-white hover:underline transition-colors block mt-1 text-sm md:text-base">@enfesp.enf</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="handleWhatsAppClick()" class="mt-12 w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg shadow-green-500/20 flex items-center justify-center gap-3 transition-all active:scale-95 group">
+                        <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+                        Chamar no WhatsApp
+                    </button>
+                </div>
+
+                <!-- Map Column -->
+                <div class="reveal delay-200 relative hidden md:block">
+                    <!-- Glass Card Behind Map -->
+                    <div class="absolute inset-0 bg-teal-500/20 blur-2xl rounded-full transform rotate-12 scale-90"></div>
+                    
+                    <div class="glass-dark p-2 rounded-3xl relative overflow-hidden group">
+                        <div class="aspect-square w-full bg-slate-800 rounded-2xl overflow-hidden relative">
+                            <!-- Placeholder Map Image with Dark Overlay -->
+                            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1000" alt="Mapa Sorocaba" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500 scale-100 group-hover:scale-110">
+                            
+                            <div class="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 text-center">
+                                <div class="relative w-20 h-20 mb-4">
+                                    <div class="pulse-ring"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="w-4 h-4 bg-teal-400 rounded-full shadow-[0_0_20px_rgba(45,212,191,0.8)] pulse-dot"></div>
+                                    </div>
+                                </div>
+                                <a href="https://maps.google.com/?q=Rua+Claudio+Manoel+da+Costa,+140,+Sorocaba,+Brazil" target="_blank" class="glass px-8 py-4 rounded-full font-bold text-medical-900 hover:bg-white transition-all transform hover:scale-105 flex items-center gap-2 shadow-2xl">
+                                    <i data-lucide="navigation" class="text-medical-900 w-4 h-4"></i>
+                                    Abrir no Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Map Button Only -->
+                <div class="md:hidden reveal">
+                     <a href="https://maps.google.com/?q=Rua+Claudio+Manoel+da+Costa,+140,+Sorocaba,+Brazil" target="_blank" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
+                        <i data-lucide="map" class="text-teal-400 w-5 h-5"></i>
+                        Abrir Mapa no Google
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="bg-white pt-12 md:pt-16 pb-8 border-t border-slate-100">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 md:gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-6">
+                        <div class="bg-medical-900 text-white p-1.5 rounded-lg">
+                            <i data-lucide="activity" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xl font-bold text-medical-900">ENFESP.</span>
+                    </div>
+                    <p class="text-slate-500 leading-relaxed max-w-sm mx-auto md:mx-0">
+                        Formando profissionais técnicos e éticos, comprometidos com a excelência na assistência ao ser humano. A referência em educação na saúde.
+                    </p>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-slate-900 mb-6">Navegação</h4>
+                    <ul class="space-y-3 text-slate-500">
+                        <li><a href="#inicio" class="hover:text-teal-500 transition-colors flex items-center justify-center md:justify-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 hidden md:block"></i> Início</a></li>
+                        <li><a href="#cursos" class="hover:text-teal-500 transition-colors flex items-center justify-center md:justify-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 hidden md:block"></i> Cursos</a></li>
+                        <li><a href="#sobre" class="hover:text-teal-500 transition-colors flex items-center justify-center md:justify-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 hidden md:block"></i> Sobre</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-slate-900 mb-6">Legal</h4>
+                    <ul class="space-y-3 text-slate-500">
+                        <li><a href="#" class="hover:text-teal-500 transition-colors">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-teal-500 transition-colors">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400 text-center">
+                <p>&copy; <span id="year"></span> Enfesp Enfermagem Especializada.</p>
+                <p>Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/5515998852296" target="_blank" class="fixed bottom-6 right-6 z-50 group">
+        <span class="hidden md:block absolute right-14 top-2 bg-white text-slate-800 px-3 py-1 rounded-lg shadow-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Fale Conosco</span>
+        <div class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg shadow-green-500/40 transition-all transform hover:scale-110 active:scale-90 flex items-center justify-center">
+            <i data-lucide="phone" class="w-7 h-7 fill-current"></i>
+        </div>
+        <!-- Ping Effect -->
+        <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-4 w-4 bg-green-500 border-2 border-white"></span>
+        </span>
+    </a>
+
+    <!-- Modal Premium (Bottom Sheet Style on Mobile) -->
+    <div id="course-modal" class="hidden fixed inset-0 z-[100] flex items-end md:items-center justify-center sm:p-4">
+        <!-- Backdrop Blur -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="bg-white w-full h-[85vh] md:h-auto md:max-w-2xl rounded-t-3xl md:rounded-3xl shadow-2xl relative transform transition-all translate-y-full md:translate-y-10 opacity-0 scale-100 md:scale-95 flex flex-col overflow-hidden" id="modal-content">
+            
+            <!-- Mobile Drag Indicator -->
+            <div class="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mt-3 mb-1 md:hidden flex-shrink-0"></div>
+
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-20 bg-white/50 hover:bg-white p-2 rounded-full backdrop-blur-sm transition-colors text-slate-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="flex flex-col md:flex-row h-full overflow-hidden">
+                <!-- Image Side -->
+                <div class="w-full md:w-2/5 relative h-48 md:h-auto flex-shrink-0">
+                    <img id="modal-image" src="" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-medical-900/80 to-transparent md:bg-gradient-to-r"></div>
+                    <div class="absolute bottom-4 left-4 text-white md:hidden">
+                        <span id="modal-category-mobile" class="text-xs font-bold uppercase tracking-wider bg-white/20 px-2 py-1 rounded backdrop-blur-sm"></span>
+                    </div>
+                </div>
+
+                <!-- Content Side -->
+                <div class="flex-1 p-6 md:p-8 overflow-y-auto bg-white">
+                    <span id="modal-category" class="hidden md:inline-block text-xs font-bold tracking-widest uppercase text-teal-500 mb-2"></span>
+                    <h3 id="modal-title" class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight"></h3>
+                    <p id="modal-description" class="text-slate-600 mb-8 leading-relaxed text-sm md:text-base"></p>
+
+                    <div class="space-y-6">
+                        <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2">O que você vai aprender</h4>
+                        <ul id="modal-details" class="space-y-3">
+                            <!-- Inserido via JS -->
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col gap-3 pb-8 md:pb-0">
+                        <button id="modal-cta" class="w-full bg-medical-900 hover:bg-teal-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-teal-500/20 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            Quero me Matricular
+                        </button>
+                        <p class="text-center text-xs text-slate-400">Fale com nossa secretaria via WhatsApp para garantir sua vaga.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Dados dos Cursos (Mantendo o conteúdo original)
+        const courses = [
+            {
+                id: 1,
+                title: "Instrumentação Cirúrgica",
+                category: "Especialização",
+                image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800",
+                description: "Curso completo abrangendo teoria, prática e estágio. Ideal para Técnicos em Enfermagem que desejam se especializar.",
+                details: [
+                    "Para Técnicos em Enfermagem",
+                    "Teoria e Prática",
+                    "Estágio Garantido",
+                    "Alta Empregabilidade"
+                ],
+                colorClass: "bg-blue-50 text-blue-600"
+            },
+            {
+                id: 2,
+                title: "Administração de Injetáveis",
+                category: "Curso Livre",
+                image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=800",
+                description: "Domine as técnicas de administração de injetáveis e amplie suas oportunidades. Aprenda com quem entende do assunto!",
+                details: [
+                    "Teoria e Prática Intensiva",
+                    "Certificado Incluso",
+                    "Coffee Break e Brindes",
+                    "Técnicas Avançadas"
+                ],
+                colorClass: "bg-cyan-50 text-cyan-600"
+            },
+            {
+                id: 3,
+                title: "Diálise e Hemodiálise",
+                category: "Terapia Renal",
+                image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800",
+                description: "Enfermagem na Terapia Renal Substitutiva com o Prof. Gilmar Tabatini. Certificação e brindes inclusos.",
+                details: [
+                    "Data: 07 de Fevereiro",
+                    "Para Auxiliares, Técnicos e Enfermeiros",
+                    "Estudantes e Formados",
+                    "Certificação Inclusa"
+                ],
+                colorClass: "bg-red-50 text-red-600"
+            },
+            {
+                id: 4,
+                title: "Auxiliar + Cuidador",
+                category: "Formação Dupla",
+                image: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=800",
+                description: "Formação completa para iniciar na área da saúde. Matrículas abertas para turmas novas.",
+                details: [
+                    "Início: 02 de Fevereiro",
+                    "Dupla Certificação",
+                    "Foco em Humanização",
+                    "Mercado em Expansão"
+                ],
+                colorClass: "bg-pink-50 text-pink-600"
+            }
+        ];
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('year').textContent = new Date().getFullYear();
+            renderCourses();
+            setupScrollReveal();
+        });
+
+        // Renderização dos Cursos (Layout Card Premium)
+        function renderCourses() {
+            const grid = document.getElementById('courses-grid');
+            
+            courses.forEach((course, index) => {
+                const card = document.createElement('div');
+                card.className = "group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-medical-900/10 transition-all duration-500 border border-slate-100 hover:border-teal-100 flex flex-col h-full reveal delay-" + (index * 100);
+                
+                card.innerHTML = `
+                    <div class="relative h-56 md:h-64 overflow-hidden">
+                        <img src="${course.image}" alt="${course.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-medical-900/30 group-hover:bg-medical-900/10 transition-colors"></div>
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-medical-900 uppercase tracking-wide shadow-sm">
+                            ${course.category}
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 flex flex-col flex-grow relative">
+                        <!-- Floating Action Button effect (Desktop) -->
+                        <div class="absolute -top-6 right-6 bg-teal-500 text-white p-3 rounded-2xl shadow-lg shadow-teal-500/30 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hidden md:block">
+                            <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                        </div>
+
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                            ${course.title}
+                        </h3>
+                        <p class="text-sm md:text-base text-slate-500 mb-6 flex-grow leading-relaxed line-clamp-3">
+                            ${course.description}
+                        </p>
+                        
+                        <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
+                            <span class="text-sm font-semibold text-slate-400 group-hover:text-teal-500 transition-colors">Saiba mais</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-slate-300 group-hover:text-teal-500 transition-colors"></i>
+                        </div>
+                    </div>
+                    <button onclick="openModal(${course.id})" class="absolute inset-0 z-10 cursor-pointer active:bg-black/5 transition-colors" aria-label="Ver detalhes de ${course.title}"></button>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Sistema de Scroll Reveal (Intersection Observer)
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Lógica da Navbar (Glass Effect on Scroll)
+        window.addEventListener('scroll', () => {
+            const navContainer = document.getElementById('nav-container');
+            if (window.scrollY > 20) {
+                navContainer.classList.add('glass', 'py-2');
+                navContainer.classList.remove('py-4'); // Remove base py
+                // No mobile, a py base é menor, então ajustamos conforme necessidade
+            } else {
+                navContainer.classList.remove('py-2');
+                // Adicionar classe original baseada no tamanho da tela se necessário
+            }
+        });
+
+        // Menu Mobile
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        // WhatsApp
+        function handleWhatsAppClick(msg) {
+            const message = msg || "Olá! Gostaria de mais informações sobre os cursos da Enfesp.";
+            const url = `https://wa.me/5515998852296?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Modal Premium Logic
+        const modal = document.getElementById('course-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if(!course) return;
+
+            document.getElementById('modal-image').src = course.image;
+            document.getElementById('modal-title').textContent = course.title;
+            document.getElementById('modal-description').textContent = course.description;
+            document.getElementById('modal-category').textContent = course.category;
+            
+            // Versão mobile do badge de categoria
+            const mobileCat = document.getElementById('modal-category-mobile');
+            if(mobileCat) mobileCat.textContent = course.category;
+
+            const detailsList = document.getElementById('modal-details');
+            detailsList.innerHTML = course.details.map(detail => `
+                <li class="flex items-start text-slate-600 bg-slate-50 p-3 rounded-lg">
+                    <i data-lucide="check" class="w-5 h-5 text-teal-500 mr-3 shrink-0"></i>
+                    <span class="text-sm font-medium">${detail}</span>
+                </li>
+            `).join('');
+
+            document.getElementById('modal-cta').onclick = () => handleWhatsAppClick(`Olá! Tenho interesse no curso de ${course.title}`);
+
+            modal.classList.remove('hidden');
+            // Animação de entrada
+            setTimeout(() => {
+                modalContent.classList.remove('translate-y-full', 'opacity-0', 'scale-100'); // Reset mobile
+                modalContent.classList.remove('md:translate-y-10', 'md:scale-95'); // Reset desktop
+                
+                // Active state
+                modalContent.classList.add('translate-y-0', 'opacity-100', 'scale-100');
+                modalContent.classList.add('md:translate-y-0', 'md:scale-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            // Animação de saída
+            modalContent.classList.remove('translate-y-0', 'opacity-100', 'scale-100');
+            modalContent.classList.remove('md:translate-y-0', 'md:scale-100');
+            
+            modalContent.classList.add('translate-y-full', 'opacity-0', 'scale-100'); // Mobile exit
+            modalContent.classList.add('md:translate-y-10', 'md:scale-95'); // Desktop exit
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    </script>
+</body>
+</html>

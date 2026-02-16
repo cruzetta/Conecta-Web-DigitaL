@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Carolina Dreher Martins | Odontologia Estética em Curitiba</title>
+    <meta name="description" content="Especialista em Odontologia Estética, Implantes e Harmonização do Sorriso em Curitiba. Agende sua avaliação na Av. São José.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C7A7B', // Teal sofisticado
+                        secondary: '#E6FFFA', // Fundo suave
+                        accent: '#D53F8C', // Toque feminino sutil (rosa antigo)
+                        text: '#2D3748',
+                        gold: '#C5A059'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efeitos personalizados */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .hero-pattern {
+            background-color: #f7fafc;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232c7a7b' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Foto Mask */
+        .photo-blob {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.5s ease;
+        }
+        
+        .photo-blob:hover {
+            border-radius: 50%;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="font-sans text-text antialiased bg-gray-50 selection:bg-primary selection:text-white">
+
+    <!-- Navbar Fixa -->
+    <nav class="fixed w-full z-50 glass-effect transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-2xl text-primary font-semibold tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-tooth text-gold text-lg"></i>
+                        <span>Dra. Carolina<span class="font-light text-gray-500 text-sm block sm:inline sm:ml-2">Odontologia Especializada</span></span>
+                    </a>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#sobre" class="text-gray-600 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium">Sobre</a>
+                    <a href="#tratamentos" class="text-gray-600 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium">Tratamentos</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium">Depoimentos</a>
+                    <a href="#contato" class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-teal-700 transition-all shadow-lg hover:shadow-teal-500/30 text-sm font-semibold tracking-wide">
+                        Agendar Consulta
+                    </a>
+                </div>
+
+                <!-- Botão Menu Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#sobre" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-primary hover:bg-teal-50 rounded-md">Sobre a Dra.</a>
+                <a href="#tratamentos" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-primary hover:bg-teal-50 rounded-md">Tratamentos</a>
+                <a href="#contato" class="block w-full text-center mt-4 bg-primary text-white px-4 py-3 rounded-lg font-semibold shadow-md">
+                    <i class="fab fa-whatsapp mr-2"></i> Agendar pelo WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-pattern">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+                
+                <!-- Texto Hero -->
+                <div class="w-full lg:w-1/2 text-center lg:text-left fade-up">
+                    <div class="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-wider text-teal-800 uppercase bg-teal-100 rounded-full">
+                        Sorrisos & Autoestima
+                    </div>
+                    <h1 class="text-4xl lg:text-5xl xl:text-6xl font-serif text-gray-900 leading-tight mb-6">
+                        Seu sorriso merece <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-400">delicadeza e excelência</span>.
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                        Odontologia estética e humanizada. Um ambiente acolhedor projetado para devolver sua confiança através de um sorriso saudável e natural.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contato" class="px-8 py-4 bg-primary text-white rounded-full font-semibold shadow-xl hover:bg-teal-700 hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            Agendar Avaliação
+                        </a>
+                        <a href="#tratamentos" class="px-8 py-4 bg-white text-primary border border-gray-200 rounded-full font-semibold hover:bg-gray-50 transition-all flex items-center justify-center">
+                            Conhecer Tratamentos
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Imagem Hero (Foto da Dra) -->
+                <div class="w-full lg:w-1/2 flex justify-center lg:justify-end fade-up delay-200">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+                        <div class="absolute inset-0 bg-teal-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                        <!-- Placeholder para foto da Dra. -->
+                        <div class="relative w-full h-full bg-gray-200 photo-blob overflow-hidden border-4 border-white shadow-2xl">
+                            <!-- Substituir src pela foto real da Dra. Carolina -->
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Dra. Carolina Dreher Martins" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Selo Flutuante -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border-l-4 border-primary hidden sm:block animate-bounce" style="animation-duration: 3s;">
+                            <p class="text-sm font-bold text-gray-800">CRO-PR 19327</p>
+                            <p class="text-xs text-gray-500">Cirurgiã-Dentista</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative fade-up">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-2xl shadow-lg mt-8" alt="Consultório moderno">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="rounded-2xl shadow-lg" alt="Detalhes odontologia">
+                    </div>
+                </div>
+                <div class="fade-up delay-100">
+                    <h2 class="text-sm font-bold text-primary tracking-widest uppercase mb-3">Quem sou eu</h2>
+                    <h3 class="text-3xl md:text-4xl font-serif font-medium text-gray-900 mb-6">Dra. Carolina Dreher Martins</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Meu propósito é transformar a experiência odontológica em algo positivo e transformador. Com foco em <strong>Estética Dental</strong> e <strong>Reabilitação Oral</strong>, busco não apenas tratar dentes, mas devolver a autoconfiança de cada paciente.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        No meu consultório, tecnologia e empatia caminham juntas. Cada procedimento é planejado com riqueza de detalhes, garantindo resultados naturais e um atendimento onde seu conforto é a prioridade absoluta.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fa-solid fa-circle-check text-primary mr-3"></i> Atendimento personalizado
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fa-solid fa-circle-check text-primary mr-3"></i> Técnicas minimamente invasivas
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fa-solid fa-circle-check text-primary mr-3"></i> Ambiente moderno e acolhedor
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="tratamentos" class="py-20 bg-secondary/30">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mb-4">Especialidades</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Procedimentos realizados com o mais alto padrão de qualidade para a saúde e beleza do seu sorriso.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-regular fa-gem"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Estética Dental</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Lentes de contato dental e facetas em resina para harmonizar formato e cor do seu sorriso com naturalidade.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100 delay-100">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Clareamento</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Protocolos seguros e eficazes de clareamento (laser e caseiro) para um sorriso iluminado.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100 delay-200">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-solid fa-tooth"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Implantes</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Reabilitação oral completa com implantes dentários, devolvendo a função mastigatória e a estética.</p>
+                </div>
+                
+                 <!-- Card 4 -->
+                 <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Gengivoplastia</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Correção do contorno gengival para um sorriso mais simétrico e harmonioso (plástica gengival).</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100 delay-100">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Clínica Geral</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Prevenção, limpeza (profilaxia), restaurações e extração de sisos com todo cuidado necessário.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 fade-up border border-gray-100 delay-200">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-6">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-3">Harmonização</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Procedimentos para equilibrar os traços da face em conjunto com o sorriso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos (Social Proof) -->
+    <section id="depoimentos" class="py-20 bg-primary text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center fade-up">
+            <i class="fa-solid fa-quote-left text-4xl text-teal-300 mb-8 opacity-50"></i>
+            <h2 class="text-3xl font-serif mb-10">O que dizem nossos pacientes</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/10">
+                    <p class="italic mb-4 text-teal-50">"A Dra. Carolina é maravilhosa! Tinha muito medo de dentista e ela me deixou super confortável. Fiz meu clareamento e amei o resultado."</p>
+                    <div class="font-bold text-white">- Mariana S.</div>
+                    <div class="text-yellow-400 text-xs mt-1">★★★★★</div>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/10">
+                    <p class="italic mb-4 text-teal-50">"Profissional excelente, consultório impecável e atendimento muito humano. Recomendo de olhos fechados para quem busca qualidade."</p>
+                    <div class="font-bold text-white">- Roberto A.</div>
+                    <div class="text-yellow-400 text-xs mt-1">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato e Localização -->
+    <section id="contato" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <!-- Infos -->
+                <div class="md:w-1/3 p-10 bg-gray-900 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-6 text-primary">Contato</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0 text-primary">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-300">Endereço</h4>
+                                    <p class="text-gray-400 text-sm mt-1">Avenida São José, 618<br>Cristo Rei, Curitiba - PR</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0 text-primary">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-300">WhatsApp</h4>
+                                    <p class="text-gray-400 text-sm mt-1">Agende sua consulta pelo WhatsApp</p>
+                                    <a href="https://wa.me/5541999999999" class="text-primary text-sm hover:underline mt-1 block">Clique para falar agora</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Redes Sociais</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors text-white">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors text-white">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="md:w-2/3 h-80 md:h-auto relative">
+                    <iframe 
+                        class="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.227448827419!2d-49.25206332374244!3d-25.43022513291884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce44655555555%3A0x123456789!2sAv.%20S%C3%A3o%20Jos%C3%A9%2C%20618%20-%20Cristo%20Rei%2C%20Curitiba%20-%20PR!5e0!3m2!1spt-BR!2sbr!4v1700000000000" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-10 text-center">
+        <div class="max-w-6xl mx-auto px-4">
+            <p class="font-serif text-xl font-bold text-primary mb-2">Dra. Carolina Dreher Martins</p>
+            <p class="text-gray-400 text-xs uppercase tracking-widest mb-6">CRO-PR 19327</p>
+            <p class="text-gray-400 text-sm">© 2024 Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5541999999999" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 hover:scale-110 transition-all duration-300 animate-bounce group">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="absolute right-16 bg-white text-gray-800 px-3 py-1 rounded shadow-md text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Agende agora</span>
+    </a>
+
+    <!-- Scripts simples para animações -->
+    <script>
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Fechar menu ao clicar
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Navbar Sombra ao Scrollar
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. João Victor Moraes | Advocacia de Alta Performance</title>
+    <meta name="description" content="Advocacia especializada em Presidente Prudente/SP. Direito de Família, Consumidor e Contratos.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Configuração de Cores e Estilos -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            300: '#F3E5AB',
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#997B19',
+                        },
+                        navy: {
+                            950: '#020617',
+                            900: '#0a192f',
+                            800: '#112240',
+                        },
+                        rich: {
+                            black: '#050505',
+                            gray: '#1a1a1a'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cinzel"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://www.transparenttextures.com/patterns/cubes.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Premium Feel */
+        body {
+            background-color: #050505;
+            color: #e5e7eb;
+        }
+
+        /* Gradient Text */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #997B19 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(17, 34, 64, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-gold-500 selection:text-black">
+
+    <!-- Fixed Background Pattern -->
+    <div class="fixed inset-0 z-0 opacity-5 pointer-events-none bg-hero-pattern"></div>
+
+    <!-- Navbar Premium -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-rich-black/80 backdrop-blur-md border-b border-white/5" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 border-2 border-gold-400 rounded-sm flex items-center justify-center rotate-45 group-hover:rotate-0 transition-all duration-500">
+                    <span class="text-gold-400 font-serif font-bold text-xl -rotate-45 group-hover:rotate-0 transition-all duration-500">M</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-serif font-bold text-white tracking-widest leading-none">MORAES</span>
+                    <span class="text-[10px] text-gold-400 tracking-[0.3em] uppercase">Advocacia</span>
+                </div>
+            </a>
+            
+            <!-- Mobile Toggle -->
+            <button id="menu-btn" class="md:hidden text-gold-400 text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center text-sm font-medium tracking-wide">
+                <a href="#expertise" class="text-gray-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">EXPERTISE</a>
+                <a href="#autoridade" class="text-gray-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">O ESCRITÓRIO</a>
+                <a href="#faq" class="text-gray-300 hover:text-gold-400 transition-colors py-2 border-b-2 border-transparent hover:border-gold-400">DÚVIDAS</a>
+                <a href="#contato" class="bg-gradient-to-r from-gold-400 to-gold-600 text-black font-bold px-6 py-2.5 rounded-sm hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all transform hover:-translate-y-0.5">
+                    PLANTÃO JURÍDICO
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-rich-black border-t border-white/10 md:hidden flex flex-col p-6 space-y-4 shadow-2xl">
+            <a href="#expertise" class="text-gray-300 text-lg hover:text-gold-400">Áreas de Atuação</a>
+            <a href="#autoridade" class="text-gray-300 text-lg hover:text-gold-400">Sobre o Dr. João</a>
+            <a href="#faq" class="text-gray-300 text-lg hover:text-gold-400">Perguntas Frequentes</a>
+            <a href="#contato" class="text-gold-400 font-bold text-lg">Entrar em Contato</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Mobile First Layout) -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+        <!-- Background Lighting -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px] -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold-600/10 rounded-full blur-[100px] -z-10"></div>
+
+        <div class="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-7 space-y-8 reveal-up active order-2 lg:order-1 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-400/20 bg-gold-400/5 backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-xs font-bold tracking-widest text-gold-400 uppercase">Atendimento Online & Presencial</span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-serif font-bold text-white leading-[1.1]">
+                    Excelência na <br>
+                    <span class="text-gradient-gold relative">
+                        Defesa de Seus Direitos
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-gold-500 opacity-60" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C2.00025 6.99997 73.0003 12 119 3" stroke="currentColor" stroke-width="3"/></svg>
+                    </span>
+                </h1>
+                
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    Especialista em Direito de Família, Consumidor e Contratos. Transformando complexidade jurídica em tranquilidade para sua vida e seus negócios.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
+                    <a href="https://wa.me/5518996346635" class="group relative px-8 py-4 bg-gold-500 text-black font-bold rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+                        <div class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                        <span class="relative flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-xl"></i> Agendar Consulta
+                        </span>
+                    </a>
+                    <a href="#expertise" class="px-8 py-4 border border-white/20 text-white font-medium rounded-sm hover:bg-white/5 transition-all flex items-center justify-center gap-3">
+                        Nossas Áreas <i class="fas fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Social Proof Mini -->
+                <div class="flex items-center justify-center lg:justify-start gap-6 pt-6 border-t border-white/5">
+                    <div class="flex flex-col">
+                        <span class="text-3xl font-bold text-white">5.0</span>
+                        <div class="text-gold-400 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="h-10 w-px bg-white/10"></div>
+                    <p class="text-sm text-gray-400 max-w-[200px] text-left">
+                        "Profissional excelente, resolveu meu caso com agilidade." <br>
+                        <span class="text-xs text-white/50">- Avaliação Google</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image Composition -->
+            <div class="lg:col-span-5 relative order-1 lg:order-2 mb-10 lg:mb-0 reveal-up delay-200">
+                <div class="relative w-full aspect-[4/5] max-w-md mx-auto">
+                    <!-- Frame Decoration -->
+                    <div class="absolute inset-0 border-2 border-gold-400/30 translate-x-4 translate-y-4 z-0 rounded-sm"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20"></div>
+                    
+                    <!-- Main Image (Placeholder Professional) -->
+                    <!-- NOTA PARA O USUÁRIO: Substitua o src abaixo pela foto real do Instagram -->
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Dr. João Victor Moraes" 
+                         class="w-full h-full object-cover rounded-sm shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700">
+                    
+                    <!-- Floating Card -->
+                    <div class="absolute bottom-8 -left-6 z-30 glass-panel p-4 rounded-lg flex items-center gap-4 animate-float max-w-[220px]">
+                        <div class="w-12 h-12 rounded-full bg-gold-500 flex items-center justify-center text-black shadow-lg">
+                            <i class="fas fa-balance-scale text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-300 font-medium">Compromisso com</p>
+                            <p class="text-sm font-bold text-white">Resultados Reais</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Numbers / Authority Strip -->
+    <section class="border-y border-white/5 bg-navy-900/50 backdrop-blur-sm relative z-20">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
+                <div class="space-y-2">
+                    <p class="text-4xl font-serif font-bold text-gold-400">+500</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400">Casos Atendidos</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-4xl font-serif font-bold text-gold-400">98%</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400">Clientes Satisfeitos</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-4xl font-serif font-bold text-gold-400">24h</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400">Plantão Online</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-4xl font-serif font-bold text-gold-400">5.0</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400">Estrelas Google</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 space-y-4 reveal-up">
+                <span class="text-gold-400 font-bold tracking-[0.2em] text-sm uppercase">Áreas de Atuação</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-white">Soluções Jurídicas Sob Medida</h2>
+                <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-xl group relative overflow-hidden reveal-up">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-users text-9xl text-gold-400"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-navy-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-users text-2xl text-gold-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4 font-serif">Direito de Família</h3>
+                        <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Divórcio Consensual/Litigioso</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Guarda e Pensão</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Inventários</li>
+                        </ul>
+                        <a href="https://wa.me/5518996346635?text=Preciso%20de%20ajuda%20com%20Fam%C3%ADlia" class="inline-flex items-center text-gold-400 font-semibold text-sm group-hover:gap-2 transition-all">
+                            Agendar Análise <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-xl group relative overflow-hidden reveal-up delay-100 border-gold-400/30 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-gavel text-9xl text-gold-400"></i>
+                    </div>
+                    <div class="absolute top-0 right-0 bg-gold-500 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">MAIS PROCURADO</div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-navy-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-shopping-bag text-2xl text-gold-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4 font-serif">Direito do Consumidor</h3>
+                        <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Negativação Indevida</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Problemas Aéreos</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Planos de Saúde</li>
+                        </ul>
+                        <a href="https://wa.me/5518996346635?text=Preciso%20de%20ajuda%20com%20Consumidor" class="inline-flex items-center text-gold-400 font-semibold text-sm group-hover:gap-2 transition-all">
+                            Agendar Análise <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-xl group relative overflow-hidden reveal-up delay-200">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-file-contract text-9xl text-gold-400"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-navy-800 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-file-signature text-2xl text-gold-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4 font-serif">Contratos & Negócios</h3>
+                        <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Elaboração de Contratos</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Assessoria Imobiliária</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-gold-500 text-xs"></i> Cobranças Judiciais</li>
+                        </ul>
+                        <a href="https://wa.me/5518996346635?text=Preciso%20de%20ajuda%20com%20Contratos" class="inline-flex items-center text-gold-400 font-semibold text-sm group-hover:gap-2 transition-all">
+                            Agendar Análise <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-rich-black relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-serif font-bold text-white">Dúvidas Frequentes</h2>
+                <p class="text-gray-400 mt-2">Respostas rápidas para suas principais questões</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="border border-white/10 rounded-lg overflow-hidden transition-all hover:border-gold-400/50">
+                    <button class="w-full flex justify-between items-center p-6 bg-navy-900/50 text-left focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white">Como funciona a consulta online?</span>
+                        <i class="fas fa-plus text-gold-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden p-6 bg-navy-900/30 text-gray-400 text-sm leading-relaxed border-t border-white/5">
+                        A consulta online é realizada via WhatsApp ou videochamada (Google Meet/Zoom), com a mesma segurança e sigilo do atendimento presencial. Você economiza tempo e resolve tudo sem sair de casa.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="border border-white/10 rounded-lg overflow-hidden transition-all hover:border-gold-400/50">
+                    <button class="w-full flex justify-between items-center p-6 bg-navy-900/50 text-left focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white">Quanto custa um advogado?</span>
+                        <i class="fas fa-plus text-gold-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden p-6 bg-navy-900/30 text-gray-400 text-sm leading-relaxed border-t border-white/5">
+                        Os honorários variam conforme a complexidade do caso e seguem a tabela da OAB/SP. Trabalhamos com transparência total: na consulta inicial, analisamos seu caso e apresentamos um orçamento claro, sem surpresas.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="border border-white/10 rounded-lg overflow-hidden transition-all hover:border-gold-400/50">
+                    <button class="w-full flex justify-between items-center p-6 bg-navy-900/50 text-left focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white">Vocês atendem em quais cidades?</span>
+                        <i class="fas fa-plus text-gold-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden p-6 bg-navy-900/30 text-gray-400 text-sm leading-relaxed border-t border-white/5">
+                        Nosso escritório físico está em Presidente Prudente/SP, mas graças ao processo judicial eletrônico, atuamos em todo o estado de São Paulo e no Brasil inteiro de forma digital.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location (Dark Map Theme) -->
+    <section id="contato" class="py-20 relative">
+        <div class="absolute inset-0 bg-navy-900">
+             <!-- Abstract Map background could go here -->
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="bg-rich-black/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+                
+                <!-- Contact Form -->
+                <div class="p-8 md:p-12 md:w-1/2">
+                    <h2 class="text-2xl font-serif font-bold text-white mb-2">Fale Conosco</h2>
+                    <p class="text-gray-400 text-sm mb-8">Preencha para iniciar seu atendimento via WhatsApp.</p>
+                    
+                    <form id="contactForm" class="space-y-4">
+                        <div class="relative">
+                            <input type="text" id="name" required class="peer w-full bg-navy-900 border border-white/10 rounded px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-gold-400 transition-all" placeholder="Nome">
+                            <label for="name" class="absolute left-4 -top-2.5 bg-rich-black px-1 text-xs text-gold-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-gold-400 peer-focus:bg-rich-black">Seu Nome</label>
+                        </div>
+                        
+                        <div class="relative">
+                            <select id="topic" class="w-full bg-navy-900 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-gold-400 appearance-none">
+                                <option value="Família">Direito de Família</option>
+                                <option value="Consumidor">Direito do Consumidor</option>
+                                <option value="Contratos">Contratos</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                            <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-500 text-xs pointer-events-none"></i>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-black font-bold py-4 rounded shadow-lg hover:shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex justify-center gap-2 items-center">
+                            CHAMAR NO WHATSAPP <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Side -->
+                <div class="bg-navy-800 p-8 md:p-12 md:w-1/2 flex flex-col justify-center space-y-8 border-l border-white/5">
+                    <div>
+                        <h3 class="text-gold-400 font-serif text-lg mb-2">Escritório</h3>
+                        <p class="text-gray-300">R. Siqueira Campos, 952 - Centro<br>Presidente Prudente - SP</p>
+                    </div>
+                    <div>
+                        <h3 class="text-gold-400 font-serif text-lg mb-2">Contato Direto</h3>
+                        <p class="text-gray-300 text-xl font-light">(18) 99634-6635</p>
+                        <p class="text-gray-500 text-sm">dr.victormoraes@adv.oabsp.org.br</p>
+                    </div>
+                    <div class="pt-4">
+                        <a href="https://maps.app.goo.gl/placeholder" target="_blank" class="text-sm text-white border-b border-gold-400 pb-1 hover:text-gold-400 transition">Ver localização no mapa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-10 border-t border-white/10 text-center">
+        <div class="container mx-auto px-6">
+            <a href="#" class="inline-block mb-6">
+                 <span class="text-xl font-serif font-bold text-white tracking-widest">MORAES <span class="text-gold-400">ADVOCACIA</span></span>
+            </a>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-gold-500 hover:border-gold-500 hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-gold-500 hover:border-gold-500 hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-gold-500 hover:border-gold-500 hover:text-black transition-all"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p class="text-gray-600 text-xs uppercase tracking-widest">© <span id="year"></span> Dr. João Victor Moraes. OAB/SP XXX.XXX.</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.fa-plus');
+            
+            // Close others (optional)
+            // document.querySelectorAll('#faq .hidden').forEach(el => el.classList.add('hidden'));
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                button.classList.add('bg-navy-900');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+                button.classList.remove('bg-navy-900');
+            }
+        }
+
+        // WhatsApp Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const topic = document.getElementById('topic').value;
+            const text = `Olá, meu nome é *${name}*. Gostaria de falar sobre *${topic}*.`;
+            window.open(`https://wa.me/5518996346635?text=${encodeURIComponent(text)}`, '_blank');
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
