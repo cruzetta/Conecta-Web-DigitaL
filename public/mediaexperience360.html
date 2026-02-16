@@ -131,7 +131,7 @@
             50% { height: 100%; }
         }
 
-        /* Timeline Connector */
+        /* Timeline Connector - Modified for Mobile */
         .timeline-line::before {
             content: '';
             position: absolute;
@@ -141,9 +141,11 @@
             width: 2px;
             background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple), transparent);
             z-index: 0;
+            display: none; /* Hidden by default on mobile */
         }
         @media (min-width: 768px) {
             .timeline-line::before {
+                display: block; /* Visible on Desktop */
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -172,6 +174,16 @@
         #mobile-menu.closed {
             transform: translateX(100%);
         }
+
+        /* Back to Top Button */
+        #back-to-top {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #back-to-top.hidden-btn {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-black">
@@ -182,15 +194,9 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 left-0 border-b border-white/10 bg-black/80 backdrop-blur-md transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-accent rounded-lg flex items-center justify-center font-bold text-black transform group-hover:rotate-12 transition-transform duration-300">
-                    <i data-lucide="zap" class="w-6 h-6"></i>
-                </div>
-                <div class="flex flex-col leading-none">
-                    <span class="font-display font-bold text-xl tracking-wider text-white">CONEXÃO</span>
-                    <span class="font-display font-bold text-sm tracking-widest text-brand-accent">BET</span>
-                </div>
+            <!-- Logo Brand -->
+            <a href="#" class="block group hover:opacity-90 transition-opacity">
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fconexaobet_1920x308_white.png?alt=media&token=6f59cf4e-0a65-4df2-a668-cc563fc4a96d" alt="Conexão Bet" class="h-8 md:h-10 w-auto object-contain">
             </a>
 
             <!-- Desktop Menu -->
@@ -204,7 +210,7 @@
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="#pricing" class="hover:text-brand-accent transition-colors py-2 relative group">
-                    Planos
+                    Pacotes
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="bg-white hover:bg-brand-accent hover:text-black text-black px-6 py-2.5 rounded-full transition-all duration-300 text-xs font-black tracking-wide uppercase shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(0,209,255,0.6)]">
@@ -226,7 +232,7 @@
         </button>
         <a href="#concept" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">O Conceito</a>
         <a href="#features" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">Soluções</a>
-        <a href="#pricing" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">Planos</a>
+        <a href="#pricing" onclick="toggleMenu()" class="text-2xl font-display font-bold hover:text-brand-accent transition-colors">Pacotes</a>
         <a href="#contact" onclick="toggleMenu()" class="text-xl font-bold bg-brand-primary px-8 py-3 rounded-full">Fale Conosco</a>
     </div>
 
@@ -246,9 +252,11 @@
                 <div class="w-2.5 bg-gradient-to-t from-brand-purple to-brand-accent equalizer-bar rounded-sm h-full"></div>
             </div>
 
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 mb-6 backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
-                <span class="text-brand-accent text-xs font-bold tracking-widest uppercase">Media Experience 360</span>
+            <!-- Product Logo -->
+            <div class="mb-10">
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Flogo_media_experience_360_color_png.png?alt=media&token=408a9407-9179-40d5-a8af-a7218e2f53a2" 
+                     alt="Media Experience 360" 
+                     class="h-32 md:h-48 mx-auto object-contain drop-shadow-[0_0_25px_rgba(0,209,255,0.2)] animate-float">
             </div>
             
             <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-none mb-6 tracking-tight">
@@ -280,7 +288,6 @@
 
         <!-- Scroll Indicator -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer" onclick="document.getElementById('concept').scrollIntoView({behavior: 'smooth'})">
-            <span class="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
             <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
     </header>
@@ -294,18 +301,18 @@
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="gsap-reveal">
                     <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                        NÃO É APENAS COBERTURA. <br>
-                        <span class="gradient-text-purple">É POSICIONAMENTO.</span>
+                        NÃO É APENAS UMA COBERTURA DE MÍDIA NO EVENTO. <br>
+                        <span class="gradient-text-purple">É POSICIONAMENTO ESTRATÉGICO.</span>
                     </h2>
                     
                     <div class="space-y-6">
                         <p class="text-gray-300 text-lg leading-relaxed border-l-2 border-brand-accent pl-6">
                             Participar de um evento é importante. <br>
-                            <span class="text-white font-bold">Ser visto, lembrado e reconhecido é estratégico.</span>
+                            <span class="text-white font-bold">Ser visto, lembrado e reconhecido é fundamental.</span>
                         </p>
                         
                         <p class="text-gray-400">
-                            O <strong>Media Experience 360</strong> transforma a presença física da sua empresa em autoridade no mercado através de:
+                            O <strong>Media Experience 360</strong> reforça a presença física da sua empresa em autoridade no mercado através de:
                         </p>
                     </div>
                     
@@ -314,46 +321,59 @@
                             <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
                                 <i data-lucide="video" class="w-5 h-5"></i>
                             </div>
-                            <span class="font-bold text-gray-200">Conteúdo Profissional & Ativos Reutilizáveis</span>
+                            <span class="font-bold text-gray-200">Conteúdo de mídia digital de alta qualidade</span>
                         </div>
                         <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-accent/30 transition-colors group">
                             <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-black transition-colors">
+                                <i data-lucide="mic" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-bold text-gray-200">Entrevistas exclusivas</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-accent/30 transition-colors group">
+                            <div class="w-10 h-10 rounded-full bg-brand-purple/20 flex items-center justify-center text-brand-purple group-hover:bg-brand-purple group-hover:text-white transition-colors">
                                 <i data-lucide="radio" class="w-5 h-5"></i>
                             </div>
-                            <span class="font-bold text-gray-200">Transmissão em Tempo Real</span>
+                            <span class="font-bold text-gray-200">Transmissão ao vivo</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-accent/30 transition-colors group">
+                            <div class="w-10 h-10 rounded-full bg-brand-success/20 flex items-center justify-center text-brand-success group-hover:bg-brand-success group-hover:text-black transition-colors">
+                                <i data-lucide="share-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-bold text-gray-200">Postagens em tempo real nos canais</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Visual Element: The Media Experience -->
-                <div class="relative gsap-reveal delay-200 flex justify-center">
+                <div class="relative gsap-reveal flex justify-center">
                     <!-- Stylized Phone Container -->
                     <div class="relative z-10 w-[300px] h-[580px] border-4 border-gray-800 bg-black rounded-[3rem] shadow-2xl transform rotate-[-5deg] hover:rotate-0 transition-transform duration-700 overflow-hidden">
                         <!-- Screen -->
                         <div class="w-full h-full bg-gray-900 relative">
-                            <!-- Header UI -->
-                            <div class="absolute top-0 w-full p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/80 to-transparent">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-brand-primary border border-white"></div>
-                                    <span class="text-xs font-bold">Conexão Bet</span>
-                                </div>
-                                <span class="bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse">LIVE</span>
+                            <!-- Background Video -->
+                            <div class="absolute inset-0 z-0">
+                                <video id="mobile-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+                                    <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fvideo%20media%20experience%20celular%20(2).mp4?alt=media&token=f26d4391-2ae6-4f5c-b942-74629c63caa0" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
                             </div>
 
-                            <!-- Video Content Simulation -->
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="text-center opacity-30">
-                                    <i data-lucide="clapperboard" class="w-20 h-20 mx-auto mb-4"></i>
-                                    <p class="uppercase font-display font-bold tracking-widest">Entrevista Exclusiva</p>
+                            <!-- Header UI -->
+                            <div class="absolute top-0 w-full p-4 flex justify-between items-center z-20">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-brand-primary border border-white"></div>
+                                    <span class="text-xs font-bold drop-shadow-md">Conexão Bet</span>
                                 </div>
-                                <!-- Floating comments simulation -->
-                                <div class="absolute bottom-24 left-4 space-y-2 w-3/4">
-                                    <div class="bg-black/40 backdrop-blur-sm p-2 rounded-lg text-[10px] text-white/90 animate-float" style="animation-delay: 0s;">
-                                        <span class="font-bold text-brand-accent">User1:</span> Conteúdo incrível! 🔥
-                                    </div>
-                                    <div class="bg-black/40 backdrop-blur-sm p-2 rounded-lg text-[10px] text-white/90 animate-float" style="animation-delay: 1s;">
-                                        <span class="font-bold text-brand-purple">User2:</span> Grande parceria 👏👏
-                                    </div>
+                                <span class="bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse shadow-lg">LIVE</span>
+                            </div>
+
+                            <!-- Floating comments simulation -->
+                            <div class="absolute bottom-24 left-4 space-y-2 w-3/4 z-20">
+                                <div class="bg-black/40 backdrop-blur-md p-2 rounded-lg text-[10px] text-white/90 animate-float border border-white/10" style="animation-delay: 0s;">
+                                    <span class="font-bold text-brand-accent">User1:</span> Conteúdo incrível! 🔥
+                                </div>
+                                <div class="bg-black/40 backdrop-blur-md p-2 rounded-lg text-[10px] text-white/90 animate-float border border-white/10" style="animation-delay: 1s;">
+                                    <span class="font-bold text-brand-purple">User2:</span> Grande parceria 👏👏
                                 </div>
                             </div>
 
@@ -365,9 +385,9 @@
                                         <div class="h-1 w-16 bg-white/20 rounded"></div>
                                     </div>
                                     <div class="flex gap-2">
-                                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
-                                        <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
-                                        <i data-lucide="send" class="w-6 h-6 text-white"></i>
+                                        <i data-lucide="heart" class="w-6 h-6 text-white drop-shadow-md"></i>
+                                        <i data-lucide="message-circle" class="w-6 h-6 text-white drop-shadow-md"></i>
+                                        <i data-lucide="send" class="w-6 h-6 text-white drop-shadow-md"></i>
                                     </div>
                                 </div>
                             </div>
@@ -382,13 +402,28 @@
         </div>
     </section>
 
+    <!-- NEW VSL Section (Video Sales Letter) -->
+    <section class="py-24 bg-black relative border-y border-white/5">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">Veja na Prática</h2>
+            <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Confira como o Media Experience 360 pode transformar a presença da sua marca.</p>
+            
+            <div class="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(0,71,255,0.15)] relative group bg-gray-900">
+                 <!-- YouTube Embed Placeholder -->
+                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=ExamplePlaceholder" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
     <!-- Value Proposition Grid -->
     <section id="features" class="py-24 bg-[#0a0a0a] relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 gsap-reveal">
-                <span class="text-brand-accent font-bold tracking-widest uppercase text-xs mb-2 block">O que entregamos</span>
-                <h2 class="font-display text-4xl font-bold mb-4 text-white">PROPOSTA DE <span class="text-brand-primary">VALOR</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Durante o evento, sua empresa recebe uma experiência completa de mídia, garantindo que sua marca seja onipresente.</p>
+            <div class="mb-16 gsap-reveal text-left">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+                    Confira a nossa <br>
+                    <span class="text-brand-primary">PROPOSTA DE VALOR</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl text-lg">Durante o evento, sua empresa recebe uma experiência completa de mídia, garantindo que sua marca seja onipresente.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -407,13 +442,13 @@
                 <!-- Card 2 -->
                 <div class="glass-card p-8 rounded-2xl relative overflow-hidden group hover:bg-brand-card transition-all">
                     <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
-                        <i data-lucide="youtube" class="w-32 h-32"></i>
+                        <i data-lucide="monitor" class="w-32 h-32"></i>
                     </div>
                     <div class="w-14 h-14 bg-red-500/10 rounded-xl flex items-center justify-center mb-6 text-red-500 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
-                        <i data-lucide="play" class="w-7 h-7"></i>
+                        <i data-lucide="monitor" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Vídeo para YouTube</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo editado em alta qualidade (4K) para plataformas horizontais, ideal para institucional.</p>
+                    <h3 class="text-xl font-bold mb-3 text-white">Vídeo Horizontal</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo editado em alta qualidade para plataformas horizontais, ideal para usar como vídeo institucional.</p>
                 </div>
 
                 <!-- Card 3 -->
@@ -422,10 +457,10 @@
                         <i data-lucide="smartphone" class="w-32 h-32"></i>
                     </div>
                     <div class="w-14 h-14 bg-brand-purple/10 rounded-xl flex items-center justify-center mb-6 text-brand-purple group-hover:bg-brand-purple group-hover:text-white transition-all duration-300">
-                        <i data-lucide="instagram" class="w-7 h-7"></i>
+                        <i data-lucide="smartphone" class="w-7 h-7"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-white">Vídeos Verticais</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Reels e TikToks dinâmicos e otimizados para viralização e engajamento rápido nas redes.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Reels, Shorts e TikToks dinâmicos e otimizados para viralização e engajamento rápido nas redes.</p>
                 </div>
 
                 <!-- Card 4 -->
@@ -436,8 +471,8 @@
                     <div class="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-500 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
                         <i data-lucide="newspaper" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Matéria Editorial</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo jornalístico estratégico escrito com técnicas de SEO e destaque no Hub de Notícias.</p>
+                    <h3 class="text-xl font-bold mb-3 text-white">Matéria Editorial Exclusiva</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Conteúdo jornalístico estratégico escrito com técnicas de SEO e destaque no Hub de Notícias do ConexaoBet.com</p>
                 </div>
 
                 <!-- Card 5 -->
@@ -511,8 +546,8 @@
     <section id="pricing" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 gsap-reveal">
-                <h2 class="font-display text-4xl font-bold mb-4">ESCOLHA SEU <span class="gradient-text">PACOTE</span></h2>
-                <p class="text-gray-400">Investimento estratégico para alavancar sua marca.</p>
+                <h2 class="font-display text-4xl font-bold mb-4">ESCOLHA O SEU <br> <span class="gradient-text">PACOTE EXPERIENCE</span></h2>
+                <p class="text-gray-400">Garanta um plano de mídia exclusivo para alavancar a presença da sua marca nos eventos iGaming</p>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8 items-start">
@@ -523,63 +558,60 @@
                         <h3 class="text-2xl font-bold mb-2 text-white">Start</h3>
                         <p class="text-gray-400 text-sm">Entrada essencial.</p>
                     </div>
-                    <div class="text-3xl font-bold mb-8 text-white">R$ 9.990<span class="text-lg font-normal text-gray-500">,00</span></div>
                     
                     <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-grow">
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Entrevista gravada (2)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo vertical (2)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Matéria editorial exclusiva (1)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Entrevista gravada (2 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Vídeo vertical (2 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Matéria editorial exclusiva (1 und)</li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-success w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
                         <li class="flex items-center gap-3 opacity-40"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0"></i> Matéria destaque home</li>
                         <li class="flex items-center gap-3 opacity-40"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0"></i> Live ao vivo</li>
                     </ul>
                     
-                    <button onclick="openModal('Start')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition-all font-bold tracking-wide">ASSINAR</button>
+                    <a href="https://forms.clickup.com/9013546698/f/8ckzkpa-3213/J7XDBYCQGC06CMYF7G" target="_blank" class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition-all font-bold tracking-wide block text-center">CONTRATAR</a>
                 </div>
 
                 <!-- Growth Plan (Highlighted) -->
-                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-accent transform lg:-translate-y-4 relative bg-gradient-to-b from-white/5 to-transparent flex flex-col h-full gsap-reveal delay-100 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-accent transform lg:-translate-y-4 relative bg-gradient-to-b from-white/5 to-transparent flex flex-col h-full gsap-reveal shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-primary to-brand-accent px-4 py-1 rounded-full text-xs font-bold text-black uppercase shadow-lg shadow-brand-accent/30">Mais Popular</div>
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold mb-2 text-brand-accent">Growth</h3>
                         <p class="text-gray-400 text-sm">Visibilidade ampliada.</p>
                     </div>
-                    <div class="text-4xl font-bold mb-8 text-white">R$ 14.990<span class="text-xl font-normal text-gray-500">,00</span></div>
                     
                     <ul class="space-y-4 mb-8 text-sm text-gray-200 flex-grow">
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Entrevistas gravadas (1)</strong></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Vídeos verticais (1)</strong></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (1)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Entrevistas gravadas (1 und)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Vídeos verticais (1 und)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (1 und)</strong></li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-accent w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
                         <li class="flex items-center gap-3"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0 opacity-40"></i> Matéria destaque home</li>
                         <li class="flex items-center gap-3"><i data-lucide="x" class="text-red-500 w-5 h-5 flex-shrink-0 opacity-40"></i> Live ao vivo</li>
                     </ul>
                     
-                    <button onclick="openModal('Growth')" class="w-full py-4 bg-brand-accent text-black rounded-xl hover:bg-white hover:text-black transition-all font-bold shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 transform hover:-translate-y-1">ASSINAR AGORA</button>
+                    <a href="https://forms.clickup.com/9013546698/f/8ckzkpa-3213/J7XDBYCQGC06CMYF7G" target="_blank" class="w-full py-4 bg-brand-accent text-black rounded-xl hover:bg-white hover:text-black transition-all font-bold shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 transform hover:-translate-y-1 block text-center">CONTRATAR</a>
                 </div>
 
                 <!-- Enterprise Plan -->
-                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-purple hover:border-brand-purple/80 transition-all duration-300 flex flex-col h-full gsap-reveal delay-200">
+                <div class="glass-card rounded-3xl p-8 border-t-4 border-brand-purple hover:border-brand-purple/80 transition-all duration-300 flex flex-col h-full gsap-reveal">
                     <div class="mb-6">
                         <h3 class="text-2xl font-bold mb-2 text-white">Enterprise</h3>
                         <p class="text-gray-400 text-sm">Domínio completo.</p>
                     </div>
-                    <div class="text-3xl font-bold mb-8 text-white">R$ 19.990<span class="text-lg font-normal text-gray-500">,00</span></div>
                     
                     <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-grow">
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Entrevista gravada (1)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo vertical (1)</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (2)</strong></li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Entrevista gravada (1 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo horizontal (1 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Vídeo vertical (1 und)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Matérias editoriais (2 und)</strong></li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Matéria destaque home</li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> Divulgação nos canais</li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Live ao vivo</strong></li>
                         <li class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand-purple w-5 h-5 flex-shrink-0"></i> <strong>Selo "Empresa Destaque"</strong></li>
                     </ul>
                     
-                    <button onclick="openModal('Enterprise')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-brand-purple hover:text-white transition-all font-bold tracking-wide">ASSINAR</button>
+                    <a href="https://forms.clickup.com/9013546698/f/8ckzkpa-3213/J7XDBYCQGC06CMYF7G" target="_blank" class="w-full py-3 border border-white/20 rounded-xl hover:bg-brand-purple hover:text-white transition-all font-bold tracking-wide block text-center">CONTRATAR</a>
                 </div>
 
             </div>
@@ -605,7 +637,7 @@
                 <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">2</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
-                        <h4 class="font-bold text-lg mb-2 text-white">Assinar o contrato</h4>
+                        <h4 class="font-bold text-lg mb-2 text-white">Assine o contrato</h4>
                         <p class="text-gray-400 text-sm">Finalize seu compromisso com total segurança e praticidade, assinando eletronicamente sem burocracia.</p>
                     </div>
                 </div>
@@ -614,8 +646,8 @@
                 <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">3</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all hover:-translate-y-1">
-                        <h4 class="font-bold text-lg mb-2 text-white">Realizar o pagamento</h4>
-                        <p class="text-gray-400 text-sm">Efetue o pagamento de forma simples e segura, liberando o início imediato dos serviços contratados.</p>
+                        <h4 class="font-bold text-lg mb-2 text-white">Confirme o pagamento</h4>
+                        <p class="text-gray-400 text-sm">Efetue o pagamento de forma simples e segura, garantindo o início imediato dos serviços contratados.</p>
                     </div>
                 </div>
 
@@ -623,7 +655,7 @@
                 <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">4</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
-                        <h4 class="font-bold text-lg mb-2 text-white">Iniciar onboarding</h4>
+                        <h4 class="font-bold text-lg mb-2 text-white">Inicie o onboarding</h4>
                         <p class="text-gray-400 text-sm">Conte com um processo operacional ágil e organizado para auxiliar sua equipe na melhor estratégia.</p>
                     </div>
                 </div>
@@ -633,7 +665,7 @@
                     <div class="flex items-center justify-center w-14 h-14 rounded-full bg-brand-accent text-black font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_30px_rgba(0,209,255,0.6)] mb-4 md:mb-0 text-2xl animate-pulse-slow">5</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-gradient-to-br from-brand-primary/20 to-brand-accent/10 p-8 rounded-2xl border border-brand-primary/50 hover:border-brand-accent transition-all hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-brand-accent">Go Live</h4>
-                        <p class="text-gray-200 text-sm">Comece a usufruir de nossas soluções personalizadas e experimente resultados reais desde o primeiro dia.</p>
+                        <p class="text-gray-200 text-sm">Usufrua de nossas soluções personalizadas e experimente resultados reais desde o primeiro dia.</p>
                     </div>
                 </div>
             </div>
@@ -650,25 +682,13 @@
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Pronto para impulsionar sua marca?</h2>
                 <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Entre em contato com nosso time e descubra como o Conexão Bet pode gerar visibilidade e conexões valiosas.</p>
                 
-                <div class="inline-flex flex-col md:flex-row items-center gap-6 glass-card p-8 rounded-2xl hover:border-brand-primary/50 transition-colors">
-                    <div class="flex items-center gap-4 text-left">
-                         <div class="w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center border border-white/10">
-                             <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
-                         </div>
-                         <div>
-                            <h4 class="text-xl font-bold text-white">Heitor Leal</h4>
-                            <p class="text-brand-accent text-sm font-medium">Diretor Comercial</p>
-                         </div>
-                    </div>
-                    
-                    <div class="h-px w-full md:w-px md:h-12 bg-white/10"></div>
-
-                    <div class="flex flex-col gap-3 w-full md:w-auto">
-                        <a href="mailto:heitorleal@conexaobet.com" class="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-lg hover:bg-brand-primary transition-all text-sm group">
-                            <i data-lucide="mail" class="w-4 h-4 text-brand-accent group-hover:text-white"></i> heitorleal@conexaobet.com
+                <div class="inline-flex flex-col items-center gap-6 glass-card p-8 rounded-2xl hover:border-brand-primary/50 transition-colors">
+                    <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                        <a href="mailto:contato@conexaobet.com" class="flex items-center gap-3 px-8 py-4 bg-white/5 rounded-lg hover:bg-brand-primary transition-all text-sm group border border-white/5">
+                            <i data-lucide="mail" class="w-5 h-5 text-brand-accent group-hover:text-white"></i> contato@conexaobet.com
                         </a>
-                        <a href="https://wa.me/5581999028510" class="flex items-center gap-3 px-6 py-3 bg-green-600/10 text-green-500 border border-green-500/20 rounded-lg hover:bg-green-600 hover:text-white transition-all text-sm">
-                            <i data-lucide="phone" class="w-4 h-4"></i> +55 (81) 99902-8510
+                        <a href="https://wa.me/5581999028510" class="flex items-center gap-3 px-8 py-4 bg-green-600/10 text-green-500 border border-green-500/20 rounded-lg hover:bg-green-600 hover:text-white transition-all text-sm">
+                            <i data-lucide="phone" class="w-5 h-5"></i> +55 (81) 99902-8510
                         </a>
                     </div>
                 </div>
@@ -677,67 +697,17 @@
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
                 <p>&copy; 2026 Conexão Bet. Todos os direitos reservados.</p>
                 <div class="flex gap-6 mt-4 md:mt-0 font-medium">
-                    <a href="#" class="hover:text-white transition-colors">Política de Privacidade</a>
+                    <a href="https://conexaobet.com/politica-de-privacidade" target="_blank" class="hover:text-white transition-colors">Política de Privacidade</a>
                     <a href="https://conexaobet.com" target="_blank" class="hover:text-brand-accent transition-colors">www.conexaobet.com</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- MODAL DE CONTRATAÇÃO -->
-    <div id="modal-overlay" class="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden-modal modal-overlay">
-        <div class="modal-content bg-[#111] border border-white/10 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden relative">
-            
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-white/10 bg-gradient-to-r from-brand-primary/10 to-transparent flex justify-between items-center">
-                <div>
-                    <h3 class="text-xl font-bold text-white">Solicitar Contratação</h3>
-                    <p class="text-sm text-gray-400">Plano selecionado: <span id="modal-plan-name" class="text-brand-accent font-bold">Start</span></p>
-                </div>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <!-- Form -->
-            <form id="lead-form" class="p-6 space-y-4" onsubmit="handleFormSubmit(event)">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nome Completo</label>
-                    <input type="text" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="Seu nome">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Empresa</label>
-                    <input type="text" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="Nome da sua empresa">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">E-mail Corporativo</label>
-                    <input type="email" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="seu@email.com">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Telefone / WhatsApp</label>
-                    <input type="tel" required class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent transition-colors" placeholder="(00) 00000-0000">
-                </div>
-                
-                <div class="pt-4">
-                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-primary text-black font-bold py-4 rounded-lg transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2">
-                        <span>SOLICITAR CONTATO</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                    <p class="text-[10px] text-gray-500 text-center mt-3">Nosso time entrará em contato em até 24h úteis.</p>
-                </div>
-            </form>
-            
-            <!-- Success Message (Hidden by default) -->
-            <div id="success-message" class="absolute inset-0 bg-[#111] z-10 flex flex-col items-center justify-center text-center p-8 hidden">
-                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center text-green-500 mb-4 animate-bounce">
-                    <i data-lucide="check" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-2">Solicitação Enviada!</h3>
-                <p class="text-gray-400 mb-6">Recebemos seus dados. Em breve o Heitor ou nossa equipe entrará em contato.</p>
-                <button onclick="closeModal()" class="px-6 py-2 border border-white/20 rounded-full text-sm font-bold hover:bg-white hover:text-black transition-colors">Fechar</button>
-            </div>
-        </div>
-    </div>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 bg-brand-accent text-black p-3 rounded-full shadow-[0_0_20px_rgba(0,209,255,0.5)] hover:scale-110 transition-transform z-50 hidden-btn cursor-pointer">
+        <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
 
     <!-- Scripts -->
     <script>
@@ -754,48 +724,31 @@
             menu.classList.toggle('closed');
         }
 
-        // Modal Logic
-        const openModal = (planName) => {
-            const modal = document.getElementById('modal-overlay');
-            const planText = document.getElementById('modal-plan-name');
-            const successMsg = document.getElementById('success-message');
-            const form = document.getElementById('lead-form');
-
-            // Reset state
-            successMsg.classList.add('hidden');
-            form.reset();
-            
-            planText.innerText = planName;
-            modal.classList.remove('hidden-modal');
-        }
-
-        const closeModal = () => {
-            const modal = document.getElementById('modal-overlay');
-            modal.classList.add('hidden-modal');
-        }
-
-        // Close modal on outside click
-        document.getElementById('modal-overlay').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('modal-overlay')) {
-                closeModal();
+        // Back to Top Button Visibility
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.remove('hidden-btn');
+            } else {
+                backToTopBtn.classList.add('hidden-btn');
             }
         });
 
-        // Form Submission Simulation
-        const handleFormSubmit = (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            
-            // Loading state
-            btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Enviando...';
-            lucide.createIcons();
-            
-            setTimeout(() => {
-                document.getElementById('success-message').classList.remove('hidden');
-                btn.innerHTML = originalText;
-            }, 1500);
-        }
+        // Autoplay Fallback for iPhone/Mobile
+        document.addEventListener('touchstart', function() {
+            const video = document.getElementById('mobile-video');
+            if (video && video.paused) {
+                video.play();
+            }
+        }, { once: true }); // Only runs once on first touch
+
+        document.addEventListener('click', function() {
+            const video = document.getElementById('mobile-video');
+            if (video && video.paused) {
+                video.play();
+            }
+        }, { once: true });
+
 
         // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
@@ -905,30 +858,37 @@
         const initGSAP = () => {
             gsap.registerPlugin(ScrollTrigger);
 
-            // Staggered Reveals
+            // Staggered Reveals - Ajustado para ser mais rápido (snappy)
             const revealElements = document.querySelectorAll('.gsap-reveal');
             revealElements.forEach(element => {
+                // Checa se o elemento tem classes de delay específicas para controle fino
+                let delay = 0;
+                if (element.classList.contains('delay-100')) delay = 0.1;
+                if (element.classList.contains('delay-200')) delay = 0.2;
+                if (element.classList.contains('delay-300')) delay = 0.3;
+
                 gsap.from(element, {
                     scrollTrigger: {
                         trigger: element,
-                        start: "top 85%",
+                        start: "top 95%", // Dispara assim que o topo do elemento entra na parte inferior da tela
                         toggleActions: "play none none reverse"
                     },
-                    y: 60,
+                    y: 50, // Movimento menor para ser mais rápido visualmente
                     opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
+                    duration: 0.6, // Mais rápido (era 1s)
+                    ease: "power3.out",
+                    delay: delay
                 });
             });
 
-            // Timeline line drawing effect
+            // Timeline line drawing effect (Re-enabled for vertical layout)
             gsap.from(".timeline-line::before", {
                 scrollTrigger: {
                     trigger: ".timeline-line",
-                    start: "top 70%",
+                    start: "top 80%",
                 },
                 height: 0,
-                duration: 2,
+                duration: 1.5, // Levemente mais rápido
                 ease: "power2.inOut"
             });
         };
