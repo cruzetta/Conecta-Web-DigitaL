@@ -53,11 +53,17 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform; /* Otimização de performance */
         }
         
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Fallback para garantir visibilidade se JS falhar */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-up { opacity: 1; transform: none; transition: none; }
         }
 
         /* Botão Pulsante do WhatsApp */
@@ -74,6 +80,11 @@
 
         /* Utilitários */
         .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        /* Placeholder para imagens carregando */
+        img {
+            background-color: #e5e7eb; /* Cinza claro enquanto carrega */
+        }
     </style>
 </head>
 <body class="font-sans text-gray-600 antialiased overflow-x-hidden">
@@ -110,7 +121,7 @@
                    class="hidden md:inline-flex items-center gap-2 bg-brand-slate text-white px-6 py-2 rounded-full hover:bg-brand-gold transition duration-300 text-sm font-semibold shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
                     <i class="fab fa-whatsapp"></i> Agendar
                 </a>
-                <button class="md:hidden text-brand-slate text-2xl p-2 focus:outline-none" id="mobile-menu-btn">
+                <button class="md:hidden text-brand-slate text-2xl p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Abrir Menu">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -163,8 +174,19 @@
 
             <!-- Imagem -->
             <div class="order-1 md:order-2 relative fade-in-up delay-200">
-                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-gray-100 group">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2F1.jpeg?alt=media&token=6ad6f12f-384c-49f2-bdaa-ae40bc0419e7" loading="lazy" alt="Psicanalista Samuel Brantes" class="object-cover w-full h-full transform transition duration-1000 group-hover:scale-105">
+                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-gray-200 group">
+                    <!-- 
+                        CORREÇÃO AQUI: 
+                        1. Removido loading="lazy" (usando padrão/eager para a 1ª imagem)
+                        2. Adicionado onerror para fallback
+                    -->
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2F1.jpeg?alt=media&token=6ad6f12f-384c-49f2-bdaa-ae40bc0419e7" 
+                        alt="Psicanalista Samuel Brantes" 
+                        class="object-cover w-full h-full transform transition duration-1000 group-hover:scale-105"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x800/png?text=Samuel+Brantes';"
+                        decoding="sync"
+                    >
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
                     <div class="absolute bottom-8 left-8 right-8 text-white">
                         <div class="w-12 h-0.5 bg-brand-gold mb-4"></div>
@@ -192,17 +214,10 @@
         </div>
     </section>
 
-    <!-- Sobre (CORREÇÃO APLICADA AQUI) -->
+    <!-- Sobre -->
     <section id="sobre" class="py-24 px-6 bg-white scroll-mt-20">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-12 gap-12 items-start">
-                
-                <!-- 
-                   CORREÇÃO: 
-                   1. Removido 'sticky top-24' genérico.
-                   2. Adicionado 'md:sticky md:top-32'.
-                   Isso garante que ele só fique fixo em telas médias (Desktop) e role normal no celular.
-                -->
                 <div class="md:col-span-4 fade-in-up md:sticky md:top-32 self-start">
                     <span class="text-brand-gold font-bold tracking-widest uppercase text-xs mb-3 block">Sobre mim</span>
                     <h2 class="font-serif text-4xl text-brand-slate font-bold mb-6 leading-tight">De Socorrista à <br>Escuta Clínica</h2>
@@ -287,8 +302,14 @@
     <section class="py-24 px-6 bg-white overflow-hidden">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div class="md:w-1/2 relative fade-in-up">
-                <div class="relative">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Fsala%20samuel.jpeg?alt=media&token=faa0bdfd-b892-4dad-9700-50d2860bea6d" loading="lazy" alt="Consultório Confortável" class="rounded-2xl shadow-2xl relative z-10">
+                <div class="relative bg-gray-200 rounded-2xl">
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Fsala%20samuel.jpeg?alt=media&token=faa0bdfd-b892-4dad-9700-50d2860bea6d" 
+                        loading="lazy" 
+                        alt="Consultório Confortável" 
+                        class="rounded-2xl shadow-2xl relative z-10 w-full h-auto"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x600/png?text=Consultorio';"
+                    >
                     <div class="absolute -bottom-4 -left-4 w-full h-full border-2 border-brand-slate rounded-2xl z-0"></div>
                 </div>
                 
@@ -354,16 +375,28 @@
 
             <div class="grid md:grid-cols-2 gap-8 h-96">
                 <!-- Foto 1 -->
-                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-white h-full fade-in-up">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Ffinalsala.jpg?alt=media&token=ec081985-3f3e-4d5d-8777-3c248bd4e5a3" loading="lazy" alt="Consultório" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-gray-200 h-full fade-in-up">
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Ffinalsala.jpg?alt=media&token=ec081985-3f3e-4d5d-8777-3c248bd4e5a3" 
+                        loading="lazy" 
+                        alt="Consultório" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/png?text=Ambiente';"
+                    >
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-8">
                         <span class="text-white font-serif text-xl">Acolhimento Presencial</span>
                     </div>
                 </div>
 
                 <!-- Foto 2 -->
-                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-white h-full fade-in-up delay-100">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Flivro.jpg?alt=media&token=2d32db8e-d54a-4fbc-bb47-f6e9e1bc0791" loading="lazy" alt="Detalhes Consultório" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-gray-200 h-full fade-in-up delay-100">
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Flivro.jpg?alt=media&token=2d32db8e-d54a-4fbc-bb47-f6e9e1bc0791" 
+                        loading="lazy" 
+                        alt="Detalhes Consultório" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/png?text=Detalhes';"
+                    >
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-8">
                         <span class="text-white font-serif text-xl">Estudo Contínuo</span>
                     </div>
@@ -475,29 +508,33 @@
             const navbar = document.getElementById('navbar');
 
             // Abrir/Fechar Menu
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                
-                // Muda ícone
-                const icon = menuBtn.querySelector('i');
-                if (mobileMenu.classList.contains('hidden')) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                    navbar.classList.remove('bg-white');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                    navbar.classList.add('bg-white');
-                }
-            });
+            if(menuBtn) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Muda ícone
+                    const icon = menuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                        navbar.classList.remove('bg-white');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                        navbar.classList.add('bg-white');
+                    }
+                });
+            }
 
             // Fechar menu ao clicar em um link
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                     const icon = menuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    if(icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
                 });
             });
         });
