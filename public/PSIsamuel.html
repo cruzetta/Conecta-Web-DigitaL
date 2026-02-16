@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samuel Abrantes | Psicanálise e Saúde Mental</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Configurado via CDN para rodar direto) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#121212',
+                        gold: '#c6a87c',
+                        'gold-dark': '#a68a5c',
+                        'surface': '#1a1a1a',
+                        'surface-light': '#1e1e1e'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #121212;
+            color: #e5e7eb;
+        }
+        /* Seleção de texto personalizada */
+        ::selection {
+            background: #c6a87c;
+            color: #121212;
+        }
+        
+        /* Animações simples */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #c6a87c 0%, #a68a5c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 bg-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif text-gold font-bold tracking-wide z-50">
+                Samuel Abrantes<span class="text-white">.</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#sobre" class="hover:text-gold transition-colors text-sm uppercase tracking-widest">Sobre</a>
+                <a href="#atuacao" class="hover:text-gold transition-colors text-sm uppercase tracking-widest">Atuação</a>
+                <a href="#como-funciona" class="hover:text-gold transition-colors text-sm uppercase tracking-widest">Como Funciona</a>
+                <a href="https://wa.me/5515992435002" target="_blank" class="px-6 py-2 border border-gold text-gold hover:bg-gold hover:text-dark transition-all duration-300 rounded-sm uppercase text-xs font-bold tracking-widest">
+                    Agendar Sessão
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-gold z-50 focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-surface/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8">
+            <a href="#sobre" class="text-2xl font-serif hover:text-gold mobile-link">Sobre Mim</a>
+            <a href="#atuacao" class="text-2xl font-serif hover:text-gold mobile-link">Áreas de Atuação</a>
+            <a href="#como-funciona" class="text-2xl font-serif hover:text-gold mobile-link">Como Funciona</a>
+            <a href="https://wa.me/5515992435002" target="_blank" class="text-gold font-bold uppercase tracking-widest text-lg mt-4 border border-gold px-8 py-3 rounded-sm">Agendar no WhatsApp</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 space-y-8 fade-in-up" style="animation-delay: 0.2s;">
+                <div class="inline-block px-3 py-1 border border-gold/30 rounded-full bg-gold/5">
+                    <span class="text-gold text-xs uppercase tracking-widest font-semibold">Psicanálise e Saúde Mental</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight">
+                    O maior pedido de socorro <span class="italic text-gold">não vem de fora.</span>
+                </h1>
+                <p class="text-gray-400 text-lg leading-relaxed max-w-xl">
+                    Salvar vidas nem sempre exige sirenes. Às vezes, exige escuta. 
+                    Ofereço um espaço seguro para você atravessar o que dói por dentro, com ética, ciência e humanidade.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="https://wa.me/5515992435002" target="_blank" class="bg-gold text-dark px-8 py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-all text-center flex items-center justify-center gap-2">
+                        Iniciar Atendimento
+                    </a>
+                    <a href="#sobre" class="border border-white/20 text-gray-300 px-8 py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white/5 transition-all text-center">
+                        Conhecer o Profissional
+                    </a>
+                </div>
+            </div>
+            
+            <div class="order-1 md:order-2 relative flex justify-center fade-in-up" style="animation-delay: 0.4s;">
+                <div class="relative w-full max-w-md aspect-[3/4] md:aspect-square">
+                    <!-- Elemento decorativo -->
+                    <div class="absolute inset-0 border border-gold/20 translate-x-4 translate-y-4 z-0"></div>
+                    
+                    <!-- Foto -->
+                    <div class="absolute inset-0 bg-surface overflow-hidden z-10 shadow-2xl group">
+                         <!-- Substitua o src abaixo pela foto real do cliente -->
+                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" 
+                              alt="Samuel Henrique Brantes" 
+                              class="w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0 grayscale">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-90"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre / Storytelling -->
+    <section id="sobre" class="py-20 bg-[#161616]">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-serif mb-4">Quem é o Profissional</h2>
+                    <div class="w-16 h-1 bg-gold mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-12 gap-12">
+                    <!-- Destaques -->
+                    <div class="md:col-span-5 space-y-6 fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="bg-surface-light p-6 border-l-2 border-gold hover:bg-white/5 transition-colors">
+                            <h3 class="text-gold font-serif text-xl mb-2 flex items-center gap-2">
+                                <i data-lucide="flame" class="w-5 h-5"></i> Resgate & Força
+                            </h3>
+                            <p class="text-gray-400 text-sm">
+                                Iniciei minha trajetória como socorrista e bombeiro B.A., com treinamento pela Força Aérea Brasileira (FAB). Aprendi a agir no limite entre a vida e a morte.
+                            </p>
+                        </div>
+                        <div class="bg-surface-light p-6 border-l-2 border-gold hover:bg-white/5 transition-colors">
+                            <h3 class="text-gold font-serif text-xl mb-2 flex items-center gap-2">
+                                <i data-lucide="heart" class="w-5 h-5"></i> Família & Valores
+                            </h3>
+                            <p class="text-gray-400 text-sm">
+                                Pai do Taylor, cristão e músico. Acredito que a família é o primeiro território da alma, onde aprendemos a amar e a sofrer.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Texto Principal -->
+                    <div class="md:col-span-7 space-y-6 text-gray-300 leading-relaxed font-light text-lg fade-in-up" style="animation-delay: 0.3s;">
+                        <p>
+                            <span class="text-4xl float-left mr-3 mt-[-10px] font-serif text-gold">M</span>
+                            as, ao longo do caminho nos resgates, compreendi algo mais profundo: <strong>os conflitos mais intensos são invisíveis.</strong> As dores mais silenciosas são psíquicas.
+                        </p>
+                        <p>
+                            Foi nesse encontro que direcionei minha missão para a clínica. Passei a me dedicar intensamente aos estudos em psicanálise, psicologia, filosofia e teologia, integrando ciência e espiritualidade com responsabilidade técnica.
+                        </p>
+                        <p>
+                            Excelência clínica não nasce do acúmulo de técnicas, mas da capacidade de pensar com método, humanidade e clareza teórica.
+                        </p>
+                        <div class="pt-6 border-t border-white/5 mt-6">
+                            <p class="font-serif italic text-gold text-xl">
+                                "Você não precisa caminhar sozinho."
+                            </p>
+                            <p class="mt-2 text-sm font-bold tracking-widest uppercase text-gray-500">— Samuel Henrique Brantes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços Cards -->
+    <section id="atuacao" class="py-24 bg-dark relative overflow-hidden">
+        <!-- Background decorativo -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="mb-16 md:flex justify-between items-end">
+                <div class="max-w-xl">
+                    <span class="text-gold text-sm font-bold tracking-widest uppercase mb-2 block">Minha Abordagem</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Segurança, Ciência e Acolhimento</h2>
+                </div>
+                <p class="hidden md:block text-gray-500 max-w-sm text-sm mt-4 md:mt-0 text-right">
+                    Um ambiente onde você não precisa performar.<br>Apenas ser você.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="group bg-surface p-8 border border-white/5 hover:border-gold/30 transition-all duration-300 rounded-sm relative overflow-hidden hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-gold opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-lucide="video" class="text-gold w-10 h-10 mb-6"></i>
+                    <h3 class="text-2xl font-serif mb-4 text-white">Atendimento Online</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Sessões por videoconferência com total privacidade. Flexibilidade de horários, acesso de qualquer lugar, e a mesma profundidade do atendimento presencial.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2 border-t border-white/5 pt-4">
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Plataforma Segura</li>
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Horários Flexíveis</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-surface p-8 border border-white/5 hover:border-gold/30 transition-all duration-300 rounded-sm relative overflow-hidden hover:-translate-y-2">
+                     <div class="absolute top-0 left-0 w-1 h-full bg-gold opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     <i data-lucide="map-pin" class="text-gold w-10 h-10 mb-6"></i>
+                    <h3 class="text-2xl font-serif mb-4 text-white">Presencial</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Disponível sob agendamento prévio em São Paulo. Um ambiente físico desenhado para ser acolhedor e profissional, livre de interrupções.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2 border-t border-white/5 pt-4">
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>São Paulo - SP</li>
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Espaço Acolhedor</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-surface p-8 border border-white/5 hover:border-gold/30 transition-all duration-300 rounded-sm relative overflow-hidden hover:-translate-y-2">
+                     <div class="absolute top-0 left-0 w-1 h-full bg-gold opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     <i data-lucide="shield" class="text-gold w-10 h-10 mb-6"></i>
+                    <h3 class="text-2xl font-serif mb-4 text-white">Ética e Sigilo</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Todo atendimento segue rigorosamente as normas éticas da profissão. O sigilo é absoluto, garantido por lei. Sua história está segura aqui.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2 border-t border-white/5 pt-4">
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Sigilo Absoluto</li>
+                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Sem Julgamentos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frase de Impacto -->
+    <section class="py-24 px-6 bg-[#161616] border-y border-white/5 text-center">
+        <div class="max-w-3xl mx-auto">
+            <i data-lucide="brain" class="w-12 h-12 text-gold mx-auto mb-8 opacity-50"></i>
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-300 leading-relaxed">
+                "Acredito que nenhuma dor é maior que a possibilidade de transformação."
+            </h2>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-serif mb-6">Como iniciar seu processo?</h2>
+                    <p class="text-gray-400 mb-8">
+                        Dar o primeiro passo pode parecer difícil, mas o processo é simples e transparente.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-4 group">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center font-bold font-serif shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">1</div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg">Contato Inicial</h4>
+                                <p class="text-gray-500 text-sm mt-1">Envie uma mensagem pelo WhatsApp. Não é necessário explicar tudo agora, apenas sinalize seu interesse.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center font-bold font-serif shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">2</div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg">Agendamento</h4>
+                                <p class="text-gray-500 text-sm mt-1">Definiremos o melhor horário e modalidade (online ou presencial) para sua rotina.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center font-bold font-serif shrink-0 group-hover:bg-gold group-hover:text-dark transition-colors">3</div>
+                            <div>
+                                <h4 class="text-white font-serif text-lg">A Sessão</h4>
+                                <p class="text-gray-500 text-sm mt-1">Um espaço de 50 minutos dedicado exclusivamente a você, com escuta qualificada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-surface p-8 md:p-12 rounded-sm border border-white/5 text-center hover:border-gold/20 transition-colors">
+                    <i data-lucide="clock" class="w-12 h-12 text-gold mx-auto mb-6"></i>
+                    <h3 class="text-2xl font-serif text-white mb-4">Pronto para começar?</h3>
+                    <p class="text-gray-400 text-sm mb-8">
+                        Invista na sua saúde mental. Você não precisa carregar o peso do mundo sozinho.
+                    </p>
+                    <a href="https://wa.me/5515992435002" target="_blank" class="bg-gold text-dark w-full block py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-all">
+                        Falar com Samuel no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-white/5 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-xl font-serif text-gold mb-4">Samuel Abrantes.</h3>
+                    <p class="text-gray-500 text-sm">
+                        Psicanálise e Terapia com responsabilidade técnica, ciência e humanidade.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-bold uppercase tracking-widest mb-4">Contatos</h3>
+                    <div class="space-y-3 text-gray-500 text-sm">
+                        <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-gold"></i> (15) 99243-5002</p>
+                        <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-gold"></i> (34) 98441-8232</p>
+                        <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> São Paulo - SP / Online</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-bold uppercase tracking-widest mb-4">Navegação</h3>
+                    <div class="space-y-2 text-gray-500 text-sm flex flex-col">
+                        <a href="#sobre" class="hover:text-gold transition-colors w-fit">Sobre Mim</a>
+                        <a href="#atuacao" class="hover:text-gold transition-colors w-fit">Serviços</a>
+                        <a href="#como-funciona" class="hover:text-gold transition-colors w-fit">Agendamento</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/5 mt-12 pt-8 text-center text-gray-600 text-xs">
+                <p>&copy; <span id="year"></span> Samuel Henrique Brantes. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5515992435002" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center gap-2 group">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span class="hidden md:block font-bold">Agende sua sessão</span>
+    </a>
+
+    <!-- Scripts de Interatividade -->
+    <script>
+        // Inicializa ícones Lucide
+        lucide.createIcons();
+
+        // Ano atual no rodapé
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Controle do Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-8 h-8"></i>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-8 h-8"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Fecha menu ao clicar em links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        // Efeito de scroll na Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.remove('bg-transparent', 'py-6');
+            } else {
+                navbar.classList.remove('bg-dark/95', 'backdrop-blur-md', 'border-b', 'border-white/5', 'py-3');
+                navbar.classList.add('bg-transparent', 'py-6');
+            }
+        });
+    </script>
+</body>
+</html>

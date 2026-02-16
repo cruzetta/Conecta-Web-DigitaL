@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Psicanálise e Saúde Mental com Samuel Henrique Brantes. Atendimento online e presencial com ética, sigilo e acolhimento.">
+    <title>Samuel H. Brantes | Psicanálise e Saúde Mental</title>
+    
+    <!-- Tailwind CSS (Framework de Estilo) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (Ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Configurações Personalizadas do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059', // Dourado sóbrio
+                            dark: '#1A1A1A', // Preto suave
+                            slate: '#2C3E50', // Azul petróleo escuro (Confiança)
+                            cream: '#F9F9F7', // Fundo off-white (Conforto visual)
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos e Animações Personalizadas */
+        html { scroll-behavior: smooth; }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão do WhatsApp flutuante pulsante */
+        .pulse-animation {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Gradiente sutil no fundo */
+        body {
+            background-color: #F9F9F7;
+            background-image: radial-gradient(#E5E5E5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 antialiased overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <header class="fixed w-full top-0 z-50 bg-brand-cream/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="font-serif text-2xl text-brand-slate font-bold tracking-wide">Samuel Brantes</span>
+                <span class="text-xs text-brand-gold uppercase tracking-widest font-semibold">Psicanalista</span>
+            </div>
+            
+            <a href="https://wa.me/5515992435002?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20terapia." 
+               class="hidden md:inline-flex items-center gap-2 bg-brand-slate text-white px-6 py-2 rounded-full hover:bg-brand-gold transition duration-300 text-sm font-semibold">
+                <i class="fab fa-whatsapp"></i> Agendar Sessão
+            </a>
+            
+            <!-- Mobile Menu Icon (Simples para scroll) -->
+            <button class="md:hidden text-brand-slate text-2xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden bg-white border-t p-4 md:hidden shadow-lg absolute w-full">
+            <nav class="flex flex-col gap-4 text-center">
+                <a href="#sobre" class="text-brand-slate font-medium py-2">Sobre Mim</a>
+                <a href="#metodo" class="text-brand-slate font-medium py-2">Como Funciona</a>
+                <a href="#contato" class="text-brand-slate font-medium py-2">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div class="order-2 md:order-1 fade-in-up">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-brand-gold uppercase bg-brand-gold/10 rounded-full">
+                    Saúde Mental & Psicanálise
+                </div>
+                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-slate font-bold leading-tight mb-6">
+                    Acolhendo o que <br>
+                    <span class="italic text-brand-gold">ecoa por dentro.</span>
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    Você não precisa caminhar sozinho. Ofereço um espaço seguro, ético e livre de julgamentos para você reencontrar sua estrutura emocional.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/5515992435002" class="inline-flex justify-center items-center gap-2 bg-brand-slate text-white px-8 py-4 rounded-lg hover:bg-brand-dark transition duration-300 shadow-lg hover:shadow-xl font-semibold">
+                        Agendar Conversa
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="#sobre" class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-lg border border-brand-slate text-brand-slate hover:bg-brand-slate hover:text-white transition duration-300 font-semibold">
+                        Conhecer Profissional
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image/Visual -->
+            <div class="order-1 md:order-2 relative fade-in-up delay-200">
+                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] md:aspect-square bg-gray-200">
+                    <!-- Placeholder para a foto dele. Substituir src pela foto real -->
+                    <!-- Estou usando uma imagem abstrata elegante como placeholder caso não tenha a foto recortada -->
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ambiente de Psicanálise" class="object-cover w-full h-full opacity-90">
+                    
+                    <!-- Overlay de Texto na Imagem -->
+                    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                        <p class="font-serif italic text-lg">"O maior pedido de socorro não vem de fora."</p>
+                    </div>
+                </div>
+                <!-- Elemento decorativo atrás -->
+                <div class="absolute -top-4 -right-4 w-full h-full border-2 border-brand-gold/30 rounded-2xl -z-10"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section (Impacto) -->
+    <section class="py-20 bg-brand-slate text-white text-center px-6">
+        <div class="max-w-3xl mx-auto fade-in-up">
+            <i class="fas fa-quote-left text-4xl text-brand-gold mb-6 opacity-50"></i>
+            <h2 class="font-serif text-2xl md:text-3xl leading-relaxed italic mb-8">
+                "Salvar vidas nem sempre exige sirenes. Às vezes exige escuta. E coragem para atravessar o que dói por dentro."
+            </h2>
+            <div class="w-16 h-1 bg-brand-gold mx-auto rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Sobre o Profissional -->
+    <section id="sobre" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-12 gap-12">
+                <!-- Coluna Título -->
+                <div class="md:col-span-4 fade-in-up">
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Trajetória</span>
+                    <h2 class="font-serif text-4xl text-brand-slate font-bold mb-6">De Socorrista à Escuta Clínica</h2>
+                    <p class="text-gray-600 mb-6">
+                        Olá, sou <strong>Samuel Henrique Brantes</strong>. Pai do Taylor, cristão, músico e apaixonado por literatura.
+                    </p>
+                    <div class="flex items-center gap-4 text-brand-slate">
+                        <a href="https://www.instagram.com/psisamuelbrantes" target="_blank" class="text-3xl hover:text-brand-gold transition"><i class="fab fa-instagram"></i></a>
+                        <span class="text-sm font-semibold">Siga no Instagram</span>
+                    </div>
+                </div>
+
+                <!-- Coluna Texto -->
+                <div class="md:col-span-8 text-lg text-gray-700 leading-relaxed space-y-6 fade-in-up delay-100">
+                    <p>
+                        Minha jornada começou na urgência. Como socorrista e bombeiro B.A., treinado pela FAB, aprendi a agir no limite entre a vida e a morte. Mas, ao longo do caminho, compreendi algo profundo: os conflitos mais intensos são invisíveis.
+                    </p>
+                    <p>
+                        As dores mais silenciosas são psíquicas. Foi nesse encontro que direcionei minha missão para a clínica.
+                    </p>
+                    <p>
+                        Dedico-me aos estudos em psicanálise, psicologia, filosofia e teologia. Para mim, a excelência não nasce apenas do acúmulo de técnicas, mas da capacidade de pensar clinicamente com <strong>humanidade, clareza e embasamento científico</strong>.
+                    </p>
+                    <div class="bg-brand-cream p-6 rounded-l-lg border-l-4 border-brand-gold mt-6">
+                        <p class="italic text-brand-slate font-serif">
+                            "Acredito que a família é o primeiro território da alma. É ali que aprendemos a amar, a sofrer e a desejar."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards de Serviços / Metodologia -->
+    <section id="metodo" class="py-20 px-6 bg-brand-cream">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-slate font-bold mb-4">Como funciona o atendimento</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Um ambiente pensado para você. Cada detalhe foi planejado para proporcionar uma experiência tranquila e segura.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Online -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border-b-4 border-brand-slate fade-in-up">
+                    <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center text-brand-slate text-2xl mb-6">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-slate mb-4">Atendimento Online</h3>
+                    <p class="text-gray-600 mb-4">
+                        Sessões por videoconferência com total privacidade. Flexibilidade de horários e acesso de qualquer lugar, com a mesma profundidade do presencial.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Plataforma segura</li>
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Horários flexíveis</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Ética e Sigilo -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border-b-4 border-brand-gold fade-in-up delay-100">
+                    <div class="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-slate mb-4">Segurança & Sigilo</h3>
+                    <p class="text-gray-600 mb-4">
+                        Um espaço onde você não precisa performar. Apenas ser você. Todo atendimento segue rigorosamente as normas éticas da profissão e sigilo garantido por lei.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Ambiente sem julgamentos</li>
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Proteção de dados</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Abordagem -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border-b-4 border-brand-slate fade-in-up delay-200">
+                    <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center text-brand-slate text-2xl mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-slate mb-4">Ciência & Humanidade</h3>
+                    <p class="text-gray-600 mb-4">
+                        Resultados verdadeiros surgem da união entre a melhor evidência científica disponível e a expertise clínica aplicada com sensibilidade.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Base psicanalítica</li>
+                        <li><i class="fas fa-check text-brand-gold mr-2"></i>Integração teórica</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Me (Personal Touch) -->
+    <section class="py-20 px-6 bg-white overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2 relative fade-in-up">
+                <!-- Imagem ilustrativa de conforto/consultório -->
+                <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Consultório Confortável" class="rounded-2xl shadow-xl">
+                <div class="absolute -bottom-6 -right-6 bg-brand-slate text-white p-6 rounded-xl shadow-lg max-w-xs hidden md:block">
+                    <p class="font-serif italic">"Nenhuma dor é maior que a possibilidade de transformação."</p>
+                </div>
+            </div>
+            <div class="md:w-1/2 fade-in-up delay-100">
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-slate font-bold mb-6">Por que iniciar a terapia agora?</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Muitas vezes, carregamos pesos que não precisamos levar sozinhos. Meu trabalho é ajudar você a desenvolver uma saúde mental mais estruturada, segura e coerente com a sua realidade.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center mt-1">1</div>
+                        <p class="ml-4 text-gray-700">Compreenda a lógica por trás das suas emoções.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center mt-1">2</div>
+                        <p class="ml-4 text-gray-700">Desenvolva autonomia emocional e segurança.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center mt-1">3</div>
+                        <p class="ml-4 text-gray-700">Viva relacionamentos mais saudáveis.</p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="https://wa.me/5515992435002" class="text-brand-slate font-bold border-b-2 border-brand-gold hover:text-brand-gold transition pb-1">
+                        Dê o primeiro passo hoje <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer id="contato" class="bg-brand-slate text-white pt-16 pb-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
+                
+                <!-- Brand Info -->
+                <div>
+                    <h3 class="font-serif text-2xl font-bold mb-4">Samuel Brantes</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        Psicanálise e Saúde Mental com responsabilidade técnica e acolhimento humano. Sua história merece ser ouvida.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/psisamuelbrantes" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold transition">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/5515992435002" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold transition">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links Rápidos -->
+                <div>
+                    <h4 class="text-brand-gold font-bold uppercase tracking-wider text-sm mb-6">Contatos</h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="https://wa.me/5515992435002" class="flex items-center gap-3 hover:text-brand-gold transition group">
+                                <i class="fab fa-whatsapp text-brand-gold text-xl group-hover:scale-110 transition"></i>
+                                <span>(15) 99243-5002</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/5534984418232" class="flex items-center gap-3 hover:text-brand-gold transition group">
+                                <i class="fab fa-whatsapp text-brand-gold text-xl group-hover:scale-110 transition"></i>
+                                <span>(34) 98441-8232</span>
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <i class="fas fa-map-marker-alt text-brand-gold text-xl"></i>
+                            <span>Atendimento Online & Presencial</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CTA Final -->
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h4 class="font-serif text-xl mb-2">Precisa de ajuda?</h4>
+                    <p class="text-gray-400 text-sm mb-4">Estou disponível para tirar suas dúvidas sobre como a terapia pode te ajudar.</p>
+                    <a href="https://wa.me/5515992435002" class="block w-full text-center bg-brand-gold hover:bg-white hover:text-brand-slate text-brand-slate font-bold py-3 rounded-lg transition duration-300">
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-xs">
+                <p>&copy; 2024 Samuel Henrique Brantes. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5515992435002" target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center gap-2 group">
+        <span class="bg-white text-gray-800 px-3 py-1 rounded-lg shadow-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition duration-300 hidden md:block">
+            Agende agora
+        </span>
+        <div class="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-xl pulse-animation hover:scale-110 transition duration-300">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+    </a>
+
+    <!-- Scripts de Interação -->
+    <script>
+        // Animação de Scroll (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Anima apenas uma vez
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => observer.observe(el));
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.add('bg-brand-cream/95');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>
