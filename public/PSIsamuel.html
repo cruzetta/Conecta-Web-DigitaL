@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
                             gold: '#C5A059', 
                             dark: '#1A1A1A', 
                             slate: '#2C3E50',
-                            cream: '#FAFAF8', // Cream mais leve para ser mais "clean"
+                            cream: '#FAFAF8',
                             gray: '#F3F4F6'
                         }
                     },
@@ -44,7 +44,9 @@
     </script>
 
     <style>
+        /* Ajustes Globais */
         html { scroll-behavior: smooth; }
+        body { background-color: #FAFAF8; }
         
         /* Animações Suaves */
         .fade-in-up {
@@ -58,12 +60,7 @@
             transform: translateY(0);
         }
 
-        /* Fundo com textura sutil */
-        body {
-            background-color: #FAFAF8;
-        }
-
-        /* Botão Pulsante */
+        /* Botão Pulsante do WhatsApp */
         .pulse-animation {
             box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
             animation: pulse-green 2s infinite;
@@ -74,67 +71,91 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
+
+        /* Utilitários */
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body class="font-sans text-gray-600 antialiased overflow-x-hidden">
 
     <!-- Navbar -->
-    <header class="fixed w-full top-0 z-50 bg-[#FAFAF8]/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex flex-col group cursor-default">
+    <header class="fixed w-full top-0 z-50 bg-[#FAFAF8]/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center relative">
+            <!-- Logo -->
+            <a href="#" class="flex flex-col group cursor-pointer hover:opacity-80 transition">
                 <span class="font-serif text-2xl text-brand-slate font-bold tracking-wide group-hover:text-brand-gold transition-colors">Samuel Brantes</span>
                 <span class="text-[10px] text-brand-gold uppercase tracking-[0.2em] font-bold">Psicanalista</span>
-            </div>
+            </a>
             
+            <!-- Desktop Menu -->
             <nav class="hidden md:flex gap-8 items-center">
-                <a href="#sobre" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition">Sobre</a>
-                <a href="#metodo" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition">Como Funciona</a>
-                <a href="#espaco" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition">O Espaço</a>
+                <a href="#sobre" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition relative group">
+                    Sobre
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#metodo" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition relative group">
+                    Como Funciona
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#espaco" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition relative group">
+                    O Espaço
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
+                </a>
             </nav>
 
+            <!-- CTA & Mobile Toggle -->
             <div class="flex items-center gap-4">
                 <a href="https://wa.me/5515992435002?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20terapia." 
-                   class="hidden md:inline-flex items-center gap-2 bg-brand-slate text-white px-6 py-2 rounded-full hover:bg-brand-gold transition duration-300 text-sm font-semibold shadow-sm">
+                   target="_blank"
+                   class="hidden md:inline-flex items-center gap-2 bg-brand-slate text-white px-6 py-2 rounded-full hover:bg-brand-gold transition duration-300 text-sm font-semibold shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
                     <i class="fab fa-whatsapp"></i> Agendar
                 </a>
-                <button class="md:hidden text-brand-slate text-2xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <button class="md:hidden text-brand-slate text-2xl p-2 focus:outline-none" id="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
         
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden bg-white border-t p-6 md:hidden shadow-xl absolute w-full">
-            <nav class="flex flex-col gap-4 text-center">
-                <a href="#sobre" class="text-brand-slate font-medium py-2">Sobre Mim</a>
-                <a href="#metodo" class="text-brand-slate font-medium py-2">Como Funciona</a>
-                <a href="#espaco" class="text-brand-slate font-medium py-2">O Espaço</a>
-                <a href="#contato" class="text-brand-slate font-medium py-2">Contato</a>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden bg-white/98 backdrop-blur-xl border-t border-gray-100 absolute w-full left-0 shadow-xl transform origin-top transition-all duration-300">
+            <nav class="flex flex-col p-6 gap-4 text-center">
+                <a href="#sobre" class="mobile-link text-brand-slate font-medium py-3 border-b border-gray-50 hover:text-brand-gold">Sobre Mim</a>
+                <a href="#metodo" class="mobile-link text-brand-slate font-medium py-3 border-b border-gray-50 hover:text-brand-gold">Como Funciona</a>
+                <a href="#espaco" class="mobile-link text-brand-slate font-medium py-3 border-b border-gray-50 hover:text-brand-gold">O Espaço</a>
+                <a href="#contato" class="mobile-link text-brand-slate font-medium py-3 hover:text-brand-gold">Contato</a>
+                <a href="https://wa.me/5515992435002" target="_blank" class="mt-2 bg-brand-gold text-white py-3 rounded-lg font-bold shadow-md">
+                    Agendar Agora
+                </a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative pt-36 pb-24 px-6 overflow-hidden">
+    <section class="relative pt-36 pb-24 px-6 overflow-hidden min-h-[90vh] flex items-center">
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <!-- Texto -->
             <div class="order-2 md:order-1 fade-in-up">
-                <div class="inline-flex items-center px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-brand-gold uppercase border border-brand-gold/30 rounded-full bg-white">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-2"></span> Saúde Mental & Psicanálise
+                <div class="inline-flex items-center px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-brand-gold uppercase border border-brand-gold/30 rounded-full bg-white shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-2 animate-pulse"></span> Saúde Mental & Psicanálise
                 </div>
                 <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl text-brand-slate font-bold leading-[1.1] mb-8">
                     Acolhendo o que <br>
-                    <span class="italic text-brand-gold">ecoa por dentro.</span>
+                    <span class="italic text-brand-gold relative">
+                        ecoa por dentro.
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-gold/20" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </span>
                 </h1>
                 <p class="text-lg text-gray-500 mb-10 leading-relaxed max-w-lg">
                     Você não precisa caminhar sozinho. Ofereço um espaço seguro, ético e livre de julgamentos para você reencontrar sua estrutura emocional.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="https://wa.me/5515992435002" class="inline-flex justify-center items-center gap-2 bg-brand-slate text-white px-8 py-3.5 rounded-lg hover:bg-brand-gold transition duration-300 shadow-lg shadow-brand-slate/20 font-semibold">
+                    <a href="https://wa.me/5515992435002" target="_blank" class="inline-flex justify-center items-center gap-2 bg-brand-slate text-white px-8 py-3.5 rounded-lg hover:bg-brand-gold transition duration-300 shadow-lg shadow-brand-slate/20 font-semibold hover:-translate-y-1">
                         Agendar Conversa
                         <i class="fas fa-arrow-right text-sm ml-1"></i>
                     </a>
-                    <a href="#sobre" class="inline-flex justify-center items-center gap-2 px-8 py-3.5 rounded-lg border border-gray-300 text-gray-600 hover:border-brand-slate hover:text-brand-slate transition duration-300 font-semibold bg-white">
+                    <a href="#sobre" class="inline-flex justify-center items-center gap-2 px-8 py-3.5 rounded-lg border border-gray-300 text-gray-600 hover:border-brand-slate hover:text-brand-slate transition duration-300 font-semibold bg-white hover:shadow-md">
                         Conhecer Profissional
                     </a>
                 </div>
@@ -142,48 +163,62 @@
 
             <!-- Imagem -->
             <div class="order-1 md:order-2 relative fade-in-up delay-200">
-                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-gray-100">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2F1.jpeg?alt=media&token=6ad6f12f-384c-49f2-bdaa-ae40bc0419e7" alt="Psicanalista Samuel Brantes" class="object-cover w-full h-full">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6 text-white">
-                        <p class="font-serif italic text-xl">"O maior pedido de socorro não vem de fora."</p>
+                <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-gray-100 group">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2F1.jpeg?alt=media&token=6ad6f12f-384c-49f2-bdaa-ae40bc0419e7" loading="lazy" alt="Psicanalista Samuel Brantes" class="object-cover w-full h-full transform transition duration-1000 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-8 left-8 right-8 text-white">
+                        <div class="w-12 h-0.5 bg-brand-gold mb-4"></div>
+                        <p class="font-serif italic text-2xl leading-tight text-shadow">"O maior pedido de socorro não vem de fora."</p>
                     </div>
                 </div>
                 <!-- Decor -->
-                <div class="absolute -top-6 -right-6 w-full h-full border border-brand-gold/30 rounded-2xl -z-10"></div>
+                <div class="absolute -top-6 -right-6 w-full h-full border-2 border-brand-gold/20 rounded-2xl -z-10"></div>
+                <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-slate/5 rounded-full -z-10 blur-2xl"></div>
             </div>
         </div>
     </section>
 
     <!-- Quote Section -->
     <section class="py-24 bg-brand-slate text-white text-center px-6 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#C5A059 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
         <div class="max-w-4xl mx-auto fade-in-up relative z-10">
             <i class="fas fa-quote-left text-4xl text-brand-gold/50 mb-8 block"></i>
             <h2 class="font-serif text-3xl md:text-4xl leading-relaxed italic mb-8 font-light">
                 "Salvar vidas nem sempre exige sirenes. Às vezes exige escuta. E coragem para atravessar o que dói por dentro."
             </h2>
-            <div class="w-12 h-1 bg-brand-gold mx-auto rounded-full"></div>
+            <div class="w-16 h-1 bg-brand-gold mx-auto rounded-full"></div>
         </div>
     </section>
 
-    <!-- Sobre -->
-    <section id="sobre" class="py-24 px-6 bg-white">
+    <!-- Sobre (CORREÇÃO APLICADA AQUI) -->
+    <section id="sobre" class="py-24 px-6 bg-white scroll-mt-20">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-12 gap-12 items-start">
-                <div class="md:col-span-4 fade-in-up sticky top-24">
+                
+                <!-- 
+                   CORREÇÃO: 
+                   1. Removido 'sticky top-24' genérico.
+                   2. Adicionado 'md:sticky md:top-32'.
+                   Isso garante que ele só fique fixo em telas médias (Desktop) e role normal no celular.
+                -->
+                <div class="md:col-span-4 fade-in-up md:sticky md:top-32 self-start">
                     <span class="text-brand-gold font-bold tracking-widest uppercase text-xs mb-3 block">Sobre mim</span>
                     <h2 class="font-serif text-4xl text-brand-slate font-bold mb-6 leading-tight">De Socorrista à <br>Escuta Clínica</h2>
                     <p class="text-gray-500 mb-6 leading-relaxed">
                         Olá, sou <strong>Samuel Henrique Brantes</strong>. Pai do Taylor, cristão, músico e apaixonado por literatura.
                     </p>
-                    <a href="https://www.instagram.com/psisamuelbrantes" target="_blank" class="inline-flex items-center gap-2 text-brand-slate font-bold border-b border-brand-gold pb-0.5 hover:text-brand-gold transition">
-                        <i class="fab fa-instagram"></i> Siga no Instagram
+                    
+                    <a href="https://www.instagram.com/psisamuelbrantes" target="_blank" class="inline-flex items-center gap-2 text-brand-slate font-bold border-b border-brand-gold pb-0.5 hover:text-brand-gold transition group">
+                        <i class="fab fa-instagram text-xl"></i> Siga no Instagram
+                        <i class="fas fa-arrow-right text-xs opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"></i>
                     </a>
                 </div>
 
-                <div class="md:col-span-8 text-lg text-gray-600 leading-relaxed space-y-8 fade-in-up delay-100">
+                <div class="md:col-span-8 text-lg text-gray-600 leading-relaxed space-y-8 fade-in-up delay-100 border-l border-gray-100 md:pl-12">
                     <p>
-                        Minha jornada começou na urgência. Como socorrista e bombeiro B.A., treinado pela FAB, aprendi a agir no limite entre a vida e a morte. Mas, ao longo do caminho, compreendi algo profundo: <span class="text-brand-slate font-semibold">os conflitos mais intensos são invisíveis.</span>
+                        Minha jornada começou na urgência. Como socorrista e bombeiro B.A., treinado pela FAB, aprendi a agir no limite entre a vida e a morte. Mas, ao longo do caminho, compreendi algo profundo: <span class="bg-brand-gold/10 px-1 rounded text-brand-slate font-semibold">os conflitos mais intensos são invisíveis.</span>
                     </p>
                     <p>
                         As dores mais silenciosas são psíquicas. Foi nesse encontro que direcionei minha missão para a clínica.
@@ -191,9 +226,10 @@
                     <p>
                         Dedico-me aos estudos em psicanálise, psicologia, filosofia e teologia. Para mim, a excelência não nasce apenas do acúmulo de técnicas, mas da capacidade de pensar clinicamente com <strong>humanidade, clareza e embasamento científico</strong>.
                     </p>
-                    <div class="bg-brand-cream p-8 rounded-2xl border border-gray-100 relative">
-                        <i class="fas fa-heart text-brand-gold/20 text-4xl absolute top-4 right-4"></i>
-                        <p class="italic text-brand-slate font-serif text-xl">
+                    
+                    <div class="bg-brand-cream p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition duration-300">
+                        <i class="fas fa-heart text-brand-gold/20 text-4xl absolute top-6 right-6"></i>
+                        <p class="italic text-brand-slate font-serif text-xl relative z-10">
                             "Acredito que a família é o primeiro território da alma. É ali que aprendemos a amar, a sofrer e a desejar."
                         </p>
                     </div>
@@ -202,8 +238,8 @@
         </div>
     </section>
 
-    <!-- Metodologia (Cards Clean) -->
-    <section id="metodo" class="py-24 px-6 bg-brand-cream border-y border-gray-200/50">
+    <!-- Metodologia -->
+    <section id="metodo" class="py-24 px-6 bg-brand-cream border-y border-gray-200/50 scroll-mt-20">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 fade-in-up">
                 <span class="text-brand-gold font-bold tracking-widest uppercase text-xs mb-3 block">Metodologia</span>
@@ -212,8 +248,8 @@
 
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up">
-                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-brand-slate text-xl mb-6 group-hover:bg-brand-slate group-hover:text-white transition-colors">
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up cursor-default">
+                    <div class="w-14 h-14 bg-brand-slate/5 rounded-xl flex items-center justify-center text-brand-slate text-2xl mb-6 group-hover:bg-brand-slate group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
                         <i class="fas fa-video"></i>
                     </div>
                     <h3 class="font-serif text-2xl font-bold text-brand-slate mb-3">Online</h3>
@@ -223,8 +259,8 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up delay-100">
-                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-brand-gold text-xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-colors">
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up delay-100 cursor-default">
+                    <div class="w-14 h-14 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3 class="font-serif text-2xl font-bold text-brand-slate mb-3">Ética & Sigilo</h3>
@@ -234,8 +270,8 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up delay-200">
-                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-brand-slate text-xl mb-6 group-hover:bg-brand-slate group-hover:text-white transition-colors">
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-soft transition-all duration-300 border border-gray-100 group fade-in-up delay-200 cursor-default">
+                    <div class="w-14 h-14 bg-brand-slate/5 rounded-xl flex items-center justify-center text-brand-slate text-2xl mb-6 group-hover:bg-brand-slate group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
                         <i class="fas fa-brain"></i>
                     </div>
                     <h3 class="font-serif text-2xl font-bold text-brand-slate mb-3">Ciência & Afeto</h3>
@@ -251,10 +287,17 @@
     <section class="py-24 px-6 bg-white overflow-hidden">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div class="md:w-1/2 relative fade-in-up">
-                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Fsala%20samuel.jpeg?alt=media&token=faa0bdfd-b892-4dad-9700-50d2860bea6d" alt="Consultório Confortável" class="rounded-2xl shadow-2xl">
+                <div class="relative">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Fsala%20samuel.jpeg?alt=media&token=faa0bdfd-b892-4dad-9700-50d2860bea6d" loading="lazy" alt="Consultório Confortável" class="rounded-2xl shadow-2xl relative z-10">
+                    <div class="absolute -bottom-4 -left-4 w-full h-full border-2 border-brand-slate rounded-2xl z-0"></div>
+                </div>
+                
                 <!-- Badge Flutuante -->
-                <div class="absolute -bottom-6 -right-6 bg-brand-gold text-white p-6 rounded-2xl shadow-lg max-w-xs hidden md:block">
-                    <p class="font-serif italic text-lg">"Transforme sua dor em potência de vida."</p>
+                <div class="absolute -bottom-8 -right-4 bg-brand-gold text-white p-6 rounded-2xl shadow-xl max-w-xs hidden md:block z-20">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-quote-right text-white/50 text-xl"></i>
+                        <p class="font-serif italic text-lg leading-tight">"Transforme sua dor em potência de vida."</p>
+                    </div>
                 </div>
             </div>
             
@@ -264,61 +307,73 @@
                     Carregamos pesos que não precisamos levar sozinhos. Meu trabalho é ajudar você a desenvolver uma saúde mental mais estruturada e segura.
                 </p>
                 <ul class="space-y-6">
-                    <li class="flex items-start gap-4">
-                        <span class="flex-shrink-0 w-8 h-8 rounded-full border border-brand-gold text-brand-gold flex items-center justify-center font-serif font-bold">1</span>
-                        <span class="text-gray-700 pt-1">Compreenda a lógica por trás das suas emoções.</span>
+                    <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition duration-300">
+                        <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center font-serif font-bold text-lg">1</span>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-brand-slate mb-1">Entendimento</h4>
+                            <span class="text-gray-600 text-sm">Compreenda a lógica por trás das suas emoções.</span>
+                        </div>
                     </li>
-                    <li class="flex items-start gap-4">
-                        <span class="flex-shrink-0 w-8 h-8 rounded-full border border-brand-gold text-brand-gold flex items-center justify-center font-serif font-bold">2</span>
-                        <span class="text-gray-700 pt-1">Desenvolva autonomia emocional e segurança.</span>
+                    <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition duration-300">
+                        <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center font-serif font-bold text-lg">2</span>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-brand-slate mb-1">Autonomia</h4>
+                            <span class="text-gray-600 text-sm">Desenvolva segurança para tomar decisões.</span>
+                        </div>
                     </li>
-                    <li class="flex items-start gap-4">
-                        <span class="flex-shrink-0 w-8 h-8 rounded-full border border-brand-gold text-brand-gold flex items-center justify-center font-serif font-bold">3</span>
-                        <span class="text-gray-700 pt-1">Viva relacionamentos mais saudáveis e leves.</span>
+                    <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition duration-300">
+                        <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center font-serif font-bold text-lg">3</span>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-brand-slate mb-1">Relacionamentos</h4>
+                            <span class="text-gray-600 text-sm">Viva conexões mais saudáveis e leves.</span>
+                        </div>
                     </li>
                 </ul>
                 <div class="mt-10">
-                    <a href="https://wa.me/5515992435002" class="text-brand-slate font-bold border-b-2 border-brand-gold hover:text-brand-gold transition pb-1 inline-flex items-center gap-2">
-                        Dê o primeiro passo hoje <i class="fas fa-arrow-right"></i>
+                    <a href="https://wa.me/5515992435002" target="_blank" class="text-brand-slate font-bold border-b-2 border-brand-gold hover:text-brand-gold transition pb-1 inline-flex items-center gap-2 group">
+                        Dê o primeiro passo hoje 
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NOVA PARTE: Galeria / Espaço para Fotos (Clean & Modern) -->
-    <section id="espaco" class="py-24 px-6 bg-brand-cream border-t border-gray-100">
+    <!-- Galeria / Espaço -->
+    <section id="espaco" class="py-24 px-6 bg-brand-cream border-t border-gray-100 scroll-mt-20">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 fade-in-up">
                 <div>
                     <span class="text-brand-gold font-bold tracking-widest uppercase text-xs mb-3 block">Ambiente</span>
                     <h2 class="font-serif text-4xl text-brand-slate font-bold">Um espaço pensado para você</h2>
                 </div>
-                <p class="text-gray-500 max-w-sm mt-4 md:mt-0 text-sm">
+                <p class="text-gray-500 max-w-sm mt-4 md:mt-0 text-sm border-l-2 border-brand-gold pl-4">
                     Conforto e privacidade em cada detalhe, criando a atmosfera ideal para o seu processo terapêutico.
                 </p>
             </div>
 
-            <!-- Grid para as 2 Fotos Novas -->
             <div class="grid md:grid-cols-2 gap-8 h-96">
-                <!-- Foto 1 Placeholder -->
-                <div class="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-500 relative group bg-white h-full fade-in-up">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Ffinalsala.jpg?alt=media&token=ec081985-3f3e-4d5d-8777-3c248bd4e5a3" alt="Foto do Consultório 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition duration-500"></div>
+                <!-- Foto 1 -->
+                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-white h-full fade-in-up">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Ffinalsala.jpg?alt=media&token=ec081985-3f3e-4d5d-8777-3c248bd4e5a3" loading="lazy" alt="Consultório" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-8">
+                        <span class="text-white font-serif text-xl">Acolhimento Presencial</span>
+                    </div>
                 </div>
 
-                <!-- Foto 2 Placeholder -->
-                <div class="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-500 relative group bg-white h-full fade-in-up delay-100">
-                    <!-- Substitua este src pela segunda foto nova -->
-                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Flivro.jpg?alt=media&token=2d32db8e-d54a-4fbc-bb47-f6e9e1bc0791" alt="Foto do Consultório 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition duration-500"></div>
+                <!-- Foto 2 -->
+                <div class="rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 relative group bg-white h-full fade-in-up delay-100">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/psi%20samuel%2Flivro.jpg?alt=media&token=2d32db8e-d54a-4fbc-bb47-f6e9e1bc0791" loading="lazy" alt="Detalhes Consultório" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-8">
+                        <span class="text-white font-serif text-xl">Estudo Contínuo</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contato" class="bg-brand-slate text-white pt-20 pb-10">
+    <footer id="contato" class="bg-brand-slate text-white pt-20 pb-10 border-t-4 border-brand-gold">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-16 mb-16">
                 <!-- Info -->
@@ -328,10 +383,10 @@
                         Psicanálise e Saúde Mental com responsabilidade técnica e acolhimento humano.
                     </p>
                     <div class="flex gap-4">
-                        <a href="https://www.instagram.com/psisamuelbrantes" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-white transition">
+                        <a href="https://www.instagram.com/psisamuelbrantes" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-white transition hover:-translate-y-1">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://wa.me/5515992435002" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-white transition">
+                        <a href="https://wa.me/5515992435002" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-white transition hover:-translate-y-1">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -340,18 +395,37 @@
                 <!-- Links e Contato -->
                 <div class="col-span-2 grid md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="text-brand-gold font-bold uppercase tracking-wider text-xs mb-6">Contatos</h4>
+                        <h4 class="text-brand-gold font-bold uppercase tracking-wider text-xs mb-6">Canais de Contato</h4>
                         <ul class="space-y-4 text-sm text-gray-300">
-                            <li><a href="https://wa.me/5515992435002" class="hover:text-white transition"><i class="fab fa-whatsapp text-brand-gold mr-2"></i> (15) 99243-5002</a></li>
-                            <li><a href="https://wa.me/5534984418232" class="hover:text-white transition"><i class="fab fa-whatsapp text-brand-gold mr-2"></i> (34) 98441-8232</a></li>
-                            <li><i class="fas fa-map-marker-alt text-brand-gold mr-2"></i> Atendimento Online & Presencial</li>
+                            <li>
+                                <a href="https://wa.me/5515992435002" class="flex items-center hover:text-white transition group">
+                                    <span class="w-8 h-8 rounded-full bg-brand-gold/10 flex items-center justify-center mr-3 group-hover:bg-brand-gold group-hover:text-brand-slate transition">
+                                        <i class="fab fa-whatsapp text-brand-gold group-hover:text-brand-slate"></i>
+                                    </span>
+                                    (15) 99243-5002
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/5534984418232" class="flex items-center hover:text-white transition group">
+                                    <span class="w-8 h-8 rounded-full bg-brand-gold/10 flex items-center justify-center mr-3 group-hover:bg-brand-gold group-hover:text-brand-slate transition">
+                                        <i class="fab fa-whatsapp text-brand-gold group-hover:text-brand-slate"></i>
+                                    </span>
+                                    (34) 98441-8232
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-8 h-8 rounded-full bg-brand-gold/10 flex items-center justify-center mr-3">
+                                    <i class="fas fa-map-marker-alt text-brand-gold"></i>
+                                </span>
+                                Atendimento Online & Presencial
+                            </li>
                         </ul>
                     </div>
                     
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
                         <h4 class="font-serif text-xl mb-2">Dúvidas?</h4>
-                        <p class="text-gray-400 text-sm mb-4">Estou disponível para conversar.</p>
-                        <a href="https://wa.me/5515992435002" class="block w-full text-center bg-brand-gold hover:bg-white hover:text-brand-slate text-brand-slate font-bold py-3 rounded-lg transition duration-300 text-sm">
+                        <p class="text-gray-400 text-xs mb-4">Estou disponível para esclarecer como funciona o processo analítico.</p>
+                        <a href="https://wa.me/5515992435002" target="_blank" class="block w-full text-center bg-brand-gold hover:bg-white hover:text-brand-slate text-brand-slate font-bold py-3 rounded-lg transition duration-300 text-sm">
                             Iniciar Conversa
                         </a>
                     </div>
@@ -361,7 +435,7 @@
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs gap-4">
                 <p>&copy; 2026 Samuel Henrique Brantes. Todos os direitos reservados.</p>
                 <p>
-                    Criado por 
+                    Desenvolvido por 
                     <a href="https://conectawebdigital.com.br/" target="_blank" class="text-brand-gold hover:text-white transition-colors font-semibold">
                         Conecta Web Digital
                     </a>
@@ -370,9 +444,9 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Button -->
+    <!-- WhatsApp Button Flutuante -->
     <a href="https://wa.me/5515992435002" target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 group">
-        <span class="bg-white text-gray-800 px-4 py-2 rounded-xl shadow-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition duration-300 -translate-x-2 group-hover:translate-x-0 hidden md:block">
+        <span class="bg-white text-gray-800 px-4 py-2 rounded-xl shadow-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition duration-300 -translate-x-2 group-hover:translate-x-0 hidden md:block border border-gray-100">
             Agende agora
         </span>
         <div class="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-xl pulse-animation hover:scale-110 transition duration-300">
@@ -383,6 +457,7 @@
     <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Observer para animação fade-in-up
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -392,15 +467,49 @@
             }, { threshold: 0.1 });
 
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+            // Controle do Menu Mobile
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const navbar = document.getElementById('navbar');
+
+            // Abrir/Fechar Menu
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                
+                // Muda ícone
+                const icon = menuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    navbar.classList.remove('bg-white');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                    navbar.classList.add('bg-white');
+                }
+            });
+
+            // Fechar menu ao clicar em um link
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
         });
 
+        // Efeito de Scroll na Navbar
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 20) {
-                navbar.classList.add('py-2', 'bg-[#FAFAF8]/95', 'shadow-sm');
+                navbar.classList.add('py-2', 'shadow-sm');
                 navbar.classList.remove('py-4');
             } else {
-                navbar.classList.remove('py-2', 'bg-[#FAFAF8]/95', 'shadow-sm');
+                navbar.classList.remove('py-2', 'shadow-sm');
                 navbar.classList.add('py-4');
             }
         });
