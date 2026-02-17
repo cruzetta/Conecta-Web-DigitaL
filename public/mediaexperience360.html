@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Media Experience 360 - O produto de mídia definitivo para eventos iGaming.">
     <title>Media Experience 360 | Conexão Bet</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-32x32.png" sizes="32x32" />
+    <link rel="icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-180x180.png" />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,7 +200,7 @@
     <nav class="fixed w-full z-50 top-0 left-0 border-b border-white/10 bg-black/80 backdrop-blur-md transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <!-- Logo Brand -->
-            <a href="#" class="block group hover:opacity-90 transition-opacity">
+            <a href="https://conexaobet.com/" target="_blank" class="block group hover:opacity-90 transition-opacity">
                 <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fconexaobet_1920x308_white.png?alt=media&token=6f59cf4e-0a65-4df2-a668-cc563fc4a96d" alt="Conexão Bet" class="h-8 md:h-10 w-auto object-contain">
             </a>
 
@@ -243,31 +248,40 @@
 
         <div class="max-w-7xl mx-auto px-4 md:px-6 text-center relative z-10 w-full flex flex-col items-center justify-center h-full">
             
-            <!-- Animated Audio Equalizer -->
-            <div class="mb-8 md:mb-8 flex justify-center items-end gap-1 md:gap-1.5 h-12 md:h-16 equalizer-container">
-                <div class="w-2 md:w-2.5 bg-gradient-to-t from-brand-primary to-brand-accent equalizer-bar rounded-sm h-full"></div>
-                <div class="w-2 md:w-2.5 bg-gradient-to-t from-brand-primary to-brand-accent equalizer-bar rounded-sm h-1/2"></div>
-                <div class="w-2 md:w-2.5 bg-gradient-to-t from-brand-purple to-brand-accent equalizer-bar rounded-sm h-3/4"></div>
-                <div class="w-2 md:w-2.5 bg-gradient-to-t from-brand-primary to-white equalizer-bar rounded-sm h-1/4"></div>
-                <div class="w-2 md:w-2.5 bg-gradient-to-t from-brand-purple to-brand-accent equalizer-bar rounded-sm h-full"></div>
+            <!-- Animated Audiovisual Element (Camera) -->
+            <div class="mb-8 md:mb-8 flex justify-center items-center h-12 md:h-16">
+                <div class="relative">
+                    <!-- Glow effect -->
+                    <div class="absolute inset-0 bg-brand-accent/20 blur-xl rounded-full animate-pulse-slow"></div>
+                    
+                    <!-- Camera Icon with Float Animation -->
+                    <div class="relative animate-float">
+                        <i data-lucide="video" class="w-12 h-12 md:w-16 md:h-16 text-brand-accent drop-shadow-[0_0_15px_rgba(0,209,255,0.5)]"></i>
+                        
+                        <!-- REC Dot Indicator -->
+                        <div class="absolute -top-1 -right-1 md:-top-2 md:-right-2 flex h-3 w-3 md:h-4 md:w-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-red-600 border-2 border-black"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Product Logo -->
             <div class="mb-8 md:mb-10">
                 <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Flogo_media_experience_360_color_png.png?alt=media&token=408a9407-9179-40d5-a8af-a7218e2f53a2" 
                      alt="Media Experience 360" 
-                     class="h-36 md:h-48 mx-auto object-contain drop-shadow-[0_0_25px_rgba(0,209,255,0.2)] animate-float">
+                     class="h-36 md:h-48 mx-auto object-contain drop-shadow-[0_0_25px_rgba(0,209,255,0.2)] animate-float" style="animation-delay: 1s;">
             </div>
             
-            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-none mb-6 md:mb-6 tracking-tight">
-                AUTORIDADE <br> 
-                <span class="gradient-text relative inline-block">
-                    REAL
+            <h1 class="font-display font-bold text-3xl md:text-5xl lg:text-6xl leading-tight mb-6 md:mb-6 tracking-tight max-w-5xl mx-auto">
+                Gere <span class="gradient-text relative inline-block">
+                    autoridade real
                     <!-- Text Decoration -->
-                    <svg class="absolute w-full h-3 md:h-3 -bottom-1 left-0 text-brand-accent" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <svg class="absolute w-full h-2 md:h-3 -bottom-1 left-0 text-brand-accent" viewBox="0 0 100 10" preserveAspectRatio="none">
                         <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
                     </svg>
-                </span>
+                </span> <br class="hidden md:block"> nos eventos corporativos
             </h1>
 
             <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 md:mb-10 font-light leading-snug md:leading-relaxed">
@@ -344,7 +358,7 @@
                             <div class="w-10 h-10 rounded-full bg-brand-success/20 flex items-center justify-center text-brand-success group-hover:bg-brand-success group-hover:text-black transition-colors">
                                 <i data-lucide="share-2" class="w-5 h-5"></i>
                             </div>
-                            <span class="font-bold text-gray-200">Postagens em tempo real nos canais</span>
+                            <span class="font-bold text-gray-200">Postagens em tempo real nos canais do Conexão Bet</span>
                         </div>
                     </div>
                 </div>
@@ -423,12 +437,12 @@
     <!-- Value Proposition Grid -->
     <section id="features" class="py-24 bg-[#0a0a0a] relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16 gsap-reveal text-left">
+            <div class="mb-16 gsap-reveal text-center">
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
                     Confira a nossa <br>
-                    <span class="text-brand-primary">PROPOSTA DE VALOR</span>
+                    <span class="gradient-text">PROPOSTA DE VALOR</span>
                 </h2>
-                <p class="text-gray-400 max-w-2xl text-lg">Durante o evento, sua empresa recebe uma experiência completa de mídia, garantindo que sua marca seja onipresente.</p>
+                <p class="text-gray-400 max-w-2xl text-lg mx-auto">Durante o evento, sua empresa recebe uma experiência completa de mídia, garantindo que sua marca seja onipresente.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -510,7 +524,7 @@
     <!-- Events Section (Marquee) -->
     <section class="py-16 border-y border-white/5 bg-black/80 backdrop-blur-sm relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
-            <h3 class="text-gray-400 uppercase tracking-[0.2em] text-xs font-bold">Disponível nos principais eventos de 2026</h3>
+            <h3 class="text-gray-400 uppercase tracking-[0.2em] text-xs font-bold">Presença confirmada nos principais eventos do setor iGaming</h3>
         </div>
         
         <!-- Marquee Container -->
@@ -542,7 +556,7 @@
 
         <div class="text-center mt-10">
             <p class="text-xs text-gray-500 max-w-lg mx-auto">
-                *Estamos formalizando o Conexão Bet como Media Partner nos demais eventos. Consulte disponibilidade.
+                *O Conexão Bet é parceiro de mídia oficial dos principais eventos do setor.
             </p>
         </div>
     </section>
@@ -629,17 +643,17 @@
             <h2 class="font-display text-4xl font-bold mb-16 text-center">PRÓXIMOS <span class="text-brand-accent">PASSOS</span></h2>
             
             <div class="relative timeline-line space-y-16">
-                <!-- Step 1 -->
-                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                <!-- Step 1 (Left) -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">1</div>
-                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all hover:-translate-y-1">
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:mr-auto hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-white">Escolher o plano ideal</h4>
                         <p class="text-gray-400 text-sm">Selecione a solução que melhor atende às necessidades do seu negócio, garantindo recursos alinhados aos seus objetivos.</p>
                     </div>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
+                <!-- Step 2 (Right) -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">2</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-white">Assine o contrato</h4>
@@ -647,17 +661,17 @@
                     </div>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                <!-- Step 3 (Left) -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">3</div>
-                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all hover:-translate-y-1">
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:mr-auto hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-white">Confirme o pagamento</h4>
                         <p class="text-gray-400 text-sm">Efetue o pagamento de forma simples e segura, garantindo o início imediato dos serviços contratados.</p>
                     </div>
                 </div>
 
-                <!-- Step 4 -->
-                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal group gsap-reveal">
+                <!-- Step 4 (Right) -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between group gsap-reveal">
                     <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-accent text-brand-accent font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(0,209,255,0.4)] mb-4 md:mb-0 text-xl">4</div>
                     <div class="w-full md:w-[calc(50%-3rem)] bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-accent transition-all md:ml-auto hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-white">Inicie o onboarding</h4>
@@ -665,13 +679,100 @@
                     </div>
                 </div>
 
-                <!-- Step 5 -->
-                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between md:justify-normal md:odd:flex-row-reverse group gsap-reveal">
+                <!-- Step 5 (Left) -->
+                <div class="relative flex flex-col md:flex-row items-center md:items-start justify-between group gsap-reveal">
                     <div class="flex items-center justify-center w-14 h-14 rounded-full bg-brand-accent text-black font-bold z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_30px_rgba(0,209,255,0.6)] mb-4 md:mb-0 text-2xl animate-pulse-slow">5</div>
-                    <div class="w-full md:w-[calc(50%-3rem)] bg-gradient-to-br from-brand-primary/20 to-brand-accent/10 p-8 rounded-2xl border border-brand-primary/50 hover:border-brand-accent transition-all hover:-translate-y-1">
+                    <div class="w-full md:w-[calc(50%-3rem)] bg-gradient-to-br from-brand-primary/20 to-brand-accent/10 p-8 rounded-2xl border border-brand-primary/50 hover:border-brand-accent transition-all md:mr-auto hover:-translate-y-1">
                         <h4 class="font-bold text-lg mb-2 text-brand-accent">Go Live</h4>
                         <p class="text-gray-200 text-sm">Usufrua de nossas soluções personalizadas e experimente resultados reais desde o primeiro dia.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials & Clients Section -->
+    <section class="py-24 bg-gradient-to-b from-[#0a0a0a] to-black border-t border-white/5 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 gsap-reveal">
+                <span class="text-brand-accent font-bold tracking-widest uppercase text-xs mb-2 block">Cases de Sucesso</span>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">QUEM JÁ <span class="gradient-text">CONFIA</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Grandes players do mercado que transformaram sua presença em autoridade com nossa cobertura.</p>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                <!-- Testimonial 1 -->
+                <div class="glass-card p-8 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all gsap-reveal">
+                    <div class="flex gap-1 mb-6 text-yellow-500">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 text-sm leading-relaxed italic">"A cobertura do Conexão Bet mudou nossa percepção nos eventos. O conteúdo gerado em tempo real nos deu uma visibilidade que nenhum estande sozinho conseguiria. Foi um divisor de águas para nossa marca no Brasil."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-600 flex items-center justify-center font-bold text-white text-xs">CF</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Carlos Ferreira</h4>
+                            <p class="text-xs text-brand-accent">CMO, BetPrime</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card p-8 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all gsap-reveal" style="transition-delay: 100ms;">
+                    <div class="flex gap-1 mb-6 text-yellow-500">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 text-sm leading-relaxed italic">"Qualidade impecável. Os vídeos verticais foram virais nas nossas redes sociais. É um investimento que se paga rapidamente pela qualidade e quantidade dos ativos digitais que recebemos para usar o ano todo."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-600 flex items-center justify-center font-bold text-white text-xs">FS</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Fernanda Silva</h4>
+                            <p class="text-xs text-brand-accent">Head de Marketing, SorteOnline</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card p-8 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all gsap-reveal" style="transition-delay: 200ms;">
+                    <div class="flex gap-1 mb-6 text-yellow-500">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 text-sm leading-relaxed italic">"Estar presente é uma coisa, ser visto é outra. O Media Experience 360 garantiu que nossa marca fosse o assunto do evento, mesmo para quem não estava lá fisicamente. Recomendamos fortemente."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-600 flex items-center justify-center font-bold text-white text-xs">RA</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Roberto Almeida</h4>
+                            <p class="text-xs text-brand-accent">CEO, KingSports</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clients Logos (Simulated) -->
+            <div class="border-t border-white/5 pt-12">
+                <p class="text-center text-xs text-gray-500 uppercase tracking-widest mb-8">Empresas que já impactamos</p>
+                <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Using text/icons to represent logos cleanly -->
+                    <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="zap" class="text-brand-accent"></i> BETPRIME</div>
+                    <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="clover" class="text-green-500"></i> SORTEONLINE</div>
+                    <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="crown" class="text-yellow-500"></i> KINGSPORTS</div>
+                    <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="globe-2" class="text-blue-400"></i> ARENA 365</div>
+                    <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="joystick" class="text-purple-500"></i> NEXT LEVEL</div>
                 </div>
             </div>
         </div>

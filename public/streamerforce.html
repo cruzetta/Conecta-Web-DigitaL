@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamer Force - Ativação Estratégica</title>
+
+    <!-- Início do Código Favicon Conexão Bet -->
+    <!-- Ícone padrão para navegadores (32x32) -->
+    <link rel="icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-32x32.png" sizes="32x32" />
+    
+    <!-- Ícone de alta resolução para Android e Chrome (192x192) -->
+    <link rel="icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-192x192.png" sizes="192x192" />
+    
+    <!-- Ícone para dispositivos Apple - iPhone/iPad (180x180) -->
+    <link rel="apple-touch-icon" href="https://conexaobet.com/wp-content/uploads/2024/07/cropped-Logo-Conexao-Bet-4-180x180.png" />
+    <!-- Fim do Código Favicon Conexão Bet -->
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: '1.5rem',
+                    screens: {
+                        sm: "640px",
+                        md: "768px",
+                        lg: "1024px",
+                        xl: "1280px",
+                        "2xl": "1280px",
+                    },
+                },
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: {
+                            cyan: '#06b6d4', 
+                            purple: '#a855f7',
+                            bg: '#05060a',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'progress-line': 'progressLine 8s linear infinite', // Ciclo total de 8s
+                        'card-pulse-1': 'cardPulse 8s linear infinite 0s',
+                        'card-pulse-2': 'cardPulse 8s linear infinite 2s',
+                        'card-pulse-3': 'cardPulse 8s linear infinite 4s',
+                        'card-pulse-4': 'cardPulse 8s linear infinite 6s',
+                        'shine': 'shine 3s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        progressLine: {
+                            '0%': { width: '0%' },
+                            '100%': { width: '100%' }
+                        },
+                        cardPulse: {
+                            '0%, 10%': { transform: 'scale(1)', borderColor: 'rgba(51, 65, 85, 1)', boxShadow: 'none' }, // normal
+                            '15%, 25%': { transform: 'scale(1.05)', borderColor: '#22d3ee', boxShadow: '0 0 20px rgba(34, 211, 238, 0.3)' }, // active
+                            '30%, 100%': { transform: 'scale(1)', borderColor: 'rgba(51, 65, 85, 1)', boxShadow: 'none' } // back to normal
+                        },
+                        shine: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-card {
+            background-color: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+        }
+
+        .neon-border-blue {
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.3), inset 0 0 10px rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .text-shine {
+            background: linear-gradient(to right, #22d3ee 20%, #ffffff 50%, #22d3ee 80%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 5s linear infinite;
+        }
+
+        /* Range Input Styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #22d3ee;
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+            border: 2px solid white;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #1e293b;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#05060a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="https://conexaobet.com" target="_blank" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fconexaobet_1920x308_white.png?alt=media&token=e1eefcd0-d57f-47ad-b54a-17957e672bd4" 
+                     alt="Conexão Bet" 
+                     class="h-8 md:h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex gap-8 items-center font-bold text-xs uppercase tracking-widest">
+                <a href="#o-que-fazemos" class="hover:text-cyan-400 transition-colors">O que fazemos</a>
+                <a href="#contexto" class="hover:text-cyan-400 transition-colors">Contexto</a>
+                <a href="#como-funciona" class="hover:text-cyan-400 transition-colors">Como Funciona</a>
+                <a href="#simulador" class="hover:text-cyan-400 transition-colors">Simulador</a>
+                <button class="bg-transparent border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black shadow-[0_0_15px_rgba(6,182,212,0.3)] px-6 py-2 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center gap-2 uppercase tracking-wide text-xs">
+                    Falar com Especialista
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-xl pt-32 px-6 hidden lg:hidden">
+        <div class="flex flex-col gap-8 text-xl text-center font-bold uppercase">
+            <a href="#o-que-fazemos" class="mobile-link hover:text-cyan-400">O que fazemos</a>
+            <a href="#contexto" class="mobile-link hover:text-cyan-400">Contexto</a>
+            <a href="#como-funciona" class="mobile-link hover:text-cyan-400">Como Funciona</a>
+            <a href="#simulador" class="mobile-link hover:text-cyan-400">Simulador</a>
+            <button class="bg-cyan-600 text-white py-4 rounded-lg font-bold uppercase w-full shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                Falar com Especialista
+            </button>
+        </div>
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+
+    <!-- PÁGINA 1: INTRODUÇÃO (Hero) -->
+    <header class="relative min-h-screen flex flex-col justify-center overflow-hidden pb-10">
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0">
+             <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2FDesign%20sem%20nome%20(8).mp4?alt=media&token=fc247468-733f-45c5-8c53-6fccf5200d10" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-[#05060a]/80 bg-gradient-to-t from-[#05060a] via-[#05060a]/70 to-transparent"></div>
+            <div class="absolute top-[20%] right-[20%] w-[300px] h-[300px] bg-cyan-500/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center pt-24">
+            <!-- Logo Grande -->
+            <div class="mb-10 relative group">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-cyan-500/20 rounded-full blur-[60px] group-hover:bg-cyan-500/30 transition-all duration-500"></div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fstreamer_force_logotipo_2_2026.png?alt=media&token=ecc82dbf-0610-49f4-a64f-41e316c1adb2" 
+                     alt="Streamer Force" 
+                     class="h-24 md:h-40 w-auto mx-auto object-contain drop-shadow-[0_0_30px_rgba(6,182,212,0.4)] animate-[float_6s_ease-in-out_infinite] relative z-10">
+            </div>
+
+            <h1 class="text-3xl md:text-6xl font-black text-white leading-tight mb-8 max-w-5xl mx-auto uppercase drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+                Transforme Audiência em <br/>
+                <span class="text-shine neon-text">Receita Recorrente</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto mb-10 leading-relaxed font-medium">
+                O mercado iGaming está mais caro, mais competitivo e menos previsível. <br class="hidden md:block">
+                O <strong class="text-white">Streamer Force</strong> cria um canal próprio de aquisição e retenção, transformando lives em crescimento consistente, escalável e mensurável para sua operação.
+            </p>
+
+            <button class="bg-transparent border border-cyan-500 text-white hover:bg-cyan-500/10 shadow-[0_0_20px_rgba(6,182,212,0.4)] px-10 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 uppercase tracking-widest text-sm flex items-center gap-3 mx-auto animate-pulse-slow">
+                Falar com Especialista <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+
+            <!-- Streamer Simulation Widget (Visual de Cassino Moderno) -->
+            <div class="mt-20 relative w-full max-w-3xl mx-auto transform hover:scale-[1.02] transition-transform duration-700">
+                <!-- Background Glow -->
+                <div class="absolute -inset-1 bg-gradient-to-b from-cyan-500/50 to-purple-600/50 rounded-2xl blur opacity-30"></div>
+                
+                <div class="relative bg-[#0a0b14] rounded-2xl overflow-hidden border border-slate-700 shadow-2xl group">
+                    <div class="aspect-video w-full relative overflow-hidden">
+                        <!-- Streamer Image (Simulated Video) -->
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200" 
+                             class="w-full h-full object-cover opacity-90 transition-transform duration-[10s] group-hover:scale-110" 
+                             alt="Streamer">
+                        
+                        <!-- UI Overlays Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60 pointer-events-none"></div>
+                        
+                        <!-- Top Bar UI -->
+                        <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-20">
+                            <!-- Streamer Info -->
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-full border-2 border-green-500 p-0.5 bg-black shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+                                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="w-full h-full rounded-full object-cover" alt="Avatar">
+                                </div>
+                                <div class="text-left bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-xl border border-white/10">
+                                    <p class="text-white font-bold text-sm flex items-center gap-1.5">
+                                        @StreamerPro <i data-lucide="badge-check" class="w-4 h-4 text-cyan-400 fill-current"></i>
+                                    </p>
+                                    <p class="text-green-400 text-[10px] font-black tracking-widest uppercase">Jogando Agora</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Live Status -->
+                            <div class="flex flex-col items-end gap-2">
+                                <div class="bg-red-600 px-4 py-1.5 rounded-lg text-xs font-black text-white animate-pulse tracking-widest shadow-lg border border-red-400/50">
+                                    ● AO VIVO
+                                </div>
+                                <div class="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-2 border border-white/10">
+                                    <i data-lucide="users" class="w-3 h-3 text-slate-400"></i> 15.4k
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BIG WIN Animation (Center) -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                            <div class="bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-600 px-8 py-3 rounded-xl border-4 border-white shadow-[0_0_60px_rgba(234,179,8,0.8)] transform -rotate-2 animate-bounce">
+                                <span class="text-black font-black text-3xl uppercase tracking-widest drop-shadow-md italic">BIG WIN!</span>
+                            </div>
+                        </div>
+
+                        <!-- Chat Overlay (Bottom Left) -->
+                        <div class="absolute bottom-6 left-6 z-20 flex flex-col gap-2 max-w-xs">
+                            <div class="bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border-l-4 border-cyan-400 text-xs text-white shadow-lg animate-float">
+                                <span class="font-bold text-cyan-400 mr-1">User123:</span> Solta a carta! 🚀🚀
+                            </div>
+                            <div class="bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border-l-4 border-purple-400 text-xs text-white shadow-lg animate-float animation-delay-500 ml-4">
+                                <span class="font-bold text-purple-400 mr-1">GamerPro:</span> Multiplicador insano!! 🔥
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PÁGINA 2: O QUE FAZEMOS -->
+    <section class="py-24 bg-[#0a0b14]" id="o-que-fazemos">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black text-white uppercase mb-6 leading-tight">
+                    Muito além de lives. <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Criamos força comercial diária.</span>
+                </h2>
+                <div class="h-1 w-32 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full mb-8"></div>
+                <p class="text-lg text-slate-300 max-w-4xl mx-auto leading-relaxed">
+                    O Streamer Force é uma estrutura estratégica que conecta streamers profissionais a casas de apostas, transformando transmissões ao vivo em um canal direto de aquisição, engajamento e retenção.
+                    <br><br>
+                    <strong class="text-white">Não vendemos influência pontual. Construímos um ecossistema de conversão contínua.</strong>
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
+                    <i data-lucide="target" class="w-10 h-10 text-cyan-400 mb-4"></i>
+                    <h3 class="font-bold text-white mb-2">Lives Estruturadas</h3>
+                    <p class="text-sm text-slate-400">Foco total em FTD (First Time Deposit) e retenção.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
+                    <i data-lucide="zap" class="w-10 h-10 text-purple-400 mb-4"></i>
+                    <h3 class="font-bold text-white mb-2">Ativações em Tempo Real</h3>
+                    <p class="text-sm text-slate-400">Dinâmicas comerciais durante a transmissão.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
+                    <i data-lucide="bar-chart-2" class="w-10 h-10 text-blue-400 mb-4"></i>
+                    <h3 class="font-bold text-white mb-2">Métricas Auditáveis</h3>
+                    <p class="text-sm text-slate-400">Acompanhamento transparente de ROI e LTV.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
+                    <i data-lucide="users" class="w-10 h-10 text-green-400 mb-4"></i>
+                    <h3 class="font-bold text-white mb-2">Planejamento de Audiência</h3>
+                    <p class="text-sm text-slate-400">Estratégia para maximizar o alcance qualificado.</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-cyan-400 font-bold uppercase tracking-widest text-xs mt-12 animate-pulse">
+                Streaming deixa de ser entretenimento isolado e passa a ser ativo de crescimento.
+            </p>
+        </div>
+    </section>
+
+    <!-- PÁGINA 3: CONTEXTO -->
+    <section class="py-24 bg-[#05060a]" id="contexto">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-white uppercase mb-4">A Evolução do Marketing no Setor iGaming</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">O aumento do CAC e a saturação da mídia tradicional exigem um novo modelo. O streamer deixa de ser apenas um divulgador e passa a ser um operador de conversão.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <!-- Card Modelo Tradicional -->
+                <div class="bg-red-950/10 border border-red-900/30 p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">RISCO ALTO</div>
+                    <h3 class="text-2xl font-black text-white mb-6 flex items-center gap-2">
+                        <i data-lucide="x-circle" class="text-red-500"></i> Modelo Tradicional
+                    </h3>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Influência Alugada</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Pico momentâneo de tráfego</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Baixa retenção</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> ROI difícil de mensurar</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> Dependência da imagem</li>
+                    </ul>
+                </div>
+
+                <!-- Card Streamer Force (Azul Claro) -->
+                <div class="bg-cyan-950/10 border border-cyan-500/30 p-8 rounded-3xl relative overflow-hidden group shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                    <div class="absolute top-0 right-0 bg-cyan-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg">SOLUÇÃO</div>
+                    <h3 class="text-2xl font-black text-white mb-6 flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="text-cyan-400"></i> Modelo Streamer Force
+                    </h3>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> Ecossistema Próprio</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> Aquisição e retenção diária</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> Construção de base recorrente</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> Métricas auditáveis em tempo real</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span> Alta conversão em FTD & LTV</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-xl font-medium text-slate-300">
+                    "Enquanto o modelo tradicional compra atenção, <br>
+                    o <strong class="text-white">Streamer Force constrói base própria.</strong>"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 4: COMO FUNCIONA -->
+    <section class="py-24 bg-[#0a0b14]" id="como-funciona">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-16 uppercase">
+                Da audiência ao LTV: <span class="text-cyan-400">Um processo estruturado</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                <!-- Step 1 -->
+                <div class="p-6 border border-slate-800 rounded-2xl bg-slate-900/50 hover:border-cyan-500/50 transition-colors text-center group">
+                    <div class="w-12 h-12 bg-cyan-900/30 rounded-full flex items-center justify-center text-cyan-400 font-bold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">1</div>
+                    <h4 class="text-white font-bold mb-2">Impacto Qualificado</h4>
+                    <p class="text-xs text-slate-400">Audiência engajada em live.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="p-6 border border-slate-800 rounded-2xl bg-slate-900/50 hover:border-cyan-500/50 transition-colors text-center group">
+                    <div class="w-12 h-12 bg-cyan-900/30 rounded-full flex items-center justify-center text-cyan-400 font-bold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">2</div>
+                    <h4 class="text-white font-bold mb-2">Conversão Guiada</h4>
+                    <p class="text-xs text-slate-400">Call to action em tempo real.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="p-6 border border-slate-800 rounded-2xl bg-slate-900/50 hover:border-cyan-500/50 transition-colors text-center group">
+                    <div class="w-12 h-12 bg-cyan-900/30 rounded-full flex items-center justify-center text-cyan-400 font-bold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">3</div>
+                    <h4 class="text-white font-bold mb-2">Depósito e Ativação</h4>
+                    <p class="text-xs text-slate-400">Geração de FTD imediato.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="p-6 border border-slate-800 rounded-2xl bg-slate-900/50 hover:border-cyan-500/50 transition-colors text-center group">
+                    <div class="w-12 h-12 bg-cyan-900/30 rounded-full flex items-center justify-center text-cyan-400 font-bold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">4</div>
+                    <h4 class="text-white font-bold mb-2">Retenção e Recorrência</h4>
+                    <p class="text-xs text-slate-400">LTV e fidelização diária.</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-slate-500 text-sm mt-8">
+                Cada live é planejada para gerar conversão imediata e retenção progressiva. <br>
+                Não dependemos de picos isolados, trabalhamos com consistência operacional.
+            </p>
+        </div>
+    </section>
+
+    <!-- PÁGINA 5: PROVA ESTRUTURAL (Com Interatividade Neon) -->
+    <section class="py-24 bg-[#05060a] relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+        <div class="absolute bottom-0 right-0 w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="bg-[#0f111a] border border-slate-800 rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden group">
+                
+                <!-- Glowing effect on hover -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[2.5rem] blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+                
+                <div class="relative z-10">
+                    <div class="text-center mb-16">
+                        <span class="text-cyan-400 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">O Segredo do Resultado</span>
+                        <h2 class="text-3xl md:text-5xl font-black text-white mb-6 uppercase leading-tight">
+                            Performance Exige <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Estrutura</span>
+                        </h2>
+                        <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                            Não se trata de sorte. O resultado depende de uma sequência lógica de 4 pilares.
+                        </p>
+                    </div>
+
+                    <!-- Cards Container Interativo -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 relative">
+                        
+                        <!-- Linha de Conexão (Trilha e Feixe) -->
+                        <div class="hidden lg:block absolute top-1/2 left-0 w-full h-[2px] bg-slate-800 -translate-y-1/2 z-0 transform translate-x-4 scale-x-[0.9]"></div>
+                        <div class="hidden lg:block absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent -translate-y-1/2 z-0 transform translate-x-4 scale-x-[0.9] animate-progress-line opacity-80 blur-[2px]"></div>
+
+                        <!-- Card 1 -->
+                        <div class="bg-[#0f111a] border border-slate-700 p-6 rounded-2xl relative z-10 animate-card-pulse-1 transition-all duration-300">
+                            <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4 mx-auto md:mx-0">
+                                <i data-lucide="zap" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="text-white font-bold text-lg mb-2 text-center md:text-left">Ferramentas Ativas</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed text-center md:text-left">Gatilhos comerciais acionados durante a live para conversão imediata.</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-[#0f111a] border border-slate-700 p-6 rounded-2xl relative z-10 animate-card-pulse-2 transition-all duration-300">
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-4 mx-auto md:mx-0">
+                                <i data-lucide="user-check" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="text-white font-bold text-lg mb-2 text-center md:text-left">Execução Profissional</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed text-center md:text-left">Streamers treinados para vender, não apenas para jogar.</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-[#0f111a] border border-slate-700 p-6 rounded-2xl relative z-10 animate-card-pulse-3 transition-all duration-300">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-4 mx-auto md:mx-0">
+                                <i data-lucide="trending-up" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="text-white font-bold text-lg mb-2 text-center md:text-left">Tráfego Dedicado</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed text-center md:text-left">Campanhas pagas para amplificar o alcance da live.</p>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="bg-[#0f111a] border border-slate-700 p-6 rounded-2xl relative z-10 animate-card-pulse-4 transition-all duration-300">
+                            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 mb-4 mx-auto md:mx-0">
+                                <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+                            </div>
+                            <h4 class="text-white font-bold text-lg mb-2 text-center md:text-left">Monitoramento Total</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed text-center md:text-left">Acompanhamento de métricas em tempo real para otimização.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-slate-900 to-black border border-slate-800 rounded-xl p-8 text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
+                        <i data-lucide="quote" class="w-8 h-8 text-slate-600 mb-4 mx-auto opacity-50"></i>
+                        <h3 class="text-2xl md:text-3xl font-black text-white italic">
+                            "Sem estrutura, é entretenimento. <br class="md:hidden"> <span class="text-cyan-400">Com estrutura, é crescimento.</span>"
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 6: ESTRUTURA SUGERIDA -->
+    <section class="py-24 bg-[#0a0b14]">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-black text-white text-center mb-12 uppercase">Estrutura & Ferramentas Sugeridas</h2>
+            <p class="text-center text-slate-400 mb-12 max-w-2xl mx-auto">Para que os nossos Streamers entreguem o máximo de engajamento e resultado, é indispensável a bet disponibilizar ferramentas como:</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="image" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Banners do Streamer</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="rotate-cw" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Rodadas Grátis</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="gift" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Roleta de Prêmios</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="coins" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Sistema de Gorjetas</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="smartphone" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Sorteios de Pix</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="trending-up" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Tráfego Pago</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="monitor" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Backoffice</span>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col items-center text-center gap-2 hover:border-cyan-500/30 transition-colors">
+                    <i data-lucide="headphones" class="text-cyan-400"></i>
+                    <span class="text-white font-bold text-sm">Suporte Dedicado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVO: PERFIL DO STREAMER EM DESTAQUE (Baseado no Slide 4) -->
+    <section class="py-24 bg-[#05060a] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-900/10 to-transparent"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-cyan-500/20 rounded-full blur-[80px]"></div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800" alt="Streamer Xizão" class="relative z-10 rounded-2xl border-2 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.3)] w-full max-w-md mx-auto">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <span class="text-cyan-400 font-bold tracking-widest uppercase text-xs mb-2 block">Squad Streamer Force</span>
+                    <h2 class="text-4xl font-black text-white mb-6">QUEM É O STREAMER <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">XIZÃO</span></h2>
+                    <p class="text-slate-300 mb-6 leading-relaxed">
+                        Streamer focado em cassino online (slots) com audiência altamente qualificada. Experiência, compliance e foco total em conversão.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle" class="text-green-400 w-5 h-5"></i> Experiência com operadores regulados
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle" class="text-green-400 w-5 h-5"></i> Já atuou com: MC Games, OnaBet, LuvaBet, MarjoSports
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/xizaotv" target="_blank" class="bg-purple-600/20 border border-purple-500/50 text-purple-300 px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-purple-600 hover:text-white transition-all">
+                            <i data-lucide="instagram" class="w-5 h-5"></i> Instagram
+                        </a>
+                        <a href="https://youtube.com/@xizaotv" target="_blank" class="bg-red-600/20 border border-red-500/50 text-red-300 px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-red-600 hover:text-white transition-all">
+                            <i data-lucide="youtube" class="w-5 h-5"></i> Youtube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 7: CALCULADORA (Simulador Atualizado) -->
+    <section class="py-24 bg-[#0a0b14]" id="simulador">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black text-white uppercase mb-4">Calcule o Potencial de Receita</h2>
+                <p class="text-slate-400">O retorno está na recorrência. Ao contrário do tráfego pago, aqui você constrói comunidade.</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-[#10121b] to-slate-900 rounded-3xl p-8 md:p-12 border border-slate-700 shadow-2xl max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Inputs -->
+                    <div class="space-y-8">
+                        <div>
+                            <label class="text-white font-bold mb-2 block flex justify-between">
+                                Quantidade de Streamers <span class="text-cyan-400" id="streamer-count">1</span>
+                            </label>
+                            <input type="range" id="input-streamers" min="1" max="10" value="1" class="w-full">
+                        </div>
+                        <div>
+                            <label class="text-white font-bold mb-2 block flex justify-between">
+                                Lives por Mês (Dias) <span class="text-cyan-400" id="lives-count">20</span>
+                            </label>
+                            <input type="range" id="input-lives" min="10" max="30" value="20" class="w-full">
+                        </div>
+                        <div>
+                            <label class="text-white font-bold mb-2 block flex justify-between">
+                                Ticket Médio (R$) <span class="text-cyan-400" id="ticket-val">200</span>
+                            </label>
+                            <input type="range" id="input-ticket" min="50" max="1000" step="50" value="200" class="w-full">
+                        </div>
+                    </div>
+
+                    <!-- Outputs -->
+                    <div class="bg-black/40 rounded-2xl p-8 border border-slate-700 space-y-6">
+                        <div class="border-b border-slate-700 pb-4">
+                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Custo Total Estimado</p>
+                            <p class="text-3xl font-black text-white" id="out-cost">R$ 3.125</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase mb-1">Novos Cadastros</p>
+                                <p class="text-xl font-bold text-white" id="out-leads">480</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase mb-1">FTDs Estimados</p>
+                                <p class="text-xl font-bold text-emerald-400" id="out-ftds">168</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-slate-700">
+                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Receita Total da Base (90 dias)</p>
+                            <p class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600" id="out-revenue">R$ 100.800</p>
+                            <p class="text-slate-500 text-[10px] mt-2">GGR (35%): <span id="out-ggr" class="text-slate-300">R$ 35.280</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISÃO DE BOARD (Slide 11) -->
+    <section class="py-20 bg-[#05060a] border-y border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold text-white mb-8">VISÃO DE BOARD</h3>
+            <p class="text-slate-400 mb-10 text-lg">
+                O retorno não está no primeiro mês. Está na vida útil da base criada.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="px-6 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-sm font-bold">Receita Recorrente</span>
+                <span class="px-6 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-sm font-bold">CAC Diluído</span>
+                <span class="px-6 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-sm font-bold">Crescimento Sustentável</span>
+                <span class="px-6 py-3 rounded-full bg-slate-900 border border-slate-700 text-slate-300 text-sm font-bold">Upside Contínuo</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 8: CLIENTES -->
+    <section class="py-24 bg-[#0a0b14]">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-black text-white mb-6">OPERADORES QUE ESCOLHERAM CRESCER COM INTELIGÊNCIA</h2>
+            <p class="text-slate-400 mb-12">O Streamer Force já é utilizado por operadores que entenderam que o crescimento no iGaming depende de estrutura.</p>
+            
+            <!-- Marquee Placeholders (Logos) -->
+            <div class="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="text-2xl font-bold text-white flex items-center gap-2"><i data-lucide="hexagon" class="text-purple-500"></i> MC GAMES</div>
+                <div class="text-2xl font-bold text-white flex items-center gap-2"><i data-lucide="triangle" class="text-red-500"></i> ONABET</div>
+                <div class="text-2xl font-bold text-white flex items-center gap-2"><i data-lucide="circle" class="text-green-500"></i> LUVABET</div>
+                <div class="text-2xl font-bold text-white flex items-center gap-2"><i data-lucide="square" class="text-blue-500"></i> MARJOSPORTS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA FINAL: CTA -->
+    <footer class="bg-gradient-to-b from-[#05060a] to-black py-24 border-t border-slate-900 text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                Sua bet precisa de audiência. <br>
+                <span class="text-cyan-400">Ou de jogadores ativos?</span>
+            </h2>
+            <p class="text-xl text-slate-300 mb-10 font-medium">Ative o Streamer Force e transforme lives em receita previsível.</p>
+            
+            <button class="bg-cyan-500 hover:bg-cyan-400 text-black px-12 py-5 rounded-xl font-black text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(6,182,212,0.5)] uppercase tracking-widest">
+                Solicitar Proposta Estratégica
+            </button>
+
+            <div class="mt-16 flex justify-center items-center gap-4 opacity-50">
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fstreamer_force_logotipo_2_2026.png?alt=media&token=ecc82dbf-0610-49f4-a64f-41e316c1adb2" alt="Streamer Force" class="h-6 object-contain">
+                <span class="text-slate-600">|</span>
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/media%20exeperience%20360%2Fconexaobet_1920x308_white.png?alt=media&token=e1eefcd0-d57f-47ad-b54a-17957e672bd4" alt="Conexão Bet" class="h-5 object-contain">
+            </div>
+            <p class="text-slate-700 text-xs mt-4">&copy; 2026 Streamer Force. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script Consolidado -->
+    <script>
+        // 1. Icons
+        lucide.createIcons();
+
+        // 2. Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#05060a]/95', 'backdrop-blur-xl', 'border-slate-800', 'shadow-lg');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.remove('bg-[#05060a]/95', 'backdrop-blur-xl', 'border-slate-800', 'shadow-lg');
+                navbar.classList.add('border-transparent');
+            }
+        });
+
+        // 3. Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
+        if(closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 4. Advanced Calculator Logic (Matching PDF Logic)
+        const inputStreamers = document.getElementById('input-streamers');
+        const inputLives = document.getElementById('input-lives');
+        const inputTicket = document.getElementById('input-ticket');
+        
+        // Displays
+        const streamerCountDisplay = document.getElementById('streamer-count');
+        const livesCountDisplay = document.getElementById('lives-count');
+        const ticketValDisplay = document.getElementById('ticket-val');
+        
+        const outCost = document.getElementById('out-cost');
+        const outLeads = document.getElementById('out-leads');
+        const outFtds = document.getElementById('out-ftds');
+        const outRevenue = document.getElementById('out-revenue');
+        const outGgr = document.getElementById('out-ggr');
+
+        // Base Metrics per Streamer Unit (Conservative based on Slide 6/7)
+        // 1 Streamer doing 20 lives (40h) -> ~168 FTDs (Derived from 672 / 4)
+        // Cost per streamer ~3125 (Derived from 12500 / 4)
+        
+        const BASE_FTD_RATE = 168; // FTDs per streamer/month standard
+        const BASE_COST = 3125; // Cost per streamer
+        const LEAD_CONVERSION = 0.08; // 8% leads to FTD? No, slide says 8% leads, then 35% to FTD.
+        // Actually slide 7: 1920 signups -> 672 FTDs. 
+        // So 1 Streamer = 480 Signups -> 168 FTDs.
+        const SIGNUPS_PER_STREAMER = 480; 
+        const LTV_MULTIPLIER = 3; // 90 days (3 months cycle)
+        const GGR_PERCENT = 0.35;
+
+        const moneyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+
+        function calculate() {
+            const streamers = parseInt(inputStreamers.value);
+            const lives = parseInt(inputLives.value); // Base is 20. If less/more, adjust proportionally.
+            const ticket = parseInt(inputTicket.value);
+
+            // Update Input Displays
+            streamerCountDisplay.innerText = streamers;
+            livesCountDisplay.innerText = lives;
+            ticketValDisplay.innerText = ticket;
+
+            // Adjust performance based on Live frequency (Linear for simplicity)
+            const frequencyMultiplier = lives / 20; 
+
+            // Cost
+            const totalCost = streamers * BASE_COST * frequencyMultiplier; // More lives might cost more? Assuming yes.
+
+            // Results
+            const totalSignups = Math.round(streamers * SIGNUPS_PER_STREAMER * frequencyMultiplier);
+            const totalFtds = Math.round(streamers * BASE_FTD_RATE * frequencyMultiplier);
+            
+            // Revenue (Base x LTV)
+            // LTV per player = Ticket * 3 months
+            const ltvValue = ticket * LTV_MULTIPLIER;
+            const totalRevenueVal = totalFtds * ltvValue;
+            const ggrVal = totalRevenueVal * GGR_PERCENT;
+
+            // Render
+            outCost.innerText = moneyFormatter.format(totalCost);
+            outLeads.innerText = totalSignups;
+            outFtds.innerText = totalFtds;
+            outRevenue.innerText = moneyFormatter.format(totalRevenueVal);
+            outGgr.innerText = moneyFormatter.format(ggrVal);
+        }
+
+        inputStreamers.addEventListener('input', calculate);
+        inputLives.addEventListener('input', calculate);
+        inputTicket.addEventListener('input', calculate);
+
+        calculate(); // Init
+    </script>
+</body>
+</html>

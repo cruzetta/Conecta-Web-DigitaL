@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Planilhas Automáticas | Construção Civil</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF8C00', // Laranja construção
+                            dark: '#1a1a1a',   // Fundo escuro
+                            gray: '#2d2d2d',   // Card escuro
+                            gold: '#FFD700',   // Destaques
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Bloqueio total de scroll horizontal */
+        body, html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Efeitos de Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Gradiente Dourado no Texto */
+        .text-gradient {
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Botão Pulsante */
+        .btn-pulse {
+            box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.7);
+            animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+
+        @keyframes pulsing {
+            to {
+                box-shadow: 0 0 0 20px rgba(255, 140, 0, 0);
+            }
+        }
+
+        /* Background com textura sutil */
+        .bg-pattern {
+            background-color: #111;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-item.active .faq-content {
+            max-height: 500px; /* Ajuste conforme necessário */
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Chat Widget Background */
+        .chat-bg {
+            background-color: #e5ddd5;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0V0zm10 10h10v10H10V10z' fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Navbar Fixa Mobile -->
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm border-b border-gray-700 py-3 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Logo ajustada para mobile -->
+            <div class="text-white font-heading font-bold text-sm sm:text-lg flex items-center leading-tight">
+                <i class="fas fa-hard-hat text-brand-orange mr-2 text-xl"></i>
+                <div class="flex flex-col sm:block">
+                    <span>Planilhas</span>
+                    <span class="text-brand-orange">Pack Digital</span>
+                </div>
+            </div>
+            <a href="#oferta" class="bg-green-600 hover:bg-green-500 text-white px-3 py-2 rounded-lg font-bold text-xs sm:text-sm transition transform hover:scale-105 whitespace-nowrap shadow-md">
+                BAIXAR
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-brand-dark text-white min-h-[100dvh] flex items-center justify-center pt-24 pb-12 overflow-hidden w-full">
+        
+        <!-- Video de Fundo com Overlay -->
+        <div class="absolute inset-0 z-0 w-full h-full">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-40">
+                <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/planilhaspackdigita%2FDesign%20sem%20nome%20(7).mp4?alt=media&token=d829fdd4-3cbc-4454-8e53-a7438c311c37" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/50 to-brand-dark"></div>
+        </div>
+
+        <div class="container mx-auto px-4 z-10 text-center relative flex flex-col justify-center h-full">
+            
+            <div class="mb-6">
+                <span class="inline-block bg-brand-orange/20 border border-brand-orange/50 text-brand-orange px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider animate-pulse">
+                    Organização, precisão e mais lucro
+                </span>
+            </div>
+            
+            <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
+                PLANILHAS AUTOMATIZADAS PARA <br>
+                <span class="text-gradient">CONSTRUÇÃO CIVIL</span>
+            </h1>
+            
+            <p class="text-sm sm:text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto font-light leading-relaxed px-2">
+                Se você trabalha com construção, reformas ou empreitadas, sabe que erros geram prejuízo. <br class="hidden md:block">
+                Desenvolvemos um sistema completo para <strong class="text-white">facilitar sua rotina e otimizar seus orçamentos.</strong>
+            </p>
+
+            <!-- Botão Full Width no mobile -->
+            <div class="w-full sm:w-auto px-4 sm:px-0 mb-6">
+                <a href="#oferta" class="btn-pulse flex items-center justify-center bg-brand-orange hover:bg-orange-600 text-white font-bold text-base sm:text-lg px-6 py-4 rounded-xl transition-all transform hover:-translate-y-1 shadow-lg shadow-orange-500/50 w-full sm:w-auto">
+                    QUERO MINHAS PLANILHAS AGORA
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-gray-400 mt-4">
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-1"></i> Compra Segura</span>
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-1"></i> Acesso Imediato</span>
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-1"></i> Garantia de 7 dias</span>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce-slow text-gray-500 opacity-70">
+            <i class="fas fa-chevron-down text-xl"></i>
+        </div>
+    </header>
+
+    <!-- Para Quem É (Target Audience) -->
+    <section class="py-12 sm:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10 reveal">
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-brand-dark">Para quem são essas planilhas?</h2>
+                <p class="text-gray-600 mt-2">Esse material foi feito sob medida para:</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition">
+                    <i class="fas fa-trowel text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Pedreiros</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-75">
+                    <i class="fas fa-hard-hat text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Mestres de Obras</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-100">
+                    <i class="fas fa-project-diagram text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Empreiteiros</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-150">
+                    <i class="fas fa-layer-group text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Azulejistas</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-200">
+                    <i class="fas fa-drafting-compass text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Engenheiros</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-250">
+                    <i class="fas fa-pencil-ruler text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Arquitetos</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-300">
+                    <i class="fas fa-ruler-combined text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Técnicos</h3>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-100 shadow-sm reveal hover:shadow-md transition delay-350">
+                    <i class="fas fa-user-tie text-brand-orange text-3xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base">Autônomos</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema vs Solução (Why you need this) -->
+    <section class="py-12 sm:py-16 bg-brand-gray text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                
+                <!-- A Dor (Problema) -->
+                <div class="reveal">
+                    <h2 class="text-2xl font-bold mb-6 text-red-400">Por que você precisa disso?</h2>
+                    <p class="text-gray-300 mb-6">Muitos profissionais <strong class="text-white">perdem dinheiro</strong> todos os meses por causa de:</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-300"><i class="fas fa-times text-red-500 mr-3 w-5"></i> Cálculos errados</li>
+                        <li class="flex items-center text-gray-300"><i class="fas fa-times text-red-500 mr-3 w-5"></i> Falta de organização</li>
+                        <li class="flex items-center text-gray-300"><i class="fas fa-times text-red-500 mr-3 w-5"></i> Desperdício de material</li>
+                        <li class="flex items-center text-gray-300"><i class="fas fa-times text-red-500 mr-3 w-5"></i> Orçamentos mal feitos</li>
+                        <li class="flex items-center text-gray-300"><i class="fas fa-times text-red-500 mr-3 w-5"></i> Falta de controle financeiro</li>
+                    </ul>
+                </div>
+
+                <!-- A Solução (Benefícios) -->
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 reveal shadow-xl">
+                    <h2 class="text-2xl font-bold mb-6 text-green-400">O que você vai conseguir?</h2>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 w-5"></i> <span>Cálculo automático de materiais</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 w-5"></i> <span>Orçamentos prontos em minutos</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 w-5"></i> <span>Redução de desperdícios</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 w-5"></i> <span>Mais credibilidade com o cliente</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 w-5"></i> <span class="font-bold text-brand-orange">Mais lucro em cada projeto</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold mb-8 text-brand-dark reveal">Como Funciona?</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border-l-4 border-brand-orange reveal">
+                <i class="fas fa-laptop-code text-5xl text-brand-orange mb-6"></i>
+                <p class="text-gray-700 text-lg mb-4">
+                    Você recebe planilhas prontas e automatizadas. Basta <strong>inserir as medidas e informações básicas</strong>, e o sistema faz todos os cálculos automaticamente.
+                </p>
+                <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg inline-block text-sm font-bold">
+                    <i class="fas fa-thumbs-up mr-2"></i> Mesmo sem experiência com Excel você consegue usar!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O que está incluso (Features) -->
+    <section class="py-16 bg-brand-dark text-white relative">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold">O que está incluso no pacote?</h2>
+                <p class="text-gray-400 mt-2">Tudo desenvolvido para a realidade da construção civil brasileira.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Item 1 -->
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-orange transition group reveal">
+                    <i class="fas fa-cubes text-brand-orange text-3xl mb-4 group-hover:scale-110 transition-transform block"></i>
+                    <h3 class="font-bold text-lg mb-2">Cálculo de Materiais</h3>
+                    <p class="text-gray-400 text-sm">Saiba exatamente quanto comprar de cada item, sem sobras exageradas.</p>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-orange transition group reveal">
+                    <i class="fas fa-file-invoice-dollar text-brand-orange text-3xl mb-4 group-hover:scale-110 transition-transform block"></i>
+                    <h3 class="font-bold text-lg mb-2">Orçamento Detalhado</h3>
+                    <p class="text-gray-400 text-sm">Apresente propostas profissionais e ganhe a confiança do cliente.</p>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-orange transition group reveal">
+                    <i class="fas fa-chart-line text-brand-orange text-3xl mb-4 group-hover:scale-110 transition-transform block"></i>
+                    <h3 class="font-bold text-lg mb-2">Controle de Custos</h3>
+                    <p class="text-gray-400 text-sm">Saiba para onde está indo cada centavo da obra.</p>
+                </div>
+                <!-- Item 4 -->
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-orange transition group reveal">
+                    <i class="fas fa-tasks text-brand-orange text-3xl mb-4 group-hover:scale-110 transition-transform block"></i>
+                    <h3 class="font-bold text-lg mb-2">Organização da Obra</h3>
+                    <p class="text-gray-400 text-sm">Planejamento de serviços e cronograma físico.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oferta Principal -->
+    <section id="oferta" class="py-12 sm:py-20 bg-pattern text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-dark via-transparent to-brand-dark opacity-90"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto bg-white/5 backdrop-blur-md border border-brand-orange/30 rounded-3xl overflow-hidden shadow-2xl reveal">
+                
+                <!-- Cabeçalho da Oferta -->
+                <div class="bg-gradient-to-r from-orange-600 to-orange-500 p-6 text-center">
+                    <h2 class="text-xl sm:text-2xl font-heading font-bold text-white uppercase tracking-wider">Oferta Especial por Tempo Limitado</h2>
+                </div>
+
+                <div class="p-8 text-center">
+                    <p class="text-gray-300 text-sm mb-4">Um investimento pequeno que pode gerar economia e lucro já na primeira obra.</p>
+                    
+                    <div class="mb-6">
+                        <p class="text-gray-400 text-lg decoration-red-500 decoration-2 line-through">De R$ 197,00</p>
+                        <div class="flex justify-center items-end text-white">
+                            <span class="text-xl font-bold mb-2 mr-2">Por apenas</span>
+                            <span class="text-6xl font-extrabold text-brand-orange">R$ 37</span>
+                            <span class="text-2xl font-bold mb-2 ml-1">,00</span>
+                        </div>
+                    </div>
+
+                    <a href="https://pay.kiwify.com.br/e61lFhO?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnOo8YxQDZtdLj1C6hGtmMpwYfUOQKC2fOgC7e375fg6SGE53LSmSNvksXV-8_aem_-43MMFnE5SMNtaSGWjvn8w" class="btn-pulse block w-full sm:max-w-md mx-auto bg-green-500 hover:bg-green-600 text-white font-bold text-xl py-4 rounded-xl transition transform hover:scale-105 shadow-lg shadow-green-500/30 mb-4">
+                        QUERO MINHAS PLANILHAS AGORA
+                    </a>
+
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-2 text-xs text-gray-400">
+                        <span><i class="fas fa-lock mr-1"></i> Acesso Imediato</span>
+                        <span class="hidden sm:inline">•</span>
+                        <span><i class="fas fa-shield-alt mr-1"></i> Compra 100% Segura</span>
+                    </div>
+
+                    <div class="mt-6 flex justify-center space-x-3 text-gray-500">
+                        <i class="fab fa-cc-visa text-2xl"></i>
+                        <i class="fab fa-cc-mastercard text-2xl"></i>
+                        <i class="fas fa-barcode text-2xl"></i>
+                        <i class="fab fa-pix text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (Perguntas Frequentes) -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-center mb-10 text-brand-dark">Perguntas Frequentes (FAQ)</h2>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition text-left font-bold text-gray-800" onclick="toggleFaq(this)">
+                        <span>1) Preciso saber Excel para usar?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300 text-brand-orange"></i>
+                    </button>
+                    <div class="faq-content bg-white">
+                        <div class="p-4 text-gray-600 text-sm">
+                            Não. As planilhas são simples, intuitivas e prontas para uso. Foram feitas pensadas em quem não tem conhecimento avançado.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition text-left font-bold text-gray-800" onclick="toggleFaq(this)">
+                        <span>2) Posso usar no celular?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300 text-brand-orange"></i>
+                    </button>
+                    <div class="faq-content bg-white">
+                        <div class="p-4 text-gray-600 text-sm">
+                            Sim, você pode visualizar e editar, mas recomendamos o uso de computador ou notebook para uma melhor experiência de visualização.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition text-left font-bold text-gray-800" onclick="toggleFaq(this)">
+                        <span>3) O acesso é imediato?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300 text-brand-orange"></i>
+                    </button>
+                    <div class="faq-content bg-white">
+                        <div class="p-4 text-gray-600 text-sm">
+                            Sim. Após a confirmação do pagamento, você recebe o material no seu e-mail na hora.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition text-left font-bold text-gray-800" onclick="toggleFaq(this)">
+                        <span>4) Posso usar em quantas obras quiser?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300 text-brand-orange"></i>
+                    </button>
+                    <div class="faq-content bg-white">
+                        <div class="p-4 text-gray-600 text-sm">
+                            Sim. O acesso é vitalício e você pode utilizar em quantos projetos desejar.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition text-left font-bold text-gray-800" onclick="toggleFaq(this)">
+                        <span>5) Posso imprimir?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300 text-brand-orange"></i>
+                    </button>
+                    <div class="faq-content bg-white">
+                        <div class="p-4 text-gray-600 text-sm">
+                            Sim. As planilhas são configuradas para permitir impressão de orçamentos e relatórios.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia -->
+    <section class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto flex flex-col items-center text-center gap-4 reveal">
+                <div class="w-24 h-24 flex-shrink-0 relative flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-6xl text-brand-orange"></i>
+                    <div class="absolute -bottom-2 bg-brand-dark text-white text-xs px-2 py-1 rounded font-bold">7 DIAS</div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">GARANTIA TOTAL</h3>
+                    <p class="text-sm text-gray-600">
+                        Você tem 7 dias de garantia. Se por qualquer motivo não gostar do material, devolvemos 100% do seu dinheiro, sem burocracia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-gray-400 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-6 flex justify-center items-center">
+                <i class="fas fa-hard-hat text-brand-orange text-xl mr-2"></i>
+                <span class="text-white font-bold text-lg">Planilhas Pack Digital</span>
+            </div>
+            <p class="mb-6 text-xs sm:text-sm max-w-xs mx-auto">Profissionalize sua forma de trabalhar agora mesmo.</p>
+            <div class="flex justify-center items-center space-x-6 mb-8">
+                <a href="https://www.instagram.com/planilhaspackdigital.oficial/" target="_blank" class="hover:text-brand-orange transition flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <i class="fab fa-instagram text-xl text-brand-orange"></i>
+                    <span class="font-semibold text-sm">Siga no Instagram</span>
+                </a>
+            </div>
+            <p class="text-[10px] sm:text-xs text-gray-500">&copy; 2024 Planilhas Pack Digital. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Widget (Hidden by default) -->
+    <div id="whatsapp-widget" class="fixed bottom-24 right-6 z-50 w-80 bg-white rounded-2xl shadow-2xl transform transition-all duration-300 origin-bottom-right scale-0 opacity-0 hidden font-sans">
+        <!-- Header -->
+        <div class="bg-green-600 p-4 rounded-t-2xl flex items-center text-white">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 relative">
+                 <i class="fas fa-headset text-xl"></i>
+                 <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-green-600 rounded-full"></div>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm">Suporte Pack Digital</h3>
+                <p class="text-xs text-green-100">Online agora</p>
+            </div>
+            <button onclick="toggleChat()" class="ml-auto text-white/80 hover:text-white transition">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        
+        <!-- Body -->
+        <div class="p-4 chat-bg h-80 overflow-y-auto">
+            <div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm text-gray-700 relative mb-2 max-w-[95%]">
+                <p class="mb-2">Olá! Tudo bem? 😊 Seja muito bem-vindo(a)!</p>
+                <p class="mb-2">Parabéns pelo seu interesse nas planilhas automatizadas exclusivas para a construção civil, ideais para cálculos de materiais, orçamentos profissionais e controle de custos da obra.</p>
+                <p class="mb-2 font-bold text-brand-orange bg-orange-50 p-2 rounded border border-orange-100">🔥 Promoção especial: de R$197 por apenas R$37</p>
+                <p class="mb-2">Ficou alguma dúvida para efetuar a compra? Estou à disposição para te ajudar!</p>
+                <p>Caso já tenha realizado a compra, muito obrigado pela confiança! 👷‍♂️📊</p>
+                <div class="flex justify-end mt-1">
+                    <span class="text-[10px] text-gray-400">Agora</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-3 bg-white rounded-b-2xl border-t">
+            <a href="https://wa.me/5541997456074" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-full font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-green-500/30 transform hover:-translate-y-0.5">
+                <i class="fab fa-whatsapp text-lg"></i> Iniciar Conversa
+            </a>
+        </div>
+    </div>
+
+    <!-- Trigger Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center animate-bounce-slow" aria-label="Abrir chat">
+        <i class="fab fa-whatsapp text-3xl"></i>
+        <!-- Notificação Vermelha -->
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white animate-pulse">1</span>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Animação ao Rolar
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 50;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+        });
+
+        // Lógica do FAQ
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Fecha todos
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+            });
+
+            // Abre o clicado se não estava aberto
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Lógica do Widget de Chat
+        function toggleChat() {
+            const widget = document.getElementById('whatsapp-widget');
+            if (widget.classList.contains('hidden')) {
+                widget.classList.remove('hidden');
+                // Pequeno delay para permitir que o display:block seja aplicado antes da transição de opacidade
+                setTimeout(() => {
+                    widget.classList.remove('scale-0', 'opacity-0');
+                }, 10);
+            } else {
+                widget.classList.add('scale-0', 'opacity-0');
+                setTimeout(() => {
+                    widget.classList.add('hidden');
+                }, 300); // Espera a animação terminar para esconder
+            }
+        }
+    </script>
+</body>
+</html>

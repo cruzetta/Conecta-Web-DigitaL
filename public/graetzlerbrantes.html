@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Graetzler & Brantes | Psicanálise e Psicoterapia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'clinic-primary': '#A68A7C',   // Terracota suave (mais feminino)
+                        'clinic-dark': '#4A403A',      // Marrom café profundo (substitui o preto)
+                        'clinic-accent': '#D4AF37',    // Dourado Clássico
+                        'clinic-bg': '#FDFBF7',        // Off-white quente
+                        'clinic-surface': '#FFFFFF',
+                        'clinic-soft': '#F5F0EB',      // Bege muito claro para seções
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(74, 64, 58, 0.4), rgba(74, 64, 58, 0.8));
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-on-scroll { opacity: 0; }
+    </style>
+</head>
+<body class="bg-clinic-bg text-stone-600 antialiased selection:bg-clinic-primary selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-stone-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-medium text-clinic-dark tracking-wide flex items-center gap-2">
+                <span class="w-8 h-8 bg-clinic-primary rounded-full flex items-center justify-center text-white text-sm italic font-serif">G</span>
+                Graetzler & Brantes
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-500">
+                <a href="#sobre" class="hover:text-clinic-primary transition-colors">Especialistas</a>
+                <a href="#especialidades" class="hover:text-clinic-primary transition-colors">Atuação</a>
+                <a href="#abordagem" class="hover:text-clinic-primary transition-colors">A Clínica</a>
+                <a href="#contato" class="px-6 py-2.5 bg-clinic-primary text-white rounded-full hover:bg-clinic-dark transition-all duration-300 shadow-md">Agendar Sessão</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-clinic-dark focus:outline-none p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-6 flex flex-col space-y-4 shadow-xl absolute w-full">
+            <a href="#sobre" class="block text-lg text-stone-600 hover:text-clinic-primary">Especialistas</a>
+            <a href="#especialidades" class="block text-lg text-stone-600 hover:text-clinic-primary">Atuação</a>
+            <a href="#abordagem" class="block text-lg text-stone-600 hover:text-clinic-primary">A Clínica</a>
+            <hr class="border-stone-100">
+            <a href="#contato" class="block text-clinic-primary font-bold text-lg">Agendar Agora</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Capa Original Restaurada) -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Imagem de Fundo -->
+        <div class="absolute inset-0 z-0 w-full h-full">
+            <!-- Mobile Image -->
+            <img 
+                src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2014.59.39.jpeg?alt=media&token=4bb61743-38d3-4af7-8a8d-765ea05d7d26" 
+                alt="Consultório Terapêutico Mobile" 
+                class="block md:hidden w-full h-full object-cover"
+            >
+            <!-- Desktop Image -->
+            <img 
+                src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2010.19.30.jpeg?alt=media&token=d156b447-43e0-44fd-b1d3-102967f1e616" 
+                alt="Consultório Terapêutico Desktop" 
+                class="hidden md:block w-full h-full object-cover scale-105"
+            >
+            <div class="absolute inset-0 hero-overlay mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center text-white mt-16">
+            <div class="inline-block mb-6 px-4 py-1.5 border border-white/30 rounded-full bg-white/10 backdrop-blur-sm animate-[fadeIn_1s_ease-out_forwards]">
+                <span class="text-clinic-accent font-semibold tracking-widest text-xs uppercase">Psicanálise Clínica</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-serif font-medium mb-8 leading-tight animate-[fadeIn_1s_ease-out_0.2s_forwards] opacity-0 drop-shadow-lg">
+                Um espaço de escuta <br class="hidden md:block" />
+                <span class="italic text-clinic-accent font-light">singular</span> e acolhimento.
+            </h1>
+            
+            <p class="text-lg md:text-xl text-stone-200 mb-12 max-w-2xl mx-auto font-light leading-relaxed animate-[fadeIn_1s_ease-out_0.4s_forwards] opacity-0">
+                Atendimento especializado para mulheres, casais e famílias. Onde a ética se une à sensibilidade humana.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-5 animate-[fadeIn_1s_ease-out_0.6s_forwards] opacity-0">
+                <a href="#contato" class="px-8 py-4 bg-clinic-primary text-white rounded-full hover:bg-white hover:text-clinic-dark transition-all duration-300 shadow-lg font-medium min-w-[180px]">
+                    Agendar Horário
+                </a>
+                <a href="#sobre" class="px-8 py-4 bg-transparent border border-white/40 text-white rounded-full hover:bg-white/10 hover:border-white transition-all duration-300 backdrop-blur-sm min-w-[180px]">
+                    Conhecer a Equipe
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nossos Especialistas (Dra. Magda Primeiro) -->
+    <section id="sobre" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-serif text-clinic-dark mb-6">Corpo Clínico</h2>
+                <p class="max-w-2xl mx-auto text-stone-500 text-lg font-light">
+                    Unimos a tradição psicanalítica à sensibilidade necessária para tratar as questões contemporâneas.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-24 items-start">
+                
+                <!-- Dra. Magda (PRIMEIRO) -->
+                <div class="group">
+                    <div class="relative mb-8">
+                        <div class="aspect-[4/5] rounded-t-[100px] rounded-b-lg overflow-hidden shadow-2xl bg-stone-100 border-b-4 border-clinic-primary">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2010.19.309.jpeg?alt=media&token=7329655e-be82-4196-85e1-28beb00e31c4" alt="Dra. Magda Graetzler" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                    </div>
+                    <h3 class="text-3xl font-serif text-clinic-dark mb-2">Dra. Magda Graetzler</h3>
+                    <p class="text-clinic-primary font-medium uppercase tracking-wider text-xs mb-4">Psicanalista Clínica, palestrante bacharel em direito da saúde e graduando em neuropsicóloga</p>
+                    <p class="text-stone-600 leading-relaxed mb-4 font-light">
+                        Dedicada ao universo feminino e às dinâmicas conjugais. Seu trabalho foca na reconstrução da identidade, autoestima e elaboração de traumas. Uma escuta que acolhe e transforma.
+                    </p>
+                    <ul class="space-y-2 text-sm text-stone-500 mt-4">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-clinic-primary rounded-full mr-2"></span>Membro da SOBRAPPSI</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-clinic-primary rounded-full mr-2"></span>Especialista em Terapia de Casal</li>
+                    </ul>
+                </div>
+
+                <!-- Dr. Samuel (SEGUNDO - Com margem superior para desalinhamento estético) -->
+                <div class="group md:mt-24">
+                    <div class="relative mb-8">
+                        <div class="aspect-[4/5] rounded-t-[100px] rounded-b-lg overflow-hidden shadow-2xl bg-stone-100 border-b-4 border-stone-400">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-15%20at%2020.50.37.jpeg?alt=media&token=deb66ce5-98b5-4639-9854-95db4caf6953" alt="Dr. Samuel Brantes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+                    </div>
+                    <h3 class="text-3xl font-serif text-clinic-dark mb-2">Dr. Samuel Brantes</h3>
+                    <p class="text-stone-500 font-medium uppercase tracking-wider text-xs mb-4">PSICANALISTA CLÍNICO, PALESTRANTE, DIRETOR E GRADUANDO EM JORNALISMO</p>
+                    <p class="text-stone-600 leading-relaxed mb-4 font-light">
+                        Especialista em conflitos familiares e bloqueios emocionais. Atua com foco nas questões do masculino e no desenvolvimento emocional de adultos e crianças.
+                    </p>
+                    <ul class="space-y-2 text-sm text-stone-500 mt-4">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-stone-400 rounded-full mr-2"></span>Membro da SOBRAPPSI</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-stone-400 rounded-full mr-2"></span>Formação pela PUC</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Áreas de Atuação (Estilo Suave/Feminino) -->
+    <section id="especialidades" class="py-24 bg-clinic-soft relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-clinic-primary font-semibold tracking-wider text-sm uppercase block mb-3">Nossa Prática</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-clinic-dark mb-2">Áreas de Atuação</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 group">
+                    <div class="w-12 h-12 mb-6 text-clinic-primary bg-clinic-soft rounded-full flex items-center justify-center group-hover:bg-clinic-primary group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3 text-clinic-dark">Saúde da Mulher</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed mb-4 font-light">
+                        Espaço para reconstrução da identidade, autoestima e elaboração de questões íntimas.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 group">
+                    <div class="w-12 h-12 mb-6 text-clinic-primary bg-clinic-soft rounded-full flex items-center justify-center group-hover:bg-clinic-primary group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3 text-clinic-dark">Terapia de Casal</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed mb-4 font-light">
+                        Mediação de conflitos e identificação de padrões para restabelecer o diálogo afetivo.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 group">
+                    <div class="w-12 h-12 mb-6 text-clinic-primary bg-clinic-soft rounded-full flex items-center justify-center group-hover:bg-clinic-primary group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3 text-clinic-dark">Saúde Masculina</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed mb-4 font-light">
+                        Tratamento de pressões sociais, silêncio emocional e questões de virilidade.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 group">
+                    <div class="w-12 h-12 mb-6 text-clinic-primary bg-clinic-soft rounded-full flex items-center justify-center group-hover:bg-clinic-primary group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3 text-clinic-dark">Adolescentes</h3>
+                    <p class="text-stone-500 text-sm leading-relaxed mb-4 font-light">
+                        Suporte nas crises de identidade, ansiedade e desenvolvimento escolar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossa Filosofia (IMAGEM RESTAURADA) -->
+    <section id="abordagem" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Imagem Restaurada -->
+                <div class="relative order-2 lg:order-1">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-clinic-soft rounded-full -z-10"></div>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2010.19.31.jpeg?alt=media&token=d7b38b33-e65d-4ebd-99c3-75a964c5ddbf" alt="Ambiente da Clínica - Detalhe" class="rounded-lg shadow-2xl w-full transform hover:scale-[1.02] transition-transform duration-500">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 shadow-xl rounded-lg border-l-4 border-clinic-primary max-w-xs hidden md:block">
+                        <p class="text-sm text-stone-600 italic font-serif">"Onde a verdade encontra espaço para surgir."</p>
+                    </div>
+                </div>
+                
+                <!-- Texto Filosofia -->
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-4xl font-serif text-clinic-dark mb-6">Filosofia Clínica</h2>
+                    <p class="text-stone-600 mb-6 leading-loose font-light text-lg">
+                        Acreditamos que a terapia é um ambiente protegido, onde você pode sustentar suas questões internas com segurança. 
+                        Unimos <strong class="text-clinic-primary font-medium">ciência e método</strong> à sabedoria que sustenta valores humanos.
+                    </p>
+                    <p class="text-stone-600 mb-8 leading-loose font-light text-lg">
+                        Não tratamos apenas sintomas; acolhemos a pessoa em sua totalidade, respeitando o tempo e a história de cada um. 
+                    </p>
+                    <div class="p-6 bg-clinic-soft rounded-xl border border-clinic-primary/20">
+                        <p class="italic text-stone-700 font-serif text-xl">"Ao tocar uma alma humana, é preciso ser outra alma humana."</p>
+                        <footer class="text-xs font-bold text-clinic-primary uppercase tracking-widest mt-4">— Carl Gustav Jung</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVO: Seção do Ambiente (Colagem Criativa) -->
+    <section class="py-24 bg-clinic-bg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Texto Ambiente -->
+                <div>
+                    <span class="text-clinic-primary font-semibold tracking-wider text-sm uppercase block mb-3">O Consultório</span>
+                    <h2 class="text-4xl font-serif text-clinic-dark mb-6">Um Refúgio de Calma</h2>
+                    <p class="text-stone-600 mb-6 leading-loose font-light text-lg">
+                        O ambiente físico também faz parte do processo de cura. Cada detalhe do nosso consultório foi pensado para oferecer conforto, discrição e acolhimento.
+                    </p>
+                    <p class="text-stone-600 mb-8 leading-loose font-light text-lg">
+                        Um espaço onde o ruído do mundo lá fora silencia, permitindo que você ouça a sua própria voz.
+                    </p>
+                </div>
+
+                <!-- Colagem Criativa das Novas Fotos -->
+                <div class="relative h-[450px] sm:h-[500px] w-full">
+                    <!-- Fundo Decorativo -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-white rounded-full -z-10 opacity-60 filter blur-3xl"></div>
+                    
+                    <!-- Imagem 1 (Fundo) -->
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2014.49.00.jpeg?alt=media&token=8769c937-62b0-40e2-b29f-6fde89fa518b" 
+                        alt="Detalhe do Ambiente" 
+                        class="absolute top-0 right-4 w-3/5 h-3/5 object-cover rounded-sm shadow-xl z-0 transform rotate-3 hover:rotate-0 transition-transform duration-700"
+                    >
+                    
+                    <!-- Imagem 2 (Frente) -->
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/clinica%20analitica%2FWhatsApp%20Image%202026-02-16%20at%2014.49.00%20(1).jpeg?alt=media&token=0b8bda1d-a8b9-413c-b731-3cc8a0de5f2e" 
+                        alt="Espaço Terapêutico" 
+                        class="absolute bottom-8 left-4 w-3/5 h-3/5 object-cover rounded-sm shadow-2xl border-8 border-white z-10 transform -rotate-3 hover:rotate-0 transition-transform duration-700"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Agendamento -->
+    <section class="py-20 bg-clinic-dark text-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-clinic-primary rounded-full mix-blend-overlay filter blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-serif mb-6">Pronta para dar o primeiro passo?</h2>
+            
+            <p class="mb-6 text-stone-300 text-lg font-light max-w-2xl mx-auto">
+                Você não precisa atravessar suas dores sozinho. Inicie seu processo terapêutico com profissionais experientes.
+            </p>
+
+            <!-- Novo Texto de Conforto -->
+            <div class="mb-10 inline-block relative">
+                <span class="absolute -inset-1 rounded-lg bg-gradient-to-r from-clinic-primary to-clinic-accent opacity-20 blur"></span>
+                <p class="relative text-white/90 text-lg font-serif italic px-4 py-2">
+                    "Pensando no seu total conforto e bem-estar, disponibilizamos a opção de atendimento com profissional homem ou mulher."
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://wa.me/5534999822117" target="_blank" class="px-8 py-4 bg-clinic-primary hover:bg-white hover:text-clinic-dark text-white font-semibold rounded-full transition-all duration-300 shadow-lg border border-transparent hover:border-clinic-primary">
+                    Falar com Dra. Magda
+                </a>
+                <a href="https://wa.me/5534984418232" target="_blank" class="px-8 py-4 bg-stone-600 hover:bg-white hover:text-clinic-dark text-white font-semibold rounded-full transition-all duration-300 shadow-lg border border-transparent hover:border-stone-600">
+                    Falar com Dr. Samuel
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-white border-t border-stone-100 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-12 text-stone-600">
+            <div class="col-span-1 lg:col-span-2">
+                <a href="#" class="text-3xl font-serif text-clinic-dark tracking-tight block mb-6">
+                    Graetzler & Brantes<span class="text-clinic-primary">.</span>
+                </a>
+                <p class="max-w-sm text-stone-500 leading-relaxed font-light">
+                    Clínica Analítica e Psicoterapêutica. Um refúgio ético para a saúde mental, fundamentado na psicanálise e no respeito à subjetividade humana.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-clinic-dark font-bold uppercase tracking-widest mb-6 text-xs">Contatos</h4>
+                <ul class="space-y-3 font-light text-sm">
+                    <li><strong class="text-clinic-primary">Dra. Magda:</strong> (34) 9 9982-2117</li>
+                    <li><strong class="text-stone-500">Dr. Samuel:</strong> (34) 98441-8232</li>
+                    <li class="pt-2">@psimagdagraetzler</li>
+                    <li>@samuelbrantes.psi</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-clinic-dark font-bold uppercase tracking-widest mb-6 text-xs">Endereços</h4>
+                <address class="not-italic font-light text-stone-500 text-sm space-y-4">
+                    <div>
+                        <p class="font-medium text-stone-700">Uberlândia-MG</p>
+                        <p>Centro</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-stone-700">Uberaba-MG</p>
+                        <p>Jd. Maracanã</p>
+                    </div>
+                </address>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-stone-100 text-center text-xs text-stone-400 flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2026 Clínica Graetzler & Brantes. Todos os direitos reservados.</p>
+            <p class="mt-2 md:mt-0">Criado por Conecta Web Digital</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scripts básicos de interação
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+        
+        // Simple animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
