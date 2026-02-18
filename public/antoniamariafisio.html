@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonia Maria - Fisioterapia & Pilates</title>
+    <meta name="description" content="Fisioterapia e Pilates em Canarana/MT. Reabilitação, Geriatria e Qualidade de Vida com Dra. Antonia Maria.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração de Fontes e Cores baseadas na Logo -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-green': '#7da10e',   // Verde Limão (Logo)
+                        'brand-pink': '#c90076',    // Rosa Magenta (Logo)
+                        'brand-blue': '#2baae1',    // Azul Turquesa (Logo)
+                        'brand-dark': '#4a4a4a',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Estilos personalizados para suavidade extra */
+        body {
+            font-feature-settings: "cv11", "ss01";
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-slate-50 antialiased overflow-x-hidden">
+
+    <!-- Header / Navegação -->
+    <header class="fixed w-full glass-effect shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            
+            <!-- Logo Imagem (Maior) -->
+            <a href="#" class="flex items-center gap-3 group py-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/antoniafisio%2Fantoniamarialogo.jpeg?alt=media&token=4dcba661-febd-48b1-921a-6c585873d490" alt="Logo Antonia Maria" class="h-20 md:h-24 w-auto object-contain transition-transform transform group-hover:scale-105">
+            </a>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex space-x-8 items-center font-medium text-sm tracking-wide">
+                <a href="#inicio" class="text-gray-600 hover:text-brand-pink transition-colors relative group">
+                    Início
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-pink transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#sobre" class="text-gray-600 hover:text-brand-pink transition-colors relative group">
+                    A Profissional
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-pink transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#servicos" class="text-gray-600 hover:text-brand-pink transition-colors relative group">
+                    Especialidades
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-pink transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#contato" class="bg-brand-green text-white px-6 py-3 rounded-full hover:bg-lime-700 hover:shadow-lg hover:shadow-green-500/30 transition-all transform hover:-translate-y-0.5 font-semibold text-sm shadow-md">
+                    Agendar Consulta
+                </a>
+            </nav>
+
+            <!-- Botão Menu Mobile -->
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden text-brand-dark p-2 hover:bg-gray-100 rounded-lg transition">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 shadow-lg absolute w-full left-0 top-[100%] z-40">
+            <div class="flex flex-col space-y-4 text-center">
+                <a href="#inicio" class="block py-3 font-medium text-gray-700 hover:text-brand-pink hover:bg-pink-50 rounded-lg">Início</a>
+                <a href="#sobre" class="block py-3 font-medium text-gray-700 hover:text-brand-pink hover:bg-pink-50 rounded-lg">A Profissional</a>
+                <a href="#servicos" class="block py-3 font-medium text-gray-700 hover:text-brand-pink hover:bg-pink-50 rounded-lg">Especialidades</a>
+                <a href="#contato" class="block py-3 font-bold text-white bg-brand-green rounded-lg">Agendar Consulta</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Capa) com Fundo Animado -->
+    <section id="inicio" class="relative pt-36 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-screen lg:min-h-[850px] bg-gray-50">
+        
+        <!-- Fundo Animado Moderno (Blob Animation) -->
+        <div class="absolute inset-0 w-full h-full">
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-brand-blue rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-brand-green rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" style="animation-delay: 2s"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-brand-pink rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" style="animation-delay: 4s"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+            
+            <!-- Texto Hero -->
+            <div class="md:w-1/2 text-center md:text-left animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-sm font-bold text-brand-dark shadow-sm border border-gray-200 mb-6 hover:shadow-md transition-all cursor-default">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse"></span>
+                    Excelência em Fisioterapia
+                </div>
+                
+                <h2 class="text-4xl lg:text-6xl font-display font-bold text-gray-800 leading-[1.1] mb-6">
+                    Recupere seu bem-estar com <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-brand-blue">tratamento especializado</span>.
+                </h2>
+                
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0">
+                    Da reabilitação ortopédica ao Pilates clínico. Cuidado humanizado que respeita sua individualidade e potencializa sua recuperação.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contato" class="flex items-center justify-center gap-2 bg-brand-pink text-white px-8 py-4 rounded-full font-semibold hover:bg-pink-700 transition-all shadow-lg hover:shadow-pink-500/30 transform hover:-translate-y-1 text-lg">
+                        <i data-lucide="calendar" class="w-5 h-5"></i> Agendar Sessão
+                    </a>
+                    <a href="#servicos" class="flex items-center justify-center gap-2 bg-white text-brand-dark border border-gray-200 px-8 py-4 rounded-full font-semibold hover:border-brand-blue hover:text-brand-blue transition-all shadow-sm hover:shadow-md">
+                        Ver Tratamentos
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Imagem Decorativa Direita (Nova Imagem Moderna) -->
+            <div class="md:w-1/2 relative hidden md:block animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="relative w-full max-w-lg mx-auto">
+                    
+                    <!-- Elementos flutuantes -->
+                    <div class="absolute top-6 -right-6 w-auto bg-white/90 backdrop-blur px-5 py-4 rounded-2xl shadow-xl z-20 animate-float border-l-4 border-brand-green">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-green-100 p-2 rounded-full text-brand-green">
+                                <i data-lucide="activity" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold uppercase">Foco em</p>
+                                <p class="font-bold text-gray-800 text-lg">Reabilitação</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Imagem Principal (Studio Pilates Moderno) -->
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/antoniafisio%2Ffisioan.jpeg?alt=media&token=1685cc2f-4ddf-4dcc-b476-715c8bec8feb" alt="Studio de Pilates Moderno" class="w-full h-[550px] object-cover hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-6 left-6 text-white font-display font-bold text-xl pointer-events-none">
+                            Estrutura Completa
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre a Profissional (Nova Imagem: Foco no Toque/Trabalho) -->
+    <section id="sobre" class="py-24 bg-white relative">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Imagem (Foco no Trabalho Manual) -->
+                <div class="lg:w-1/2 relative reveal">
+                    <div class="relative z-10 group">
+                        <div class="absolute inset-0 bg-brand-blue rounded-3xl transform rotate-3 transition-transform group-hover:rotate-6"></div>
+                        <!-- Imagem de terapia manual/profissional -->
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/antoniafisio%2Fmr-lee-f4RBYsY2hxA-unsplash.jpg?alt=media&token=7a35dab3-63ad-43aa-97d2-375d213a76ba" alt="Fisioterapia Manual Especializada" class="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover border-4 border-white">
+                        
+                        <!-- Selo de Experiência -->
+                        <div class="absolute bottom-8 right-8 bg-white p-4 rounded-xl shadow-lg flex items-center gap-3 z-20">
+                            <div class="text-brand-pink font-bold text-3xl font-display">20+</div>
+                            <div class="text-xs font-semibold text-gray-500 uppercase leading-tight">Anos de<br>Experiência</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto -->
+                <div class="lg:w-1/2 reveal">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-12 h-[3px] bg-brand-green rounded-full"></span>
+                        <h3 class="text-brand-green font-bold uppercase tracking-wider text-sm">Trajetória Profissional</h3>
+                    </div>
+                    
+                    <h2 class="text-4xl font-display font-bold text-gray-800 mb-8 leading-tight">
+                        Compromisso com sua <span class="text-brand-blue">recuperação integral</span>.
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-600 leading-relaxed text-lg font-light text-justify">
+                        <p>
+                            A <strong>Dra. Antonia Maria</strong> é fisioterapeuta formada em 2006 pelo prestigiado <strong>Instituto Brasileiro de Medicina de Reabilitação (RJ)</strong>. Com uma carreira pautada na ética e na excelência técnica, atua fortemente na reabilitação ortopédica e no tratamento de lesões, sempre focando em resultados seguros e duradouros.
+                        </p>
+                        <p>
+                            Especialista em <strong>Geriatria e Gerontologia</strong>, dedica-se a promover autonomia e qualidade de vida para a terceira idade, oferecendo suporte tanto na clínica quanto em atendimento domiciliar personalizado.
+                        </p>
+                        <p>
+                            Sua qualificação inclui vasta experiência em <strong>fisioterapia respiratória</strong>, pós-graduação em Docência e formação técnica em enfermagem, garantindo um olhar clínico abrangente e cuidadoso para cada paciente.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <span class="text-brand-pink font-bold text-lg"><i data-lucide="check-circle-2" class="inline w-5 h-5 mb-1"></i> Formação RJ</span>
+                            <span class="text-sm text-gray-500">Instituto Brasileiro de Medicina de Reabilitação</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-brand-blue font-bold text-lg"><i data-lucide="check-circle-2" class="inline w-5 h-5 mb-1"></i> Multidisciplinar</span>
+                            <span class="text-sm text-gray-500">Físio, Docência e Enfermagem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços / Especialidades -->
+    <section id="servicos" class="py-24 bg-gray-50 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-gray-800 mb-6">Nossas Especialidades</h2>
+                <p class="text-gray-600 text-lg">Utilizamos técnicas modernas e equipamentos adequados para proporcionar o melhor tratamento para sua necessidade.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-brand-green group reveal">
+                    <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green group-hover:text-white transition-colors">
+                        <i data-lucide="bone" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Traumato-Ortopedia</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Pós-operatório e tratamento de dores agudas e crônicas com terapias manuais e exercícios.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-brand-blue group reveal" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-brand-blue mb-6 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <i data-lucide="move" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Studio de Pilates</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Método completo para ganho de força, flexibilidade, consciência corporal e correção postural.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-brand-pink group reveal" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-pink-50 rounded-xl flex items-center justify-center text-brand-pink mb-6 group-hover:bg-brand-pink group-hover:text-white transition-colors">
+                        <i data-lucide="heart-handshake" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Geriatria</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Atendimento humanizado focado na autonomia e bem-estar do idoso (Domiciliar e Clínico).</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-brand-green group reveal" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green group-hover:text-white transition-colors">
+                        <i data-lucide="wind" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Físio Respiratória</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Exercícios e manobras para melhorar a capacidade pulmonar e a higiene brônquica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Missão -->
+    <section class="py-24 relative bg-gradient-to-br from-brand-blue to-cyan-600 overflow-hidden">
+        <!-- Partículas decorativas -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="container mx-auto px-4 text-center relative z-10 reveal">
+            <i data-lucide="quote" class="w-16 h-16 text-white/30 mb-8 mx-auto"></i>
+            <h2 class="text-2xl md:text-4xl font-display font-medium text-white leading-relaxed max-w-5xl mx-auto italic">
+                "Nossa missão é reabilitar, cuidar e promover qualidade de vida, respeitando a individualidade de cada pessoa."
+            </h2>
+            <div class="mt-8 w-16 h-1 bg-white/40 mx-auto rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Localização e Contato -->
+    <section id="contato" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8 reveal">
+                
+                <!-- Informações -->
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <h4 class="text-brand-green font-bold uppercase tracking-wider text-sm mb-2">Agende sua avaliação</h4>
+                    <h2 class="text-4xl font-display font-bold text-gray-800 mb-8">Entre em contato</h2>
+                    <p class="text-gray-600 mb-10 text-lg">Estamos prontos para atender você com o carinho e a atenção que sua saúde merece.</p>
+                    
+                    <div class="space-y-6">
+                        <!-- Card Contato -->
+                        <a href="https://wa.me/556699268882" class="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 hover:bg-green-50 transition-colors border border-gray-100 group">
+                            <div class="bg-white p-4 rounded-full text-brand-green shadow-sm group-hover:bg-brand-green group-hover:text-white transition-colors">
+                                <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg">WhatsApp</h4>
+                                <p class="text-gray-600 font-medium">(66) 9926-8882</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-5 h-5 ml-auto text-gray-300 group-hover:text-brand-green transition-colors"></i>
+                        </a>
+
+                        <!-- Card Instagram -->
+                        <a href="https://www.instagram.com/antoniamariafisioterapia" target="_blank" class="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 hover:bg-pink-50 transition-colors border border-gray-100 group">
+                            <div class="bg-white p-4 rounded-full text-brand-pink shadow-sm group-hover:bg-brand-pink group-hover:text-white transition-colors">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg">Instagram</h4>
+                                <p class="text-gray-600 font-medium">@antoniamariafisioterapia</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-5 h-5 ml-auto text-gray-300 group-hover:text-brand-pink transition-colors"></i>
+                        </a>
+
+                        <!-- Endereço -->
+                        <div class="flex items-start gap-6 p-6 rounded-2xl bg-gray-50 border border-gray-100">
+                            <div class="bg-white p-4 rounded-full text-brand-blue shadow-sm">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg mb-1">Localização</h4>
+                                <p class="text-gray-600">Avenida Santa Catarina, nº 42 – Centro</p>
+                                <p class="text-sm text-brand-blue font-semibold mt-1">Em frente ao Hotel Tangará – Canarana/MT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="md:w-1/2 min-h-[500px] bg-gray-200 rounded-[2.5rem] overflow-hidden relative group shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1774&auto=format&fit=crop" alt="Mapa Location" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Santa+Catarina+42+Canarana+MT" target="_blank" class="bg-white text-gray-800 px-8 py-4 rounded-full font-bold shadow-2xl hover:bg-brand-blue hover:text-white transition-all flex items-center gap-3 transform hover:scale-105">
+                            <i data-lucide="map"></i> Ver no Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-8 border-brand-green">
+        <div class="container mx-auto px-4 text-center">
+            
+            <div class="mb-8 flex justify-center">
+                <!-- Logo Arredondada (Circular) -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/antoniafisio%2Fantoniamarialogo.jpeg?alt=media&token=4dcba661-febd-48b1-921a-6c585873d490" alt="Logo Rodapé" class="h-20 w-20 object-cover rounded-full border-2 border-white/20 opacity-90 brightness-200 grayscale hover:grayscale-0 transition-all shadow-lg">
+            </div>
+
+            <p class="text-gray-400 mb-8 max-w-md mx-auto">Reabilitação, prevenção e qualidade de vida. Sua saúde em mãos especializadas.</p>
+            
+            <div class="flex justify-center gap-6 mb-10">
+                <a href="https://www.instagram.com/antoniamariafisioterapia" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-brand-pink hover:text-white transition-all transform hover:-translate-y-1">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                </a>
+                <a href="https://wa.me/556699268882" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-green-500 hover:text-white transition-all transform hover:-translate-y-1">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                </a>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
+                <div class="text-left">
+                    <p>&copy; 2026 Antonia Maria Fisioterapia. Todos os direitos reservados.</p>
+                    <p class="mt-1">Canarana - Mato Grosso</p>
+                </div>
+                
+                <!-- Créditos Conecta Web Digital -->
+                <div class="text-right">
+                    <a href="https://conecta-web-digital.web.app/" target="_blank" class="text-brand-green hover:text-brand-blue hover:underline transition-colors font-medium">
+                        Criado por Conecta Web Digital
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/556699268882" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-green-600 text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.5)] transition-transform hover:scale-110 flex items-center justify-center animate-bounce-slow group">
+        <span class="absolute right-full mr-3 bg-white text-gray-800 px-3 py-1 rounded-lg text-xs font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Agendar Agora</span>
+        <i data-lucide="message-circle" class="w-7 h-7 fill-current"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Animação ao rolar
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkScroll() {
+            const triggerBottom = window.innerHeight * 0.85;
+
+            revealElements.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) {
+                    box.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+    </script>
+</body>
+</html>
