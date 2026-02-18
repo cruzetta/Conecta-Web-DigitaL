@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Mauro Sérgio Mota de Souza | Advocacia Especializada</title>
+    <meta name="description" content="Advogado especialista em Direito do Consumidor, Bancário e Família. Referência em Goiás e ex-PROCON. Defesa técnica e humanizada.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Configuração de Cores Personalizadas (Tailwind) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            dark: '#0F172A', // Slate 900
+                            navy: '#1E293B', // Slate 800
+                            light: '#F8FAFC',
+                            accent: '#B8860B'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animações e Estilos Personalizados */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+        }
+
+        /* Classes para animação de scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover nos cards */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Personalização do scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 antialiased bg-gray-50">
+
+    <!-- Navegação -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-brand-dark/95 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-wide flex items-center gap-2">
+                <i class="fa-solid fa-scale-balanced text-brand-gold"></i>
+                <span>Dr. Mauro Sérgio</span>
+            </a>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 items-center font-medium text-sm tracking-wider">
+                <a href="#inicio" class="hover:text-brand-gold transition-colors">INÍCIO</a>
+                <a href="#sobre" class="hover:text-brand-gold transition-colors">SOBRE</a>
+                <a href="#atuacao" class="hover:text-brand-gold transition-colors">ÁREAS DE ATUAÇÃO</a>
+                <a href="#palestras" class="hover:text-brand-gold transition-colors">PALESTRAS</a>
+                <a href="#contato" class="bg-brand-gold text-brand-dark px-5 py-2 rounded hover:bg-white hover:text-brand-dark transition-all duration-300 font-bold">
+                    AGENDAR CONSULTA
+                </a>
+            </div>
+
+            <!-- Botão Menu Mobile -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-brand-gold focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-gray-800">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#inicio" class="mobile-link hover:text-brand-gold">Início</a>
+                <a href="#sobre" class="mobile-link hover:text-brand-gold">Sobre</a>
+                <a href="#atuacao" class="mobile-link hover:text-brand-gold">Áreas de Atuação</a>
+                <a href="#palestras" class="mobile-link hover:text-brand-gold">Palestras</a>
+                <a href="#contato" class="text-brand-gold font-bold">Agendar Consulta</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-900">
+        
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="https://firebasestorage.googleapis.com/v0/b/platamais.firebasestorage.app/o/advogado%20modelo%2Fbon%C3%A9%20(1).mp4?alt=media&token=bcb78cc0-ce1a-4df1-8933-3ac47268110d" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+        </video>
+
+        <!-- Overlay Escuro para Legibilidade -->
+        <div class="absolute inset-0 bg-brand-dark/80 z-0"></div>
+
+        <div class="container mx-auto px-6 text-center text-white z-10 relative">
+            <div class="reveal">
+                <span class="block text-brand-gold font-bold tracking-[0.2em] mb-4 text-sm md:text-base uppercase">Advocacia & Consultoria Jurídica</span>
+                <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                    Equilíbrio, Justiça e <br> Dignidade Humana
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 font-light">
+                    Referência consolidada na defesa dos direitos do consumidor. 
+                    Atuação estratégica, ética e combativa para transformar realidades e restaurar direitos.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#contato" class="bg-brand-gold text-brand-dark px-8 py-4 rounded font-bold hover:bg-white transition-all shadow-lg text-center">
+                        Fale com o Especialista
+                    </a>
+                    <a href="#sobre" class="border border-white text-white px-8 py-4 rounded font-bold hover:bg-white hover:text-brand-dark transition-all text-center">
+                        Conheça o Dr. Mauro
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50 z-10">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Imagem/Perfil -->
+                <div class="w-full lg:w-1/2 relative reveal">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-gold/20 z-0"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-brand-dark/10 z-0"></div>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/adv%20mauro%20sergio%2FWhatsApp%20Image%202026-02-17%20at%2019.16.55.jpeg?alt=media&token=fd39f2a0-782c-44f7-9a62-dccfb2ebbf3d" 
+                         alt="Dr. Mauro Sérgio em seu escritório" 
+                         class="relative z-10 rounded-lg shadow-2xl w-full object-cover h-[500px] hover:scale-[1.01] transition-all duration-500">
+                    
+                    <!-- Card Flutuante de Experiência -->
+                    <div class="absolute bottom-10 -left-4 md:-left-10 bg-brand-dark text-white p-6 rounded shadow-xl z-20 max-w-xs border-l-4 border-brand-gold hidden md:block">
+                        <p class="text-brand-gold font-serif text-3xl font-bold mb-1">Ex-PROCON</p>
+                        <p class="text-sm text-gray-300">Liderança em fiscalizações e mediações de alta complexidade.</p>
+                    </div>
+                </div>
+
+                <!-- Conteúdo Textual -->
+                <div class="w-full lg:w-1/2 reveal delay-100">
+                    <h2 class="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2">Sobre o Advogado</h2>
+                    <h3 class="font-serif text-4xl text-brand-dark font-bold mb-6">Dr. Mauro Sérgio Mota de Souza</h3>
+                    
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Advogado, palestrante e referência consolidada na defesa dos direitos do consumidor no Brasil. Com uma trajetória marcada pela firmeza técnica e profundo compromisso social, Dr. Mauro Sérgio construiu sua carreira pautado na convicção de que o Direito é instrumento de equilíbrio.
+                    </p>
+                    
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Sua experiência prática foi fortalecida pelo período em que esteve à frente do <strong>PROCON</strong>, onde enfrentou grandes fornecedores e concessionárias com postura técnica, ética e resolutiva.
+                    </p>
+
+                    <blockquote class="border-l-4 border-brand-gold pl-4 italic text-brand-dark font-serif text-lg mb-8">
+                        "Informação, coragem e preparo técnico são as ferramentas mais poderosas para transformar realidades e restaurar direitos."
+                    </blockquote>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span class="text-gray-700">Autoridade em Direito do Consumidor</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span class="text-gray-700">Atuação Humanizada e Estratégica</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-brand-gold"></i>
+                            <span class="text-gray-700">Palestrante e Educador Financeiro</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Áreas de Atuação -->
+    <section id="atuacao" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-gold font-bold uppercase tracking-widest text-sm">Especialidades</span>
+                <h2 class="font-serif text-4xl text-brand-dark font-bold mt-2">Áreas de Atuação</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-sm border-t-4 border-transparent hover:border-brand-gold reveal">
+                    <div class="w-14 h-14 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-dark mb-4">Direito do Consumidor</h3>
+                    <p class="text-gray-600 mb-4">
+                        Defesa combativa contra abusos de grandes empresas, problemas com produtos, serviços, planos de saúde e concessionárias.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Indenizações</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Contratos Abusivos</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Cobranças Indevidas</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-sm border-t-4 border-transparent hover:border-brand-gold reveal delay-75">
+                    <div class="w-14 h-14 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-dark mb-4">Direito Bancário</h3>
+                    <p class="text-gray-600 mb-4">
+                        Análise minuciosa de contratos bancários, juros abusivos, renegociação de dívidas e fraudes bancárias.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Revisão de Juros</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Golpes Digitais</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Defesa do Endividado</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card bg-white p-8 rounded-lg shadow-sm border-t-4 border-transparent hover:border-brand-gold reveal delay-150">
+                    <div class="w-14 h-14 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold text-2xl mb-6">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-brand-dark mb-4">Família e Sucessões</h3>
+                    <p class="text-gray-600 mb-4">
+                        Abordagem sensível e técnica para resolução de conflitos familiares, sempre priorizando a dignidade das partes.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Divórcios</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Inventários</li>
+                        <li><i class="fa-solid fa-angle-right text-brand-gold mr-2"></i>Guarda e Pensão</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Palestras e Mídia -->
+    <section id="palestras" class="py-20 bg-brand-navy text-white relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+                <div class="reveal">
+                    <span class="text-brand-gold font-bold uppercase tracking-widest text-sm">Imprensa e Comunidade</span>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mt-2">Atuação na Mídia</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="reveal">
+                    <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                        Reconhecido como uma das maiores autoridades em Direito do Consumidor em Goiás, Dr. Mauro Sérgio alia profundo conhecimento jurídico à capacidade de comunicação clara e acessível.
+                    </p>
+                    <p class="text-gray-300 text-lg mb-8">
+                        Participa ativamente de entrevistas em TV e rádio, esclarecendo dúvidas e desenvolvendo conteúdos educativos para promover o <strong>consumo responsável</strong> e a <strong>educação financeira</strong>.
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="text-center">
+                            <span class="block text-3xl font-serif font-bold text-brand-gold">+10</span>
+                            <span class="text-sm text-gray-400">Anos de Experiência</span>
+                        </div>
+                        <div class="w-px bg-gray-600"></div>
+                        <div class="text-center">
+                            <span class="block text-3xl font-serif font-bold text-brand-gold">+500</span>
+                            <span class="text-sm text-gray-400">Casos Resolvidos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Galeria de Fotos de Entrevistas -->
+                <div class="reveal delay-100 grid grid-cols-2 gap-4">
+                    <div class="rounded-lg shadow-2xl overflow-hidden h-64 relative group border border-brand-gold/30">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/adv%20mauro%20sergio%2FWhatsApp%20Image%202026-02-17%20at%2019.16.56.jpeg?alt=media&token=7d571526-fbe1-4881-b743-18ac54e42aa0" alt="Entrevista TV" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <p class="text-xs text-brand-gold font-bold uppercase">Entrevista</p>
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl overflow-hidden h-64 relative group border border-brand-gold/30 mt-8">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/adv%20mauro%20sergio%2FWhatsApp%20Image%202026-02-17%20at%2019.16.57.jpeg?alt=media&token=be59eaf5-3914-46ec-b896-21e913e60b3e" alt="Entrevista Rádio" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <p class="text-xs text-brand-gold font-bold uppercase">Rádio & TV</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl text-brand-dark font-bold">Entre em Contato</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                    A defesa dos seus direitos começa com uma boa orientação. Agende uma consulta ou envie sua mensagem.
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-10">
+                <!-- Informações -->
+                <div class="w-full lg:w-1/3 space-y-6 reveal">
+                    <div class="bg-white p-8 rounded-lg shadow-sm border-l-4 border-brand-gold">
+                        <h4 class="font-bold text-brand-dark text-lg mb-2"><i class="fa-solid fa-location-dot text-brand-gold mr-2"></i>Escritório</h4>
+                        <p class="text-gray-600">Rua Santos Dumont, nº 1.447, Setor Samuel Granham<br>Jataí - GO, CEP 75.804-066</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-sm border-l-4 border-brand-gold">
+                        <h4 class="font-bold text-brand-dark text-lg mb-2"><i class="fa-brands fa-whatsapp text-brand-gold mr-2"></i>WhatsApp</h4>
+                        <p class="text-gray-600">(64) 99975-2612</p>
+                        <a href="https://wa.me/5564999752612" target="_blank" class="text-brand-gold font-bold text-sm hover:underline mt-2 inline-block">Iniciar conversa</a>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-lg shadow-sm border-l-4 border-brand-gold">
+                        <h4 class="font-bold text-brand-dark text-lg mb-2"><i class="fa-solid fa-envelope text-brand-gold mr-2"></i>E-mail</h4>
+                        <p class="text-gray-600">maurobento1979@hotmail.com</p>
+                    </div>
+                </div>
+
+                <!-- Formulário -->
+                <div class="w-full lg:w-2/3 bg-white p-8 md:p-10 rounded-lg shadow-lg reveal delay-100">
+                    <form id="contactForm" onsubmit="sendToWhatsapp(event)">
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Nome Completo</label>
+                            <input id="formName" type="text" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brand-gold transition-colors" placeholder="Seu nome" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Assunto</label>
+                            <select id="formSubject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brand-gold transition-colors text-gray-600">
+                                <option value="Consulta Geral">Selecione uma área</option>
+                                <option value="Direito do Consumidor">Direito do Consumidor</option>
+                                <option value="Direito Bancário">Direito Bancário</option>
+                                <option value="Família e Sucessões">Família e Sucessões</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Mensagem</label>
+                            <textarea id="formMessage" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:border-brand-gold transition-colors" placeholder="Descreva brevemente seu caso..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-dark text-white font-bold py-4 rounded hover:bg-brand-navy transition-colors flex justify-center items-center gap-2">
+                            <span>ENVIAR NO WHATSAPP</span>
+                            <i class="fa-brands fa-whatsapp text-brand-gold text-xl"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mapa do Google Maps -->
+            <div class="mt-12 rounded-lg overflow-hidden shadow-lg h-96 border-4 border-white reveal">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    src="https://maps.google.com/maps?q=Rua+Santos+Dumont+1447+Setor+Samuel+Granham+Jatai+Goias&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    title="Localização do Escritório">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-16 pb-8 border-t-4 border-brand-gold">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h2 class="font-serif text-2xl font-bold">Dr. Mauro Sérgio</h2>
+                    <p class="text-gray-400 text-sm mt-2">OAB/GO 51.790</p>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com/maurosergioadvogado" target="_blank" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-full bg-brand-navy flex items-center justify-center group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <span class="font-medium group-hover:text-brand-gold transition-colors">@maurosergioadvogado</span>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2023 Dr. Mauro Sérgio Mota de Souza. Todos os direitos reservados.</p>
+                <p class="mt-2">Ética e Transparência na Advocacia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5564999752612" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all z-50 animate-bounce hover:animate-none">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        // Função para enviar formulário via WhatsApp
+        function sendToWhatsapp(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('formName').value;
+            const subject = document.getElementById('formSubject').value;
+            const message = document.getElementById('formMessage').value;
+
+            const whatsappNumber = "5564999752612";
+            
+            // Criação da mensagem formatada
+            const text = `*Olá, vim pelo site.*\n\nMe chamo *${name}*.\n\n*Assunto:* ${subject}\n*Mensagem:* ${message}`;
+            
+            // Codifica a mensagem para URL
+            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+            
+            // Abre o WhatsApp em nova aba
+            window.open(url, '_blank');
+        }
+
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Efeito de Scroll na Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'bg-brand-dark');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Disparar uma vez no carregamento
+        reveal();
+    </script>
+</body>
+</html>
