@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lê Frannco - Posicionamento e Marca Pessoal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            hover: '#a88748',
+                            light: '#e8d09e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS para Animações e Estilos Específicos -->
+    <style>
+        .gold-text { color: #C5A059; }
+        .gold-bg { background-color: #C5A059; }
+        .gold-bg-hover:hover { background-color: #a88748; }
+        .gold-border { border-color: #C5A059; }
+
+        /* Animações Modernas */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        
+        .animate-blob { animation: blob 15s infinite alternate ease-in-out; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-delayed { animation: float 6s ease-in-out 3s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        
+        .shimmer-text {
+            background: linear-gradient(to right, #C5A059 20%, #e8d09e 40%, #e8d09e 60%, #C5A059 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Classe base para a animação de scroll (Scroll Reveal) */
+        .reveal-on-scroll {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            transition-duration: 1000ms;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-stone-50 text-stone-900 font-sans selection:bg-gold selection:text-white overflow-x-hidden">
+
+    <!-- HEADER / NAVBAR -->
+    <header id="main-header" class="w-full fixed top-0 z-50 transition-all duration-500 bg-transparent py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+            <img 
+                id="header-logo"
+                src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/lefrannco%2Fcropped-MARCA-D-AGUA-DOURADA-1024x479.png?alt=media&token=c9cd92a9-c993-4f61-ab07-d40fe5814347" 
+                alt="Lê Frannco" 
+                class="object-contain transition-all duration-500 h-16 md:h-20"
+            />
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Com Fundo Animado) -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-20">
+        <!-- Background Animated Blobs -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-gold/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+            <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-gold-light/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-gold/15 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="flex-1 text-center md:text-left space-y-8 z-10">
+            <div class="reveal-on-scroll opacity-0 translate-y-12 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gold/30 bg-white/50 backdrop-blur-sm text-sm font-medium tracking-wide gold-text mb-2 shadow-[0_0_15px_rgba(197,160,89,0.1)]" style="transition-delay: 0ms;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg>
+                <span>MENTORIA DE POSICIONAMENTO</span>
+            </div>
+            
+            <h1 class="reveal-on-scroll opacity-0 translate-y-12 text-4xl md:text-5xl lg:text-7xl font-serif font-medium leading-[1.1] text-stone-900" style="transition-delay: 200ms;">
+                Você não precisa de <span class="italic shimmer-text font-semibold">mais uma</span> dica de conteúdo.
+            </h1>
+            
+            <p class="reveal-on-scroll opacity-0 translate-y-12 text-lg md:text-xl text-stone-600 leading-relaxed font-light" style="transition-delay: 400ms;">
+                Você precisa de um plano real para construir uma marca forte, reconhecida e que venda todos os dias. <strong class="font-medium text-stone-900">Chegou a hora de virar essa chave.</strong>
+            </p>
+            
+            <p class="reveal-on-scroll opacity-0 translate-y-12 text-base md:text-lg text-stone-600 leading-relaxed" style="transition-delay: 600ms;">
+                Com posicionamento intencional, comunicação estratégica e uma marca pessoal que conecta o online ao offline, você deixa de ser esquecida — <span class="relative inline-block"><span class="relative z-10 font-semibold text-stone-900">e passa a ser reconhecida, valorizada e bem paga.</span><span class="absolute bottom-1 left-0 w-full h-2 bg-gold/20 -z-10 transform -rotate-1"></span></span>
+            </p>
+
+            <div class="reveal-on-scroll opacity-0 translate-y-12 pt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start" style="transition-delay: 800ms;">
+                <button class="gold-bg gold-bg-hover text-white px-8 py-4 rounded-full font-medium tracking-wide transition-all duration-300 flex items-center justify-center gap-3 group shadow-[0_10px_30px_rgba(197,160,89,0.3)] hover:shadow-[0_15px_40px_rgba(197,160,89,0.4)] hover:-translate-y-1">
+                    Estou pronta para ser vista e bem paga
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1.5 transition-transform duration-300"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex-1 w-full max-w-md md:max-w-none mx-auto relative z-10">
+            <div class="reveal-on-scroll opacity-0 translate-y-12 relative" style="transition-delay: 300ms;">
+                <div class="absolute inset-0 bg-gradient-to-tr from-gold to-transparent translate-x-6 translate-y-6 rounded-2xl -z-10 opacity-30 blur-sm animate-float-delayed"></div>
+                <div class="absolute inset-0 border border-gold/50 -translate-x-4 -translate-y-4 rounded-2xl -z-10 animate-float"></div>
+                <img 
+                    src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/lefrannco%2Fimagem_2025-08-06_145116658-scaled.png?alt=media&token=52508894-d6ec-4dfb-b64f-92092ca9c3d6" 
+                    alt="Lê Frannco" 
+                    class="w-full h-auto object-cover rounded-2xl shadow-2xl aspect-[3/4] hover:scale-[1.02] transition-transform duration-700"
+                />
+            </div>
+        </div>
+    </section>
+
+    <!-- THE PAIN / EMPATHY SECTION (DARK ANIMATED) -->
+    <section class="py-32 bg-zinc-950 text-white relative overflow-hidden">
+        <!-- Animated Dark Blobs -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-stone-500/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000"></div>
+        </div>
+
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12 relative z-10">
+            <div class="reveal-on-scroll opacity-0 translate-y-12" style="transition-delay: 0ms;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto gold-text opacity-70 animate-float"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg>
+            </div>
+            
+            <h2 class="reveal-on-scroll opacity-0 translate-y-12 text-4xl md:text-5xl font-serif font-medium leading-tight" style="transition-delay: 100ms;">
+                Você não está cansada só de trabalhar.
+            </h2>
+            
+            <p class="reveal-on-scroll opacity-0 translate-y-12 text-xl md:text-3xl text-zinc-400 font-light leading-relaxed" style="transition-delay: 200ms;">
+                Você está exausta de sustentar um negócio que ainda não comunica o <span class="text-white relative inline-block">tamanho da mulher que você é<div class="absolute bottom-0 left-0 w-full h-px bg-gold opacity-50"></div></span>.
+            </p>
+
+            <div class="reveal-on-scroll opacity-0 translate-y-12 space-y-6 text-lg md:text-xl text-zinc-300 py-8 bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl" style="transition-delay: 300ms;">
+                <p class="flex items-center justify-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span> Cansada de postar sem direção.</p>
+                <p class="flex items-center justify-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span> De se esforçar para explicar o que faz e ninguém ver seu valor.</p>
+                <p class="flex items-center justify-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span> De se doar inteira e, no fim, continuar invisível.</p>
+            </div>
+
+            <div class="reveal-on-scroll opacity-0 translate-y-12 pt-8 space-y-8" style="transition-delay: 400ms;">
+                <h3 class="text-3xl md:text-4xl font-serif text-white">Chega. A chave só vira <span class="gold-text italic">quando a marca muda.</span></h3>
+                <p class="text-zinc-400 max-w-2xl mx-auto leading-relaxed text-lg">
+                    Com um posicionamento intencional, uma presença digital que representa quem você é de verdade, e uma comunicação que faz diferença, <span class="text-white font-medium">sua imagem deixa de ser genérica — e se torna seu maior ativo.</span>
+                </p>
+                <div class="inline-block border border-gold/30 p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-950 shadow-lg mt-8">
+                    <p class="text-xl md:text-2xl text-white font-serif italic">
+                        "Marca pessoal não é sobre parecer mais.<br/>É sobre ser vista com verdade."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE STRATEGY / CHESS SECTION -->
+    <section class="py-32 bg-stone-50 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute -left-32 top-1/2 w-64 h-64 bg-gold/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+            <div class="flex-1 relative order-2 md:order-1 w-full max-w-lg md:max-w-none mx-auto">
+                <div class="reveal-on-scroll opacity-0 translate-y-12 relative group" style="transition-delay: 200ms;">
+                    <div class="absolute inset-0 bg-gold rounded-2xl rotate-3 scale-[1.02] -z-10 opacity-20 group-hover:rotate-6 transition-transform duration-500"></div>
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/lefrannco%2FImagem-do-WhatsApp-de-2025-08-23-as-14.55.22_b545a9e8-1366x2048.jpg?alt=media&token=9f74c22c-e0e8-4b13-9f03-a9b25df26332" 
+                        alt="Estratégia e Posicionamento" 
+                        class="w-full h-auto object-cover rounded-2xl shadow-2xl aspect-[3/4] transition-transform duration-500 group-hover:-translate-y-2"
+                    />
+                </div>
+            </div>
+            
+            <div class="flex-1 space-y-10 order-1 md:order-2">
+                <h2 class="reveal-on-scroll opacity-0 translate-y-12 text-4xl md:text-5xl font-serif font-medium text-stone-900 leading-tight" style="transition-delay: 0ms;">
+                    A resposta que você procura <span class="italic gold-text relative inline-block">não está<div class="absolute bottom-1 left-0 w-full h-3 bg-gold/20 -z-10"></div></span> em fazer mais posts.
+                </h2>
+                
+                <p class="reveal-on-scroll opacity-0 translate-y-12 text-xl text-stone-600 leading-relaxed" style="transition-delay: 200ms;">
+                    Está em <strong class="text-stone-900 font-semibold bg-gold/10 px-2 py-1 rounded">ser reconhecida como a referência que você nasceu pra ser.</strong>
+                </p>
+                
+                <p class="reveal-on-scroll opacity-0 translate-y-12 text-lg text-stone-600 leading-relaxed border-l-4 gold-border pl-6 py-2 italic bg-white p-4 rounded-r-xl shadow-sm" style="transition-delay: 300ms;">
+                    Com uma marca pessoal intencional, posicionada e inesquecível.
+                </p>
+
+                <div class="reveal-on-scroll opacity-0 translate-y-12" style="transition-delay: 400ms;">
+                    <button class="gold-bg gold-bg-hover text-white px-8 py-4 rounded-full font-medium tracking-wide transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl hover:shadow-gold/30 hover:-translate-y-1 w-full md:w-auto">
+                        Me mostra como virar essa chave
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1.5 transition-transform duration-300"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE AUTHORITY / DESK SECTION -->
+    <section class="py-32 bg-white relative">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-stone-50 -z-10 hidden md:block"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+            <div class="flex-1 space-y-10">
+                <h2 class="reveal-on-scroll opacity-0 translate-y-12 text-4xl md:text-5xl font-serif font-medium text-stone-900 leading-tight" style="transition-delay: 0ms;">
+                    E NÃO, MINHA BOSS… <br/>isso não é sorte.<br/>
+                    <span class="shimmer-text italic text-5xl md:text-6xl mt-2 block">É posicionamento.</span>
+                </h2>
+                
+                <div class="reveal-on-scroll opacity-0 translate-y-12 space-y-6 text-stone-600 leading-relaxed" style="transition-delay: 200ms;">
+                    <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-stone-50 transition-colors border border-transparent hover:border-stone-100">
+                        <div class="bg-gold/10 p-2 rounded-full mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <p class="text-lg">Quando a sua marca comunica o que você realmente entrega, <strong class="text-stone-900">o mercado para de duvidar.</strong></p>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-stone-50 transition-colors border border-transparent hover:border-stone-100">
+                        <div class="bg-gold/10 p-2 rounded-full mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text shrink-0"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <p class="text-lg">Quando sua presença é intencional no Instagram ou na reunião — você para de correr atrás e <strong class="text-stone-900">começa a ser escolhida.</strong></p>
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll opacity-0 translate-y-12 bg-gradient-to-br from-stone-900 to-zinc-950 p-10 rounded-3xl shadow-2xl space-y-6 relative overflow-hidden group" style="transition-delay: 400ms;">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-gold/20 rounded-full blur-3xl group-hover:bg-gold/30 transition-colors duration-500"></div>
+                    <h3 class="font-serif text-2xl font-medium text-white flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg> 
+                        A verdade?
+                    </h3>
+                    <p class="text-zinc-300 text-lg">Você não precisa parecer com ninguém. Só precisa usar seu maior diferencial: <strong class="text-white">sua marca pessoal.</strong></p>
+                    <div class="w-12 h-px bg-gold"></div>
+                    <p class="font-serif text-xl text-white italic pt-2">Porque quem joga com estratégia, vira o jogo com a própria marca.</p>
+                </div>
+            </div>
+
+            <div class="flex-1 relative w-full max-w-lg md:max-w-none mx-auto">
+                <div class="reveal-on-scroll opacity-0 translate-y-12 relative group" style="transition-delay: 300ms;">
+                    <div class="absolute inset-0 border-2 border-gold -translate-x-6 -translate-y-6 rounded-2xl -z-10 transition-transform duration-500 group-hover:-translate-x-8 group-hover:-translate-y-8"></div>
+                    <img 
+                        src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/lefrannco%2FImagem-do-WhatsApp-de-2025-08-23-as-14.55.21_e09bcb6f-1366x2048.jpg?alt=media&token=6fa960af-1d85-4568-9e37-f96451914a3e" 
+                        alt="Autoridade e Protagonismo" 
+                        class="w-full h-auto object-cover rounded-2xl shadow-2xl aspect-[3/4] relative z-10"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY / TESTIMONIALS SECTION -->
+    <section class="py-32 bg-zinc-950 text-white relative overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 mix-blend-overlay"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-gold/10 rounded-full blur-[150px] animate-pulse"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="reveal-on-scroll opacity-0 translate-y-12" style="transition-delay: 0ms;">
+                <h2 class="text-4xl md:text-6xl font-serif font-medium mb-8">
+                    Comunidade <span class="shimmer-text italic">Boss Protagonistas</span>
+                </h2>
+                <p class="text-xl text-zinc-400 max-w-3xl mx-auto mb-20 leading-relaxed">
+                    Você também merece estar ao lado de mulheres que decidiram virar a chave, e nunca mais voltaram para o bastidor. <span class="text-white font-medium bg-white/10 px-3 py-1 rounded-full whitespace-nowrap">Sem fórmulas prontas. Com clareza e estratégia.</span>
+                </p>
+            </div>
+
+            <!-- PLACEHOLDER PARA AS ALUNAS/COMUNIDADE -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-20">
+                <!-- Aluna 1 -->
+                <div class="reveal-on-scroll opacity-0 translate-y-12 bg-zinc-900/50 backdrop-blur-md p-10 rounded-3xl border border-zinc-800 hover:border-gold/50 transition-all duration-500 text-left group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden" style="transition-delay: 0ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-24 h-24 bg-zinc-800 rounded-full mb-8 overflow-hidden mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-700 border-2 border-transparent group-hover:border-gold/30">
+                        <div class="w-full h-full flex items-center justify-center text-zinc-600 text-sm">Foto 1</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text opacity-30 mb-4"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg>
+                    <p class="text-zinc-300 italic mb-8 text-lg leading-relaxed">"Texto do depoimento da Boss vai entrar exatamente aqui. A transformação de marca pessoal."</p>
+                    <div>
+                        <h4 class="font-serif text-xl text-white font-medium">Nome da Boss</h4>
+                        <p class="text-sm gold-text uppercase tracking-widest mt-2 font-medium">Nicho / Profissão</p>
+                    </div>
+                </div>
+
+                <!-- Aluna 2 -->
+                <div class="reveal-on-scroll opacity-0 translate-y-12 bg-zinc-900/50 backdrop-blur-md p-10 rounded-3xl border border-zinc-800 hover:border-gold/50 transition-all duration-500 text-left group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-24 h-24 bg-zinc-800 rounded-full mb-8 overflow-hidden mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-700 border-2 border-transparent group-hover:border-gold/30">
+                        <div class="w-full h-full flex items-center justify-center text-zinc-600 text-sm">Foto 2</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text opacity-30 mb-4"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg>
+                    <p class="text-zinc-300 italic mb-8 text-lg leading-relaxed">"Texto do depoimento da Boss vai entrar exatamente aqui. A transformação de marca pessoal."</p>
+                    <div>
+                        <h4 class="font-serif text-xl text-white font-medium">Nome da Boss</h4>
+                        <p class="text-sm gold-text uppercase tracking-widest mt-2 font-medium">Nicho / Profissão</p>
+                    </div>
+                </div>
+
+                <!-- Aluna 3 -->
+                <div class="reveal-on-scroll opacity-0 translate-y-12 bg-zinc-900/50 backdrop-blur-md p-10 rounded-3xl border border-zinc-800 hover:border-gold/50 transition-all duration-500 text-left group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden" style="transition-delay: 400ms;">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-24 h-24 bg-zinc-800 rounded-full mb-8 overflow-hidden mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-700 border-2 border-transparent group-hover:border-gold/30">
+                        <div class="w-full h-full flex items-center justify-center text-zinc-600 text-sm">Foto 3</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gold-text opacity-30 mb-4"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/><path d="m2 10 10-8 10 8"/><path d="m2 10 10 12 10-12"/><path d="m12 2v20"/><path d="m2 10h20"/><path d="M7 2v20"/><path d="M17 2v20"/></svg>
+                    <p class="text-zinc-300 italic mb-8 text-lg leading-relaxed">"Texto do depoimento da Boss vai entrar exatamente aqui. A transformação de marca pessoal."</p>
+                    <div>
+                        <h4 class="font-serif text-xl text-white font-medium">Nome da Boss</h4>
+                        <p class="text-sm gold-text uppercase tracking-widest mt-2 font-medium">Nicho / Profissão</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-on-scroll opacity-0 translate-y-12" style="transition-delay: 600ms;">
+                <button class="gold-bg gold-bg-hover text-white px-10 py-5 rounded-full font-medium tracking-widest uppercase text-sm transition-all duration-500 inline-flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(197,160,89,0.3)] hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] hover:-translate-y-2 group">
+                    Faça parte da Comunidade
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-2 transition-transform duration-300"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 text-center text-zinc-500 text-sm relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center">
+            <img 
+                src="cropped-MARCA-D-AGUA-DOURADA-1024x479.png" 
+                alt="Lê Frannco" 
+                class="h-16 mx-auto mb-8 opacity-40 hover:opacity-100 transition-opacity duration-500"
+            />
+            <p class="text-zinc-400">© 2024 Lê Frannco. Todos os direitos reservados.</p>
+            <p class="mt-3 text-xs tracking-widest uppercase opacity-70">Posicionamento e Marca Pessoal para Mulheres Protagonistas</p>
+        </div>
+    </footer>
+
+    <!-- Javascript Nativo (Vanilla JS) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Lógica do Header ao fazer Scroll
+            const header = document.getElementById('main-header');
+            const logo = document.getElementById('header-logo');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-white/80', 'backdrop-blur-lg', 'border-b', 'border-stone-100', 'py-3', 'shadow-sm');
+                    header.classList.remove('bg-transparent', 'py-6');
+                    logo.classList.add('h-12', 'md:h-14');
+                    logo.classList.remove('h-16', 'md:h-20');
+                } else {
+                    header.classList.remove('bg-white/80', 'backdrop-blur-lg', 'border-b', 'border-stone-100', 'py-3', 'shadow-sm');
+                    header.classList.add('bg-transparent', 'py-6');
+                    logo.classList.remove('h-12', 'md:h-14');
+                    logo.classList.add('h-16', 'md:h-20');
+                }
+            });
+
+            // 2. Lógica das Animações de Revelação (Intersection Observer)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove as classes que deixam o elemento invisível
+                        entry.target.classList.remove('opacity-0', 'translate-y-12');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        // Deixa de observar o elemento depois de animar uma vez
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Seleciona todos os elementos com a classe 'reveal-on-scroll' e os observa
+            document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
