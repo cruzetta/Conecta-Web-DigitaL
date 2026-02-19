@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplifica Imper | A Elite da Impermeabilização</title>
+    <meta name="description" content="Domine a impermeabilização técnica, elimine patologias e blinde seu faturamento. A última turma no valor atual.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#050505',
+                            card: '#0a0a0a',
+                            border: '#1f1f1f',
+                            gold: '#D4AF37', 
+                            goldLight: '#F3E5AB',
+                            goldDark: '#8A7120',
+                            accent: '#3b82f6', 
+                            gray: '#a1a1aa'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        .tech-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        .spotlight-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(212, 175, 55, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar for Timeline */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f1f1f;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #D4AF37;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #D4AF37, #F3E5AB, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-black">
+
+    <!-- Sticky Header -->
+    <div class="fixed top-0 w-full z-50 bg-brand-bg/90 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="bg-gradient-to-r from-brand-goldDark to-brand-bg text-center py-1 px-4">
+            <p class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-goldLight">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i> Última turma no valor atual (R$ 1.590)
+            </p>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-gold rounded flex items-center justify-center font-bold text-black font-display text-xl">S</div>
+                    <span class="font-display font-bold text-lg tracking-wider text-white hidden sm:block">SIMPLIFICA<span class="text-brand-gold">.IMPER</span></span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#calculadora" class="text-brand-gray hover:text-white transition text-sm font-medium">O Custo do Erro</a>
+                    <a href="#metodo" class="text-brand-gray hover:text-white transition text-sm font-medium">O Método</a>
+                    <a href="#cronograma" class="text-brand-gray hover:text-white transition text-sm font-medium">Cronograma</a>
+                </nav>
+
+                <div>
+                    <a href="#bolsa" class="group relative px-6 py-2 bg-transparent border border-brand-gold/30 text-brand-gold font-bold text-sm rounded hover:bg-brand-gold hover:text-black transition-all duration-300 overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Aplicar à Bolsa
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                        <div class="absolute inset-0 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <div class="absolute inset-0 tech-grid z-0"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-brand-gray text-xs font-bold tracking-widest uppercase">Inscrições para Bolsa Abertas</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-7xl font-display font-bold leading-tight mb-8 tracking-tight">
+                Engenharia não <br>
+                aceita <span class="text-gradient-gold italic pr-2">sorte.</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-brand-gray leading-relaxed mb-12">
+                Pare de assinar projetos com medo. Junte-se à elite técnica que domina a impermeabilização, blinda o faturamento e elimina a dependência de fornecedores.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#bolsa" class="relative px-8 py-4 bg-brand-gold text-black font-bold text-lg rounded hover:bg-brand-goldLight transition-colors shadow-[0_0_40px_rgba(212,175,55,0.3)] flex items-center justify-center gap-3 group">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    Quero minha vaga na Elite
+                </a>
+                <a href="https://forms.gle/viQJNMdCRwUbj2xy7" target="_blank" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold text-lg rounded hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                    <span class="text-brand-gray text-sm">Ver Processo Seletivo</span>
+                </a>
+            </div>
+
+            <div class="mt-16 pt-8 border-t border-white/5 flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-brand-gold text-xl"></i>
+                    <span class="text-sm font-semibold">Método Validado</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-users text-brand-gold text-xl"></i>
+                    <span class="text-sm font-semibold">+300 Alunos</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-award text-brand-gold text-xl"></i>
+                    <span class="text-sm font-semibold">Certificado Técnico</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section (Fixed Layout) -->
+    <section id="calculadora" class="py-24 bg-brand-card relative border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+                        Quanto custa <br> o seu <span class="text-red-500">"Achismo"?</span>
+                    </h2>
+                    <p class="text-brand-gray text-lg mb-8">
+                        Muitos acham o investimento em qualificação alto. Mas esquecem de calcular o custo de <strong>UM</strong> erro de impermeabilização. Refazer custa até 5x mais que fazer.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-red-500 mt-1"></i>
+                            <span class="text-sm text-brand-gray">Perda de reputação irreversível no mercado.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-red-500 mt-1"></i>
+                            <span class="text-sm text-brand-gray">Processos judiciais por patologias ocultas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Calculator Card -->
+                <div class="bg-brand-bg border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-brand-gold"></i>
+                        Simulador de Prejuízo
+                    </h3>
+
+                    <div class="mb-8">
+                        <label class="block text-sm text-brand-gray mb-2">Área afetada (m²)</label>
+                        <div class="flex items-center gap-4">
+                            <input type="range" id="areaInput" min="10" max="500" value="50" step="10" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                            <span id="areaValue" class="text-white font-mono font-bold w-16 text-right">50m²</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 border-t border-white/10 pt-6">
+                        <!-- Result Row 1 -->
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div class="flex flex-col">
+                                <span class="text-sm text-brand-gray font-medium">Custo Estimado de Refazer:</span>
+                                <span class="text-[10px] text-gray-500 leading-tight max-w-[200px] mt-1">
+                                    *Considerando R$ 250/m² (Demolição + Regularização + Nova Imper + Revestimento)
+                                </span>
+                            </div>
+                            <span id="reworkCost" class="text-red-500 font-bold font-mono text-xl sm:text-2xl mt-1 sm:mt-0">R$ 12.500</span>
+                        </div>
+
+                        <!-- Result Row 2 -->
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 opacity-50">
+                            <span class="text-sm text-brand-gray">Investimento no Simplifica Imper:</span>
+                            <span class="text-brand-gold font-bold font-mono text-lg">R$ 1.590</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-red-500/10 border border-red-500/20 rounded-lg p-5 text-center">
+                        <p class="text-xs text-red-400 uppercase tracking-wide font-bold mb-1">Economia em Risco</p>
+                        <p id="savings" class="text-2xl md:text-3xl font-bold text-white">R$ 10.910,00</p>
+                        <p class="text-[10px] text-brand-gray mt-2 font-medium">Não espere o prejuízo chegar para aprender.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology -->
+    <section id="metodo" class="py-24 bg-brand-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold text-xs font-bold tracking-widest uppercase">Diferenciação</span>
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mt-2">Você x O Mercado</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="spotlight-card rounded-xl p-8 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-brand-gray border border-white/10">
+                        <i class="fa-solid fa-user-graduate text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Engenheiro "Comum"</h3>
+                    <ul class="space-y-2 text-sm text-brand-gray">
+                        <li class="flex gap-2"><i class="fa-solid fa-minus text-red-500 mt-1"></i> <span>Copia e cola detalhes genéricos.</span></li>
+                        <li class="flex gap-2"><i class="fa-solid fa-minus text-red-500 mt-1"></i> <span>Aceita sugestão de vendedor.</span></li>
+                    </ul>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-8 border-brand-gold/30 bg-brand-gold/5 relative md:-translate-y-4 shadow-2xl shadow-brand-gold/10">
+                    <div class="absolute top-0 right-0 bg-brand-gold text-black text-xs font-bold px-3 py-1 rounded-bl-lg">VOCÊ AQUI</div>
+                    <div class="w-12 h-12 bg-brand-gold rounded-lg flex items-center justify-center mb-6 text-black font-bold border border-brand-gold">
+                        <i class="fa-solid fa-crown text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Especialista Simplifica</h3>
+                    <ul class="space-y-2 text-sm text-white/80">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-gold mt-1"></i> <span>Especifica com autoridade.</span></li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-gold mt-1"></i> <span>Fiscaliza com critério técnico.</span></li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-gold mt-1"></i> <span>Vende segurança e cobra mais caro.</span></li>
+                    </ul>
+                </div>
+
+                <div class="spotlight-card rounded-xl p-8 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-brand-gray border border-white/10">
+                        <i class="fa-solid fa-briefcase text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">O Oportunista</h3>
+                    <ul class="space-y-2 text-sm text-brand-gray">
+                        <li class="flex gap-2"><i class="fa-solid fa-minus text-red-500 mt-1"></i> <span>Aprendeu no YouTube.</span></li>
+                        <li class="flex gap-2"><i class="fa-solid fa-minus text-red-500 mt-1"></i> <span>Usa o produto mais barato.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline (Fixed Visibility) -->
+    <section id="cronograma" class="py-24 bg-brand-card relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-12 text-center">
+                A Jornada de Lançamento <span class="text-brand-gold">T3</span>
+            </h2>
+
+            <!-- Desktop & Mobile Unified Container -->
+            <!-- Removing 'group-odd' transforms that were hiding content -->
+            <div class="relative pb-10">
+                
+                <!-- Horizontal Line (Desktop) -->
+                <div class="hidden md:block absolute top-[28px] left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+
+                <div class="flex flex-col md:flex-row gap-8 md:gap-4 justify-between items-start md:items-start relative z-10">
+                    
+                    <!-- Step 1 -->
+                    <div class="relative w-full md:w-1/3 group">
+                        <!-- Dot -->
+                        <div class="hidden md:block absolute top-[20px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-green-500 border-4 border-brand-card shadow-[0_0_15px_rgba(34,197,94,0.6)] z-20"></div>
+                        
+                        <!-- Card -->
+                        <div class="bg-brand-bg border border-brand-gold/30 p-6 rounded-xl md:mt-16 relative hover:border-brand-gold/60 transition-colors">
+                            <span class="inline-block px-2 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase rounded mb-3 border border-green-500/20">
+                                <i class="fa-solid fa-circle text-[6px] mr-1 align-middle"></i> Acontecendo Agora
+                            </span>
+                            <h4 class="text-xl font-bold text-white">Bolsa Técnica</h4>
+                            <p class="text-sm text-brand-gray mt-2 leading-relaxed">
+                                Seleção de perfis comprometidos. A chance de entrar na turma por mérito técnico e propósito.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                                <span class="text-lg font-display font-bold text-white">18/02 - 05/03</span>
+                                <a href="#bolsa" class="text-xs text-brand-gold hover:underline">Inscrever-se &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative w-full md:w-1/3 group">
+                        <!-- Dot -->
+                        <div class="hidden md:block absolute top-[20px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-brand-border border-4 border-brand-card z-20 group-hover:bg-white transition-colors"></div>
+                        
+                        <!-- Card -->
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-xl md:mt-16 relative opacity-70 hover:opacity-100 transition-opacity">
+                            <span class="inline-block px-2 py-1 bg-white/5 text-gray-400 text-[10px] font-bold uppercase rounded mb-3 border border-white/10">
+                                Aquecimento
+                            </span>
+                            <h4 class="text-xl font-bold text-white">Imper Sem Achismo</h4>
+                            <p class="text-sm text-brand-gray mt-2 leading-relaxed">
+                                Minicurso intensivo de 3 dias. Conteúdo técnico denso para separar profissionais de amadores.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-white/5">
+                                <span class="text-lg font-display font-bold text-white">18/03 - 20/03</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative w-full md:w-1/3 group">
+                        <!-- Dot -->
+                        <div class="hidden md:block absolute top-[20px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-brand-gold border-4 border-brand-card z-20 animate-pulse"></div>
+                        
+                        <!-- Card -->
+                        <div class="bg-brand-gold/10 border border-brand-gold/30 p-6 rounded-xl md:mt-16 relative hover:bg-brand-gold/20 transition-colors">
+                            <span class="inline-block px-2 py-1 bg-brand-gold/20 text-brand-gold text-[10px] font-bold uppercase rounded mb-3 border border-brand-gold/20">
+                                Grande Dia
+                            </span>
+                            <h4 class="text-xl font-bold text-white">Abertura Turma 3</h4>
+                            <p class="text-sm text-brand-gray mt-2 leading-relaxed">
+                                Abertura oficial do carrinho. Bônus exclusivos para os primeiros inscritos do dia.
+                            </p>
+                            <div class="mt-4 pt-4 border-t border-brand-gold/10">
+                                <span class="text-lg font-display font-bold text-brand-gold">19/03</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bolsa CTA -->
+    <section id="bolsa" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand-gold/5 z-0"></div>
+        <div class="absolute right-0 bottom-0 w-1/2 h-full bg-gradient-to-l from-brand-gold/10 to-transparent"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+                Você tem perfil para a <br> <span class="text-brand-gold">Bolsa Técnica?</span>
+            </h2>
+            <p class="text-lg text-brand-gray mb-10 max-w-2xl mx-auto">
+                Não procuro quantidade. Procuro <strong>propósito</strong>. Se você quer transformar sua carreira e ser reconhecido como referência técnica, aplique agora.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-10">
+                <div class="bg-brand-bg/50 backdrop-blur border border-white/10 p-4 rounded-lg flex items-center gap-3 text-left">
+                    <i class="fa-solid fa-check-circle text-brand-gold"></i>
+                    <span class="text-sm text-white">Engenheiros e Arquitetos</span>
+                </div>
+                <div class="bg-brand-bg/50 backdrop-blur border border-white/10 p-4 rounded-lg flex items-center gap-3 text-left">
+                    <i class="fa-solid fa-check-circle text-brand-gold"></i>
+                    <span class="text-sm text-white">Fome de conhecimento</span>
+                </div>
+                <div class="bg-brand-bg/50 backdrop-blur border border-white/10 p-4 rounded-lg flex items-center gap-3 text-left">
+                    <i class="fa-solid fa-check-circle text-brand-gold"></i>
+                    <span class="text-sm text-white">Compromisso Ético</span>
+                </div>
+                <div class="bg-brand-bg/50 backdrop-blur border border-white/10 p-4 rounded-lg flex items-center gap-3 text-left">
+                    <i class="fa-solid fa-check-circle text-brand-gold"></i>
+                    <span class="text-sm text-white">Disponibilidade Real</span>
+                </div>
+            </div>
+
+            <a href="https://forms.gle/viQJNMdCRwUbj2xy7" target="_blank" class="inline-flex items-center justify-center px-10 py-5 bg-brand-gold text-black font-bold text-xl rounded hover:bg-white transition-all transform hover:scale-105 shadow-xl">
+                Aplicar para Bolsa Agora
+                <i class="fa-solid fa-arrow-right ml-3"></i>
+            </a>
+            <p class="mt-4 text-sm text-brand-gray opacity-70">Encerramento dia 05/03 às 23:59</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <span class="font-display font-bold text-2xl text-white">SIMPLIFICA<span class="text-brand-gold">.IMPER</span></span>
+                    <p class="text-brand-gray text-sm mt-2">Formando a elite técnica do Brasil.</p>
+                </div>
+                
+                <div class="flex gap-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold hover:text-black transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold hover:text-black transition-all">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-gold hover:text-black transition-all">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/5 text-center text-xs text-brand-gray">
+                &copy; 2024 Simplifica Imper. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Spotlight Effect
+        const cards = document.querySelectorAll('.spotlight-card');
+        document.addEventListener('mousemove', (e) => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // ROI Calculator Logic
+        const areaInput = document.getElementById('areaInput');
+        const areaValue = document.getElementById('areaValue');
+        const reworkCost = document.getElementById('reworkCost');
+        const savings = document.getElementById('savings');
+        
+        const COST_PER_M2_REWORK = 250; 
+        const COURSE_PRICE = 1590;
+
+        function updateCalculator() {
+            const area = parseInt(areaInput.value);
+            const totalRework = area * COST_PER_M2_REWORK;
+            const totalSavings = totalRework - COURSE_PRICE;
+
+            areaValue.textContent = `${area}m²`;
+            reworkCost.textContent = `R$ ${totalRework.toLocaleString('pt-BR')}`;
+            
+            savings.style.transform = "scale(1.05)";
+            setTimeout(() => savings.style.transform = "scale(1)", 150);
+            
+            savings.textContent = `R$ ${totalSavings.toLocaleString('pt-BR')}`;
+        }
+
+        areaInput.addEventListener('input', updateCalculator);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('bg-brand-bg/90', 'bg-black/95');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.replace('bg-black/95', 'bg-brand-bg/90');
+            }
+        });
+    </script>
+</body>
+</html>
