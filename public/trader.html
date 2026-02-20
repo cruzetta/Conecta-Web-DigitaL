@@ -170,6 +170,54 @@
         .anim-ripple { animation: ripple 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
         .anim-ripple-delay { animation: ripple 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.5s; }
 
+        /* ============================================================
+           NOVAS ANIMAÇÕES: TECNOLOGIA E MOCKUP 3D
+           ============================================================ */
+        
+        /* Fluxo de dados (Pipeline vertical) */
+        @keyframes data-flow-vertical {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+        .anim-data-flow {
+            animation: data-flow-vertical 3s linear infinite;
+        }
+
+        /* Perspective para o Mockup 3D */
+        .perspective-container {
+            perspective: 1200px;
+        }
+        .platform-mockup {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out; /* Suavidade no movimento do mouse */
+            will-change: transform;
+        }
+
+        /* Mockup Order Book Animado */
+        @keyframes order-bar-pulse {
+            0% { width: 30%; }
+            50% { width: 80%; }
+            100% { width: 30%; }
+        }
+        .anim-order-bar { animation: order-bar-pulse 4s ease-in-out infinite alternate; }
+        .anim-order-bar-2 { animation: order-bar-pulse 5s ease-in-out infinite alternate-reverse; }
+
+        /* Hover inteligente nos cards de passos */
+        .step-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 163, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0, 255, 163, 0.1);
+        }
+        .step-card:hover .step-icon-wrapper {
+            background-color: rgba(0, 255, 163, 0.15);
+            color: #00FFA3;
+            transform: scale(1.1);
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-brand-green selection:text-brand-dark">
@@ -177,13 +225,19 @@
     <!-- Fundo Limpo e Sofisticado -->
     <div class="premium-bg"></div>
 
-    <!-- Navegação -->
+    <!-- Navegação Atualizada com Links -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
         <div class="mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
             <div class="flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                <!-- Agora apenas a logo em texto fica no cabeçalho -->
                 <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/obinax%2FLOGO%20-%20Obinax%202026.PNG?alt=media&token=134afdec-a6a9-47e7-9d78-c49d408c7a87" alt="Obinax Logo" class="h-6 md:h-8">
             </div>
+            
+            <!-- Novos Links de Navegação -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#ecosystem" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">Ecossistema</a>
+                <a href="#plataforma" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">A Plataforma</a>
+            </div>
+
             <div>
                 <a href="https://trade.obinax.com" target="_blank" class="bg-brand-green text-brand-dark font-display font-bold py-2.5 px-6 rounded-lg hover:bg-white transition-colors duration-300 text-sm md:text-base shadow-lg">
                     Acessar Plataforma
@@ -193,7 +247,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+    <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden" id="hero">
         
         <!-- Símbolo Flutuante Inteligente (Background do Hero) -->
         <div class="absolute left-[-20%] top-[5%] md:left-[2%] md:top-[10%] opacity-15 md:opacity-20 pointer-events-none z-0 animate-float-logo blur-[2px]">
@@ -343,7 +397,7 @@
         </div>
     </div>
 
-    <!-- Ecossistema Bento Box (Substitui Mockup e Features) -->
+    <!-- Ecossistema Bento Box -->
     <section class="py-24 px-6 relative z-10 bg-[#0B0E11]" id="ecosystem">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 section-header">
@@ -353,33 +407,26 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[320px]">
                 
-                <!-- Bento 1: Velocidade (Ocupa 2 colunas) -->
+                <!-- Bento 1: Velocidade -->
                 <div class="glass-panel rounded-[2rem] p-8 relative overflow-hidden group col-span-1 md:col-span-2 flex flex-col justify-end bento-item border border-white/5 hover:border-brand-green/30 transition-colors duration-500">
                     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/5 rounded-full blur-[100px] -mr-40 -mt-40 transition-all duration-700 group-hover:bg-brand-green/10"></div>
                     
-                    <!-- Decoração visual Latency -->
                     <div class="absolute top-8 right-8 flex items-center gap-2 opacity-50 z-20">
                         <div class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></div>
                         <span class="text-xs font-mono text-brand-green">12ms LATENCY</span>
                     </div>
 
-                    <!-- Representação Visual do Motor Nano-core -->
                     <div class="absolute right-0 md:right-10 top-1/2 -translate-y-1/2 w-64 h-64 flex items-center justify-center opacity-30 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                        
-                        <!-- Partículas de dados "entrando" no núcleo -->
                         <div class="absolute w-2 h-2 bg-white rounded-full shadow-[0_0_10px_white] data-particle-1"></div>
                         <div class="absolute w-2 h-2 bg-brand-blue rounded-full shadow-[0_0_10px_#00B8FF] data-particle-2"></div>
                         <div class="absolute w-2 h-2 bg-brand-green rounded-full shadow-[0_0_10px_#00FFA3] data-particle-3"></div>
 
-                        <!-- Anéis do reator -->
                         <div class="absolute inset-0 rounded-full border border-white/5 border-t-brand-green/50 border-b-brand-green/50 anim-spin-slow"></div>
                         <div class="absolute inset-4 rounded-full border border-white/5 border-l-brand-blue/50 border-r-brand-blue/50 anim-spin-reverse"></div>
                         <div class="absolute inset-10 rounded-full border border-white/10 border-t-brand-green border-b-brand-green anim-spin-fast dashed-border"></div>
                         
-                        <!-- Grade interna holográfica -->
                         <div class="absolute inset-16 rounded-full border border-white/20 bg-brand-green/5 backdrop-blur-sm"></div>
 
-                        <!-- O Núcleo (Core) -->
                         <div class="absolute w-6 h-6 bg-brand-green rounded-full anim-core-pulse flex items-center justify-center">
                             <div class="w-2 h-2 bg-white rounded-full"></div>
                         </div>
@@ -418,8 +465,6 @@
                     
                     <div class="absolute bottom-0 right-0 w-64 h-64 bg-brand-blue/5 rounded-full blur-[80px] -mr-20 -mb-20 transition-all duration-700 group-hover:bg-brand-blue/20"></div>
 
-                    <!-- Representação Visual da Liquidez (Oceano / Tape Reading) -->
-                    
                     <!-- Dark Pool Ripples -->
                     <div class="absolute right-24 md:right-32 top-1/2 -translate-y-1/2 w-48 h-48 flex items-center justify-center opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none">
                         <div class="absolute w-full h-full border-2 border-brand-blue/50 rounded-full anim-ripple"></div>
@@ -427,11 +472,10 @@
                         <div class="w-12 h-12 bg-brand-blue/50 rounded-full blur-[10px]"></div>
                     </div>
 
-                    <!-- Tape Reading (Fluxo de Ordens Caindo) -->
+                    <!-- Tape Reading -->
                     <div class="absolute right-0 top-0 bottom-0 w-32 md:w-48 flex flex-col opacity-20 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);">
-                        
                         <div class="anim-tape flex flex-col gap-1.5 py-2">
-                            <!-- Bloco Duplo para Scroll Infinito -->
+                            <!-- Bloco para Scroll -->
                             <div class="flex justify-between items-center text-brand-green px-3 py-1 bg-brand-green/5 border-l-2 border-brand-green text-[10px] md:text-xs font-mono">
                                 <span>0.45 BTC</span><span>64,230.50</span>
                             </div>
@@ -451,7 +495,7 @@
                                 <span>2.40 BTC</span><span>64,229.50</span>
                             </div>
                             
-                            <!-- Repetição do bloco acima para loop perfeito -->
+                            <!-- Repetição -->
                             <div class="flex justify-between items-center text-brand-green px-3 py-1 bg-brand-green/5 border-l-2 border-brand-green text-[10px] md:text-xs font-mono">
                                 <span>0.45 BTC</span><span>64,230.50</span>
                             </div>
@@ -479,11 +523,11 @@
 
                     <div class="relative z-10 md:w-[70%] mt-20 md:mt-0">
                         <h3 class="font-display text-2xl font-bold text-white mb-3">Liquidez Profunda</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Conectividade direta com Dark Pools e os maiores provedores do mundo. Opere volumes massivos instantaneamente com zero slippage.</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">Conectividade direta com Dark Pools e provedores. Opere volumes massivos sem slippage.</p>
                     </div>
                 </div>
 
-                <!-- Bento 4: Segurança (Ocupa 2 colunas) -->
+                <!-- Bento 4: Segurança -->
                 <div class="glass-panel rounded-[2rem] p-8 relative overflow-hidden group col-span-1 md:col-span-2 flex flex-col justify-end bento-item border border-white/5 hover:border-purple-500/30 transition-colors duration-500">
                     <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px] -mr-40 -mb-40 transition-all duration-700 group-hover:bg-purple-500/10"></div>
                     
@@ -504,8 +548,169 @@
         </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- NOVA SEÇÃO: A PLATAFORMA POR DENTRO -->
+    <!-- ========================================== -->
+    <section class="py-32 px-6 relative z-10 bg-[#0B0E11] overflow-hidden border-t border-white/5 interactive-section" id="plataforma">
+        
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center mb-16 platform-reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">A Plataforma por Dentro</h2>
+                <p class="text-gray-400 text-lg">Uma experiência de trading viva, responsiva e focada na sua tomada de decisão.</p>
+            </div>
+
+            <!-- MOCKUP 3D DA PLATAFORMA -->
+            <div class="perspective-container w-full max-w-5xl mx-auto mb-24 platform-reveal">
+                <div class="platform-mockup glass-panel rounded-2xl border border-white/10 shadow-[0_30px_100px_-20px_rgba(0,255,163,0.15)] flex flex-col overflow-hidden h-[500px] relative bg-[#0B0E11]">
+                    
+                    <!-- Falso Header do Mockup -->
+                    <div class="h-12 border-b border-white/5 flex items-center justify-between px-4 bg-[#151A20]/80">
+                        <div class="flex items-center gap-3">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <div class="ml-4 flex items-center gap-2 bg-[#0B0E11] px-3 py-1 rounded text-xs font-mono text-gray-300 border border-white/5">
+                                <i data-lucide="search" class="w-3 h-3"></i> BTC/USDT
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs font-mono text-gray-400">
+                            <span>Balance: <strong class="text-white">$ 1,245,670.00</strong></span>
+                            <div class="w-6 h-6 rounded-full bg-brand-green/20 flex items-center justify-center border border-brand-green/30 text-brand-green">JS</div>
+                        </div>
+                    </div>
+
+                    <!-- Falso Corpo do Mockup -->
+                    <div class="flex-1 flex w-full relative">
+                        
+                        <!-- Sidebar Falsa -->
+                        <div class="w-14 border-r border-white/5 flex flex-col items-center py-4 gap-6 bg-[#0B0E11]">
+                            <i data-lucide="layout-dashboard" class="w-5 h-5 text-brand-green"></i>
+                            <i data-lucide="pie-chart" class="w-5 h-5 text-gray-500 hover:text-white transition"></i>
+                            <i data-lucide="history" class="w-5 h-5 text-gray-500 hover:text-white transition"></i>
+                            <i data-lucide="settings" class="w-5 h-5 text-gray-500 hover:text-white transition mt-auto"></i>
+                        </div>
+
+                        <!-- Área de Order Book (Esquerda) -->
+                        <div class="w-64 border-r border-white/5 p-4 flex flex-col text-xs font-mono hidden md:flex">
+                            <div class="text-gray-500 mb-3 flex justify-between"><span>Price</span><span>Amount</span></div>
+                            
+                            <!-- Asks (Red) -->
+                            <div class="flex flex-col gap-1 relative z-10">
+                                <div class="flex justify-between text-[#FF3B30] relative"><div class="absolute right-0 top-0 bottom-0 bg-[#FF3B30]/10 anim-order-bar"></div><span class="z-10">64,235.00</span><span class="z-10 text-white">0.54</span></div>
+                                <div class="flex justify-between text-[#FF3B30] relative"><div class="absolute right-0 top-0 bottom-0 bg-[#FF3B30]/10 anim-order-bar-2"></div><span class="z-10">64,233.50</span><span class="z-10 text-white">1.20</span></div>
+                                <div class="flex justify-between text-[#FF3B30] relative"><div class="absolute right-0 top-0 bottom-0 bg-[#FF3B30]/10 w-1/2"></div><span class="z-10">64,231.00</span><span class="z-10 text-white">4.10</span></div>
+                            </div>
+                            
+                            <!-- Spread -->
+                            <div class="py-3 text-center text-brand-green font-bold text-lg my-2 border-y border-white/5">64,230.50</div>
+                            
+                            <!-- Bids (Green) -->
+                            <div class="flex flex-col gap-1 relative z-10">
+                                <div class="flex justify-between text-brand-green relative"><div class="absolute right-0 top-0 bottom-0 bg-brand-green/10 anim-order-bar-2"></div><span class="z-10">64,230.00</span><span class="z-10 text-white">2.50</span></div>
+                                <div class="flex justify-between text-brand-green relative"><div class="absolute right-0 top-0 bottom-0 bg-brand-green/10 w-1/3"></div><span class="z-10">64,228.50</span><span class="z-10 text-white">0.80</span></div>
+                                <div class="flex justify-between text-brand-green relative"><div class="absolute right-0 top-0 bottom-0 bg-brand-green/10 anim-order-bar"></div><span class="z-10">64,225.00</span><span class="z-10 text-white">8.45</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Área Gráfica Falsa (Centro) -->
+                        <div class="flex-1 relative overflow-hidden bg-gradient-to-b from-brand-green/5 to-transparent flex items-end">
+                            <!-- SVG Falso de Linha -->
+                            <svg viewBox="0 0 100 50" class="w-full h-full preserve-3d absolute bottom-0 opacity-40" preserveAspectRatio="none">
+                                <path d="M0,50 L0,30 C10,20 20,40 30,25 C40,10 50,35 60,20 C70,5 80,15 90,10 L100,5 L100,50 Z" fill="url(#grad)" stroke="#00FFA3" stroke-width="0.5"/>
+                                <defs>
+                                    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#00FFA3" stop-opacity="0.2" />
+                                        <stop offset="100%" stop-color="#00FFA3" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <!-- Crosshair Fake -->
+                            <div class="absolute top-0 bottom-0 left-1/2 w-px bg-brand-green/30 border-dashed"></div>
+                            <div class="absolute left-0 right-0 top-1/2 h-px bg-brand-green/30 border-dashed"></div>
+                        </div>
+
+                        <!-- Área de Painel de Ordem (Direita) -->
+                        <div class="w-64 border-l border-white/5 p-4 flex flex-col bg-[#151A20]/30 hidden lg:flex">
+                            <div class="flex gap-2 mb-4 bg-[#0B0E11] p-1 rounded-lg border border-white/5">
+                                <div class="flex-1 text-center py-1 text-xs font-bold bg-[#151A20] rounded text-white cursor-pointer">Limit</div>
+                                <div class="flex-1 text-center py-1 text-xs text-gray-500 cursor-pointer">Market</div>
+                            </div>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="bg-[#0B0E11] border border-white/5 rounded p-2 text-xs flex justify-between text-gray-400">
+                                    <span>Price</span> <span class="text-white">64,230.50 USDT</span>
+                                </div>
+                                <div class="bg-[#0B0E11] border border-white/5 rounded p-2 text-xs flex justify-between text-gray-400">
+                                    <span>Size</span> <span class="text-white">1.00 BTC</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3 mt-auto">
+                                <button class="flex-1 bg-brand-green text-brand-dark font-bold py-3 rounded text-sm hover:brightness-110 transition shadow-[0_0_15px_rgba(0,255,163,0.3)]">Buy</button>
+                                <button class="flex-1 bg-[#FF3B30] text-white font-bold py-3 rounded text-sm hover:brightness-110 transition">Sell</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passos: Como funciona na prática -->
+            <div class="text-center mb-12 platform-reveal">
+                <h3 class="font-display text-2xl md:text-3xl font-bold mb-2">Como funciona na prática</h3>
+                <p class="text-gray-400">Um fluxo perfeito do login ao take-profit.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 platform-reveal">
+                
+                <!-- Passo 1 -->
+                <div class="step-card glass-panel p-6 rounded-2xl border border-white/5 cursor-default relative overflow-hidden group">
+                    <div class="text-4xl font-display font-black text-white/5 absolute top-2 right-4 pointer-events-none">01</div>
+                    <div class="step-icon-wrapper w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 mb-6 transition-all duration-300">
+                        <i data-lucide="plug" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-display text-lg font-bold text-white mb-2">Conexão Institucional</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Acesso imediato ao pool global de liquidez através do nosso gateway criptografado.</p>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="step-card glass-panel p-6 rounded-2xl border border-white/5 cursor-default relative overflow-hidden group">
+                    <div class="text-4xl font-display font-black text-white/5 absolute top-2 right-4 pointer-events-none">02</div>
+                    <div class="step-icon-wrapper w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 mb-6 transition-all duration-300">
+                        <i data-lucide="eye" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-display text-lg font-bold text-white mb-2">Análise Profunda</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Ferramentas avançadas de charting e dados em tempo real integrados à interface de operação.</p>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="step-card glass-panel p-6 rounded-2xl border border-white/5 cursor-default relative overflow-hidden group">
+                    <div class="text-4xl font-display font-black text-white/5 absolute top-2 right-4 pointer-events-none">03</div>
+                    <div class="step-icon-wrapper w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 mb-6 transition-all duration-300">
+                        <i data-lucide="mouse-pointer-click" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-display text-lg font-bold text-white mb-2">Execução de Precisão</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Clique. Executado. Roteamento inteligente garante preenchimento completo sem derrapagem.</p>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="step-card glass-panel p-6 rounded-2xl border border-white/5 cursor-default relative overflow-hidden group">
+                    <div class="text-4xl font-display font-black text-white/5 absolute top-2 right-4 pointer-events-none">04</div>
+                    <div class="step-icon-wrapper w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 mb-6 transition-all duration-300">
+                        <i data-lucide="shield" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-display text-lg font-bold text-white mb-2">Gestão Segura</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Seu capital e posições monitorados 24/7 com proteção contra falhas e liquidações injustas.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Call To Action -->
-    <section class="py-32 px-6 relative z-10 text-center border-t border-white/5">
+    <section class="py-32 px-6 relative z-10 text-center border-t border-white/5 bg-[#0B0E11]">
         <div class="max-w-3xl mx-auto cta-section">
             <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Pronto para elevar seu nível?</h2>
             <p class="text-gray-400 text-lg mb-10">Abra sua conta na Obinax hoje e experimente a verdadeira evolução do trading.</p>
@@ -516,7 +721,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-8 text-center bg-[#0B0E11]">
+    <footer class="border-t border-white/5 py-8 text-center bg-[#0B0E11] relative z-10">
         <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/obinax%2FLOGO%20-%20Obinax%202026.PNG?alt=media&token=134afdec-a6a9-47e7-9d78-c49d408c7a87" alt="Obinax Logo" class="h-6 mx-auto mb-4 opacity-30">
         <p class="text-gray-600 text-xs">© 2026 Obinax. Trading envolve altos riscos.</p>
     </footer>
@@ -526,9 +731,12 @@
         // Inicializar ícones
         lucide.createIcons();
 
-        // GSAP Animações (Suaves e Limpas)
+        // ==========================================
+        // GSAP E ANIMAÇÕES GERAIS
+        // ==========================================
         gsap.registerPlugin(ScrollTrigger);
 
+        // Animação Hero
         gsap.from(".gs-reveal", {
             y: 30,
             opacity: 0,
@@ -536,16 +744,6 @@
             stagger: 0.15,
             ease: "power2.out",
             delay: 0.2
-        });
-
-        // Navbar blur effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                nav.classList.add('glass-panel', 'border-b');
-            } else {
-                nav.classList.remove('glass-panel', 'border-b');
-            }
         });
 
         // Revelar seções ao rolar
@@ -561,6 +759,81 @@
                 ease: "power2.out"
             });
         });
+
+        // Animação Seção da Plataforma Interna
+        gsap.from(".platform-reveal", {
+            scrollTrigger: { trigger: "#plataforma", start: "top 75%" },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+
+        // ==========================================
+        // INTERAÇÕES DE NAVEGAÇÃO E MOCKUP 3D
+        // ==========================================
+
+        // Navbar blur effect & Active States
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            
+            // Navbar Glass Effect
+            if (window.scrollY > 20) {
+                nav.classList.add('glass-panel', 'border-b');
+            } else {
+                nav.classList.remove('glass-panel', 'border-b');
+            }
+
+            // Scroll Highlight (Menu)
+            let currentSection = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 300)) {
+                    currentSection = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("text-brand-green", "text-white");
+                link.classList.add("text-gray-400");
+                if (link.getAttribute("href") === `#${currentSection}`) {
+                    link.classList.remove("text-gray-400");
+                    link.classList.add("text-brand-green");
+                }
+            });
+        });
+
+        // Efeito Parallax Discreto / 3D Tilt no Mockup da Plataforma
+        const mockupSection = document.querySelector('.interactive-section');
+        const mockupElement = document.querySelector('.platform-mockup');
+
+        if (mockupSection && mockupElement) {
+            mockupSection.addEventListener('mousemove', (e) => {
+                // Cálculo leve para rotacionar o mockup baseado na posição do mouse
+                const rect = mockupSection.getBoundingClientRect();
+                const xPos = e.clientX - rect.left;
+                const yPos = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((yPos - centerY) / centerY) * -4; // Max 4 deg de rotação X
+                const rotateY = ((xPos - centerX) / centerX) * 4;  // Max 4 deg de rotação Y
+
+                mockupElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            // Resetar posição quando o mouse sair
+            mockupSection.addEventListener('mouseleave', () => {
+                mockupElement.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+        }
+
 
         // ==========================================
         // HERO TRADINGVIEW CHART (Lightweight Charts)
