@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NatuVein | Pernas Naturalmente Saudáveis</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Swiper CSS (Para o Carrossel do Instagram) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#f3e8ff', // Roxo super claro
+                            DEFAULT: '#6b21a8', // Roxo vibrante (Pote e logo)
+                            dark: '#4c1d95', // Roxo bem escuro
+                            accent: '#166534', // Verde escuro (Folha do logo)
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para o Simulador do Instagram */
+        .insta-container {
+            aspect-ratio: 9/16;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .swiper-pagination-bullet {
+            background: white !important;
+            opacity: 0.5;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+        .video-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        /* Padrão de fundo do WhatsApp Falso */
+        .wa-bg {
+            background-color: #e5ddd5;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%23d1c8c0' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Ocultar barra de rolagem mas permitir scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- Navbar Fixa -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FWhatsApp%20Image%202026-02-20%20at%2012.52.30.jpeg?alt=media&token=7aa488ab-1465-49d1-8a95-d1363336ba0e" alt="Logo NatuVein" class="h-10 w-auto mix-blend-multiply drop-shadow-sm">
+                </div>
+                <div>
+                    <a href="#ofertas" class="bg-brand-accent hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold text-sm transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <span>Comprar Agora</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seção Hero -->
+    <section class="pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden relative">
+        <!-- Elementos de fundo atualizados para a nova paleta -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow"></div>
+            <div class="absolute bottom-[-10%] left-[-5%] w-72 h-72 bg-green-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow" style="animation-delay: 1s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Textos Hero -->
+                <div data-aos="fade-right" class="text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-light text-brand-dark font-medium text-sm mb-6 border border-purple-200">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-accent"></span>
+                        </span>
+                        Fórmula 100% Natural
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                        Livre-se das Varizes sem <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-accent">Cirurgia.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        O alívio eficaz e natural para pernas cansadas, inchaço e dores. Recupere sua autoestima e a beleza das suas pernas com nosso mecanismo único.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#ofertas" class="bg-brand hover:bg-brand-dark text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-[0_10px_20px_rgba(107,33,168,0.3)] flex items-center justify-center gap-2">
+                            Quero Pernas Saudáveis
+                            <i class="ph-bold ph-sparkle"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center justify-center lg:justify-start gap-4 text-sm text-slate-500 font-medium">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="Cliente">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=5" alt="Cliente">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=9" alt="Cliente">
+                        </div>
+                        <p>+ de 10.000 pessoas tratadas</p>
+                    </div>
+                </div>
+
+                <!-- Imagem do Produto -->
+                <div data-aos="fade-left" class="relative z-10 mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md">
+                    <div class="relative">
+                        <!-- Imagem do Firebase -->
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FDesign%20sem%20nome%20(47).png?alt=media&token=ece6f02b-20ca-4a99-b5c3-937a096ad55b" alt="Pote Natuvein" class="w-full h-auto drop-shadow-2xl animate-float relative z-20">
+                        
+                        <!-- Selo de Garantia Flutuante -->
+                        <div class="absolute -bottom-6 -right-6 md:bottom-10 md:-left-10 bg-white p-4 rounded-2xl shadow-xl z-30 flex items-center gap-3 animate-pulse-slow border border-gray-100">
+                            <div class="bg-yellow-100 p-2 rounded-full text-yellow-600">
+                                <i class="ph-fill ph-shield-check text-2xl"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-xs text-slate-500 font-semibold uppercase">Garantia</p>
+                                <p class="text-sm font-bold text-slate-800">90 Dias de Risco Zero</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof (Simulador de Instagram) -->
+    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Background elements -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] z-0"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Direto da Nossa Fábrica para Você</h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">Acompanhe de perto o rigoroso padrão de qualidade, higiene e cuidado na produção e separação do seu NatuVein.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                
+                <!-- Mockup de Celular com Reels -->
+                <div data-aos="zoom-in" class="relative insta-container bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-[0_0_50px_rgba(107,33,168,0.5)] overflow-hidden">
+                    
+                    <!-- Notch simulado -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-b-xl z-50 flex justify-center items-end pb-1">
+                        <div class="w-12 h-1 bg-slate-900 rounded-full"></div>
+                    </div>
+
+                    <!-- Swiper Container -->
+                    <div class="swiper mySwiper w-full h-full relative">
+                        <div class="swiper-wrapper">
+                            
+                            <!-- Reel 1 -->
+                            <div class="swiper-slide relative w-full h-full bg-black flex justify-center items-center">
+                                <video src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FWhatsApp%20Video%202026-02-20%20at%2010.14.50%20(1).mp4?alt=media&token=048991c5-dee3-4a38-8445-2394e171bc8b" 
+                                    class="w-full h-full object-cover" loop muted playsinline autoplay></video>
+                                <div class="absolute inset-0 video-overlay"></div>
+                                
+                                <!-- UI do Instagram -->
+                                <div class="absolute inset-0 p-4 flex flex-col justify-between pointer-events-none">
+                                    <div class="pt-8 flex justify-between items-center text-white">
+                                        <span class="font-bold drop-shadow-md">Reels</span>
+                                        <i class="ph-bold ph-camera text-2xl drop-shadow-md"></i>
+                                    </div>
+                                    <div class="flex justify-between items-end pb-4">
+                                        <div class="flex flex-col gap-2 max-w-[70%]">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center font-bold border border-white">N</div>
+                                                <a href="https://www.instagram.com/natuvein01?igsh=a3h6ZmNubDBoNTZr" target="_blank" class="font-bold text-sm drop-shadow-md hover:underline pointer-events-auto">@natuvein01</a>
+                                                <i class="ph-fill ph-seal-check text-blue-400 text-sm"></i>
+                                                <button class="border border-white/50 px-2 py-0.5 rounded-lg text-xs font-semibold backdrop-blur-sm pointer-events-auto">Seguir</button>
+                                            </div>
+                                            <p class="text-sm text-white drop-shadow-md line-clamp-2">Adeus dores nas pernas e inchaço! Conheça o segredo natural. 🌿✨ #varizes #saude #natuvein</p>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-4 pb-2 pointer-events-auto">
+                                            <button class="flex flex-col items-center group">
+                                                <i class="ph-fill ph-heart text-3xl group-hover:text-red-500 transition-colors"></i>
+                                                <span class="text-xs mt-1 font-medium drop-shadow-md">12.4k</span>
+                                            </button>
+                                            <button class="flex flex-col items-center">
+                                                <i class="ph-bold ph-chat-circle text-3xl drop-shadow-md"></i>
+                                                <span class="text-xs mt-1 font-medium drop-shadow-md">842</span>
+                                            </button>
+                                            <button class="flex flex-col items-center">
+                                                <i class="ph-bold ph-paper-plane-tilt text-3xl drop-shadow-md"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reel 2 -->
+                            <div class="swiper-slide relative w-full h-full bg-black flex justify-center items-center">
+                                <video src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FWhatsApp%20Video%202026-02-20%20at%2010.14.50%20(2).mp4?alt=media&token=84f2d8d3-f88c-442d-9626-c9728df2ee48" 
+                                    class="w-full h-full object-cover" loop muted playsinline></video>
+                                <div class="absolute inset-0 video-overlay"></div>
+                                <div class="absolute inset-0 p-4 flex flex-col justify-end pointer-events-none pb-8">
+                                    <div class="flex justify-between items-end">
+                                        <div class="flex flex-col gap-2 max-w-[70%]">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center font-bold border border-white">N</div>
+                                                <a href="https://www.instagram.com/natuvein01?igsh=a3h6ZmNubDBoNTZr" target="_blank" class="font-bold text-sm drop-shadow-md hover:underline pointer-events-auto">@natuvein01</a>
+                                            </div>
+                                            <p class="text-sm text-white drop-shadow-md">Processo de separação do seu NatuVein! Tratamento premium. 📦</p>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-4 pb-2 pointer-events-auto">
+                                            <button class="flex flex-col items-center"><i class="ph-fill ph-heart text-3xl text-red-500"></i><span class="text-xs mt-1">8.2k</span></button>
+                                            <button class="flex flex-col items-center"><i class="ph-bold ph-chat-circle text-3xl"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reel 3 -->
+                            <div class="swiper-slide relative w-full h-full bg-black flex justify-center items-center">
+                                <video src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FWhatsApp%20Video%202026-02-20%20at%2010.14.50.mp4?alt=media&token=eaeef163-db60-4c62-963b-21e49215ded4" 
+                                    class="w-full h-full object-cover" loop muted playsinline></video>
+                                <div class="absolute inset-0 video-overlay"></div>
+                                <div class="absolute inset-0 p-4 flex flex-col justify-end pointer-events-none pb-8">
+                                    <div class="flex justify-between items-end">
+                                        <div class="flex flex-col gap-2 max-w-[70%]">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center font-bold border border-white">N</div>
+                                                <a href="https://www.instagram.com/natuvein01?igsh=a3h6ZmNubDBoNTZr" target="_blank" class="font-bold text-sm drop-shadow-md hover:underline pointer-events-auto">@natuvein01</a>
+                                            </div>
+                                            <p class="text-sm text-white drop-shadow-md">Melhore a circulação e sinta a leveza instantânea! 💜</p>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-4 pb-2 pointer-events-auto">
+                                            <button class="flex flex-col items-center"><i class="ph-fill ph-heart text-3xl"></i><span class="text-xs mt-1">15.1k</span></button>
+                                            <button class="flex flex-col items-center"><i class="ph-bold ph-chat-circle text-3xl"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        
+                        <!-- Dica de swipe -->
+                        <div class="absolute top-1/2 right-2 -translate-y-1/2 z-50 text-white/50 animate-pulse pointer-events-none flex flex-col items-center gap-1">
+                            <i class="ph-bold ph-hand-swipe-left text-2xl"></i>
+                            <span class="text-[10px] uppercase font-bold tracking-wider">Arraste</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Textos ao lado do celular -->
+                <div data-aos="fade-left" class="max-w-md text-center lg:text-left">
+                    <div class="bg-white/10 border border-white/20 p-6 rounded-2xl backdrop-blur-sm">
+                        <h3 class="text-xl font-bold mb-4 text-brand-light flex items-center justify-center lg:justify-start gap-2">
+                            <i class="ph-fill ph-play-circle text-brand-accent"></i> Assista à operação real
+                        </h3>
+                        <p class="text-slate-300 mb-4">Nosso cuidado com a fabricação e logística mostram que somos a solução número 1. Veja os vídeos na tela ao lado (arraste para ver mais).</p>
+                        <ul class="space-y-3 text-sm text-slate-300 text-left">
+                            <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-accent mt-0.5"></i> Qualidade controlada.</li>
+                            <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-accent mt-0.5"></i> Ingredientes puros e naturais.</li>
+                            <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-accent mt-0.5"></i> Suporte e acompanhamento profissional.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dores e Problemas -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-red-500 font-bold tracking-wider uppercase text-sm">O Problema</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4">Você se identifica com essas situações?</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Varizes não são apenas um problema estético. Elas afetam sua qualidade de vida, humor e mobilidade.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card Dor 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-brand-light transition-all group">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-warning-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Peso e Dor</h3>
+                    <p class="text-slate-600 text-sm">Sensação constante de pernas cansadas, pesadas e doloridas no final do dia.</p>
+                </div>
+                <!-- Card Dor 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-brand-light transition-all group">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-drop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Inchaço</h3>
+                    <p class="text-slate-600 text-sm">Desconforto severo e inchaço visível após longos períodos em pé ou sentado.</p>
+                </div>
+                <!-- Card Dor 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-brand-light transition-all group">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-eye-slash"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Autoestima Baixa</h3>
+                    <p class="text-slate-600 text-sm">Aparência visível de varizes grossas ou teias de aranha que dão vergonha de expor as pernas.</p>
+                </div>
+                <!-- Card Dor 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-brand-light transition-all group">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-scissors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Medo de Cirurgia</h3>
+                    <p class="text-slate-600 text-sm">Preocupação com trombose e pavor de procedimentos estéticos invasivos e dolorosos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials WhatsApp (NOVA SESSÃO - CORRIGIDA A PERSPECTIVA DO PRINT E FOTOS) -->
+    <section class="py-20 bg-slate-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-brand-accent font-bold tracking-wider uppercase text-sm">Eles Confiam</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4">Veja as mensagens reais de nossos clientes</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Recebemos dezenas de mensagens todos os dias de pessoas que transformaram a saúde das suas pernas.</p>
+            </div>
+
+            <!-- Grid estilo Masonry (colunas que se adaptam a altura do conteúdo) -->
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                
+                <!-- Depoimento 1 -->
+                <div data-aos="zoom-in" data-aos-delay="50" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Maria Lúcia</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <!-- Cliente manda (Branco / Esquerda) -->
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Chegou meu pedido! Muito obrigada pela agilidade de vocês.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">10:14</span>
+                        </div>
+                        <!-- Você responde (Verde / Direita) -->
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Nós que agradecemos, Maria! Como você está se sentindo após essa primeira semana de uso?
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">10:20 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                        <!-- Cliente manda (Branco / Esquerda) -->
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Menina, parece milagre! 🙏 O inchaço diminuiu pela metade e minhas pernas estão super leves de noite. Já quero encomendar pro meu marido testar.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">10:22</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 (Carlos Henrique - Reescrevido para fazer sentido) -->
+                <div data-aos="zoom-in" data-aos-delay="100" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Carlos Henrique</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Boa noite. O kit de 5 meses ainda tá com frete grátis? Quero pedir pra minha mãe.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">18:45</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Boa noite, Carlos! Está sim. Ela já usou o NatuVein antes?
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">18:48 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Já sim, ela usou 1 frasco que eu dei e as dores sumiram. Ela trabalha em pé o dia todo e chegava chorando de dor. 
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">18:50</span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Agora tá super bem, por isso vou garantir o tratamento completo logo pra ela. O produto é fantástico.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">18:50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 3 -->
+                <div data-aos="zoom-in" data-aos-delay="150" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Ana Paula</h4><p class="text-[11px] text-green-100">visto por último hoje às 09:12</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Gente, eu tava com cirurgia marcada pro mês que vem pra tirar as veias piores.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">08:20</span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Meu médico falou pra cancelar pq os vasinhos reduziram drasticamente!! Que alivio não precisar de faca. 😭💜
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">08:21</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Que notícia maravilhosa, Ana! É exatamente esse o nosso propósito. Ficamos muito felizes com seu relato!
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">08:45 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 4 (Dona Sônia - FOTO ARRUMADA SENHORA DE IDADE) -->
+                <div data-aos="zoom-in" data-aos-delay="200" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/76.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Dona Sônia</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Boa tarde vcs vendem aquele kit de novo? Acabou o meu
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">14:10</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Boa tarde, Dona Sônia! Vendemos sim 🥰 Como foram os resultados nesses primeiros meses?
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">14:15 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Foi uma benção, eu não aguentava mais as dores pra limpar a casa. As veias mais grossas diminuiram bem tb. Quero continuar
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">14:18</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 5 -->
+                <div data-aos="zoom-in" data-aos-delay="250" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Roberto Almeida</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Meu segundo pedido chegou aqui no Sul. Tudo certo com a entrega super rápida.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">11:05</span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Já estou no terceiro mês de uso. O cansaço nas pernas e aquela ardência absurda que eu sentia de noite simplesmente desapareceram. Parabéns pela fórmula.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">11:06</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Ficamos muito felizes com o seu feedback, Roberto! Continue o tratamento certinho pra resultados definitivos.
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">11:15 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 6 -->
+                <div data-aos="zoom-in" data-aos-delay="300" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Juliana Mendes</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Oi! Minha encomenda chegou agorinha. Vieram os 5 potes certinhos e eu já baixei o material do protocolo.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">15:30</span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Minha tia usou e até as úlceras varicosas dela melhoraram muito, por isso comprei sem medo. Tô muito ansiosa pra começar hoje mesmo! 🥰
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">15:31</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Oi Juliana! Que maravilha. Vai ter resultados incríveis assim como a sua tia. Qualquer dúvida estamos por aqui!
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">15:40 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 7 -->
+                <div data-aos="zoom-in" data-aos-delay="350" class="break-inside-avoid bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div class="bg-[#075e54] px-4 py-3 flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-white/20">
+                        <div><h4 class="font-semibold text-white text-sm">Lucia Ribeiro</h4><p class="text-[11px] text-green-100">online</p></div>
+                    </div>
+                    <div class="p-4 flex flex-col gap-3 wa-bg">
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            Comprei o básico de 3 meses e me arrependi de não ter pego o de 5 logo kkkkk.
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">09:12</span>
+                        </div>
+                        <div class="bg-white text-gray-800 p-3 rounded-xl rounded-tl-none max-w-[85%] self-start shadow-sm relative text-[13px] leading-relaxed">
+                            O negócio é bom de verdade. Fim do dia eu não tenho mais aquele peso que parecia que tinha chumbo nas pernas. Como faço pra comprar mais com desconto agora?
+                            <span class="block text-[10px] text-gray-400 text-right mt-1">09:13</span>
+                        </div>
+                        <div class="bg-[#dcf8c6] text-gray-800 p-3 rounded-xl rounded-tr-none max-w-[85%] self-end shadow-sm relative text-[13px] leading-relaxed">
+                            Hahah acontece muito, Lucia! Vou te mandar aqui o link VIP com desconto especial pra você garantir a continuação do tratamento! 👇
+                            <span class="block text-[10px] text-gray-500 text-right mt-1">09:20 <i class="ph-bold ph-checks text-blue-500"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Mecanismo Único & Ingredientes -->
+    <section class="py-20 bg-brand text-white overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-dark rounded-l-[100px] -z-10 hidden lg:block transform translate-x-1/3"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">A Ciência por trás do NatuVein</h2>
+                    <p class="text-brand-light text-lg mb-8 opacity-90">
+                        Ao invés de tratar apenas superficialmente (como cremes), NatuVein possui um <strong>mecanismo único</strong>: atua de dentro para fora.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 text-2xl shadow-inner">
+                                🔬
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Regeneração Celular</h4>
+                                <p class="text-brand-light opacity-80 text-sm">Combinação exclusiva de antioxidantes que protegem e regeneram os vasos sanguíneos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 text-2xl shadow-inner">
+                                🛡️
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-1">Efeito Anti-inflamatório</h4>
+                                <p class="text-brand-light opacity-80 text-sm">Combate diretamente a inflamação, eliminando a dor aguda e o cansaço persistente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left" class="bg-white rounded-3xl p-8 shadow-2xl text-slate-800 relative">
+                    <div class="absolute -top-6 -right-6 bg-brand-accent text-white w-20 h-20 rounded-full flex items-center justify-center font-bold text-center shadow-lg transform rotate-12 border-2 border-white">
+                        100%<br>Natural
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-brand border-b border-gray-100 pb-4">Nossa Fórmula Secreta</h3>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Proantocianidinas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Vitamina C</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Magnésio</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Óleo de Cártamo</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Ômega 6</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Astaxantina</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl"></i>
+                            <span class="font-medium text-slate-700">Arginina</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8 bg-purple-50 p-4 rounded-xl text-brand text-sm font-semibold flex items-center gap-3 border border-purple-100">
+                        <i class="ph-fill ph-info text-2xl"></i>
+                        Cápsulas práticas: Fáceis de dosar, com absorção muito superior aos cremes comuns.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ofertas / Pricing (Linkados com PAYT) -->
+    <section id="ofertas" class="py-24 bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold text-brand-dark mb-4">Escolha seu Tratamento</h2>
+                <p class="text-lg text-slate-600">Recomendamos tratamentos mais longos para resultados definitivos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+                
+                <!-- Kit 3 Meses -->
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-3xl p-8 border border-gray-200 shadow-lg relative flex flex-col h-full hover:border-purple-300 transition-colors">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Tratamento Básico</h3>
+                        <p class="text-brand font-semibold mt-2 text-lg">3 Meses</p>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>3 Potes de NatuVein</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>Acompanhamento Profissional</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>Protocolo Alimentar</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-bold text-brand-accent bg-green-50 p-2 rounded-lg mt-4 border border-green-100">
+                            <i class="ph-bold ph-truck text-xl"></i>
+                            <span>FRETE GRÁTIS</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://payt.site/a8CxBo5" target="_blank" class="w-full block text-center bg-brand hover:bg-brand-dark text-white font-bold py-4 rounded-xl transition-colors shadow-lg">
+                        COMPRAR KIT 3 MESES
+                    </a>
+                </div>
+
+                <!-- Kit 5 Meses (Destaque) -->
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-brand rounded-3xl p-8 border-4 border-brand-accent shadow-2xl relative transform md:scale-105 z-10 flex flex-col h-full text-white">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-accent text-white px-6 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider whitespace-nowrap shadow-md">
+                        Mais Vendido
+                    </div>
+                    <div class="text-center mb-6 mt-4">
+                        <h3 class="text-2xl font-bold">Tratamento Ideal</h3>
+                        <p class="text-brand-light font-semibold mt-2 text-lg">5 Meses</p>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-sm">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl bg-white rounded-full"></i>
+                            <span class="font-medium">5 Potes de NatuVein</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl bg-white rounded-full"></i>
+                            <span class="font-medium">Acompanhamento Profissional</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-xl bg-white rounded-full"></i>
+                            <span class="font-medium">Protocolo Alimentar Exclusivo</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-bold text-white bg-brand-accent p-2 rounded-lg mt-4 shadow-inner">
+                            <i class="ph-bold ph-truck text-xl"></i>
+                            <span>FRETE GRÁTIS EXPRESSO</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://payt.site/eGCOBkM" target="_blank" class="w-full block text-center bg-brand-accent hover:bg-green-700 text-white font-extrabold py-5 rounded-xl transition-transform hover:scale-105 shadow-xl text-lg animate-pulse-slow">
+                        COMPRAR KIT 5 MESES
+                    </a>
+                </div>
+
+                <!-- Kit 10 Meses -->
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-3xl p-8 border border-gray-200 shadow-lg relative flex flex-col h-full hover:border-purple-300 transition-colors">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">Tratamento Completo</h3>
+                        <p class="text-brand font-semibold mt-2 text-lg">10 Meses</p>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>10 Potes de NatuVein (Máx. Econ.)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>Acompanhamento Profissional VIP</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="ph-fill ph-check-circle text-brand text-xl"></i>
+                            <span>Protocolo Alimentar</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-bold text-brand-accent bg-green-50 p-2 rounded-lg mt-4 border border-green-100">
+                            <i class="ph-bold ph-truck text-xl"></i>
+                            <span>FRETE GRÁTIS</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://payt.site/98C5Dz6" target="_blank" class="w-full block text-center bg-brand hover:bg-brand-dark text-white font-bold py-4 rounded-xl transition-colors shadow-lg">
+                        COMPRAR KIT 10 MESES
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia Section -->
+    <section class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div data-aos="zoom-in" class="bg-slate-50 border border-slate-200 rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center gap-8 text-left">
+                <div class="w-32 h-32 flex-shrink-0 text-brand">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5 12L10.5 15L16.5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold text-slate-900 mb-4">Garantia Incondicional de 90 Dias</h3>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        Temos tanta confiança nos ingredientes naturais e na eficácia do NatuVein que oferecemos uma garantia blindada. Compre e use durante 90 dias. Se você não notar alívio nas dores, redução do inchaço e melhora visual das pernas, devolveremos 100% do seu dinheiro, sem burocracia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <!-- Logo no rodapé aplicada com fundo branco pra destacar -->
+                    <div class="bg-white p-3 rounded-xl inline-block mb-4">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/natuvein%2FWhatsApp%20Image%202026-02-20%20at%2012.52.30.jpeg?alt=media&token=7aa488ab-1465-49d1-8a95-d1363336ba0e" alt="Logo NatuVein" class="h-8 w-auto mix-blend-multiply drop-shadow-sm">
+                    </div>
+                    <p class="text-sm">Pernas naturalmente saudáveis. Marca especialista em saúde vascular natural.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Links Seguros</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Políticas de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Política de Reembolso</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Pagamento 100% Seguro</h4>
+                    <div class="flex gap-2 text-2xl">
+                        <i class="ph-fill ph-credit-card"></i>
+                        <i class="ph-fill ph-lock-key"></i>
+                        <i class="ph-fill ph-shield-check"></i>
+                    </div>
+                    <p class="text-xs mt-2">Transação encriptada e processada via PAYT.</p>
+                </div>
+            </div>
+            <div class="text-center text-xs border-t border-slate-800 pt-8">
+                <p>Este produto não substitui o parecer profissional. Consulte sempre um profissional da saúde para tratar de assuntos relativos à saúde.</p>
+                <p class="mt-2">&copy; 2026 NatuVein. Todos os direitos reservados.</p>
+                <p class="mt-4 text-slate-500">
+                    Criado por <a href="https://conectawebdigital.com.br" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:text-white transition-colors font-medium">Conecta Web Digital</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão WhatsApp Flutuante -->
+    <a href="https://wa.me/5547984666909" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#128C7E] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 group">
+        <i class="ph-fill ph-whatsapp-logo text-4xl"></i>
+        <!-- Efeito de pulso no fundo -->
+        <span class="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-40 animate-ping -z-10" style="animation-duration: 2s;"></span>
+    </a>
+
+    <!-- Scripts -->
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Inicializar animações de scroll
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+        });
+
+        // Inicializar Carrossel do Instagram (Reels)
+        var swiper = new Swiper(".mySwiper", {
+            direction: "horizontal", 
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            autoplay: {
+                delay: 8000, 
+                disableOnInteraction: true,
+            },
+            on: {
+                slideChangeTransitionEnd: function () {
+                    let slides = document.querySelectorAll('.swiper-slide video');
+                    slides.forEach(vid => {
+                        vid.pause();
+                        vid.currentTime = 0; 
+                    });
+                    
+                    let activeSlide = document.querySelector('.swiper-slide-active video');
+                    if(activeSlide) {
+                        activeSlide.play().catch(e => console.log("Autoplay blocked"));
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let firstVideo = document.querySelector('.swiper-slide-active video');
+            if(firstVideo) {
+                firstVideo.play().catch(e => {
+                    console.log("Browser bloqueou autoplay. Aguardando interação.");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
