@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Emagreça Mais Rápido</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Estilos Personalizados -->
+    <style>
+        body {
+            background-color: #020617; /* slate-950 */
+            color: #f8fafc; /* slate-50 */
+            overflow-x: hidden;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            position: relative;
+        }
+
+        /* Cores de Seleção */
+        ::selection {
+            background-color: #ec4899; /* pink-500 */
+            color: white;
+        }
+
+        /* Animação Carrossel Infinito */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50%)); }
+        }
+        .animate-infinite-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        .animate-infinite-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        /* Ocultar barra de deslocamento (Scrollbar) */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Efeito de Vidro (Glassmorphism) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Borda Néon */
+        .neon-border {
+            box-shadow: 0 0 10px rgba(219, 39, 119, 0.5), inset 0 0 10px rgba(219, 39, 119, 0.2);
+            border: 1px solid rgba(219, 39, 119, 0.5);
+        }
+
+        /* Animação Flutuante */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Texto com Gradiente */
+        .gradient-text {
+            background: linear-gradient(to right, #ec4899, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Configurações Extra do Tailwind */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        /* --- NOVAS ANIMAÇÕES E EFEITOS --- */
+        
+        /* 1. Efeito Scanline para o Antes e Depois */
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 15px 3px rgba(219, 39, 119, 0.8), 0 0 30px 5px rgba(168, 85, 247, 0.6);
+            animation: scan 2.5s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 20;
+        }
+        .group:hover .scanline {
+            opacity: 1;
+        }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* 2. Feixe de luz da Linha do Tempo (Timeline) */
+        .timeline-beam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, rgba(236, 72, 153, 1), rgba(168, 85, 247, 1), transparent);
+            animation: beam-drop 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: blur(2px);
+            border-radius: 999px;
+        }
+        @keyframes beam-drop {
+            0% { top: -150px; opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* 3. Fundo Dinâmico Fluido */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: drift 25s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        .orb-1 { width: 50vw; height: 50vw; background: #ec4899; top: -10%; left: -10%; animation-delay: 0s; }
+        .orb-2 { width: 40vw; height: 40vw; background: #a855f7; bottom: -10%; right: -10%; animation-delay: -5s; animation-direction: alternate-reverse; }
+        .orb-3 { width: 30vw; height: 30vw; background: #3b82f6; top: 40%; left: 40%; animation-delay: -10s; opacity: 0.1; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(5vw, 10vh) scale(1.1); }
+            100% { transform: translate(-10vw, -5vh) scale(0.9); }
+        }
+
+        /* 4. EFEITOS ULTRA MODERNOS HERO SECTION */
+        
+        /* Borda Rotativa de Energia */
+        @keyframes spin-slow {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .animated-border-box {
+            position: relative;
+            border-radius: 3.2rem;
+            overflow: hidden;
+            z-index: 10;
+            padding: 4px; /* Espessura da borda animada */
+        }
+        .animated-border-box::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 60%, #ec4899 80%, #a855f7 90%, transparent 100%);
+            animation: spin-slow 4s linear infinite;
+            z-index: -1;
+            transform-origin: center;
+        }
+        .animated-border-box::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #020617; /* Fundo escuro atrás do vidro */
+            border-radius: 3rem;
+            z-index: -1;
+        }
+
+        /* Reações Flutuantes estilo Live */
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; transform: translateY(-20px) scale(1.2); }
+            80% { opacity: 1; transform: translateY(-80px) scale(1) translateX(15px); }
+            100% { transform: translateY(-120px) scale(0.5) translateX(-15px); opacity: 0; }
+        }
+        .floating-heart {
+            position: absolute;
+            bottom: 0px;
+            font-size: 24px;
+            animation: float-up 3s ease-in infinite;
+            opacity: 0;
+            z-index: 25;
+            filter: drop-shadow(0 0 5px rgba(219, 39, 119, 0.5));
+        }
+        .heart-1 { animation-delay: 0s; right: 15%; }
+        .heart-2 { animation-delay: 0.7s; right: 25%; font-size: 20px;}
+        .heart-3 { animation-delay: 1.4s; right: 10%; font-size: 28px;}
+        .heart-4 { animation-delay: 2.1s; right: 30%; font-size: 22px;}
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Fundo Animado Fluido -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- Caixa de Luz (Lightbox) para Imagens -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/95 backdrop-blur-md p-4 transition-opacity" onclick="fecharLightbox()">
+        <button class="absolute top-6 right-6 text-white hover:text-pink-500 transition-colors z-[60]" onclick="fecharLightbox()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <img id="lightbox-img" src="" alt="Antes e Depois Ampliado" class="max-w-[95vw] max-h-[95vh] object-contain rounded-lg shadow-2xl scale-100 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- PÁGINA 1: HERO SECTION ULTRA MODERNA -->
+    <section class="relative pt-20 pb-32 overflow-hidden">
+        <!-- Brilho de fundo -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-pink-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            
+            <div class="lg:w-1/2 text-center lg:text-left space-y-8">
+                <div class="inline-block px-4 py-2 rounded-full glass-panel border-pink-500/30 text-pink-400 font-semibold text-sm tracking-wider mb-4 shadow-[0_0_15px_rgba(219,39,119,0.3)] animate-pulse">
+                    🟢 NOVO MÉTODO REVELADO
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+                    Descubra como emagrecer <span class="gradient-text drop-shadow-sm">até 7Kg</span> em apenas <span class="gradient-text drop-shadow-sm">21 dias!</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 max-w-xl mx-auto lg:mx-0">
+                    O protocolo definitivo para mulheres que querem recuperar a autoestima e vestir as roupas que amam, sem passar fome ou fazer treinos chatos.
+                </p>
+                <div class="pt-4">
+                    <a href="https://pay.kiwify.com.br/yCTa41N" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(219,39,119,0.6)] overflow-hidden">
+                        <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 gradient-ping"></span>
+                        <span class="relative flex items-center gap-2 text-lg md:text-xl">
+                            QUERO EMAGRECER AGORA 
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- MOCKUP TELEMÓVEL COM EFEITOS 3D E ANIMAÇÕES -->
+            <div class="lg:w-1/2 flex justify-center lg:justify-end relative mt-12 lg:mt-0">
+                <div class="relative w-[340px] md:w-[420px] lg:w-[460px] animate-float z-20">
+                    <!-- Brilho forte por trás -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-pink-600 to-purple-600 rounded-[3rem] blur-2xl opacity-40"></div>
+                    
+
+                    <!-- CARTÃO FLUTUANTE 3D DIREITA -->
+                    <div class="absolute -right-4 md:-right-8 bottom-1/3 glass-panel p-3 rounded-2xl border-l-4 border-l-purple-500 shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-40 animate-float backdrop-blur-xl bg-slate-900/80" style="animation-delay: -3s;">
+                        <div class="flex items-center gap-3">
+                            <div class="flex -space-x-3">
+                                <img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" alt="User">
+                                <img class="w-8 h-8 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="User">
+                            </div>
+                            <div>
+                                <p class="text-white text-xs font-bold shadow-black drop-shadow-md">@treinadorleoneves</p>
+                                <p class="text-purple-400 text-[10px] uppercase font-black">Aproveite a oportunidade!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ENVOLTÓRIO DA BORDA ANIMADA -->
+                    <div class="animated-border-box shadow-[0_0_40px_rgba(219,39,119,0.3)]">
+                        <!-- Painel principal do telemóvel -->
+                        <div class="relative glass-panel rounded-[3rem] p-2 border border-white/10 overflow-hidden bg-slate-900/50 backdrop-blur-md">
+                            
+                            <!-- Cabeçalho Falso do Instagram -->
+                            <div class="absolute top-5 left-5 right-5 flex items-center gap-3 z-30 bg-black/30 backdrop-blur-sm p-2 rounded-2xl border border-white/10">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 p-[2px] animate-pulse">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" class="w-full h-full rounded-full border border-slate-900 object-cover">
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-bold text-white shadow-black drop-shadow-md flex items-center gap-1">gabriela_fit <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg></p>
+                                    <p class="text-[10px] text-pink-400 font-semibold uppercase tracking-wider shadow-black drop-shadow-md">Live • Há 2h</p>
+                                </div>
+                            </div>
+                            
+                            <!-- A IMAGEM PRINCIPAL -->
+                            <div class="relative w-full h-auto rounded-[2.5rem] overflow-hidden bg-slate-950">
+                                <img src="https://treinadorleoneves.com.br/wp-content/uploads/2026/02/Gemini_Generated_Image_gh9weygh9weygh9w.png" alt="Story Gabriela" class="w-full h-full object-cover relative z-10 opacity-90 mix-blend-screen brightness-110">
+                                
+                                <!-- *** ESCUDO ANTI-MARCA D'ÁGUA / TAG AO VIVO *** -->
+                                <div class="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2 z-30 shadow-[0_0_20px_rgba(239,68,68,0.6)]">
+                                    <span class="relative flex h-3 w-3">
+                                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                      <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                                    </span>
+                                    <span class="text-white text-xs font-black tracking-widest uppercase shadow-black drop-shadow-md">Ao Vivo</span>
+                                </div>
+
+                                <!-- Overlay de gradiente escuro em baixo para dar contraste -->
+                                <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+
+                                <!-- Reações Flutuantes Animadas (Live) -->
+                                <div class="absolute bottom-20 left-0 right-0 h-40 z-20 pointer-events-none overflow-hidden">
+                                    <div class="floating-heart heart-1">❤️</div>
+                                    <div class="floating-heart heart-2">🔥</div>
+                                    <div class="floating-heart heart-3">👏</div>
+                                    <div class="floating-heart heart-4">🔥</div>
+                                </div>
+
+                                <!-- Sobreposição Falsa de Interação -->
+                                <div class="absolute bottom-6 left-4 right-24 z-30">
+                                    <div class="bg-black/50 backdrop-blur-md px-4 py-2.5 rounded-2xl text-sm font-semibold flex items-center gap-3 border border-white/10 w-full">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-[10px]">👤</div>
+                                        <span class="text-white/80 font-normal truncate">Adicione um comentário...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 2: PROVA SOCIAL / CARROSSEL INFINITO -->
+    <section class="py-24 relative border-y border-white/5 bg-slate-900/40 backdrop-blur-sm">
+        <div class="container mx-auto px-4 mb-16 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold max-w-4xl mx-auto leading-tight">
+                Veja o antes e depois de mulheres que emagreceram com o <span class="gradient-text">PROTOCOLO EMAGREÇA MAIS RÁPIDO</span> em apenas 21 dias!
+            </h2>
+            <p class="mt-4 text-pink-400 font-medium animate-pulse">Passe o rato e toque nas fotos para explorar os resultados incríveis</p>
+        </div>
+
+        <!-- Contentor do Marquee (Carrossel) -->
+        <div class="relative w-full overflow-hidden flex flex-col gap-6" id="carrossel-container">
+            <!-- Extremidades com Desvanecimento -->
+            <div class="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+
+            <div class="animate-infinite-scroll gap-8 cursor-grab active:cursor-grabbing px-4" id="carrossel-track">
+                <!-- As imagens serão inseridas aqui via JavaScript -->
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 relative z-20">
+            <a href="https://pay.kiwify.com.br/yCTa41N" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(219,39,119,0.5)] overflow-hidden">
+                <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 gradient-ping"></span>
+                <span class="relative flex items-center gap-2 text-lg md:text-xl">
+                    QUERO MEU ANTES E DEPOIS 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+            </a>
+        </div>
+    </section>
+
+    <!-- PÁGINA 3: EMPATIA -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16 relative z-10">
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                    Você sente que <span class="text-pink-500">seu corpo não responde</span> mais como antes?
+                </h2>
+                <p class="text-xl text-slate-300 mt-6">
+                    A cada dia que passa o espelho te lembra das roupas que não servem mais, e você se pergunta:
+                </p>
+            </div>
+
+            <!-- Imagem Ajustada (Sem cortes, tamanho realçado) -->
+            <div class="relative max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden group shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                <div class="relative w-full flex justify-center items-center overflow-hidden rounded-[2.5rem] neon-border bg-slate-900/50">
+                    <img 
+                        src="https://treinadorleoneves.com.br/wp-content/uploads/2026/02/Captura-de-tela-2026-02-20-122507.png" 
+                        alt="Pergunta Reflexiva" 
+                        class="w-full h-auto max-h-[700px] object-contain transition-transform duration-1000 group-hover:scale-105 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center p-6 text-center pointer-events-none">
+                        <h3 class="text-3xl md:text-5xl font-black text-white drop-shadow-[0_5px_15px_rgba(0,0,0,1)] opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                            "Por que está tão difícil agora?"
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-16 relative z-10">
+                <h3 class="text-4xl font-bold text-slate-400 italic">
+                    É horrível se sentir assim, né?
+                </h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 4: OS 6 MOTIVOS (GRELHA) -->
+    <section class="py-24 relative bg-slate-950/80 backdrop-blur-md">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-4xl mx-auto mb-16 relative z-10">
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                    Isso tudo, aliado com a <span class="text-pink-500">dificuldade em emagrecer</span> está acontecendo por esses <span class="text-pink-500">6 motivos:</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto relative z-10">
+                <!-- Motivo 1 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=800" alt="Motivo 1" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">01</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Você está perdida sem o treino certo</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+                <!-- Motivo 2 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800" alt="Motivo 2" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">02</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">A falta de orientação atrasa seus resultados</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+                <!-- Motivo 3 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800" alt="Motivo 3" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">03</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Falta de alimentos que aceleram seu metabolismo</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+                <!-- Motivo 4 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800" alt="Motivo 4" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">04</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ausência de um treino específico para emagrecer</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+                <!-- Motivo 5 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1486218119243-13883505764c?auto=format&fit=crop&q=80&w=800" alt="Motivo 5" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">05</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Nenhuma motivação e constância pela falta de resultados</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+                <!-- Motivo 6 -->
+                <div class="group relative h-[300px] rounded-2xl overflow-hidden cursor-default glass-panel">
+                    <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&q=80&w=800" alt="Motivo 6" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:grayscale group-hover:scale-105 opacity-60 group-hover:opacity-30">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <div class="text-7xl font-black text-white/5 group-hover:text-pink-500/40 transition-all duration-300 absolute top-4 right-4 group-hover:scale-110 transform origin-top-right">06</div>
+                        <h3 class="text-xl font-bold text-white relative z-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Você cede aos doces e às tentações com frequência</h3>
+                        <div class="w-0 h-1 bg-pink-500 mt-4 transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 5: A SOLUÇÃO (LINHA DO TEMPO) -->
+    <section class="py-32 relative">
+        <div class="container mx-auto px-4 max-w-5xl relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                    O que você precisa é de um protocolo <span class="gradient-text">rápido, dinâmico e eficiente:</span>
+                </h2>
+                <p class="text-xl text-slate-300 mt-6">
+                    Esses são os <span class="text-pink-500 font-bold">3 passos</span> para você EMAGRECER MAIS RÁPIDO após os 40 anos:
+                </p>
+            </div>
+
+            <div class="relative">
+                <!-- Linha Vertical do Tempo Principal -->
+                <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-2 bg-slate-800 -translate-x-1/2 rounded-full overflow-hidden shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+                    <!-- Feixe de luz animado -->
+                    <div class="timeline-beam"></div>
+                </div>
+
+                <!-- Passo 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal w-full mb-16 md:flex-row-reverse group">
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-slate-950 border-4 border-pink-500 -translate-x-1/2 z-10 shadow-[0_0_20px_rgba(219,39,119,0.8)] group-hover:scale-125 transition-transform duration-300 flex items-center justify-center">
+                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-ping"></div>
+                    </div>
+                    <div class="w-full md:w-5/12 ml-20 md:ml-0 glass-panel p-8 rounded-3xl border border-white/10 hover:border-pink-500/70 transition-colors duration-300 relative overflow-hidden backdrop-blur-xl bg-slate-900/60">
+                        <div class="absolute -inset-24 bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <span class="text-pink-500 font-black tracking-widest text-sm mb-2 block">PASSO 1</span>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-pink-100 transition-colors">Avaliação da Barriga Seca</h3>
+                            <p class="text-slate-400">Veja seu peso diminuir, as roupas voltarem a servir e você de bem com o espelho diariamente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal w-full mb-16 group">
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-slate-950 border-4 border-purple-500 -translate-x-1/2 z-10 shadow-[0_0_20px_rgba(168,85,247,0.8)] group-hover:scale-125 transition-transform duration-300 flex items-center justify-center">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-ping"></div>
+                    </div>
+                    <div class="w-full md:w-5/12 ml-20 md:ml-0 glass-panel p-8 rounded-3xl border border-white/10 hover:border-purple-500/70 transition-colors duration-300 relative overflow-hidden backdrop-blur-xl bg-slate-900/60">
+                        <div class="absolute -inset-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <span class="text-purple-500 font-black tracking-widest text-sm mb-2 block">PASSO 2</span>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-purple-100 transition-colors">Sequência de Exercícios Metabólicos</h3>
+                            <p class="text-slate-400">Exercícios específicos e rápidos para fazer em casa ou na academia.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal w-full mb-16 md:flex-row-reverse group">
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-slate-950 border-4 border-pink-500 -translate-x-1/2 z-10 shadow-[0_0_20px_rgba(219,39,119,0.8)] group-hover:scale-125 transition-transform duration-300 flex items-center justify-center">
+                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-ping"></div>
+                    </div>
+                    <div class="w-full md:w-5/12 ml-20 md:ml-0 glass-panel p-8 rounded-3xl border border-white/10 hover:border-pink-500/70 transition-colors duration-300 relative overflow-hidden backdrop-blur-xl bg-slate-900/60">
+                        <div class="absolute -inset-24 bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500"></div>
+                        <div class="relative z-10">
+                            <span class="text-pink-500 font-black tracking-widest text-sm mb-2 block">PASSO 3</span>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-pink-100 transition-colors">Siga a Dieta Desincha</h3>
+                            <p class="text-slate-400">Uma dieta simples para acelerar o seu metabolismo, sem passar fome e queimar gordura mais rápido.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://pay.kiwify.com.br/yCTa41N" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(219,39,119,0.5)] overflow-hidden">
+                    <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 gradient-ping"></span>
+                    <span class="relative flex items-center gap-2 text-lg md:text-xl">
+                        COMEÇAR O PASSO 1 AGORA 
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 6: O QUE RECEBE (BENTO GRID) -->
+    <section class="py-24 relative bg-slate-900/30 backdrop-blur-md">
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                    Veja tudo o que você vai receber no <br/>
+                    <span class="gradient-text">PROTOCOLO EMAGREÇA MAIS RÁPIDO</span> APÓS OS 40 anos!
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[250px]">
+                <!-- Item 1 - Alimentação -->
+                <div class="md:col-span-2 glass-panel rounded-3xl p-8 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 border border-white/5 hover:border-pink-500/50 bg-slate-900/80">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+                    <span class="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-white mb-4">ALIMENTAÇÃO</span>
+                    <h3 class="text-3xl font-bold mb-4">Dieta Desincha</h3>
+                    <p class="text-slate-400 text-lg max-w-md">Um cardápio fácil de seguir, pensado para secar gordura e atingir seus objetivos rápido sem passar fome.</p>
+                </div>
+
+                <!-- Item 2 - Protocolo -->
+                <div class="glass-panel rounded-3xl p-8 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 border border-white/5 hover:border-purple-500/50 bg-gradient-to-br from-slate-800 to-slate-900">
+                    <span class="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-white mb-4">PROTOCOLO PRINCIPAL</span>
+                    <h3 class="text-2xl font-bold mb-4 text-purple-400">Exercícios Metabólicos</h3>
+                    <p class="text-slate-400">Você terá a planilha de vídeos de exercícios específicos para emagrecer rápido.</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute bottom-6 right-6 w-12 h-12 text-white/10 group-hover:text-purple-500/40 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+
+                <!-- Item 3 - Bónus 1 -->
+                <div class="glass-panel rounded-3xl p-8 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 border border-white/5 hover:border-yellow-500/50 bg-slate-900/80">
+                    <span class="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-xs font-bold mb-4 shadow-[0_0_10px_rgba(234,179,8,0.3)]">🎁 BÔNUS 1</span>
+                    <h3 class="text-xl font-bold mb-3">Checklist da Motivação</h3>
+                    <p class="text-slate-400 text-sm">Calendário completo para você não procrastinar o protocolo e guia motivacional para ter constância.</p>
+                </div>
+
+                <!-- Item 4 - Bónus 2 -->
+                <div class="glass-panel rounded-3xl p-8 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 border border-white/5 hover:border-yellow-500/50 bg-slate-900/80">
+                    <span class="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-xs font-bold mb-4 shadow-[0_0_10px_rgba(234,179,8,0.3)]">🎁 BÔNUS 2</span>
+                    <h3 class="text-xl font-bold mb-3">Manual da Cintura Fina</h3>
+                    <p class="text-slate-400 text-sm">Técnicas e exercícios específicos para afinar a cintura por menos de 5 minutos por dia.</p>
+                </div>
+
+                <!-- Item 5 - Bónus 3 -->
+                <div class="glass-panel rounded-3xl p-8 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 border border-white/5 hover:border-yellow-500/50 bg-slate-900/80">
+                    <span class="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-xs font-bold mb-4 shadow-[0_0_10px_rgba(234,179,8,0.3)]">🎁 BÔNUS 3</span>
+                    <h3 class="text-xl font-bold mb-3">Suplementação para Desinchar</h3>
+                    <p class="text-slate-400 text-sm">Aprenda o que realmente precisa para desinchar e ganhar massa muscular após os 40 anos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 7: PÚBLICO-ALVO -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">
+                O <span class="text-pink-500">PROTOCOLO</span> é pra você que:
+            </h2>
+
+            <div class="space-y-4 mb-12">
+                <!-- Lista de itens -->
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Quer se sentir linda e gostosa de biquíni sem canga;</p>
+                </div>
+                
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Já tentou várias vezes e para por falta de resultado;</p>
+                </div>
+
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Tem dificuldade de eliminar gordura e ganhar tônus muscular;</p>
+                </div>
+
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Sente vergonha ao olhar no espelho;</p>
+                </div>
+
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Não tem coragem de trocar de roupa na frente do parceiro(a);</p>
+                </div>
+
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Já tentou fazer dieta e não consegue;</p>
+                </div>
+
+                <div class="flex items-center gap-4 glass-panel p-4 md:p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/50 shadow-[0_0_10px_rgba(219,39,119,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-500 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-lg md:text-xl text-slate-200 font-medium">Está com baixa autoestima e não usa mais as roupas que gostaria.</p>
+                </div>
+            </div>
+
+            <div class="text-center glass-panel p-8 rounded-3xl border-2 border-pink-500/50 neon-border bg-pink-500/10 relative overflow-hidden backdrop-blur-xl">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CgkJPHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6IiBmaWxsPSJ0cmFuc3BhcmVudCIvPgoJCTxwYXRoIGQ9Ik0wIDBMMDAgNDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjEiLz4KCTwvc3ZnPg==')] opacity-30"></div>
+                <p class="text-2xl md:text-3xl font-bold relative z-10">
+                    Se você se identifica com <span class="text-pink-400">pelo menos 2 itens acima</span>, o Protocolo Emagreça mais Rápido <span class="text-white underline decoration-pink-500 decoration-4 underline-offset-4">é para você.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 8: PREÇO (CARTÃO SURREAL) -->
+    <section class="py-32 relative flex flex-col items-center justify-center min-h-[80vh] border-t border-white/5 bg-slate-900/50 backdrop-blur-sm">
+        <!-- Elementos Abstratos de Fundo -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-600/30 rounded-full blur-[120px] mix-blend-screen"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-[120px] mix-blend-screen"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10 text-center mb-12">
+            <h2 class="text-2xl text-slate-400 font-semibold mb-2">Relembrando tudo o que você vai receber...</h2>
+            <p class="text-lg text-slate-500 line-through decoration-red-500/50 decoration-2">No total tudo deveria custar R$492,00.</p>
+            <h3 class="text-3xl md:text-5xl font-bold mt-4">Mas hoje você vai ter acesso <br/> ao protocolo completo por apenas:</h3>
+        </div>
+
+        <!-- Cartão de Preço 3D/Surreal -->
+        <div class="relative group perspective-1000 w-full max-w-md mx-auto z-20">
+            <!-- Aura brilhante atrás do cartão -->
+            <div class="absolute -inset-4 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 rounded-[2.5rem] blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+            
+            <div class="relative glass-panel bg-slate-900/90 rounded-[2rem] p-10 border border-white/20 shadow-2xl backdrop-blur-2xl transform transition-transform duration-500 hover:scale-105">
+                
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-black px-6 py-2 rounded-full text-sm tracking-widest shadow-lg whitespace-nowrap">
+                    ACESSO VITALÍCIO
+                </div>
+
+                <div class="text-center mt-6 mb-8">
+                    <p class="text-slate-400 text-sm mb-2 font-medium">Você só paga uma única vez esse valor!!</p>
+                    <div class="flex justify-center items-start gap-1">
+                        <span class="text-2xl text-pink-500 font-bold mt-2">9X</span>
+                        <span class="text-6xl font-black text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">R$ 8,80</span>
+                    </div>
+                    <p class="text-slate-400 mt-2 font-medium">ou R$ 67,00 à vista</p>
+                </div>
+
+                <div class="space-y-4">
+                    <a href="https://pay.kiwify.com.br/yCTa41N" class="relative flex items-center justify-center w-full py-5 rounded-2xl bg-white text-slate-950 font-black text-xl md:text-2xl overflow-hidden group/btn hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover/btn:opacity-10 transition-opacity"></div>
+                        Sim, eu quero o Protocolo!
+                    </a>
+                    <p class="text-center text-xs text-pink-400/80 font-semibold uppercase tracking-wider flex items-center justify-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                        Condição especial por tempo limitado
+                    </p>
+                </div>
+                
+                <div class="mt-8 flex justify-center gap-2">
+                    <img src="https://logospng.org/download/pix/logo-pix-icone-512.png" alt="Pix" class="h-6 opacity-50 grayscale" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png" alt="Mastercard" class="h-6 opacity-50 grayscale" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" class="h-6 opacity-50 grayscale" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 9: RODAPÉ / AUTOR -->
+    <footer class="bg-slate-950 pt-20 pb-10 border-t border-white/5 relative overflow-hidden z-10">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12 mb-16 max-w-4xl mx-auto">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-600 rounded-full blur-2xl opacity-20"></div>
+                    <img src="https://treinadorleoneves.com.br/wp-content/uploads/2025/04/photo_2025-03-17_13-30-32-removebg-preview.png" alt="Treinador Leo Neves" class="relative z-10 w-full h-full object-contain drop-shadow-2xl">
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-3xl font-bold mb-4">Treinador Leo Neves</h3>
+                    <p class="text-slate-400 text-lg mb-6">
+                        Especialista em emagrecimento feminino, criador do método que já ajudou centenas de mulheres a recuperarem a autoestima e o corpo dos sonhos após os 40 anos, de forma saudável e definitiva.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center border-t border-white/10 pt-8 mt-12 flex flex-col items-center">
+                <p class="text-slate-500 text-sm mb-2">© 2026 Protocolo Emagreça Mais Rápido. Todos os direitos reservados.</p>
+                <a href="https://conectawebdigital.com.br" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-600 hover:text-pink-500 transition-colors flex items-center gap-1">
+                    Criado por Conecta Web Digital
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts JavaScript para a Interatividade -->
+    <script>
+        // Lista de imagens do antes e depois
+        const beforeAfterImages = [
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2687.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2679.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2682.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2686.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2690.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2693.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2692.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2683.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2685.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2684.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2689.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2697.jpg",
+            "https://treinadorleoneves.com.br/wp-content/uploads/2025/03/IMG_2691.jpg"
+        ];
+
+        // Função para povoar o carrossel infinito duas vezes (para criar o efeito de scroll perpétuo)
+        function povoarCarrossel() {
+            const track = document.getElementById('carrossel-track');
+            let imagensHtml = '';
+
+            // Duplicar as imagens para o efeito de loop funcionar (2 vezes é o ideal)
+            const arrayDuplo = [...beforeAfterImages, ...beforeAfterImages];
+
+            arrayDuplo.forEach((imgSrc) => {
+                // Modificado: Maior largura do cartão (320px sm:380px) e uso de object-contain para evitar cortes
+                // Adicionado: .scanline para o efeito tecnológico ultracriativo
+                imagensHtml += `
+                <div class="relative group w-[320px] sm:w-[380px] shrink-0 rounded-[2rem] overflow-hidden glass-panel p-3 transition-all duration-500 hover:scale-105 cursor-pointer bg-slate-900 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/5 hover:border-pink-500/50" onclick="abrirLightbox('${imgSrc}')">
+                    <!-- Scanline de alta tecnologia (Animação ultra moderna) -->
+                    <div class="scanline"></div>
+                    
+                    <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="bg-black/60 backdrop-blur-sm p-2 rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Fundo em degradê escuro atrás da imagem para que o object-contain fique elegante -->
+                    <div class="relative w-full h-[450px] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl overflow-hidden flex items-center justify-center">
+                        <img src="${imgSrc}" alt="Antes e Depois" class="w-full h-full object-contain" loading="lazy">
+                    </div>
+                </div>
+                `;
+            });
+
+            track.innerHTML = imagensHtml;
+        }
+
+        // Funções da Caixa de Luz (Lightbox)
+        function abrirLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const imgEl = document.getElementById('lightbox-img');
+            imgEl.src = imgSrc;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Evitar scroll de fundo
+        }
+
+        function fecharLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', povoarCarrossel);
+    </script>
+</body>
+</html>
