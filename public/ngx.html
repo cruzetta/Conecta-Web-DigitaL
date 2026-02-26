@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGX Brasil - Eleve seu jogo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#F6921E',
+                        'primary-dark': '#F49404',
+                        dark: '#1E1E1E',
+                        darker: '#0C0C0D',
+                        card: '#2C2C2C',
+                        light: '#F5F5F5'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1E1E1E; color: white; overflow-x: hidden; }
+        .bg-hero {
+            background-image: url('https://ngxbrasil.com/wp-content/uploads/2025/12/6a899e2a326a846fd16ab027b8c78039.webp');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-quem-somos {
+            background-image: url('https://ngxbrasil.com/wp-content/uploads/2025/12/708d25130cd4b742a3cf99c8ba8602ca.webp');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-hero min-h-[900px] flex items-center pt-32 pb-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-darker/90 via-darker/60 to-dark"></div>
+        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 flex flex-col items-start gap-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-lg tracking-tight">
+                    Eleve seu jogo com a NGX
+                </h1>
+                <p class="text-xl md:text-2xl font-normal text-white/90 max-w-lg">
+                    Tenha o seu próprio site de apostas online com os principais jogos e os melhores recursos do mercado.
+                </p>
+                <a href="#contato" class="mt-4 px-8 py-4 bg-black/80 border-2 border-primary-dark text-primary-dark font-medium rounded-xl hover:bg-primary hover:text-black transition-all duration-300 transform hover:scale-105">
+                    Saiba Mais
+                </a>
+            </div>
+            <div class="w-full md:w-1/2 relative mt-16 md:mt-0 opacity-90">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/Vector-33-1.png" alt="NGX Dashboard" class="w-full h-auto object-contain max-w-2xl ml-auto" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6 MOTIVOS SECTION -->
+    <section class="py-24 bg-dark relative z-20 -mt-10 rounded-t-3xl">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight drop-shadow-md">
+                6 motivos para escolher a NGX
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/9c00cdf8cfd5b2e719e4baccb3b2f82c.webp" alt="Conformidade" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Conformidade regulatória</h3>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/b9eb26459d1c80cd1dd49f7177503330.webp" alt="Plataforma Completa" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Plataforma completa</h3>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/4ba513f3e7e13f5417d623690b8fb16b.webp" alt="Personalização" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Personalização descomplicada</h3>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/ab320cc7bdecf2d22ed03c1ace774674.webp" alt="Suporte" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Suporte humanizado</h3>
+                </div>
+                <!-- Card 5 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/763e7e5ecfc6dfe14cfb2842648c612a.webp" alt="API" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Integração via API</h3>
+                </div>
+                <!-- Card 6 -->
+                <div class="bg-black/40 rounded-2xl p-6 flex items-center gap-6 hover:bg-black/60 transition-colors">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/e81cab67883368bb3b20b212dc8e34bc.webp" alt="Atualizações" class="h-20 w-20 object-contain">
+                    <h3 class="text-lg md:text-xl font-medium">Atualizações constantes</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÕES SECTION -->
+    <section class="py-24 bg-darker relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 flex flex-col gap-6 items-start z-10">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Soluções</h2>
+                    <p class="text-lg md:text-xl text-gray-300 font-medium">
+                        Na NGX, oferecemos uma plataforma All in One, desenvolvida para atender todas as necessidades de operadores de iGaming em um só lugar. Nossa tecnologia é modular, flexível e escalável, garantindo eficiência, segurança e personalização.
+                    </p>
+                    <a href="#contato" class="mt-2 px-8 py-4 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-all duration-300 transform hover:scale-105">
+                        Saiba Mais
+                    </a>
+                </div>
+                <div class="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/90ac7bcf09b586d7b12e169546c83263.webp" alt="Soluções Mockups" class="w-full h-auto object-contain drop-shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECURSOS INCRÍVEIS SECTION -->
+    <section class="py-24 bg-gradient-to-b from-primary to-orange-500 relative">
+        <div class="container mx-auto px-6 max-w-6xl flex flex-col items-center">
+            <div class="text-center max-w-2xl mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Recursos incríveis</h2>
+                <p class="text-lg text-white/90 font-medium">Conheça os principais recursos da plataforma NGX e leve sua operação para o próximo nível.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                <!-- Recurso 1 -->
+                <div class="bg-card rounded-xl p-6 shadow-2xl border-b-4 border-black relative flex items-center h-28 group hover:-translate-y-1 transition-transform">
+                    <h3 class="text-primary font-semibold text-lg md:text-xl z-10 relative">Widgets</h3>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/64fb5a57b9bf0c1230a7ef96702f8aaf.webp" alt="Widgets" class="absolute right-0 top-1/2 -translate-y-1/2 h-32 w-auto object-contain -mr-8 group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <!-- Recurso 2 -->
+                <div class="bg-card rounded-xl p-6 shadow-2xl border-b-4 border-black relative flex items-center h-28 group hover:-translate-y-1 transition-transform">
+                    <h3 class="text-primary font-semibold text-lg md:text-xl z-10 relative">Relatórios</h3>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/61112116f416fe45a08bb64c7b607808.webp" alt="Relatórios" class="absolute right-0 top-1/2 -translate-y-1/2 h-32 w-auto object-contain -mr-8 group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <!-- Recurso 3 -->
+                <div class="bg-card rounded-xl p-6 shadow-2xl border-b-4 border-black relative flex items-center h-28 group hover:-translate-y-1 transition-transform">
+                    <h3 class="text-primary font-semibold text-lg md:text-xl z-10 relative">Sistema modulado</h3>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/dfc19cfd86a15229ccebfc530639dea8.webp" alt="Sistema" class="absolute right-0 top-1/2 -translate-y-1/2 h-32 w-auto object-contain -mr-8 group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <!-- Recurso 4 -->
+                <div class="bg-card rounded-xl p-6 shadow-2xl border-b-4 border-black relative flex items-center h-28 group hover:-translate-y-1 transition-transform">
+                    <h3 class="text-primary font-semibold text-lg md:text-xl z-10 relative">Integrações</h3>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/b04033d3bf8f25c7deec9d9b02f1fcbb.webp" alt="Integrações" class="absolute right-0 top-1/2 -translate-y-1/2 h-32 w-auto object-contain -mr-8 group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARCEIROS DE NEGÓCIOS -->
+    <section class="py-24 bg-darker">
+        <div class="container mx-auto px-6 flex flex-col items-center">
+            <div class="text-center max-w-3xl mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Confiança dos maiores nomes da indústria</h2>
+                <p class="text-lg text-gray-400">Integramos os principais provedores e parceiros do mercado, oferecendo diversidade, inovação e segurança em uma única plataforma.</p>
+            </div>
+            <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/09e86d10f9adb5653b67b74addb8e6f7.webp" alt="Parceiros Logos" class="w-full max-w-5xl h-auto opacity-90 hover:opacity-100 transition-opacity">
+        </div>
+    </section>
+
+    <!-- CONFORMIDADE REGULATÓRIA -->
+    <section class="py-24 bg-gradient-to-br from-light to-gray-200 text-gray-900">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#1E1E1E]">Conformidade regulatória</h2>
+                <p class="text-lg text-gray-600 font-medium">A NGX entrega conformidade regulatória completa, essencial para quem busca destaque em mercados regulados.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center gap-6 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-[#1E1E1E]">Jogo responsável</h3>
+                    <p class="text-gray-500 h-16">Recursos que promovem práticas seguras para jogadores e operadores.</p>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/18708cabb6ec7ab73af570a869d08574.webp" alt="Jogo responsável" class="h-28 object-contain mt-4">
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center gap-6 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-[#1E1E1E]">Geolocalização</h3>
+                    <p class="text-gray-500 h-16">Ferramentas de geolocalização que atendem às exigências legais de cada jurisdição.</p>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/bf345072f2388b70673060b2161f5ecd.webp" alt="Geolocalização" class="h-28 object-contain mt-4">
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center gap-6 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-[#1E1E1E]">Certificações</h3>
+                    <p class="text-gray-500 h-16">Soluções com certificações nacionais e internacionais que comprovam segurança e confiabilidade.</p>
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/29d91de9017757d3c73be9e507a77745.webp" alt="Certificações" class="h-28 object-contain mt-4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CIBELAE -->
+    <section class="py-24 bg-light text-gray-900 border-t border-gray-200">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-5/12">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/903be02015870d1912059b724cf03b1b.webp" alt="Cibelae Logo" class="w-full h-auto object-contain max-w-md mx-auto">
+                </div>
+                <div class="w-full lg:w-7/12 flex flex-col gap-6 items-start">
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#303030]">Cibelae</h2>
+                    <div class="text-gray-600 text-lg space-y-4">
+                        <p>A CIBELAE (Corporação Ibero-Americana de Loterias e Apostas de Estado) é o braço da WLA (World Lottery Association) na América Latina, reunindo as principais loterias e fornecedores do setor na região.</p>
+                        <p>A NGX tem orgulho de ser a única plataforma brasileira membro associada da CIBELAE, reforçando seu compromisso com boas práticas, atualização regulatória e alinhamento com os padrões internacionais do setor.</p>
+                        <p>Essa participação garante acesso direto às discussões que moldam o futuro do iGaming na região, com presença em seminários anuais, congressos bienais e comitês especializados, como os de jogo responsável e prevenção à lavagem de dinheiro e financiamento ao terrorismo.</p>
+                    </div>
+                    <button class="mt-4 px-8 py-3 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-colors">
+                        Saiba mais
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEDERAÇÕES PARCEIRAS -->
+    <section class="py-24 bg-light text-gray-900">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-[#303030]">Federações parceiras</h2>
+            <div class="flex flex-wrap justify-center gap-12 md:gap-20">
+                <!-- Fed 1 -->
+                <div class="flex flex-col items-center max-w-[250px]">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/1cd58c0320ee1cbb0c4520f41da4e455.webp" alt="Federação Gaúcha" class="h-64 object-contain mb-6 grayscale hover:grayscale-0 transition-all duration-500">
+                    <h3 class="text-xl font-medium text-gray-500 text-center">Federação Gaúcha<br>de Futebol</h3>
+                </div>
+                <!-- Fed 2 -->
+                <div class="flex flex-col items-center max-w-[250px]">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/8361cc0b773676e18566bc6066effabd.webp" alt="Federação Paraense" class="h-64 object-contain mb-6 grayscale hover:grayscale-0 transition-all duration-500">
+                    <h3 class="text-xl font-medium text-gray-500 text-center">Federação Paraense<br>de Futebol</h3>
+                </div>
+                <!-- Fed 3 -->
+                <div class="flex flex-col items-center max-w-[250px]">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/a7d61b3b3e6b7b4da540cbfa1da1dacf.webp" alt="Federação Paranaense" class="h-64 object-contain mb-6 grayscale hover:grayscale-0 transition-all duration-500">
+                    <h3 class="text-xl font-medium text-gray-500 text-center">Federação Paranaense<br>de Futebol</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRÓXIMOS EVENTOS -->
+    <section class="py-24 bg-white text-gray-900">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex justify-between items-end mb-12 flex-wrap gap-6">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#303030] mb-4">Próximos eventos</h2>
+                    <p class="text-lg text-gray-500 font-medium">Fique por dentro dos principais eventos de iGaming e apostas esportivas.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="px-6 py-3 bg-gray-200 text-gray-900 font-semibold rounded-lg hover:bg-gray-300 transition-colors">Ver Todos</button>
+                    <div class="flex gap-2">
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_left</span></button>
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_right</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Evento 1 -->
+                <div class="bg-light border-2 border-light rounded-2xl overflow-hidden hover:border-primary transition-colors flex flex-col group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/363a5ac917f43ad502c9426a04e13048.webp" alt="SBC Summit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 mb-4 bg-gray-200 w-fit px-3 py-1 rounded-md text-sm text-gray-600">
+                            <span class="text-primary">Lisboa, Portugal</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-primary mb-4">SBC Summit 2025</h3>
+                        <div class="flex items-center gap-4 text-gray-600 mb-6 text-sm">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">event</span>
+                                16-18 Setembro, 2025
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">location_on</span>
+                                Estande A100
+                            </div>
+                        </div>
+                        <button class="mt-auto w-full py-3 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-colors">Agende uma reunião</button>
+                    </div>
+                </div>
+                
+                <!-- Evento 2 -->
+                <div class="bg-light border-2 border-light rounded-2xl overflow-hidden hover:border-primary transition-colors flex flex-col group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/44812880451f4b51478248e541ad62d7.webp" alt="SBC Summit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 mb-4 bg-gray-200 w-fit px-3 py-1 rounded-md text-sm text-gray-600">
+                            <span class="text-primary">Lisboa, Portugal</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-primary mb-4">SBC Summit 2025</h3>
+                        <div class="flex items-center gap-4 text-gray-600 mb-6 text-sm">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">event</span>
+                                16-18 Setembro, 2025
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">location_on</span>
+                                Estande A100
+                            </div>
+                        </div>
+                        <button class="mt-auto w-full py-3 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-colors">Agende uma reunião</button>
+                    </div>
+                </div>
+
+                <!-- Evento 3 -->
+                <div class="bg-light border-2 border-light rounded-2xl overflow-hidden hover:border-primary transition-colors flex flex-col group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/a2da58440709ee9afdf8678ca438608b.webp" alt="SBC Summit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 mb-4 bg-gray-200 w-fit px-3 py-1 rounded-md text-sm text-gray-600">
+                            <span class="text-primary">Lisboa, Portugal</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-primary mb-4">SBC Summit 2025</h3>
+                        <div class="flex items-center gap-4 text-gray-600 mb-6 text-sm">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">event</span>
+                                16-18 Setembro, 2025
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-rounded text-primary text-lg">location_on</span>
+                                Estande A100
+                            </div>
+                        </div>
+                        <button class="mt-auto w-full py-3 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-colors">Agende uma reunião</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section class="py-24 bg-gradient-to-b from-primary to-orange-400">
+        <div class="container mx-auto px-6 max-w-6xl text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">Empresas que confiam na NGX</h2>
+            <p class="text-xl text-white/90 mb-12">A NGX é a escolha de grandes empresas de iGaming, confira:</p>
+            <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/f3a213892d7236c2b8c145660911436f.webp" alt="Logos dos Clientes" class="w-full h-auto max-w-5xl mx-auto drop-shadow-xl">
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section class="py-24 bg-dark">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-white mb-16">O que nossos clientes dizem</h2>
+            
+            <div class="relative bg-card rounded-3xl p-10 md:p-16 border-2 border-gray-700 mx-auto text-center flex flex-col items-center">
+                <!-- Quotes icon -->
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/4cac9512951a765971d1b7ea336a8051.svg" alt="Quotes" class="h-16 w-16 mb-8 opacity-80">
+                
+                <p class="text-xl md:text-2xl text-primary font-medium italic mb-10 max-w-3xl">
+                    "A NGX está preparada e certificado para fornecer conteúdo de jogos para mercados nacionais regulamentados na Europa, América Latina e África."
+                </p>
+                
+                <div>
+                    <h4 class="text-lg font-bold text-white">João Costa</h4>
+                    <p class="text-sm text-gray-400">Posição / Empresa</p>
+                </div>
+
+                <!-- Navigation Controls Absolute -->
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 -ml-6 w-12 h-12 bg-white/10 hover:bg-primary text-white rounded-full flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm">
+                    <span class="material-symbols-rounded">chevron_left</span>
+                </button>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 -mr-6 w-12 h-12 bg-white/10 hover:bg-primary text-white rounded-full flex items-center justify-center transition-colors shadow-lg backdrop-blur-sm">
+                    <span class="material-symbols-rounded">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUEM SOMOS -->
+    <section class="relative bg-quem-somos py-32 min-h-[700px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-darker/60 backdrop-blur-[2px]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 drop-shadow-xl">De Campina Grande para o mundo</h2>
+            <p class="text-xl md:text-2xl text-primary font-medium drop-shadow-md leading-relaxed">
+                A NGX é uma empresa brasileira de tecnologia para iGaming, com sede em Campina Grande, na Paraíba. Focada no mercado regulado, conquistou a liderança no mercado Latinoamericano e, em 2025, foi premiada como Rising Star no SiGMA Awards.
+            </p>
+        </div>
+    </section>
+
+    <!-- ONDE ESTAMOS -->
+    <section class="py-24 bg-dark">
+        <div class="container mx-auto px-6 text-center max-w-5xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Onde estamos</h2>
+            <p class="text-xl text-primary mb-16">Conheça de perto onde a NGX conecta tecnologia e inovação ao redor do mundo.</p>
+            <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/3030d63f4116641e58fbf14b66b3b067.webp" alt="Mapa global NGX" class="w-full h-auto opacity-80 hover:opacity-100 transition-opacity duration-500">
+        </div>
+    </section>
+
+    <!-- NOTÍCIAS / BLOG -->
+    <section class="py-24 bg-white text-gray-900">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex justify-between items-end mb-12 flex-wrap gap-6">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#303030] mb-4">Notícias</h2>
+                    <p class="text-lg text-primary font-medium">Fique por dentro de novidades, lançamentos e conteúdos exclusivos.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="px-6 py-3 bg-gray-200 text-gray-900 font-semibold rounded-lg hover:bg-gray-300 transition-colors">Ver todos</button>
+                    <div class="flex gap-2">
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_left</span></button>
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_right</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Notícia 1 -->
+                <div class="relative rounded-2xl overflow-hidden h-[400px] group cursor-pointer border border-gray-300">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/87d11ee99fa03dc8c44b524a79f20a4d.webp" alt="Notícia" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="text-2xl font-bold text-white mb-2 leading-tight">Título da notícia</h3>
+                        <p class="text-white/80 line-clamp-2 mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus metus, finibus tristique magna ac,</p>
+                        <span class="text-xs text-white/60">10/10/2025 • nenhum comentário</span>
+                    </div>
+                </div>
+                <!-- Notícia 2 -->
+                <div class="relative rounded-2xl overflow-hidden h-[400px] group cursor-pointer border border-gray-300">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/87d11ee99fa03dc8c44b524a79f20a4d.webp" alt="Notícia" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h3 class="text-2xl font-bold text-white mb-2 leading-tight">Título da notícia</h3>
+                        <p class="text-white/80 line-clamp-2 mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus metus, finibus tristique magna ac,</p>
+                        <span class="text-xs text-white/60">10/10/2025 • nenhum comentário</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDES SOCIAIS / MINUTO NGX -->
+    <section class="py-24 bg-light text-gray-900 border-t border-gray-200">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <!-- Header Redes -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#303030] mb-4">Redes sociais</h2>
+                <p class="text-lg text-primary font-medium">Fique por dentro de novidades, lançamentos e conteúdos exclusivos.</p>
+            </div>
+            
+            <!-- Instagram Feed Preview (Mock) -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/217215c425a41f34a47da7e38069aa3c.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/e4a3b80a631b48d6d2801f962497913a.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/590902395350087776191d5ec182dfd5.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/3fd57d21cc0edeb35d4a93fb773018d9.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/2aefc89a72848d36f4dc779fe0acc0bf.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+                <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/b90287e3bd7a75531bea038c9014d6e0.webp" class="w-full aspect-square object-cover rounded-xl hover:opacity-80 transition cursor-pointer">
+            </div>
+            <div class="text-center mb-20">
+                <button class="px-8 py-3 bg-primary text-black font-semibold rounded-lg hover:bg-orange-500 transition-colors shadow-lg">Seguir no Instagram</button>
+            </div>
+
+            <!-- Minuto NGX Section -->
+            <div class="flex justify-between items-end mb-10 flex-wrap gap-6 border-t border-gray-300 pt-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#303030] mb-4">Minuto NGX</h2>
+                    <p class="text-lg text-primary font-medium">Insights rápidos sobre tecnologia, recursos e tendências para você se manter sempre atualizado.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="px-6 py-3 bg-gray-200 text-gray-900 font-semibold rounded-lg hover:bg-gray-300 transition-colors">Ver todos</button>
+                    <div class="flex gap-2">
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_left</span></button>
+                        <button class="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:bg-orange-500 shadow-lg"><span class="material-symbols-rounded">chevron_right</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Video 1 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4 relative aspect-[9/16] bg-gray-200">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/431dd369f58fe6e299d4d34c5e0a1822.webp" alt="Video cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-white/30 backdrop-blur flex items-center justify-center text-white">
+                                <span class="material-symbols-rounded text-3xl">play_arrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 block mb-1">Categoria aqui</span>
+                    <h4 class="font-semibold text-gray-900 text-lg leading-tight line-clamp-2">Nome do vídeo exemplo muito grande lorem ipsum dolor</h4>
+                </div>
+                <!-- Video 2 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4 relative aspect-[9/16] bg-gray-200">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/c5d3278c052a13a64723325d4dad058a.webp" alt="Video cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-white/30 backdrop-blur flex items-center justify-center text-white">
+                                <span class="material-symbols-rounded text-3xl">play_arrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 block mb-1">Categoria aqui</span>
+                    <h4 class="font-semibold text-gray-900 text-lg leading-tight line-clamp-2">Nome do vídeo exemplo muito grande lorem ipsum dolor</h4>
+                </div>
+                <!-- Video 3 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4 relative aspect-[9/16] bg-gray-200">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/6c63638b14d62d36a5f82960ad4175f5.webp" alt="Video cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-white/30 backdrop-blur flex items-center justify-center text-white">
+                                <span class="material-symbols-rounded text-3xl">play_arrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 block mb-1">Categoria aqui</span>
+                    <h4 class="font-semibold text-gray-900 text-lg leading-tight line-clamp-2">Nome do vídeo exemplo muito grande lorem ipsum dolor</h4>
+                </div>
+                <!-- Video 4 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4 relative aspect-[9/16] bg-gray-200">
+                        <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/fcdb23c526fd0aaa42fe2300401f99d6.webp" alt="Video cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-white/30 backdrop-blur flex items-center justify-center text-white">
+                                <span class="material-symbols-rounded text-3xl">play_arrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 block mb-1">Categoria aqui</span>
+                    <h4 class="font-semibold text-gray-900 text-lg leading-tight line-clamp-2">Nome do vídeo exemplo muito grande lorem ipsum dolor</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="py-24 bg-dark">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Text Area -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-2">Entre em contato</h2>
+                    <p class="text-xl text-primary font-medium leading-relaxed">
+                        Preencha o formulário com as informações solicitadas, para que um de nossos consultores entre em contato o mais breve possível para esclarecer suas dúvidas ou agendar uma demonstração da nossa plataforma.
+                    </p>
+                </div>
+                
+                <!-- Form Area -->
+                <div class="w-full lg:w-1/2">
+                    <form class="bg-card/50 border border-gray-700 p-8 rounded-2xl flex flex-col gap-6" onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso!');">
+                        
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-medium text-sm">Seu nome completo</label>
+                            <input type="text" placeholder="João Silva" class="bg-dark border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" required>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-medium text-sm">Telefone/WhatsApp</label>
+                            <input type="tel" placeholder="+55 (00) 00000-0000" class="bg-dark border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" required>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-medium text-sm">E-mail</label>
+                            <input type="email" placeholder="joao_silva@email.com" class="bg-dark border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" required>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-medium text-sm">Comunicação Preferencial</label>
+                            <div class="relative">
+                                <select class="appearance-none w-full bg-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                                    <option>Telefone/WhatsApp</option>
+                                    <option>E-mail</option>
+                                    <option>Reunião Online</option>
+                                </select>
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none material-symbols-rounded text-gray-400">expand_more</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white font-medium text-sm">Mensagem</label>
+                            <textarea rows="4" placeholder="Sua mensagem..." class="bg-dark border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-y"></textarea>
+                        </div>
+
+                        <div class="flex items-start gap-3 mt-2">
+                            <div class="flex items-center h-5 mt-1">
+                                <input type="checkbox" id="terms" class="w-5 h-5 accent-primary border-gray-600 rounded focus:ring-primary" required>
+                            </div>
+                            <label for="terms" class="text-white text-sm">
+                                Eu aceito os <a href="#" class="text-gray-400 underline hover:text-white transition">Nossos Termos</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="mt-4 w-full py-4 bg-primary text-black font-bold text-lg rounded-lg hover:bg-orange-500 transition-colors shadow-[0_0_15px_rgba(246,146,30,0.3)]">
+                            Enviar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#2C2C2C] border-t border-gray-800 py-16">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Branding -->
+                <div class="flex flex-col gap-6 lg:pr-8">
+                    <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/5ea80da2c9fbc68d552f7133f46a06e0.webp" alt="NGX Logo" class="h-10 w-auto object-contain object-left">
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        A NGX está preparada e certificado para fornecer conteúdo de jogos para mercados nacionais regulamentados na Europa, América Latina e África.
+                    </p>
+                    <!-- Social Icons Mock -->
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center hover:bg-primary transition-colors">
+                            <img src="https://ngxbrasil.com/wp-content/uploads/2025/12/6fcee39c25989cd1e9e6b4a411305c44.svg" alt="Social" class="w-5 h-5 invert">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contato -->
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-gray-500 font-semibold mb-2">Contato</h4>
+                    <a href="mailto:contact@ngx.bet" class="text-white hover:text-primary transition-colors">contact@ngx.bet</a>
+                    
+                    <h4 class="text-gray-500 font-semibold mt-4 mb-2">Endereço</h4>
+                    <p class="text-white text-sm leading-relaxed">
+                        NGX Brasil<br>
+                        Rua Otacílio Nepomuceno, 600<br>
+                        Andar 12, Catolé.<br>
+                        Campina Grande - PB
+                    </p>
+                </div>
+
+                <!-- Menu -->
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-gray-500 font-semibold mb-2">Menu</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-white hover:text-primary transition-colors">Soluções</a></li>
+                        <li><a href="#" class="text-white hover:text-primary transition-colors">Recursos</a></li>
+                        <li><a href="#" class="text-white hover:text-primary transition-colors">Empresa</a></li>
+                        <li><a href="#" class="text-white hover:text-primary transition-colors">Notícias</a></li>
+                        <li><a href="#" class="text-white hover:text-primary transition-colors">Parceiros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Horário -->
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-gray-500 font-semibold mb-2">Horário de Atendimento</h4>
+                    <p class="text-white">
+                        Segunda à Sexta<br>
+                        08h às 18h
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 NGX Brasil. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Política de Privacidade</a>
+                    <a href="#" class="hover:text-white transition">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
