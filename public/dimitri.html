@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Ficha | O PDV que transforma filas em vendas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Minha Ficha | O TPA que transforma filas em vendas</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -14,53 +14,77 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            400: '#34d399',
-                            500: '#10b981',
-                            600: '#059669',
-                            900: '#064e3b',
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            900: '#3b0764',
+                        },
+                        accent: {
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                        },
+                        pink: {
+                            500: '#ec4899',
                         },
                         dark: {
-                            950: '#080c14',
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
+                            950: '#090410',
+                            900: '#140a24',
+                            800: '#23123e',
+                            700: '#351c5c',
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-red': 'pulseRed 2s infinite',
-                        'shake-bad': 'shakeBad 0.5s ease-in-out',
-                        'marquee': 'marquee 30s linear infinite',
+                        'float': 'float 8s ease-in-out infinite',
+                        'float-slow': 'float 12s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+                        'marquee': 'marquee 50s linear infinite',
+                        'marquee-rev': 'marqueeRev 50s linear infinite',
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'blob': 'blob 15s infinite',
+                        'image-pan': 'imagePan 25s ease-in-out infinite',
+                        'pulse-fast': 'pulseFast 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
                         },
-                        pulseRed: {
-                            '0%': { boxShadow: '0 0 0 0 rgba(239, 68, 68, 0.4)' },
-                            '70%': { boxShadow: '0 0 0 15px rgba(239, 68, 68, 0)' },
-                            '100%': { boxShadow: '0 0 0 0 rgba(239, 68, 68, 0)' },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.4, transform: 'scale(1)' },
+                            '50%': { opacity: 0.8, transform: 'scale(1.05)' },
                         },
-                        shakeBad: {
-                            '0%, 100%': { transform: 'translateX(0)' },
-                            '25%': { transform: 'translateX(-5px)' },
-                            '50%': { transform: 'translateX(5px)' },
-                            '75%': { transform: 'translateX(-5px)' },
+                        pulseFast: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.3 },
                         },
                         marquee: {
                             '0%': { transform: 'translateX(0)' },
                             '100%': { transform: 'translateX(-50%)' },
                         },
+                        marqueeRev: {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(30px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        imagePan: {
+                            '0%': { transform: 'scale(1.05) translate(0px, 0px)' },
+                            '50%': { transform: 'scale(1.2) translate(-2%, -2%)' },
+                            '100%': { transform: 'scale(1.05) translate(0px, 0px)' },
                         }
                     }
                 }
@@ -68,35 +92,42 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #080c14; color: #f8fafc; overflow-x: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         
-        /* Custom Utilities */
-        .glass-effect { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .gradient-text { background: linear-gradient(to right, #34d399, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tech-grid { background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+        html, body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #090410; 
+            color: #f8fafc; 
+            overflow-x: hidden; 
+            width: 100%;
+        }
         
-        /* Hide scrollbar for the marquee but allow touch scroll */
+        .glass-panel { background: rgba(20, 10, 36, 0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); }
+        .glass-card { background: linear-gradient(145deg, rgba(35, 18, 62, 0.4) 0%, rgba(20, 10, 36, 0.6) 100%); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+        
+        .gradient-text { background: linear-gradient(135deg, #c084fc 0%, #ec4899 50%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-grid { background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Brilho Expandido */
+        .maquininha-glow { filter: drop-shadow(0 30px 80px rgba(168, 85, 247, 0.6)); }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- Custom Hooks ---
-        const useIntersectionObserver = (options = {}) => {
+        const useIntersectionObserver = (options = { threshold: 0.15 }) => {
             const [ref, setRef] = React.useState(null);
             const [isVisible, setIsVisible] = React.useState(false);
 
             React.useEffect(() => {
                 if (!ref) return;
                 const observer = new IntersectionObserver(([entry]) => {
-                    if (entry.isIntersecting) {
-                        setIsVisible(true);
-                    }
-                }, { threshold: 0.1, ...options });
+                    if (entry.isIntersecting) setIsVisible(true);
+                }, options);
                 observer.observe(ref);
                 return () => observer.disconnect();
             }, [ref, options]);
@@ -104,9 +135,26 @@
             return [setRef, isVisible];
         };
 
-        const AnimatedCounter = ({ end, duration = 2000, isVisible }) => {
-            const [count, setCount] = React.useState(0);
+        const FadeIn = ({ children, delay = 0, direction = 'up', className = '' }) => {
+            const [ref, isVisible] = useIntersectionObserver();
+            let translate = 'translate-y-12';
+            if (direction === 'left') translate = '-translate-x-12';
+            if (direction === 'right') translate = 'translate-x-12';
+            if (direction === 'none') translate = 'scale-95';
 
+            return (
+                <div 
+                    ref={ref} 
+                    className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0 translate-x-0 scale-100' : `opacity-0 ${translate}`} ${className}`} 
+                    style={{ transitionDelay: `${delay}ms` }}
+                >
+                    {children}
+                </div>
+            );
+        };
+
+        const AnimatedCounter = ({ end, duration = 2500, isVisible }) => {
+            const [count, setCount] = React.useState(0);
             React.useEffect(() => {
                 if (!isVisible) return;
                 let startTimestamp = null;
@@ -115,49 +163,53 @@
                     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                     const easeProgress = 1 - Math.pow(1 - progress, 4);
                     setCount(Math.floor(easeProgress * end));
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    } else {
-                        setCount(end);
-                    }
+                    if (progress < 1) window.requestAnimationFrame(step);
+                    else setCount(end);
                 };
                 window.requestAnimationFrame(step);
             }, [end, duration, isVisible]);
-
-            return <>{count.toLocaleString('pt-BR')}</>;
+            return <>{count.toLocaleString('pt-PT')}</>;
         };
 
-        // --- Icons ---
-        const IconCheck = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
-        const IconAlert = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>;
-        const IconZap = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
-        const IconShield = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>;
-        const IconUsers = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>;
-        const IconChart = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>;
-        const IconMenu = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
-        const IconX = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
-        const IconArrowDown = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>;
-        const IconChevronDown = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>;
+        // --- Ícones ---
+        const IconZap = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
+        const IconShield = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>;
+        const IconUsers = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>;
+        const IconChart = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>;
+        const IconMenu = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
+        const IconX = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
+        const IconArrowDown = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>;
+        const IconClock = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
+        const IconAlert = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>;
+        const IconCrosshair = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>;
+        const IconCheckCircle = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>;
+        const IconWifi = ({ className }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>;
 
-        // --- Data ---
-        const MOCKUP_IMG = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2FGemini_Generated_Image_opu7copu7copu7co.png?alt=media&token=741cc251-d0f1-48b6-8dc4-d3c8f9193189";
+
+        // --- Base de Dados Visual ---
+        const LOGO_IMG = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2Flogo%20(2).png?alt=media&token=1ccafaf3-7e0e-46af-84de-507da62303fd";
+        const MAQUININHA_IMG = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2Fmaquininha.png?alt=media&token=39534f69-a16a-48cb-a723-c9411d641516";
+        
+        // Imagens do Caos
+        const IMG_FILA = "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1200&q=80"; 
+        const IMG_CAOS = "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=1200&q=80";
+        const IMG_ESTOQUE = "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80";
+        
+        // Imagens para o Marquee - Atualizadas com imagens épicas Unsplash
+        const IMG_FESTIVAL = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80";
+        const IMG_BAR = "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80";
+        const IMG_NIGHTCLUB = "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80";
+        const IMG_FOODTRUCK = "https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?auto=format&fit=crop&w=800&q=80";
+        
+        // Novas Imagens Solicitadas pelo Cliente
+        const IMG_CONCERT = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2Farindam-mahanta-VEOk8qUl9DU-unsplash.jpg?alt=media&token=e48df1a4-d63b-40bb-a6dc-d15d70cd6abe"; // Concerto Multidão
+        const IMG_OUTDOOR = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2Fignacio-brosa-vJDbPuxUS_s-unsplash.jpg?alt=media&token=18ccc57d-bc73-4670-bfd6-9cfb5a890ef0"; // Festa Ar Livre Praia
+        
+        // Imagens Reais
         const REAL_IMG_1 = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2FWhatsApp%20Image%202026-02-24%20at%2010.40.24.jpeg?alt=media&token=b0f5559e-5675-44c2-a4cf-a5c3bb884dc6";
         const REAL_IMG_2 = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2FWhatsApp%20Image%202026-02-24%20at%2010.40.23.jpeg?alt=media&token=3577022d-6f06-431f-80ba-04b015a485b6";
-        const REAL_IMG_3 = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2FWhatsApp%20Image%202026-02-24%20at%2010.40.23%20(1).jpeg?alt=media&token=bf4a2dfe-0145-42df-8f59-dd810f9d285e";
-        const REAL_IMG_4 = "https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/dimitri%2FWhatsApp%20Image%202026-02-24%20at%2010.40.22.jpeg?alt=media&token=a424ba5b-7634-4049-8fbb-d8cdf3378165";
-        
-        const GENERIC_POS = "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80";
-        const GENERIC_FESTIVAL = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=1200&q=80"; 
 
-        const faqs = [
-            { q: "Funciona na minha maquininha?", a: "Sim. A Minha Ficha roda nativamente nas principais maquininhas smart do mercado (Android)." },
-            { q: "Serve só para eventos?", a: "Não. Também pode ser usada em operações fixas, como bares, casas noturnas e restaurantes que precisam de extrema agilidade." },
-            { q: "Precisa de internet?", a: "Sim, mas a solução é otimizada para ambientes de evento, operando com consumo mínimo de dados e mantendo a estabilidade." },
-            { q: "Consigo acompanhar durante o evento?", a: "Sim. Você vê tudo em tempo real através de um painel de controle executivo acessível do seu celular." },
-            { q: "Dá para operar múltiplos pontos?", a: "Sim. Esse é um dos principais diferenciais. Você pode ter dezenas de maquininhas operando simultaneamente, divididas por setores (ex: Bar 1, Bar 2, Praça de Alimentação)." }
-        ];
-
-        // --- Components ---
+        // --- Componentes ---
 
         const Navbar = () => {
             const [isOpen, setIsOpen] = React.useState(false);
@@ -170,44 +222,41 @@
             }, []);
 
             return (
-                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass-effect py-2' : 'bg-transparent py-4'}`}>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between items-center h-16">
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel border-b border-brand-500/10 py-3' : 'bg-transparent py-5'}`}>
+                    <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-12">
                             <div className="flex-shrink-0 flex items-center cursor-pointer">
-                                <span className="text-3xl font-extrabold tracking-tighter text-white">
-                                    Minha<span className="text-brand-500">Ficha</span>
-                                </span>
+                                <img src={LOGO_IMG} alt="Minha Ficha Logo" className="h-8 md:h-12 w-auto object-contain" />
                             </div>
                             
-                            <div className="hidden md:flex items-center space-x-8 bg-dark-800/80 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/10">
-                                <a href="#solucao" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Solução</a>
-                                <a href="#beneficios" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Benefícios</a>
-                                <a href="#como-funciona" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Como Funciona</a>
-                                <a href="#faq" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">FAQ</a>
+                            <div className="hidden lg:flex items-center space-x-12 bg-dark-900/40 backdrop-blur-xl px-10 py-3 rounded-full border border-white/5">
+                                <a href="#solucao" className="text-sm font-bold text-slate-300 hover:text-white hover:scale-105 transition-all">Solução</a>
+                                <a href="#jornada" className="text-sm font-bold text-slate-300 hover:text-white hover:scale-105 transition-all">O Processo</a>
+                                <a href="#tecnologia" className="text-sm font-bold text-slate-300 hover:text-white hover:scale-105 transition-all">Tecnologia</a>
+                                <a href="#alto-fluxo" className="text-sm font-bold text-slate-300 hover:text-white hover:scale-105 transition-all">Alto Fluxo</a>
                             </div>
 
                             <div className="hidden md:block">
-                                <a href="#contato" className="bg-white hover:bg-slate-100 text-dark-900 px-6 py-2.5 rounded-full font-bold transition-transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.15)] text-sm">
+                                <a href="#contato" className="bg-white hover:bg-slate-100 text-dark-950 px-8 py-3 rounded-full font-extrabold transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm tracking-wide inline-block">
                                     Solicitar Demo
                                 </a>
                             </div>
 
                             <div className="md:hidden flex items-center">
-                                <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2" aria-label="Menu">
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2 focus:outline-none">
                                     {isOpen ? <IconX className="w-8 h-8" /> : <IconMenu className="w-8 h-8" />}
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* Mobile Menu */}
-                    <div className={`md:hidden absolute w-full bg-dark-900 border-b border-white/10 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-                        <div className="px-4 pt-4 pb-8 space-y-3 shadow-2xl">
-                            <a href="#solucao" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-semibold text-slate-200 hover:bg-dark-800 rounded-xl transition-colors">Solução</a>
-                            <a href="#beneficios" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-semibold text-slate-200 hover:bg-dark-800 rounded-xl transition-colors">Benefícios</a>
-                            <a href="#como-funciona" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-semibold text-slate-200 hover:bg-dark-800 rounded-xl transition-colors">Como Funciona</a>
-                            <a href="#faq" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-semibold text-slate-200 hover:bg-dark-800 rounded-xl transition-colors">FAQ</a>
-                            <a href="#contato" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-dark-900 bg-brand-500 text-center rounded-xl mt-6 shadow-lg shadow-brand-500/20 active:scale-95 transition-transform">Solicitar Demo</a>
+                    <div className={`md:hidden absolute w-full bg-dark-950/95 backdrop-blur-3xl border-b border-brand-500/20 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="px-4 pt-4 pb-8 space-y-3 text-center">
+                            <a href="#solucao" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-slate-200">Solução</a>
+                            <a href="#jornada" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-slate-200">O Processo</a>
+                            <a href="#tecnologia" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-slate-200">Tecnologia</a>
+                            <a href="#alto-fluxo" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-slate-200">Alto Fluxo</a>
+                            <a href="#contato" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-extrabold text-dark-950 bg-white rounded-xl mt-6">Solicitar Demo</a>
                         </div>
                     </div>
                 </nav>
@@ -216,69 +265,67 @@
 
         const Hero = () => {
             return (
-                <div className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-dark-950">
+                <div className="relative min-h-screen flex flex-col justify-center pt-24 pb-12 overflow-hidden bg-dark-950">
                     
-                    {/* Background Layers - Menos genérico, focado em evento */}
-                    <div className="absolute inset-0 z-0">
-                        {/* Imagem de Evento real esmaecida */}
-                        <img src={GENERIC_FESTIVAL} alt="Fundo Evento" className="w-full h-full object-cover opacity-15 mix-blend-luminosity" />
-                        {/* Overlay Gradiente Escuro */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-dark-950/80 via-dark-950/95 to-dark-950"></div>
-                        {/* Tech Grid subtil por cima */}
-                        <div className="absolute inset-0 tech-grid opacity-50 mix-blend-overlay"></div>
+                    {/* Fundo "Clean, Moderno e Criativo" (Mesh Gradient Animado) */}
+                    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-brand-600/20 mix-blend-screen filter blur-[100px] md:blur-[150px] animate-blob"></div>
+                        <div className="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-accent-600/20 mix-blend-screen filter blur-[100px] md:blur-[150px] animate-blob" style={{animationDelay: '4s'}}></div>
+                        <div className="absolute bottom-[-20%] left-[20%] w-[80vw] h-[80vw] rounded-full bg-pink-600/15 mix-blend-screen filter blur-[100px] md:blur-[150px] animate-blob" style={{animationDelay: '8s'}}></div>
+                        <div className="absolute inset-0 bg-dark-950/40 backdrop-blur-[20px]"></div>
+                        <div className="absolute inset-0 tech-grid opacity-20 mix-blend-overlay"></div>
                     </div>
-
-                    {/* Light/Neon Orbs */}
-                    <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] bg-brand-500/15 rounded-full blur-[120px] pointer-events-none"></div>
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
                     
-                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    <div className="relative max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 flex-grow flex items-center">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
                             
-                            {/* Text Content */}
-                            <div className="lg:col-span-7 text-center lg:text-left pt-10 md:pt-0">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800/80 border border-white/10 text-brand-400 text-sm font-bold mb-8 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                                    <span className="relative flex h-3 w-3">
-                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                      <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
-                                    </span>
-                                    Alta Performance para PDVs
-                                </div>
-                                
-                                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[1.1] text-white">
-                                    Transforme o caos <br className="hidden sm:block" /> das filas em <span className="gradient-text">vendas recordes.</span>
-                                </h1>
-                                
-                                <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed drop-shadow-md">
-                                    Software de PDV robusto que roda nativamente na sua maquininha smart. Controle absoluto, operação relâmpago e gestão em tempo real.
-                                </p>
-                                
-                                <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                                    <a href="#contato" className="bg-brand-500 hover:bg-brand-400 text-dark-950 px-8 py-4 rounded-full font-bold text-lg transition-all hover:-translate-y-1 active:scale-95 shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-                                        Começar agora
-                                        <IconArrowDown className="w-5 h-5 -rotate-90" />
-                                    </a>
-                                </div>
+                            {/* Textos à Esquerda */}
+                            <div className="lg:col-span-6 text-center lg:text-left pt-10 md:pt-0 relative z-30">
+                                <FadeIn direction="up">
+                                    <div className="inline-flex items-center gap-3 px-5 md:px-6 py-2.5 md:py-3 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-sm font-bold mb-6 md:mb-10 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.2)] mx-auto lg:mx-0">
+                                        <span className="relative flex h-2 w-2 md:h-3 md:w-3">
+                                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                          <span className="relative inline-flex rounded-full h-2 w-2 md:h-3 md:w-3 bg-brand-500"></span>
+                                        </span>
+                                        Performance Extrema para TPA
+                                    </div>
+                                    
+                                    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter mb-6 leading-[1.05] text-white">
+                                        Transforme o caos das filas em <br className="hidden lg:block"/><span className="gradient-text">vendas recordes.</span>
+                                    </h1>
+                                    
+                                    <p className="text-lg md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed px-2 lg:px-0">
+                                        Software de PDV ultra robusto que corre nativamente no seu terminal smart. Controlo absoluto, operação relâmpago e gestão visual em tempo real.
+                                    </p>
+                                    
+                                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start px-4 lg:px-0">
+                                        <a href="#contato" className="bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-400 hover:to-accent-400 text-white px-8 md:px-12 py-4 md:py-5 rounded-full font-black text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_20px_40px_rgba(168,85,247,0.4)] flex items-center justify-center gap-3 w-full sm:w-auto">
+                                            Começar a faturar
+                                            <IconArrowDown className="w-5 h-5 md:w-6 md:h-6 -rotate-90" />
+                                        </a>
+                                    </div>
+                                </FadeIn>
                             </div>
 
-                            {/* Modern Mockup Container */}
-                            <div className="lg:col-span-5 relative flex justify-center lg:justify-end mt-12 lg:mt-0">
-                                <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg">
-                                    {/* Platform Base Effect */}
-                                    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-brand-500/30 blur-2xl rounded-full"></div>
-                                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-4 bg-white/20 blur-md rounded-full"></div>
+                            {/* MAQUININHA ABSOLUTAMENTE GIGANTE */}
+                            <div className="lg:col-span-6 relative flex justify-center lg:justify-end mt-12 lg:mt-0 lg:h-full min-h-[400px]">
+                                {/* No desktop ela fica absolute para poder vazar a tela perfeitamente */}
+                                <FadeIn delay={200} direction="none" className="relative lg:absolute lg:right-[-15%] lg:top-1/2 lg:-translate-y-1/2 w-full flex justify-center lg:justify-end max-w-sm sm:max-w-xl lg:max-w-none mx-auto z-20">
+                                    {/* Core Glow */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-brand-500/30 to-accent-500/20 blur-[60px] md:blur-[120px] rounded-full animate-pulse-glow"></div>
                                     
-                                    {/* Floating Maquininha */}
+                                    {/* Imagem Massiva */}
                                     <img 
-                                        src={MOCKUP_IMG} 
-                                        alt="Minha Ficha na Maquininha" 
-                                        className="relative w-full h-auto object-contain animate-float drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20"
+                                        src={MAQUININHA_IMG} 
+                                        alt="Terminal Minha Ficha" 
+                                        className="relative z-20 w-full lg:w-[900px] xl:w-[1100px] 2xl:w-[1300px] h-auto object-contain animate-float maquininha-glow"
+                                        style={{ maxWidth: 'none' }}
                                     />
                                     
-                                    {/* Tech rings */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-white/5 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none"></div>
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-white/5 rounded-full border-dashed animate-[spin_30s_linear_infinite_reverse] pointer-events-none"></div>
-                                </div>
+                                    {/* Orbitais */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] border border-brand-400/20 rounded-full animate-[spin_30s_linear_infinite] pointer-events-none"></div>
+                                    <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-accent-500/10 rounded-full border-dashed animate-[spin_40s_linear_infinite_reverse] pointer-events-none"></div>
+                                </FadeIn>
                             </div>
                         </div>
                     </div>
@@ -286,393 +333,297 @@
             );
         };
 
-        const PainPoints = () => {
-            const [setRef, isVisible] = useIntersectionObserver();
-            
-            const pains = [
-                "Filas imensas e clientes irritados",
-                "Comandas de papel perdidas",
-                "Fechamento de caixa com furos",
-                "Falta de controle de estoque",
-                "Vendas feitas no escuro"
-            ];
-
+        const VisualPainPoints = () => {
             return (
-                <div className="py-24 bg-dark-950 border-y border-white/5" ref={setRef}>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center max-w-4xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">Onde a maioria das operações <span className="text-red-500">sangra dinheiro.</span></h2>
-                            <p className="text-slate-400 text-xl md:text-2xl">
-                                Quando o volume de clientes aumenta, sistemas comuns travam e os erros operacionais disparam.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-                            {pains.map((pain, index) => (
-                                <div 
-                                    key={index} 
-                                    className={`bg-dark-900 border border-red-500/20 px-6 py-4 rounded-xl flex items-center gap-4 transition-all duration-300
-                                        ${isVisible ? 'animate-shake-bad' : ''} 
-                                        hover:border-red-500 hover:bg-red-500/10 cursor-default group shadow-lg`}
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                >
-                                    <div className="p-2 bg-red-500/10 rounded-full text-red-500 group-hover:animate-pulse-red shrink-0">
-                                        <IconAlert className="w-6 h-6" />
-                                    </div>
-                                    <span className="font-bold text-slate-300 group-hover:text-white text-base md:text-lg">{pain}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        const TimelineSolution = () => {
-            const [setRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
-            
-            return (
-                <div id="solucao" className="py-24 bg-dark-900 relative overflow-hidden" ref={setRef}>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            
-                            {/* Interactive Timeline Responsiva */}
-                            <div>
-                                <h2 className="text-4xl md:text-5xl font-bold mb-12 text-white leading-tight">
-                                    Uma solução projetada para <span className="text-brand-400">não parar.</span>
+                <div id="solucao" className="py-24 md:py-32 bg-dark-950 relative overflow-hidden z-10 border-t border-white/5">
+                    <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <FadeIn>
+                            <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-white tracking-tight">
+                                    Onde a maioria das operações <br className="hidden md:block"/><span className="text-accent-500">perde dinheiro.</span>
                                 </h2>
-                                
-                                <div className="space-y-10">
-                                    {[
-                                        { title: "Vendas Rápidas", desc: "Interface otimizada para concluir transações em 3 toques na tela.", icon: <IconZap /> },
-                                        { title: "Controle em Tempo Real", desc: "Saiba exatamente quanto cada operador vendeu, a qualquer segundo.", icon: <IconChart /> },
-                                        { title: "Gestão Descentralizada", desc: "Dezenas de maquininhas operando independentes, sincronizadas na nuvem.", icon: <IconUsers /> }
-                                    ].map((item, i) => (
-                                        <div key={i} className={`flex gap-6 md:gap-8 relative transition-all duration-700 delay-[${i * 300}ms] ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-                                            {/* Linha conectora nas costas do icone */}
-                                            {i !== 2 && (
-                                                <div className={`absolute left-6 md:left-7 top-14 w-1 bg-gradient-to-b from-brand-500 to-transparent transition-all duration-[2000ms] -ml-0.5 ${isVisible ? 'h-full' : 'h-0'}`}></div>
-                                            )}
-                                            
-                                            <div className="relative z-10 w-12 h-12 md:w-14 md:h-14 shrink-0 bg-dark-950 border-2 border-brand-500 rounded-full flex items-center justify-center text-brand-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                                <div className="w-5 h-5 md:w-6 md:h-6">{item.icon}</div>
-                                            </div>
-                                            <div className="pt-1 md:pt-2">
-                                                <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                                                <p className="text-slate-400 text-lg leading-relaxed">{item.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                <p className="text-slate-400 text-lg md:text-xl lg:text-2xl font-medium px-4">
+                                    Sem a tecnologia certa, o aumento de clientes significa apenas o aumento de problemas.
+                                </p>
                             </div>
+                        </FadeIn>
+
+                        {/* Grid de Imagens 100% Visual com Animação Contínua (Pan) */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             
-                            {/* Imagem Solução Sem Cortes e Card Ajustado */}
-                            <div className="relative mt-8 lg:mt-0">
-                                {/* Retirado o overflow-hidden deste wrapper pai para o card não ser cortado */}
-                                <div className="relative p-2 md:p-4 bg-dark-950 rounded-2xl border border-white/10 group shadow-2xl">
-                                    
-                                    {/* Wrapper específico da imagem COM overflow-hidden para o hover seguro */}
-                                    <div className="relative rounded-xl overflow-hidden h-full">
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10"></div>
-                                        <img 
-                                            src={GENERIC_POS} 
-                                            alt="Sistema de PDV" 
-                                            className="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-700"
-                                        />
+                            <FadeIn delay={100} className="relative group rounded-[2rem] overflow-hidden h-80 md:h-[450px] shadow-2xl bg-dark-900 border border-white/5">
+                                <img src={IMG_FILA} alt="Filas Imensas" className="absolute inset-0 w-full h-full object-cover animate-image-pan" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-transparent group-hover:via-dark-950/50 transition-all duration-500"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full">
+                                    <div className="w-14 h-14 rounded-2xl bg-accent-500/20 backdrop-blur-md flex items-center justify-center mb-4 border border-accent-500/50 group-hover:scale-110 transition-transform">
+                                        <IconClock className="w-8 h-8 text-accent-400" />
                                     </div>
-                                    
-                                    {/* Floating Stats Card - Totalmente ajustado */}
-                                    <div className={`absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 bg-dark-950/95 backdrop-blur-xl border border-brand-500/30 rounded-2xl p-5 md:p-6 z-20 shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <span className="relative flex h-3 w-3 shrink-0">
-                                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                              <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
-                                            </span>
-                                            <p className="text-xs md:text-sm text-brand-400 uppercase tracking-widest font-bold whitespace-nowrap">Vendas (Última hora)</p>
-                                        </div>
-                                        <div className="flex items-baseline gap-1 md:gap-2 overflow-hidden">
-                                            <span className="text-2xl md:text-3xl text-slate-300 font-medium shrink-0">R$</span>
-                                            <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter shrink-0">
-                                                <AnimatedCounter end={14250} isVisible={isVisible} />
-                                            </span>
-                                            <span className="text-xl md:text-2xl text-slate-400 font-bold shrink-0">,00</span>
-                                        </div>
-                                    </div>
+                                    <h3 className="text-3xl font-black text-white mb-2">Filas Intermináveis</h3>
+                                    <p className="text-slate-300 text-lg">Clientes desistem de comprar pela demora e lentidão no atendimento.</p>
                                 </div>
-                            </div>
+                            </FadeIn>
+
+                            <FadeIn delay={200} className="relative group rounded-[2rem] overflow-hidden h-80 md:h-[450px] shadow-2xl bg-dark-900 border border-white/5">
+                                <img src={IMG_CAOS} alt="Caos no Caixa" className="absolute inset-0 w-full h-full object-cover animate-image-pan" style={{animationDelay: '-5s'}} />
+                                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-transparent group-hover:via-dark-950/50 transition-all duration-500"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full">
+                                    <div className="w-14 h-14 rounded-2xl bg-pink-500/20 backdrop-blur-md flex items-center justify-center mb-4 border border-pink-500/50 group-hover:scale-110 transition-transform">
+                                        <IconAlert className="w-8 h-8 text-pink-400" />
+                                    </div>
+                                    <h3 className="text-3xl font-black text-white mb-2">Quebras de Caixa</h3>
+                                    <p className="text-slate-300 text-lg">Fecho manual em papel que nunca bate certo no final da noite.</p>
+                                </div>
+                            </FadeIn>
+
+                            <FadeIn delay={300} className="relative group rounded-[2rem] overflow-hidden h-80 md:h-[450px] shadow-2xl bg-dark-900 border border-white/5 md:col-span-3 lg:col-span-1">
+                                <img src={IMG_ESTOQUE} alt="Estoque Cego" className="absolute inset-0 w-full h-full object-cover animate-image-pan" style={{animationDelay: '-10s'}} />
+                                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-transparent group-hover:via-dark-950/50 transition-all duration-500"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full">
+                                    <div className="w-14 h-14 rounded-2xl bg-brand-500/20 backdrop-blur-md flex items-center justify-center mb-4 border border-brand-500/50 group-hover:scale-110 transition-transform">
+                                        <IconCrosshair className="w-8 h-8 text-brand-400" />
+                                    </div>
+                                    <h3 className="text-3xl font-black text-white mb-2">Vendas às Escuras</h3>
+                                    <p className="text-slate-300 text-lg">Sem qualquer ideia do que está a sair ou qual stock precisa de reposição rápida.</p>
+                                </div>
+                            </FadeIn>
+
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const EventsFocus = () => {
-            const eventTypes = ["Festivais de Música", "Shows e Turnês", "Feiras de Negócios", "Eventos Esportivos", "Bares e Baladas", "Food Parks", "Operações Cashless", "Eventos Corporativos"];
-            
+        // --- NOVA SECÇÃO CRIATIVA: A Jornada da Venda Perfeita ---
+        const VisualSalesJourney = () => {
             return (
-                <div className="py-24 relative overflow-hidden bg-dark-950 border-t border-white/5">
-                    <div className="absolute inset-0 opacity-20">
-                        <img src={GENERIC_FESTIVAL} alt="Festival Crowd" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/90 to-dark-950"></div>
+                <div id="jornada" className="py-24 md:py-32 bg-dark-900 relative overflow-hidden border-t border-brand-900/30">
+                    <div className="absolute inset-0 tech-grid opacity-10"></div>
                     
-                    <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Domine qualquer <span className="text-brand-400">ambiente de alto fluxo.</span></h2>
-                        <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">Construído para aguentar o tranco quando milhares de pessoas querem comprar ao mesmo tempo.</p>
-                    </div>
-
-                    {/* Infinite Marquee 100% Seguro */}
-                    <div className="relative z-10 flex overflow-hidden group py-6">
-                        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] gap-4 md:gap-6 px-4">
-                            {/* Usando uma única lista duplicada e whitespace-nowrap para não esmagar os cards nunca */}
-                            {[...eventTypes, ...eventTypes].map((type, i) => (
-                                <div key={i} className="flex-shrink-0 bg-dark-800/90 backdrop-blur-md border border-white/10 px-6 py-3 md:px-8 md:py-4 rounded-full text-lg md:text-xl font-bold text-white shadow-xl hover:bg-brand-500 hover:text-dark-950 hover:border-brand-500 transition-colors cursor-pointer select-none whitespace-nowrap">
-                                    {type}
+                    <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <FadeIn>
+                            <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-sm font-bold mb-6">
+                                    O Processo Imparável
                                 </div>
-                            ))}
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-white tracking-tight">
+                                    A anatomia da <span className="gradient-text">venda perfeita.</span>
+                                </h2>
+                                <p className="text-slate-400 text-lg md:text-xl lg:text-2xl font-medium">
+                                    Desenhámos o fluxo perfeito para que o seu cliente compre mais, mais rápido e sem fricção.
+                                </p>
+                            </div>
+                        </FadeIn>
+
+                        <div className="relative">
+                            {/* Linha conectiva invisível em mobile, vísivel em desktop */}
+                            <div className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-1 bg-gradient-to-r from-brand-500 via-pink-500 to-accent-500 -translate-y-1/2 opacity-30"></div>
+                            
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 relative z-10">
+                                
+                                {/* Step 1 */}
+                                <FadeIn delay={100} className="relative group">
+                                    <div className="glass-card p-8 md:p-10 rounded-[2.5rem] border border-brand-500/20 hover:border-brand-500/60 transition-all duration-500 hover:-translate-y-3 h-full shadow-2xl relative overflow-hidden text-center flex flex-col items-center">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-brand-500/5 to-transparent"></div>
+                                        <div className="w-20 h-20 rounded-full bg-dark-950 border border-brand-500 flex items-center justify-center text-brand-400 mb-8 shadow-[0_0_30px_rgba(168,85,247,0.3)] relative z-10 group-hover:scale-110 transition-transform">
+                                            <IconZap className="w-10 h-10" />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-4 relative z-10">1. O Pedido</h3>
+                                        <p className="text-slate-400 text-lg leading-relaxed relative z-10">Interface intuitiva com categorias e imagens. O operador lança 5 bebidas na conta em menos de 2 segundos.</p>
+                                    </div>
+                                    <div className="hidden lg:flex absolute top-1/2 -right-8 -translate-y-1/2 w-16 h-16 items-center justify-center z-20">
+                                        <div className="w-8 h-8 border-t-4 border-r-4 border-pink-500/50 rotate-45 animate-pulse-fast"></div>
+                                    </div>
+                                </FadeIn>
+
+                                {/* Step 2 */}
+                                <FadeIn delay={250} className="relative group">
+                                    <div className="glass-card p-8 md:p-10 rounded-[2.5rem] border border-pink-500/20 hover:border-pink-500/60 transition-all duration-500 hover:-translate-y-3 h-full shadow-2xl relative overflow-hidden text-center flex flex-col items-center">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-pink-500/5 to-transparent"></div>
+                                        <div className="w-20 h-20 rounded-full bg-dark-950 border border-pink-500 flex items-center justify-center text-pink-400 mb-8 shadow-[0_0_30px_rgba(236,72,153,0.3)] relative z-10 group-hover:scale-110 transition-transform">
+                                            <IconWifi className="w-10 h-10" />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-4 relative z-10">2. O Pagamento</h3>
+                                        <p className="text-slate-400 text-lg leading-relaxed relative z-10">O cliente aproxima o cartão, telemóvel ou relógio. Transação aprovada instantaneamente via TPA integrado.</p>
+                                    </div>
+                                    <div className="hidden lg:flex absolute top-1/2 -right-8 -translate-y-1/2 w-16 h-16 items-center justify-center z-20">
+                                        <div className="w-8 h-8 border-t-4 border-r-4 border-accent-500/50 rotate-45 animate-pulse-fast"></div>
+                                    </div>
+                                </FadeIn>
+
+                                {/* Step 3 */}
+                                <FadeIn delay={400} className="relative group">
+                                    <div className="glass-card p-8 md:p-10 rounded-[2.5rem] border border-accent-500/20 hover:border-accent-500/60 transition-all duration-500 hover:-translate-y-3 h-full shadow-2xl relative overflow-hidden text-center flex flex-col items-center">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-accent-500/5 to-transparent"></div>
+                                        <div className="w-20 h-20 rounded-full bg-dark-950 border border-accent-500 flex items-center justify-center text-accent-400 mb-8 shadow-[0_0_30px_rgba(249,115,22,0.3)] relative z-10 group-hover:scale-110 transition-transform">
+                                            <IconCheckCircle className="w-10 h-10" />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-4 relative z-10">3. A Entrega</h3>
+                                        <p className="text-slate-400 text-lg leading-relaxed relative z-10">A ficha é impressa, o stock baixa automaticamente e o gestor vê o lucro no seu telemóvel em tempo real.</p>
+                                    </div>
+                                </FadeIn>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const BentoBenefits = () => {
+        // --- Secção "Tecnologia nas Suas Mãos" - Corvelínea e Orgânica ---
+        const TimelineFeature = ({ title, desc, icon, index }) => {
+            // Cria um efeito "zig-zag" suave alternando a margem
+            const isEven = index % 2 === 0;
+            const offsetClass = isEven ? 'ml-0 md:ml-12' : 'ml-8 md:ml-0';
+
             return (
-                <div id="beneficios" className="py-24 bg-dark-900">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Performance que <span className="text-brand-400">você nunca viu.</span></h2>
-                            <p className="text-slate-400 text-xl max-w-2xl mx-auto">Esqueça sistemas lentos. A Minha Ficha é otimizada para velocidade máxima e zero atrito no PDV.</p>
+                <div className={`relative pl-12 md:pl-20 py-6 md:py-10 group transition-transform ${offsetClass}`}>
+                    <FadeIn direction={isEven ? 'right' : 'left'} delay={index * 100}>
+                        <div className="glass-card p-6 md:p-8 rounded-3xl hover:border-brand-500/50 hover:bg-dark-800/80 transition-all duration-300 transform group-hover:-translate-y-2 shadow-xl border border-white/5">
+                            <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-5 md:mb-6 border border-brand-500/20 group-hover:scale-110 transition-transform">
+                                {icon}
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-black text-white mb-3 tracking-tight">{title}</h3>
+                            <p className="text-slate-400 text-lg md:text-xl leading-relaxed">{desc}</p>
                         </div>
-                        
-                        {/* Bento Grid Responsivo */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[280px]">
-                            {/* Card 1 - Large */}
-                            <div className="md:col-span-2 bg-dark-800 rounded-3xl p-8 border border-white/5 relative overflow-hidden group hover:border-brand-500/50 transition-colors">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-colors"></div>
-                                <div className="relative z-10 h-full flex flex-col justify-between min-h-[200px]">
-                                    <div className="w-16 h-16 bg-dark-950 border border-brand-500/30 text-brand-400 rounded-2xl flex items-center justify-center mb-6">
-                                        <IconZap className="w-8 h-8" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-3xl font-bold text-white mb-3">Venda em Segundos</h3>
-                                        <p className="text-slate-400 text-lg md:text-xl leading-relaxed">Otimizamos o fluxo de tela. Menos cliques, zero travamentos. Sua equipe voa no atendimento.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Card 2 */}
-                            <div className="bg-dark-800 rounded-3xl p-8 border border-white/5 relative group hover:border-blue-500/50 transition-colors">
-                                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-blue-500/5 blur-2xl group-hover:bg-blue-500/10 transition-colors"></div>
-                                <div className="relative z-10 h-full flex flex-col justify-between min-h-[200px]">
-                                    <div className="w-14 h-14 bg-dark-950 border border-blue-500/30 text-blue-400 rounded-xl flex items-center justify-center mb-6">
-                                        <IconShield className="w-7 h-7" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-2xl font-bold text-white mb-2">Fechamento Blindado</h3>
-                                        <p className="text-slate-400 text-lg">Caixa bate 100%. Relatórios auditáveis.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Card 3 */}
-                            <div className="bg-dark-800 rounded-3xl p-8 border border-white/5 relative group hover:border-purple-500/50 transition-colors">
-                                <div className="relative z-10 h-full flex flex-col justify-between min-h-[200px]">
-                                    <div className="w-14 h-14 bg-dark-950 border border-purple-500/30 text-purple-400 rounded-xl flex items-center justify-center mb-6">
-                                        <IconUsers className="w-7 h-7" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-2xl font-bold text-white mb-2">Múltiplos Pontos</h3>
-                                        <p className="text-slate-400 text-lg">Escale bares infinitamente sem perder o controle.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Card 4 - Wide */}
-                            <div className="md:col-span-2 bg-gradient-to-br from-brand-900/40 to-dark-800 rounded-3xl p-8 border border-brand-500/20 relative group overflow-hidden">
-                                <div className="absolute right-[-20%] md:right-0 top-1/2 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-opacity translate-x-10 group-hover:translate-x-0 duration-500 pointer-events-none">
-                                    <IconChart className="w-64 h-64 text-brand-500" />
-                                </div>
-                                <div className="relative z-10 h-full flex flex-col justify-center max-w-lg min-h-[200px]">
-                                    <h3 className="text-3xl font-bold text-white mb-4">Dashboard Executivo</h3>
-                                    <p className="text-brand-50 text-lg md:text-xl leading-relaxed">Acompanhe produtos mais vendidos, fluxo de caixa e performance da equipe ao vivo do seu celular.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </FadeIn>
                 </div>
             );
         };
 
-        const ImmersiveSteps = () => {
-            const [setRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-            const [activeStep, setActiveStep] = React.useState(0);
-
-            React.useEffect(() => {
-                if (!isVisible) return;
-                const interval = setInterval(() => {
-                    setActiveStep(prev => (prev + 1) % 4);
-                }, 2500);
-                return () => clearInterval(interval);
-            }, [isVisible]);
-
-            const steps = [
-                { title: "Configure na Nuvem", desc: "Cadastre cardápio e preços no painel web." },
-                { title: "Distribua os PDVs", desc: "Entregue as maquininhas prontas para a equipe." },
-                { title: "Venda sem parar", desc: "Operação fluida em tela touch otimizada." },
-                { title: "Acompanhe tudo", desc: "Dados consolidados em tempo real." }
+        const TechTimelineReinvented = () => {
+            const features = [
+                { title: "PDV Ultra Rápido", desc: "Design focado na conversão. Faça vendas em menos de 3 toques, direto no ecrã do terminal sem bloqueios.", icon: <IconZap className="w-8 h-8" /> },
+                { title: "Gestão Descentralizada", desc: "Dezenas de terminais a operar simultaneamente e sincronizados. Escale de 1 para 50 bares num piscar de olhos.", icon: <IconUsers className="w-8 h-8" /> },
+                { title: "Dashboard em Tempo Real", desc: "Aceda aos relatórios ao vivo do seu telemóvel. Controle o fluxo de caixa e os itens mais vendidos de qualquer lado.", icon: <IconChart className="w-8 h-8" /> },
+                { title: "Controlo Blindado", desc: "Fecho de caixa seguro, controlo de múltiplos operadores e gestão de acessos. O seu dinheiro, protegido.", icon: <IconShield className="w-8 h-8" /> },
             ];
 
             return (
-                <div id="como-funciona" className="py-24 md:py-32 bg-dark-950 relative overflow-hidden" ref={setRef}>
-                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-16 md:mb-24 text-white">Integração <span className="text-brand-400">sem atrito.</span></h2>
+                <div id="tecnologia" className="py-24 md:py-32 bg-dark-950 relative border-t border-brand-900/30">
+                    <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         
-                        <div className="relative">
-                            {/* Linha de Progresso Horizontal (PC) */}
-                            <div className="hidden md:block absolute top-10 left-[10%] w-[80%] h-1.5 bg-dark-800 rounded-full z-0 overflow-hidden">
-                                <div 
-                                    className="h-full bg-brand-500 transition-all duration-500 ease-out"
-                                    style={{ width: `${(activeStep / 3) * 100}%` }}
-                                ></div>
-                            </div>
-
-                            {/* Linha de Progresso Vertical (Mobile) */}
-                            <div className="md:hidden absolute top-[40px] bottom-[40px] left-1/2 -translate-x-1/2 w-1.5 bg-dark-800 rounded-full z-0 overflow-hidden">
-                                <div 
-                                    className="w-full bg-brand-500 transition-all duration-500 ease-out"
-                                    style={{ height: `${(activeStep / 3) * 100}%` }}
-                                ></div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-4 relative z-10">
-                                {steps.map((step, i) => (
-                                    <div key={i} className={`flex flex-col items-center transition-all duration-500 bg-dark-950/80 md:bg-transparent py-4 rounded-2xl ${activeStep === i ? 'scale-110 md:scale-110' : 'opacity-60 scale-95 md:scale-90'}`}>
-                                        <div className={`w-20 h-20 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-3xl font-black mb-6 transition-all duration-500 shadow-xl
-                                            ${activeStep >= i ? 'bg-brand-500 text-dark-950 shadow-brand-500/50' : 'bg-dark-800 text-slate-500 border border-white/10'}`}>
-                                            {i + 1}
-                                        </div>
-                                        <h3 className={`text-xl md:text-2xl font-bold mb-3 ${activeStep === i ? 'text-white' : 'text-slate-400'}`}>{step.title}</h3>
-                                        <p className="text-base text-slate-400 max-w-[200px] md:max-w-none">{step.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="text-center mb-16 md:mb-24">
+                            <FadeIn>
+                                <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-black text-white tracking-tighter leading-tight mb-6">
+                                    Tecnologia que <br className="hidden md:block"/><span className="gradient-text">cabe nas mãos.</span>
+                                </h2>
+                                <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto font-medium">Uma jornada completa de funcionalidades a correr fluidamente na palma da sua mão.</p>
+                            </FadeIn>
                         </div>
-                    </div>
-                </div>
-            );
-        };
 
-        const AnimatedFeatures = () => {
-            const [setRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
-            const features = ["PDV Móvel na Maquininha", "Controle de Caixa Cego", "Catálogo com Categorias", "Múltiplos Operadores", "Relatórios em Tempo Real", "PIX, Crédito e Débito", "Gestão Multieventos", "Controle de Estoque", "Taxas Customizadas", "Emissão Fiscal NFC-e"];
-
-            return (
-                <div className="py-24 bg-dark-900 border-t border-white/5" ref={setRef}>
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Tecnologia completa em suas mãos</h2>
-                        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-                            {features.map((f, i) => (
-                                <div 
-                                    key={i} 
-                                    className={`bg-dark-800 border border-brand-500/30 px-6 py-4 rounded-full text-slate-200 font-bold md:text-lg flex items-center gap-3 hover:bg-brand-500 hover:text-dark-950 hover:border-brand-500 transition-colors cursor-default shadow-lg
-                                        ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-                                    style={{ animationDelay: `${i * 100}ms` }}
-                                >
-                                    <IconCheck className="w-5 h-5 text-brand-400 group-hover:text-dark-950" />
-                                    {f}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        const TargetAudienceWithPhotos = () => {
-            return (
-                <div className="py-32 bg-dark-950 relative">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Layout com Máquina Sticky (Presa) na esquerda e Timeline na Direita */}
+                        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 relative">
                             
-                            {/* Masonry/Grid of Real Photos ajustado para Mobile e PC */}
-                            <div className="grid grid-cols-2 gap-3 md:gap-6 auto-rows-fr">
-                                <div className="space-y-3 md:space-y-6">
-                                    <img src={REAL_IMG_1} alt="Operação" className="w-full aspect-[3/4] object-cover rounded-2xl border border-white/10 hover:scale-[1.02] transition-transform shadow-2xl bg-dark-800" />
-                                    <img src={REAL_IMG_3} alt="Operação" className="w-full aspect-[4/3] object-cover rounded-2xl border border-white/10 hover:scale-[1.02] transition-transform shadow-2xl bg-dark-800" />
-                                </div>
-                                <div className="space-y-3 md:space-y-6 mt-6 md:mt-10">
-                                    <img src={REAL_IMG_4} alt="Operação" className="w-full aspect-[4/3] object-cover rounded-2xl border border-white/10 hover:scale-[1.02] transition-transform shadow-2xl bg-dark-800" />
-                                    <img src={REAL_IMG_2} alt="Operação" className="w-full aspect-[3/4] object-cover rounded-2xl border border-white/10 hover:scale-[1.02] transition-transform shadow-2xl bg-dark-800" />
-                                </div>
+                            {/* Esquerda: Maquininha "Sticky" */}
+                            <div className="w-full lg:w-[45%] xl:w-1/2 relative lg:sticky lg:top-32 h-[50vh] sm:h-[60vh] lg:h-[80vh] flex items-center justify-center z-20">
+                                <FadeIn direction="up" className="w-full flex justify-center h-full items-center">
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-brand-500/20 blur-[80px] md:blur-[120px] rounded-full animate-pulse-glow"></div>
+                                    
+                                    <img 
+                                        src={MAQUININHA_IMG} 
+                                        alt="Terminal Sticky" 
+                                        className="relative z-20 w-[280px] sm:w-[380px] md:w-[480px] lg:w-[550px] xl:w-[650px] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.9)] animate-float"
+                                    />
+                                    
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[550px] md:h-[550px] lg:w-[650px] lg:h-[650px] border-2 border-brand-500/10 rounded-full pointer-events-none"></div>
+                                </FadeIn>
                             </div>
-                            
-                            {/* Content */}
-                            <div className="pt-8 lg:pt-0">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-white">Para quem é a <span className="text-brand-400">Minha Ficha</span>?</h2>
-                                <p className="text-xl md:text-2xl text-slate-400 mb-10 leading-relaxed">
-                                    Nossa solução é o motor de vendas por trás de operações reais. Seja sob o sol de um festival ou no balcão movimentado de um bar.
-                                </p>
-                                
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                    {['Produtores de Eventos', 'Bares e Restaurantes', 'Food Trucks e Parques', 'Casas Noturnas', 'Franquias e Quiosques', 'Operadores de Caixa'].map((item, i) => (
-                                        <div key={i} className="flex items-center gap-4 bg-dark-900 p-4 md:p-5 rounded-xl border border-white/5 hover:border-brand-500/30 transition-colors">
-                                            <div className="p-2 md:p-3 rounded-lg bg-brand-500/10 text-brand-400 shrink-0">
-                                                <IconCheck className="w-5 h-5 md:w-6 md:h-6" />
+
+                            {/* Direita: Linha do Tempo "Corvelínea" */}
+                            <div className="w-full lg:w-[55%] xl:w-1/2 pb-20 pt-10 lg:pt-0 relative z-10">
+                                <div className="relative timeline-container">
+                                    
+                                    {/* A Curva da Linha do Tempo (SVG Wave) */}
+                                    <div className="absolute left-[-16px] md:left-[0px] top-0 bottom-0 w-24 md:w-32 z-0 opacity-40">
+                                        <svg width="100%" height="100%">
+                                            <pattern id="wave" x="0" y="0" width="100" height="250" patternUnits="userSpaceOnUse">
+                                                {/* Uma onda desenhada perfeitamente para conectar os items em zig-zag */}
+                                                <path d="M 40 0 Q 100 62.5 40 125 T 40 250" fill="none" stroke="url(#grad)" strokeWidth="3" strokeLinecap="round" strokeDasharray="8 8" className="animate-pulse-glow"/>
+                                            </pattern>
+                                            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="0%" stopColor="#a855f7" />
+                                                <stop offset="100%" stopColor="#f97316" />
+                                            </linearGradient>
+                                            <rect x="0" y="0" width="100%" height="100%" fill="url(#wave)" />
+                                        </svg>
+                                    </div>
+                                    
+                                    {/* Pontos Luminosos Dinâmicos */}
+                                    <div className="relative z-10">
+                                        {features.map((f, i) => (
+                                            <div key={i} className="relative">
+                                                {/* Bolinha ancorada */}
+                                                <div className={`absolute top-16 md:top-20 w-5 h-5 md:w-6 md:h-6 rounded-full bg-dark-950 border-[3px] border-brand-500 shadow-[0_0_15px_rgba(168,85,247,0.8)] z-20 ${i % 2 === 0 ? 'left-[14px] md:left-[30px]' : 'left-[30px] md:left-[46px]'}`}></div>
+                                                <TimelineFeature index={i} title={f.title} desc={f.desc} icon={f.icon} />
                                             </div>
-                                            <span className="text-white font-bold text-lg md:text-xl">{item}</span>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             );
         };
 
-        const FAQAnimated = () => {
-            const [openIndex, setOpenIndex] = React.useState(null);
+        // --- Duplo Marquee Altamente Profissional (Novas Imagens) ---
+        const DoubleVisualMarquee = () => {
+            const row1 = [
+                { title: "Grandes Festivais", img: IMG_FESTIVAL },
+                { title: "Bares Lotados", img: IMG_BAR },
+                { title: "Discotecas", img: IMG_NIGHTCLUB },
+                { title: "Food Parks", img: IMG_FOODTRUCK },
+            ];
+            
+            const row2 = [
+                { title: "Eventos Desportivos", img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" },
+                { title: "Concertos Épicos", img: IMG_CONCERT },
+                { title: "Festas ao Ar Livre", img: IMG_OUTDOOR },
+                { title: "Feiras Gastronómicas", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" },
+            ];
 
-            const toggle = (index) => setOpenIndex(openIndex === index ? null : index);
+            const topCards = [...row1, ...row1, ...row1];
+            const bottomCards = [...row2, ...row2, ...row2];
 
             return (
-                <div id="faq" className="py-24 bg-dark-900 border-t border-white/5">
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Perguntas Frequentes</h2>
-                            <p className="text-slate-400 text-xl">Tudo o que você precisa saber antes de começar.</p>
+                <div id="alto-fluxo" className="py-24 md:py-32 relative overflow-hidden bg-dark-900 border-t border-white/5">
+                    <FadeIn>
+                        <div className="text-center max-w-5xl mx-auto px-4 mb-16 md:mb-24">
+                            <h2 className="text-4xl md:text-5xl lg:text-[4.5rem] font-black mb-6 text-white tracking-tight leading-tight">
+                                Domínio total em qualquer <br className="hidden md:block"/><span className="gradient-text">ambiente de alto fluxo.</span>
+                            </h2>
+                            <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto">Construído para não ceder. Se o local encher, a Minha Ficha garante que a venda não pára.</p>
                         </div>
+                    </FadeIn>
 
-                        <div className="space-y-4 md:space-y-6">
-                            {faqs.map((faq, i) => {
-                                const isOpen = openIndex === i;
-                                return (
-                                    <div 
-                                        key={i} 
-                                        className={`rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
-                                            ${isOpen ? 'bg-brand-900/20 border-brand-500/50 shadow-[0_0_20px_rgba(16,185,129,0.1)]' : 'bg-dark-800 border-white/5 hover:border-white/20'}`}
-                                        onClick={() => toggle(i)}
-                                        role="button"
-                                        aria-expanded={isOpen}
-                                    >
-                                        <div className="px-6 py-6 md:px-8 md:py-7 flex justify-between items-center">
-                                            <span className={`font-bold text-lg md:text-xl pr-4 transition-colors ${isOpen ? 'text-brand-400' : 'text-slate-200'}`}>
-                                                {faq.q}
-                                            </span>
-                                            <div className={`transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 text-brand-400' : 'text-slate-500'}`}>
-                                                <IconChevronDown className="w-6 h-6 md:w-8 md:h-8" />
-                                            </div>
-                                        </div>
-                                        <div 
-                                            className={`transition-all duration-300 ease-in-out px-6 md:px-8 ${isOpen ? 'max-h-60 pb-6 md:pb-8 opacity-100' : 'max-h-0 opacity-0'}`}
-                                        >
-                                            <p className="text-brand-50 font-medium text-lg leading-relaxed">{faq.a}</p>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                    <div className="absolute left-0 top-0 bottom-0 w-20 md:w-64 bg-gradient-to-r from-dark-900 to-transparent z-20 pointer-events-none"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-20 md:w-64 bg-gradient-to-l from-dark-900 to-transparent z-20 pointer-events-none"></div>
+
+                    {/* Linha 1: Esquerda */}
+                    <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-6 md:gap-8 px-4 mb-6 md:mb-8">
+                        {topCards.map((item, i) => (
+                            <div key={`t-${i}`} className="relative w-[280px] h-[200px] md:w-[450px] md:h-[300px] rounded-[2rem] overflow-hidden group shadow-2xl flex-shrink-0 border border-white/5 cursor-pointer">
+                                <img src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale hover:grayscale-0" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/40 to-transparent"></div>
+                                <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full transform group-hover:-translate-y-2 transition-transform duration-500">
+                                    <h3 className="text-2xl md:text-3xl font-black text-white drop-shadow-lg">{item.title}</h3>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Linha 2: Direita */}
+                    <div className="flex w-max animate-marquee-rev hover:[animation-play-state:paused] gap-6 md:gap-8 px-4">
+                        {bottomCards.map((item, i) => (
+                            <div key={`b-${i}`} className="relative w-[280px] h-[200px] md:w-[450px] md:h-[300px] rounded-[2rem] overflow-hidden group shadow-2xl flex-shrink-0 border border-white/5 cursor-pointer">
+                                <img src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 grayscale hover:grayscale-0" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/40 to-transparent"></div>
+                                <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full transform group-hover:-translate-y-2 transition-transform duration-500">
+                                    <h3 className="text-2xl md:text-3xl font-black text-white drop-shadow-lg">{item.title}</h3>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             );
@@ -680,19 +631,23 @@
 
         const CTASection = () => {
             return (
-                <div id="contato" className="relative py-32 overflow-hidden bg-brand-600">
-                    <div className="absolute inset-0 tech-grid opacity-30 mix-blend-overlay"></div>
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-dark-950/90 to-dark-950/40"></div>
+                <div id="contato" className="relative py-24 md:py-40 overflow-hidden bg-brand-600">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-pink-600 to-accent-600"></div>
+                    <div className="absolute inset-0 tech-grid opacity-20 mix-blend-overlay"></div>
                     
-                    <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-                        <h2 className="text-5xl md:text-7xl font-black mb-8 text-white drop-shadow-2xl tracking-tight">Pare de perder dinheiro <br className="hidden md:block"/> na fila do caixa.</h2>
-                        <p className="text-xl md:text-2xl text-brand-50 mb-12 max-w-2xl mx-auto font-medium drop-shadow-md">
-                            Eleve o nível da sua operação com o PDV mais rápido e estável do mercado.
-                        </p>
-                        <button className="bg-dark-950 hover:bg-black text-white px-8 py-5 md:px-12 md:py-6 rounded-full font-black text-xl md:text-2xl transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.5)] flex items-center justify-center gap-3 md:gap-4 mx-auto border border-white/10 w-full sm:w-auto">
-                            Solicitar Demonstração Gratuita
-                            <IconArrowDown className="w-6 h-6 md:w-8 md:h-8 -rotate-90 text-brand-400" />
-                        </button>
+                    <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
+                        <FadeIn>
+                            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-black mb-6 md:mb-8 text-white tracking-tighter leading-tight md:leading-[0.9] drop-shadow-2xl">
+                                Prontos para faturar <br className="hidden md:block"/> muito mais?
+                            </h2>
+                            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-10 md:mb-14 font-bold drop-shadow-md max-w-3xl mx-auto">
+                                Deixe os sistemas ultrapassados no passado e eleve a sua operação com a Minha Ficha.
+                            </p>
+                            <button className="bg-dark-950 hover:bg-black text-white px-8 md:px-14 py-5 md:py-8 rounded-full font-black text-xl md:text-2xl transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-center gap-3 md:gap-4 mx-auto w-full sm:w-auto border-2 border-brand-500/50 group">
+                                Solicitar Demonstração Grátis
+                                <IconArrowDown className="w-6 h-6 md:w-8 md:h-8 -rotate-90 text-accent-400 group-hover:text-brand-400 group-hover:translate-x-2 transition-all" />
+                            </button>
+                        </FadeIn>
                     </div>
                 </div>
             );
@@ -700,25 +655,25 @@
 
         const Footer = () => {
             return (
-                <footer className="bg-dark-950 border-t border-white/5 pt-16 pb-8">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12 text-center md:text-left">
-                            <span className="text-4xl font-black tracking-tighter text-white">
-                                Minha<span className="text-brand-500">Ficha</span>
-                            </span>
-                            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-                                <a href="#" className="text-slate-400 hover:text-brand-400 font-bold text-lg transition-colors">Termos</a>
-                                <a href="#" className="text-slate-400 hover:text-brand-400 font-bold text-lg transition-colors">Privacidade</a>
-                                <a href="#" className="text-slate-400 hover:text-brand-400 font-bold text-lg transition-colors">Suporte</a>
+                <footer className="bg-dark-950 pt-16 md:pt-20 pb-8 md:pb-10 border-t border-white/5">
+                    <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12 md:mb-16 text-center md:text-left">
+                            <img src={LOGO_IMG} alt="Minha Ficha Logo" className="h-12 md:h-16 w-auto object-contain" />
+                            
+                            <div className="flex flex-wrap justify-center gap-4 md:gap-8 lg:gap-12">
+                                <a href="#" className="text-slate-400 hover:text-white font-bold text-sm md:text-lg transition-colors">A Solução</a>
+                                <a href="#" className="text-slate-400 hover:text-white font-bold text-sm md:text-lg transition-colors">Termos de Utilização</a>
+                                <a href="#" className="text-slate-400 hover:text-white font-bold text-sm md:text-lg transition-colors">Privacidade</a>
+                                <a href="#" className="text-slate-400 hover:text-white font-bold text-sm md:text-lg transition-colors">Suporte Técnico</a>
                             </div>
                         </div>
                         
-                        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-base font-medium">
+                        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-xs md:text-sm lg:text-base font-medium">
                             <p className="text-slate-500 text-center md:text-left">
                                 &copy; {new Date().getFullYear()} Minha Ficha. Todos os direitos reservados.
                             </p>
-                            <p className="text-slate-500 flex items-center gap-2">
-                                Criado por <a href="https://conectawebdigital.com.br" target="_blank" rel="noopener noreferrer" className="text-brand-400 hover:text-white font-bold transition-colors underline decoration-brand-400/30 underline-offset-4">Conecta Web Digital</a>
+                            <p className="text-slate-500 flex items-center gap-1 md:gap-2">
+                                Desenvolvido por <a href="https://conectawebdigital.com.br" target="_blank" rel="noopener noreferrer" className="text-brand-400 hover:text-white font-black transition-colors">Conecta Web Digital</a>
                             </p>
                         </div>
                     </div>
@@ -728,17 +683,13 @@
 
         const App = () => {
             return (
-                <div className="font-sans selection:bg-brand-500 selection:text-white">
+                <div className="font-sans selection:bg-brand-500 selection:text-white bg-dark-950 w-full overflow-hidden">
                     <Navbar />
                     <Hero />
-                    <PainPoints />
-                    <TimelineSolution />
-                    <EventsFocus />
-                    <BentoBenefits />
-                    <ImmersiveSteps />
-                    <AnimatedFeatures />
-                    <TargetAudienceWithPhotos />
-                    <FAQAnimated />
+                    <VisualPainPoints />
+                    <VisualSalesJourney />
+                    <TechTimelineReinvented />
+                    <DoubleVisualMarquee />
                     <CTASection />
                     <Footer />
                 </div>
