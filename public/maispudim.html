@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pudim Mais Pudim | O Sabor de Domingo Todo Dia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        cursive: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        caramel: {
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706', // Primary
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f', // Dark
+                        },
+                        cream: '#FFFDF8',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations */
+        body {
+            background-color: #FFFDF8;
+            overflow-x: hidden;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FFFDF8;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader {
+            width: 50px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 8px solid #fef3c7;
+            border-right-color: #d97706;
+            animation: l2 1s infinite linear;
+        }
+        @keyframes l2 {to{transform: rotate(1turn)}}
+
+        /* Floating elements */
+        .float-slow {
+            animation: float 6s ease-in-out infinite;
+        }
+        .float-medium {
+            animation: float 4s ease-in-out infinite;
+        }
+        .float-fast {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Blob Backgrounds */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: blob-bounce 10s infinite alternate;
+        }
+        @keyframes blob-bounce {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(20px, -50px) scale(1.1); }
+        }
+
+        /* Card Hover Effects */
+        .menu-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.1), 0 10px 10px -5px rgba(217, 119, 6, 0.04);
+        }
+        .menu-card img {
+            transition: transform 0.6s ease;
+        }
+        .menu-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Caramel Drip effect (SVG styling) */
+        .drip-divider {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .drip-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 253, 248, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.1);
+        }
+    </style>
+</head>
+<body class="text-caramel-900 font-sans antialiased selection:bg-caramel-200 selection:text-caramel-900">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="flex flex-col items-center">
+            <div class="loader mb-4"></div>
+            <p class="font-cursive text-3xl text-caramel-600">Preparando a doçura...</p>
+        </div>
+    </div>
+
+    <!-- Background Blobs -->
+    <div class="blob bg-caramel-300 w-96 h-96 rounded-full top-0 left-[-10%]"></div>
+    <div class="blob bg-yellow-200 w-80 h-80 rounded-full top-[40%] right-[-5%] animation-delay-2000"></div>
+    <div class="blob bg-caramel-200 w-[500px] h-[500px] rounded-full bottom-[-10%] left-[20%] animation-delay-4000"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center" data-aos="fade-right">
+                    <a href="#" class="flex items-center gap-2">
+                        <img class="h-16 w-auto drop-shadow-md" src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FDesign%20sem%20nome%20(52).png?alt=media&token=b3850425-d073-493a-9477-65f6232ff914" alt="Pudim Mais Pudim Logo">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8" data-aos="fade-left">
+                    <a href="#historia" class="text-caramel-800 hover:text-caramel-600 font-medium transition-colors">Nossa História</a>
+                    <a href="#cardapio" class="text-caramel-800 hover:text-caramel-600 font-medium transition-colors">Cardápio</a>
+                    <a href="#proposito" class="text-caramel-800 hover:text-caramel-600 font-medium transition-colors">Meu Propósito</a>
+                    <a href="#encomendar" class="bg-caramel-600 hover:bg-caramel-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <i class="ph ph-whatsapp-logo text-xl"></i>
+                        Encomendar
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center" data-aos="fade-left">
+                    <button id="mobile-menu-btn" class="text-caramel-800 hover:text-caramel-600 focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream border-t border-caramel-100 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#historia" class="block px-3 py-3 rounded-md text-base font-medium text-caramel-800 hover:bg-caramel-50 hover:text-caramel-600 mobile-link">Nossa História</a>
+                <a href="#cardapio" class="block px-3 py-3 rounded-md text-base font-medium text-caramel-800 hover:bg-caramel-50 hover:text-caramel-600 mobile-link">Cardápio</a>
+                <a href="#proposito" class="block px-3 py-3 rounded-md text-base font-medium text-caramel-800 hover:bg-caramel-50 hover:text-caramel-600 mobile-link">Meu Propósito</a>
+                <a href="#encomendar" class="mt-4 w-full bg-caramel-600 hover:bg-caramel-700 text-white px-3 py-3 rounded-full font-semibold flex justify-center items-center gap-2 shadow-md mobile-link">
+                    <i class="ph ph-whatsapp-logo text-xl"></i>
+                    Fazer Encomenda
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2 text-center lg:text-left" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="inline-block px-4 py-1.5 rounded-full bg-caramel-100 text-caramel-700 font-semibold text-sm mb-6 border border-caramel-200 shadow-sm">
+                        ✨ O segredo da sogra em cada fatia
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl xl:text-7xl font-bold text-caramel-900 leading-tight mb-6">
+                        O verdadeiro <span class="text-transparent bg-clip-text bg-gradient-to-r from-caramel-500 to-caramel-700">sabor do domingo</span>,<br> todo dia.
+                    </h1>
+                    <p class="text-lg lg:text-xl text-caramel-700 mb-8 max-w-2xl mx-auto lg:mx-0 font-light">
+                        Feito com amor, de mãe para a sua família. Descubra a sobremesa que começou em casa e conquistou corações.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#cardapio" class="bg-caramel-600 hover:bg-caramel-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 hover:-translate-y-1 shadow-xl flex items-center justify-center gap-2">
+                            Ver Cardápio <i class="ph ph-arrow-right font-bold"></i>
+                        </a>
+                        <a href="#historia" class="bg-white border-2 border-caramel-200 hover:border-caramel-600 text-caramel-800 px-8 py-4 rounded-full font-bold text-lg transition-all hover:bg-caramel-50 flex items-center justify-center">
+                            Conhecer a História
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Grid -->
+                <div class="w-full lg:w-1/2 relative h-[500px]" data-aos="zoom-in" data-aos-duration="1200">
+                    <!-- Main Image -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl float-slow z-20">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.29.jpeg?alt=media&token=33235113-a502-40a8-ba25-e3bd219e604f" alt="Pudim Delicioso" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- Decorative floating elements -->
+                    <div class="absolute top-10 right-10 w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl float-fast z-10 hidden md:block">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.30%20(1).jpeg?alt=media&token=cbc734fd-0bcf-4308-b93e-d75598b5571d" alt="Detalhe Pudim" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <div class="absolute bottom-10 left-10 w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-xl float-medium z-30 hidden md:block">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.30%20(2).jpeg?alt=media&token=d6cc4377-aa10-4cf8-bd91-108246bf846e" alt="Detalhe Pudim" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- decorative star -->
+                    <i class="ph-fill ph-sparkle text-caramel-400 text-4xl absolute top-20 left-20 float-medium"></i>
+                    <i class="ph-fill ph-sparkle text-caramel-500 text-5xl absolute bottom-20 right-20 float-slow"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Drip -->
+        <div class="custom-shape-divider-bottom-1709163013 absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px] md:h-[100px]">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.28,15.77,144.1,29.93,215.1,43.23,250.39,49.81,286.04,53.8,321.39,56.44Z" fill="#fef3c7"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Nossa História Section -->
+    <section id="historia" class="py-20 bg-caramel-100 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Image -->
+                <div class="w-full lg:w-1/2" data-aos="fade-right">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 border-8 border-white">
+                        <img src="https://images.unsplash.com/photo-1542044896530-05d85be9b11a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Família humilde reunida no almoço" class="w-full h-[350px] md:h-[450px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-caramel-900/60 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white font-cursive text-3xl">
+                            "A sobremesa que todo mundo pedia..."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text -->
+                <div class="w-full lg:w-1/2 space-y-6" data-aos="fade-left">
+                    <h2 class="font-cursive text-5xl text-caramel-600 mb-2">Como tudo começou...</h2>
+                    <h3 class="text-3xl font-bold text-caramel-900 mb-6">De um almoço em família para a sua mesa</h3>
+                    
+                    <div class="space-y-4 text-caramel-800 text-lg leading-relaxed">
+                        <p>
+                            O <span class="font-bold text-caramel-600">Pudim</span> começou nos almoços de domingo da minha sogra. Meu esposo é apaixonado por pudim, e ela me passou a receita. Mas não é qualquer receita, <span class="italic font-medium">ele tem um segredinho!</span> É diferente de tudo que a gente come por aí.
+                        </p>
+                        <p>
+                            Comecei a fazer e levar para a minha família, para os amigos. Sempre que tinha algum almoço, todo mundo pedia a sobremesa. Foi assim, de bobeira, cobrando apenas o material, que decidimos fazer por encomenda.
+                        </p>
+                        <p>
+                            O negócio expandiu! Fechamos com influenciadores da cidade, fizemos parcerias com restaurantes. Fomos atrás de mais sabores. Minha sogra decidiu dar uma pausa e passou o bastão pra mim. Hoje faço tudo sozinha, o <strong>Pudim Mais Pudim é meu</strong>, e é um prazer adoçar a sua vida!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drip Bottom -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 rotate-180">
+             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[40px]">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.28,15.77,144.1,29.93,215.1,43.23,250.39,49.81,286.04,53.8,321.39,56.44Z" fill="#FFFDF8"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Cardápio Section -->
+    <section id="cardapio" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="font-cursive text-4xl text-caramel-500">Nossas Delícias</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-caramel-900 mt-2 mb-4">Cardápio de Sabores</h2>
+                <p class="text-lg text-caramel-700 max-w-2xl mx-auto">Feitos artesanalmente com ingredientes selecionados e muito amor.</p>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Item 1 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group relative" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute top-4 right-4 bg-caramel-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">O Clássico</div>
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.29.jpeg?alt=media&token=33235113-a502-40a8-ba25-e3bd219e604f" alt="Pudim Tradicional" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2">Tradicional</h3>
+                            <p class="text-caramel-700 text-sm">A receita original com o famoso segredo da sogra. Textura perfeita e calda na medida certa.</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.30%20(1).jpeg?alt=media&token=cbc734fd-0bcf-4308-b93e-d75598b5571d" alt="Pudim de Brigadeiro" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2">Brigadeiro</h3>
+                            <p class="text-caramel-700 text-sm">Para os apaixonados por chocolate. Super cremoso, intenso e com aquele sabor de infância.</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.30%20(2).jpeg?alt=media&token=d6cc4377-aa10-4cf8-bd91-108246bf846e" alt="Pudim de Ninho com Morango" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2 leading-tight">Ninho com Geleia de Morango</h3>
+                            <p class="text-caramel-700 text-sm">A suavidade do leite ninho contrastando com a acidez docinha da geleia artesanal de morango.</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FWhatsApp%20Image%202026-02-28%20at%2017.32.30%20(3).jpeg?alt=media&token=08452815-9b2b-478a-bc6b-285a853cb86a" alt="Pudim de Ninho com Maracujá" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2 leading-tight">Ninho com Geleia de Maracujá</h3>
+                            <p class="text-caramel-700 text-sm">O equilíbrio perfeito entre o doce cremoso do Ninho e o frescor tropical do maracujá.</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 overflow-hidden relative bg-caramel-100 flex items-center justify-center p-8">
+                         <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FDesign%20sem%20nome%20(52).png?alt=media&token=b3850425-d073-493a-9477-65f6232ff914" alt="Logo Pudim Mais Pudim" class="w-48 h-auto object-contain opacity-70 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2">Ninho com Nutella</h3>
+                            <p class="text-caramel-700 text-sm">A combinação que não tem como errar. Pudim cremoso de Ninho coberto com generosa camada de Nutella.</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-caramel-50 flex flex-col group relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md animate-pulse flex items-center gap-1">
+                        <i class="ph-fill ph-fire"></i> Sucesso de Vendas
+                    </div>
+                    <div class="h-64 overflow-hidden relative bg-caramel-100 flex items-center justify-center p-8">
+                         <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FDesign%20sem%20nome%20(52).png?alt=media&token=b3850425-d073-493a-9477-65f6232ff914" alt="Logo Pudim Mais Pudim" class="w-48 h-auto object-contain opacity-70 group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-caramel-900 mb-2">Geladinho de Pudim</h3>
+                            <p class="text-caramel-700 text-sm">A refrescância do geladinho com o sabor autêntico do nosso pudim tradicional. Perfeito para os dias quentes!</p>
+                        </div>
+                        <a href="#encomendar" class="mt-6 text-caramel-600 font-semibold hover:text-caramel-800 flex items-center gap-1 transition-colors">
+                            Pedir Agora <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- O Propósito (A Mãe) Section -->
+    <section id="proposito" class="py-20 relative overflow-hidden bg-caramel-900 text-white">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#d97706 2px, transparent 2px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <i class="ph-fill ph-quotes text-5xl text-caramel-400 mb-6 mx-auto block" data-aos="fade-down"></i>
+            
+            <p class="text-2xl md:text-3xl font-light leading-relaxed mb-8 italic text-caramel-50" data-aos="zoom-in" data-aos-delay="100">
+                "Eu sou mãe de três filhos. Tenho uma bebezinha de um mês e o pudim foi uma forma também de eu conseguir trabalhar perto deles, aqui dentro da minha casa. Faço a sobremesa que a gente mais gosta e posso compartilhar do crescimento dos meus filhos, trabalhando para mim mesma."
+            </p>
+            
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col items-center justify-center">
+                <div class="w-20 h-20 bg-caramel-100 rounded-full flex items-center justify-center mb-4 border-4 border-caramel-600">
+                    <i class="ph-fill ph-heart text-4xl text-caramel-600 animate-pulse"></i>
+                </div>
+                <h4 class="font-cursive text-3xl text-caramel-300">A Mãe por trás do Pudim</h4>
+                <p class="text-caramel-200 mt-2 text-sm uppercase tracking-widest">Feito com Amor de Mãe</p>
+            </div>
+        </div>
+        
+        <!-- Top Drip inside Dark Section -->
+         <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 rotate-180">
+             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[40px]">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.28,15.77,144.1,29.93,215.1,43.23,250.39,49.81,286.04,53.8,321.39,56.44Z" fill="#FFFDF8"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="encomendar" class="py-24 bg-caramel-50 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-caramel-900 mb-6">Deu água na boca?</h2>
+            <p class="text-xl text-caramel-700 mb-10">Faça sua encomenda agora mesmo e garanta a melhor sobremesa para o seu dia ou evento.</p>
+            
+            <a href="https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20fazer%20uma%20encomenda%20no%20Pudim%20Mais%20Pudim!" target="_blank" class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-5 rounded-full font-bold text-xl transition-all transform hover:scale-105 shadow-[0_10px_20px_rgba(34,197,94,0.3)]">
+                <i class="ph ph-whatsapp-logo text-3xl"></i>
+                Falar no WhatsApp
+            </a>
+            <p class="mt-4 text-sm text-caramel-600">*Atendemos encomendas para toda a cidade!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-caramel-100 pt-16 pb-8 border-t border-caramel-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img class="h-20 w-auto" src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/mais%20pudim%2FDesign%20sem%20nome%20(52).png?alt=media&token=b3850425-d073-493a-9477-65f6232ff914" alt="Pudim Mais Pudim Logo">
+                </div>
+
+                <!-- Links -->
+                <div class="flex gap-6 text-caramel-800">
+                    <a href="https://instagram.com" target="_blank" class="hover:text-caramel-600 transition-colors bg-white p-3 rounded-full shadow-sm">
+                        <i class="ph ph-instagram-logo text-2xl"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="hover:text-caramel-600 transition-colors bg-white p-3 rounded-full shadow-sm">
+                        <i class="ph ph-facebook-logo text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-caramel-200 text-center">
+                <p class="text-caramel-700 text-sm">
+                    &copy; 2026 Pudim Mais Pudim. Todos os direitos reservados. Feito com muito amor.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20fazer%20uma%20encomenda!" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 hover:scale-110 transition-all z-50 float-slow group">
+        <i class="ph ph-whatsapp-logo text-3xl"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-16 bg-white text-caramel-900 text-sm font-bold py-1 px-3 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+            Faça seu pedido!
+        </span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Preloader Logic
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 800); // Exibe o preloader um pouco para charme
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                navbar.style.background = 'rgba(255, 253, 248, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.style.background = 'rgba(255, 253, 248, 0.85)';
+            }
+        });
+    </script>
+</body>
+</html>
