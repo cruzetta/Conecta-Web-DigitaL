@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR Assessoria Logística - Simplificando o Transporte</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0F172A',
+                            light: '#1E293B',
+                            orange: '#F97316',
+                            orangeHover: '#EA580C',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'drive': 'drive 12s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        drive: {
+                            '0%': { transform: 'translateX(-10vw)' },
+                            '100%': { transform: 'translateX(110vw)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Floating WhatsApp Clean Pulse */
+        .btn-float-ws {
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+            animation: pulse-clean 2.5s infinite;
+        }
+        @keyframes pulse-clean {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Hide scrollbar for slider */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Modern Services Cards */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: #F97316;
+            box-shadow: 0 20px 40px -5px rgba(249, 115, 22, 0.2);
+        }
+
+        /* TIMELINE ANIMATION STYLES REFINED */
+        .timeline-container { position: relative; }
+        
+        /* The Base Background Line */
+        .timeline-line-bg {
+            position: absolute;
+            width: 4px;
+            background: #E2E8F0; /* gray-200 */
+            top: 2rem; bottom: 2rem; /* Adjusted so it doesn't pass the icons */
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            z-index: 0;
+        }
+        
+        /* The Animated Active Line */
+        .timeline-progress {
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #F97316, #EA580C);
+            top: 2rem; 
+            left: 50%;
+            transform: translateX(-50%);
+            height: 0%; /* JS will control this */
+            max-height: calc(100% - 4rem); /* Prevents line from escaping */
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        /* Node Animation Base */
+        .timeline-node {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 10;
+        }
+        .timeline-node.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Icon Animation */
+        .timeline-icon {
+            transition: all 0.6s ease;
+            background-color: #FFF; /* Solid background to hide line behind */
+            color: #94A3B8;
+            border-color: #E2E8F0;
+            z-index: 20;
+            position: relative;
+        }
+        .timeline-node.active .timeline-icon.icon-orange {
+            background-color: #F97316;
+            color: white;
+            border-color: #FFF;
+            box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.2);
+            transform: scale(1.15) translateX(0); /* Fixed hover position issue */
+        }
+        .timeline-node.active .timeline-icon.icon-blue {
+            background-color: #0F172A;
+            color: white;
+            border-color: #FFF;
+            box-shadow: 0 0 0 6px rgba(15, 23, 42, 0.2);
+            transform: scale(1.15) translateX(0); /* Fixed hover position issue */
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line-bg, .timeline-progress { left: 28px; transform: none; }
+            .timeline-node.active .timeline-icon.icon-orange,
+            .timeline-node.active .timeline-icon.icon-blue { transform: scale(1.1); }
+        }
+
+        /* Clean Buttons */
+        .btn-clean-green {
+            background-color: #25D366;
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);
+        }
+        .btn-clean-green:hover {
+            background-color: #20bd5a;
+            box-shadow: 0 15px 35px -5px rgba(37, 211, 102, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .btn-clean-orange {
+            background-color: #F97316;
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.4);
+        }
+        .btn-clean-orange:hover {
+            background-color: #EA580C;
+            box-shadow: 0 15px 35px -5px rgba(249, 115, 22, 0.5);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-brand-blue/95 backdrop-blur-md text-white border-b border-gray-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-truck-fast text-brand-orange text-3xl"></i>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-xl leading-none tracking-wide">MR ASSESSORIA</span>
+                        <span class="text-brand-orange text-[10px] font-semibold tracking-widest uppercase">Logística</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#quem-somos" class="text-sm font-medium hover:text-brand-orange transition-colors">Quem Somos</a>
+                    <a href="#servicos" class="text-sm font-medium hover:text-brand-orange transition-colors">Serviços</a>
+                    <a href="#vantagens" class="text-sm font-medium hover:text-brand-orange transition-colors">Vantagens</a>
+                    <a href="https://wa.me/554399857231?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20um%20consultor." target="_blank" class="text-white px-7 py-2.5 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 btn-clean-orange">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Fale Conosco
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-brand-orange focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-blue border-t border-gray-800 absolute w-full left-0 shadow-2xl pb-6">
+            <div class="px-4 pt-2 space-y-2">
+                <a href="#quem-somos" class="block px-3 py-3 rounded-md text-base font-medium text-white hover:bg-brand-light">Quem Somos</a>
+                <a href="#servicos" class="block px-3 py-3 rounded-md text-base font-medium text-white hover:bg-brand-light">Serviços</a>
+                <a href="#vantagens" class="block px-3 py-3 rounded-md text-base font-medium text-white hover:bg-brand-light">Vantagens</a>
+                <a href="https://wa.me/554399857231?text=Olá,%20vim%20pelo%20site." target="_blank" class="mt-6 mx-2 block text-center text-white px-4 py-4 rounded-xl font-bold btn-clean-green">
+                    <i class="fa-brands fa-whatsapp mr-2 text-xl"></i> Chamar no WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-[90vh] flex items-center pt-20 relative overflow-hidden bg-brand-blue">
+        <!-- Substituído vídeo pela imagem solicitada -->
+        <img src="https://images.unsplash.com/photo-1766785368863-f2188a8c8b32?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+             alt="Caminhão na estrada" 
+             class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen">
+             
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-blue/90 via-transparent to-brand-blue opacity-90"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 flex flex-col items-center md:items-start text-center md:text-left">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 py-1.5 px-5 rounded-full bg-brand-orange/10 text-brand-orange font-bold text-xs md:text-sm mb-8 border border-brand-orange/30 backdrop-blur-md">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-orange"></span>
+                    </span>
+                    ATENDIMENTO 24H POR DIA, 7 DIAS POR SEMANA
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-heading font-black text-white leading-tight mb-6 tracking-tight drop-shadow-lg">
+                    Você roda.<br>
+                    Nós cuidamos da <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">burocracia.</span>
+                </h1>
+                
+                <p class="text-lg md:text-2xl text-gray-300 mb-10 max-w-2xl font-light drop-shadow">
+                    Mão de obra especializada operando <strong>diretamente no seu sistema</strong>. Foco total no seu faturamento enquanto garantimos seus documentos.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <a href="https://wa.me/554399857231?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20assessoria." target="_blank" class="text-white text-center px-10 py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-3 btn-clean-orange">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Falar com Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-14 border-b border-gray-100 relative z-20 overflow-hidden shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div class="p-4 flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm rounded-lg">
+                    <h3 class="text-5xl md:text-6xl font-heading font-black text-brand-blue mb-1 flex items-end justify-center">
+                        <span class="counter" data-target="4">0</span>
+                        <span class="text-brand-orange text-3xl ml-1 pb-1">Anos</span>
+                    </h3>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs mt-2">Atuação no mercado</p>
+                </div>
+                <div class="p-4 flex flex-col items-center justify-center pt-8 md:pt-4 bg-white/50 backdrop-blur-sm rounded-lg">
+                    <h3 class="text-5xl md:text-6xl font-heading font-black text-brand-blue mb-1 flex items-center justify-center">
+                        +<span class="counter" data-target="300">0</span>
+                    </h3>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs mt-2">Clientes Atendidos</p>
+                </div>
+                <div class="p-4 flex flex-col items-center justify-center pt-8 md:pt-4 bg-white/50 backdrop-blur-sm rounded-lg">
+                    <h3 class="text-5xl md:text-6xl font-heading font-black text-brand-blue mb-1 flex items-center justify-center">
+                        +<span class="counter" data-target="7000">0</span>
+                    </h3>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs mt-2">Docs/Mês Emitidos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Refined Cards Section -->
+    <section id="quem-somos" class="py-24 bg-gray-50 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Text Column -->
+                <div class="lg:w-5/12 z-10 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-1 bg-brand-orange rounded-full"></span>
+                        <h2 class="text-brand-orange font-bold uppercase tracking-widest text-sm">A Origem da MR</h2>
+                    </div>
+                    <h3 class="text-4xl md:text-5xl font-heading font-black text-brand-blue mb-6 leading-tight">Nascemos de uma necessidade real.</h3>
+                    
+                    <div class="space-y-6 text-gray-600 text-lg md:text-xl font-light">
+                        <p>
+                            Há quatro anos, percebemos que muitos transportadores enfrentavam um dilema na estrada: focar na direção ou parar para lidar com a burocracia administrativa.
+                        </p>
+                        <p>
+                            Sem equipe fixa no escritório, a documentação virava um peso.
+                        </p>
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-brand-orange shadow-md mt-4">
+                            <p class="font-medium text-brand-blue italic">
+                                "Nosso objetivo é descomplicar a gestão documental. Nossa equipe atua <strong>dentro da sua própria plataforma</strong>, entregando tudo pronto."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refined Cards Column -->
+                <div class="lg:w-7/12 w-full relative pt-8 lg:pt-0">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-orange-100 to-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
+
+                    <div class="relative w-full overflow-hidden">
+                        <div id="cards-container" class="flex lg:grid lg:grid-cols-2 gap-6 overflow-x-auto lg:overflow-visible hide-scrollbar py-6 px-2 scroll-smooth items-stretch">
+                            <!-- Card 1 -->
+                            <div class="min-w-[280px] w-[85vw] lg:w-auto lg:col-span-1 bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col h-full group">
+                                <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-brand-orange text-2xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-xl text-brand-blue mb-3">Atendimento 24/7</h4>
+                                <p class="text-gray-500 text-sm flex-grow">Madrugada, feriado ou final de semana. Seu caminhão não para, nós também não.</p>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="min-w-[280px] w-[85vw] lg:w-auto lg:col-span-1 bg-brand-blue rounded-3xl p-8 shadow-xl relative overflow-hidden flex flex-col h-full lg:-translate-y-6">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-orange rounded-full blur-3xl opacity-20"></div>
+                                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-brand-orange text-2xl backdrop-blur-sm">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-xl text-white mb-3 relative z-10">No seu Sistema</h4>
+                                <p class="text-gray-300 text-sm flex-grow relative z-10">Trabalhamos diretamente no seu ERP ou plataforma, mantendo seus dados centralizados e seguros.</p>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="min-w-[280px] w-[85vw] lg:w-auto lg:col-span-2 bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col md:flex-row items-start md:items-center gap-6 h-full group">
+                                <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-brand-orange text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-xl text-brand-blue mb-2">Foco Total no Lucro</h4>
+                                    <p class="text-gray-500 text-sm">Terceirizar a burocracia custa muito menos que um funcionário e libera seu tempo para buscar novos fretes rentáveis.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex lg:hidden justify-center gap-4 mt-4">
+                            <button onclick="document.getElementById('cards-container').scrollBy({left: -300, behavior: 'smooth'})" class="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-brand-blue focus:outline-none">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <button onclick="document.getElementById('cards-container').scrollBy({left: 300, behavior: 'smooth'})" class="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-brand-blue focus:outline-none">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-24 bg-[#0a0f1c] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-brand-orange font-bold tracking-widest uppercase text-sm mb-4 block">O que fazemos</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-black text-white mb-6">Nosso Portfólio de <br/><span class="text-brand-orange">Soluções</span></h2>
+                <p class="text-gray-400 text-lg md:text-xl">Alta performance operacional para pequenas e médias transportadoras.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 items-stretch">
+                <!-- Service 1 -->
+                <div class="glass-card rounded-[2rem] p-8 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent group-hover:via-brand-orange transition-all duration-500"></div>
+                    <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700 mb-8 text-white group-hover:scale-110 group-hover:bg-brand-orange transition-all duration-500">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-heading font-bold text-white mb-4">Certificado Digital</h3>
+                    <p class="text-gray-400 mb-8 flex-grow">Acelere seus processos com nossa emissão rápida e totalmente digital de e-CNPJ e e-CPF.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> Modelo A1 para CNPJ</li>
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> Certificado e-CPF</li>
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> 100% Online</li>
+                    </ul>
+                    <a href="https://wa.me/554399857231?text=Olá,%20tenho%20interesse%20em%20emitir%20um%20Certificado%20Digital." target="_blank" class="w-full py-4 rounded-xl border border-gray-600 text-center text-white font-bold hover:bg-white hover:text-brand-blue transition-all duration-300">
+                        Solicitar Agora
+                    </a>
+                </div>
+
+                <!-- Service 2 (Highlight) -->
+                <div class="rounded-[2rem] p-1 bg-gradient-to-b from-brand-orange to-brand-orangeHover shadow-[0_0_50px_rgba(249,115,22,0.3)] transform lg:-translate-y-8 flex flex-col">
+                    <div class="bg-[#111827] rounded-[1.8rem] p-8 flex flex-col h-full relative overflow-hidden">
+                        <div class="absolute -top-20 -right-20 w-48 h-48 bg-brand-orange/40 blur-3xl rounded-full"></div>
+                        
+                        <div class="inline-flex justify-between items-start mb-8 relative z-10">
+                            <div class="w-16 h-16 rounded-full bg-brand-orange flex items-center justify-center text-white shadow-lg">
+                                <i class="fa-solid fa-route text-2xl"></i>
+                            </div>
+                            <span class="bg-brand-orange/20 text-brand-orange text-xs font-bold px-3 py-1 rounded-full border border-brand-orange/30">MAIS ASSINADO</span>
+                        </div>
+                        
+                        <h3 class="text-3xl font-heading font-black text-white mb-4 relative z-10">Assessoria <br/>Operacional</h3>
+                        <p class="text-gray-400 mb-8 flex-grow relative z-10">O coração da nossa empresa. Assumimos toda a operação do sistema para você apenas dirigir.</p>
+                        
+                        <div class="bg-gray-800/50 rounded-2xl p-6 mb-8 border border-gray-700/50 relative z-10">
+                            <ul class="space-y-3">
+                                <li class="flex items-center text-white gap-3 font-medium"><i class="fa-solid fa-check text-brand-orange"></i> Emissão de CT-e e MDF-e</li>
+                                <li class="flex items-center text-white gap-3 font-medium"><i class="fa-solid fa-check text-brand-orange"></i> Geração de CIOT</li>
+                                <li class="flex items-center text-white gap-3 font-medium"><i class="fa-solid fa-check text-brand-orange"></i> Averbação de seguro</li>
+                                <li class="flex items-center text-white gap-3 font-medium"><i class="fa-solid fa-check text-brand-orange"></i> Conferência de Docs</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/554399857231?text=Olá,%20quero%20conhecer%20os%20planos%20de%20Assessoria%20Operacional." target="_blank" class="w-full py-4 rounded-xl text-white text-center font-bold text-lg btn-clean-orange mt-auto relative z-10">
+                            Ver Planos
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card rounded-[2rem] p-8 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent group-hover:via-brand-orange transition-all duration-500"></div>
+                    <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700 mb-8 text-white group-hover:scale-110 group-hover:bg-brand-orange transition-all duration-500">
+                        <i class="fa-solid fa-file-contract text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-heading font-bold text-white mb-4">Licenças e Docs</h3>
+                    <p class="text-gray-400 mb-8 flex-grow">Descomplicamos a obtenção de autorizações complexas nos órgãos responsáveis.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> Licença IBAMA</li>
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> Licença IAP</li>
+                        <li class="flex items-center text-gray-300 gap-3"><div class="w-2 h-2 rounded-full bg-brand-orange"></div> Acompanhamento</li>
+                    </ul>
+                    <a href="https://wa.me/554399857231?text=Olá,%20preciso%20de%20ajuda%20com%20licenças." target="_blank" class="w-full py-4 rounded-xl border border-gray-600 text-center text-white font-bold hover:bg-white hover:text-brand-blue transition-all duration-300 mt-auto">
+                        Falar com Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Super Animated Timeline Section FIXED -->
+    <section id="vantagens" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <span class="text-brand-orange font-bold tracking-widest uppercase text-sm mb-4 block">Uma Nova Realidade</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-black text-brand-blue mb-4">O Fim da <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-500">Burocracia</span></h2>
+                <p class="text-gray-500 text-lg">Veja como a MR Assessoria transforma o dia a dia da sua transportadora ao longo da nossa parceria.</p>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="timeline-container max-w-5xl mx-auto" id="timeline-container">
+                <!-- Lines -->
+                <div class="timeline-line-bg"></div>
+                <div class="timeline-progress" id="timeline-progress"></div>
+                
+                <!-- Node 1 -->
+                <div class="timeline-node flex md:justify-between justify-start items-center mb-16 w-full group">
+                    <!-- Text Desktop Lado Esquerdo -->
+                    <div class="hidden md:flex w-[45%] justify-end">
+                        <div class="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 text-right w-full group-hover:-translate-y-1 transition-transform">
+                            <h4 class="text-2xl font-heading font-bold text-brand-blue mb-2">Adeus Custos Fixos</h4>
+                            <p class="text-gray-600 text-base">Esqueça encargos trabalhistas, férias e compra de equipamentos. Nossa estrutura sai muito mais em conta que um funcionário interno.</p>
+                        </div>
+                    </div>
+                    <!-- Icon -->
+                    <div class="absolute left-7 md:left-1/2 transform md:-translate-x-1/2 w-16 h-16 rounded-full border-4 border-gray-100 flex items-center justify-center timeline-icon icon-orange text-2xl">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <!-- Empty Right Side -->
+                    <div class="hidden md:block w-[45%]"></div>
+                    <!-- Mobile Text Box -->
+                    <div class="w-full md:hidden pl-[5.5rem] pr-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 relative">
+                            <h4 class="text-xl font-heading font-bold text-brand-blue mb-2">Adeus Custos</h4>
+                            <p class="text-gray-600 text-sm">Sem encargos ou equipamentos. Estrutura completa por um custo reduzido.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="timeline-node flex md:justify-between justify-start items-center mb-16 w-full group">
+                    <!-- Empty Left Side -->
+                    <div class="hidden md:block w-[45%]"></div>
+                    <!-- Icon (Fix: Ícone atualizado e visível) -->
+                    <div class="absolute left-7 md:left-1/2 transform md:-translate-x-1/2 w-16 h-16 rounded-full border-4 border-gray-100 flex items-center justify-center timeline-icon icon-blue text-2xl">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <!-- Text Desktop Lado Direito -->
+                    <div class="hidden md:flex w-[45%] justify-start">
+                        <div class="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 text-left w-full group-hover:-translate-y-1 transition-transform">
+                            <h4 class="text-2xl font-heading font-bold text-brand-blue mb-2">Segurança Antifalhas</h4>
+                            <p class="text-gray-600 text-base">Um erro na documentação gera multas e veículos parados na barreira fiscal. Nós temos equipe focada apenas nisso para garantir 100% de conformidade.</p>
+                        </div>
+                    </div>
+                    <!-- Mobile Text Box -->
+                    <div class="w-full md:hidden pl-[5.5rem] pr-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 relative">
+                            <h4 class="text-xl font-heading font-bold text-brand-blue mb-2">Segurança Total</h4>
+                            <p class="text-gray-600 text-sm">Chega de multas. Especialistas garantindo a emissão perfeita e rápida.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="timeline-node flex md:justify-between justify-start items-center w-full group">
+                    <!-- Text Desktop Lado Esquerdo -->
+                    <div class="hidden md:flex w-[45%] justify-end">
+                        <div class="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 text-right w-full group-hover:-translate-y-1 transition-transform">
+                            <h4 class="text-2xl font-heading font-bold text-brand-blue mb-2">Operação Ininterrupta</h4>
+                            <p class="text-gray-600 text-base">O frete não para às 18h. Se o seu caminhão roda de madrugada, nossa equipe está pronta para emitir e liberar sua viagem em minutos.</p>
+                        </div>
+                    </div>
+                    <!-- Icon -->
+                    <div class="absolute left-7 md:left-1/2 transform md:-translate-x-1/2 w-16 h-16 rounded-full border-4 border-gray-100 flex items-center justify-center timeline-icon icon-orange text-2xl">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    <!-- Empty Right Side -->
+                    <div class="hidden md:block w-[45%]"></div>
+                    <!-- Mobile Text Box -->
+                    <div class="w-full md:hidden pl-[5.5rem] pr-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 relative">
+                            <h4 class="text-xl font-heading font-bold text-brand-blue mb-2">Sempre Online</h4>
+                            <p class="text-gray-600 text-sm">Atendimento 24/7. Seu caminhão carrega na madrugada e nós emitimos na hora.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Clean & Elegant CTA Section with Glassmorphism & Truck Animation -->
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-brand-blue to-[#0a0f1c]">
+        <!-- Subtle modern grid background -->
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <!-- Animated Truck Background -->
+        <div class="absolute bottom-16 left-0 w-full pointer-events-none opacity-20 z-0">
+            <!-- Road Line -->
+            <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+            <!-- Animated Icon -->
+            <i class="fa-solid fa-truck-moving text-[80px] text-white absolute -top-16 animate-drive"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <!-- Beautiful Glass Box -->
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 md:p-16 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transform transition-transform hover:scale-[1.01]">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-heading font-black text-white mb-6 tracking-tight">
+                    Você na estrada.<br> 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">Nós no escritório.</span>
+                </h2>
+                <p class="text-xl text-gray-300 font-light mb-12 max-w-2xl mx-auto">
+                    Dê o próximo passo na profissionalização da sua transportadora. Terceirize a burocracia com especialistas e foque apenas no lucro da viagem.
+                </p>
+                
+                <a href="https://wa.me/554399857231?text=Olá,%20quero%20começar%20a%20trabalhar%20com%20a%20MR%20Assessoria." target="_blank" class="inline-flex items-center justify-center gap-4 text-white px-10 py-5 rounded-full font-bold text-xl md:text-2xl transition-all w-full md:w-auto btn-clean-green group hover:scale-105 shadow-[0_0_30px_rgba(37,211,102,0.3)]">
+                    <i class="fa-brands fa-whatsapp text-3xl group-hover:rotate-12 transition-transform duration-300"></i> CHAMAR AGORA
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050810] pt-16 pb-8 border-t border-gray-900 mt-auto text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
+                
+                <!-- Brand & Info -->
+                <div class="lg:col-span-4">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-truck-fast text-brand-orange text-3xl"></i>
+                        <div class="flex flex-col">
+                            <span class="font-heading font-bold text-2xl text-white leading-none">MR ASSESSORIA</span>
+                            <span class="text-brand-orange text-xs font-semibold tracking-widest uppercase">Logística</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed">
+                        Simplificando a burocracia do transporte para você focar no que realmente importa: rodar e crescer.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-brand-orange text-xl"></i>
+                            <span class="text-white font-bold text-lg">+55 43 9985-7231</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-regular fa-envelope text-brand-orange text-xl"></i>
+                            <span class="text-sm">MAY.CAROBELLI@GMAIL.COM</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Legal/CNPJ -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-heading font-bold mb-6 text-lg uppercase tracking-wider text-brand-orange">Empresa</h4>
+                    <div class="space-y-3 text-sm">
+                        <p><strong class="block text-gray-300 font-medium mb-1">CNPJ:</strong> 34.445.872/0001-85</p>
+                    </div>
+                </div>
+
+                <!-- Google Maps -->
+                <div class="lg:col-span-5">
+                    <h4 class="text-white font-heading font-bold mb-4 text-lg uppercase tracking-wider text-brand-orange">Localização</h4>
+                    <p class="text-sm mb-4">R. Pioneira Irene Vitorazo Fregonezi, 563<br>Jardim Munique - Maringá/PR - 87.084-006</p>
+                    <div class="w-full h-48 rounded-2xl overflow-hidden border border-gray-800 filter grayscale hover:grayscale-0 transition-all duration-500 shadow-lg">
+                        <iframe src="https://maps.google.com/maps?q=R.%20Pioneira%20Irene%20Vitorazo%20Fregonezi,%20563%20-%20Maring%C3%A1&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-gray-900 pt-8 flex justify-center text-center">
+                <p class="text-gray-600 text-sm font-medium">
+                    &copy; 2026 MR Assessoria Logística. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button - Clean & Smooth -->
+    <a href="https://wa.me/554399857231?text=Olá,%20estou%20no%20site%20da%20MR%20Assessoria%20e%20preciso%20de%20ajuda." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:bg-[#20bd5a] transition-all transform hover:scale-110 btn-float-ws"
+       aria-label="Falar no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+                nav.classList.replace('bg-brand-blue/95', 'bg-brand-blue/98');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.replace('bg-brand-blue/98', 'bg-brand-blue/95');
+            }
+        });
+
+        // 1. Counter Animation Logic
+        const countElements = document.querySelectorAll('.counter');
+        const countObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    let count = 0;
+                    const increment = target / 60; 
+                    
+                    const updateCount = () => {
+                        count += increment;
+                        if (count < target) {
+                            entry.target.innerText = Math.ceil(count).toLocaleString('pt-BR');
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            entry.target.innerText = target.toLocaleString('pt-BR');
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        countElements.forEach(el => countObserver.observe(el));
+
+
+        // 2. Timeline Animation Logic
+        const timelineContainer = document.getElementById('timeline-container');
+        const timelineProgress = document.getElementById('timeline-progress');
+        const timelineNodes = document.querySelectorAll('.timeline-node');
+
+        window.addEventListener('scroll', () => {
+            if(!timelineContainer) return;
+            
+            const containerRect = timelineContainer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Calculate line fill percentage based on scroll
+            let progress = 0;
+            const startScroll = containerRect.top - (windowHeight / 2);
+            
+            if (startScroll < 0) {
+                const distanceScrolled = Math.abs(startScroll);
+                const totalDistance = containerRect.height;
+                progress = (distanceScrolled / totalDistance) * 100;
+                progress = Math.max(0, Math.min(progress, 100)); // Clamp
+                timelineProgress.style.height = `${progress}%`;
+            } else {
+                timelineProgress.style.height = `0%`;
+            }
+
+            // Activate nodes
+            timelineNodes.forEach(node => {
+                const nodeRect = node.getBoundingClientRect();
+                if (nodeRect.top < windowHeight * 0.75) {
+                    node.classList.add('active');
+                }
+            });
+        });
+        
+        window.dispatchEvent(new Event('scroll'));
+
+    </script>
+</body>
+</html>
