@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eu Faço Por Você | O trabalho voltou para quem faz</title>
+    <meta name="description" content="O app que conecta pessoas de forma direta. Simples. Direto. Justo. Sem intermediários mandando no seu tempo ou no seu preço.">
+    <meta name="author" content="Eu Faço Por Você">
+    <meta name="keywords" content="serviços sob demanda, freelancer, tarefas, profissionais, trabalho, app, brasil">
+
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@eufacoporvoce">
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
+    <meta property="og:title" content="Eu Faço Por Você | O trabalho voltou para quem faz">
+    <meta name="twitter:title" content="Eu Faço Por Você | O trabalho voltou para quem faz">
+    <meta property="og:description" content="O app que conecta pessoas de forma direta. Simples. Direto. Justo. Sem intermediários mandando no seu tempo ou no seu preço.">
+    <meta name="twitter:description" content="O app que conecta pessoas de forma direta. Simples. Direto. Justo. Sem intermediários mandando no seu tempo ou no seu preço.">
+    <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/7RSvFsgLvgaAIgdfdOqaxLVBFTr2/uploads/1768862234508-logo-efpv-BC43gkzO.jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#ffffff',
+                        foreground: '#0f172a',
+                        primary: '#0a1628',
+                        'primary-dark': '#060d18',
+                        accent: '#3b82f6',
+                        'accent-light': '#60a5fa',
+                        'accent-foreground': '#ffffff',
+                        muted: '#f1f5f9',
+                        'muted-foreground': '#64748b',
+                        card: '#ffffff',
+                        border: '#e2e8f0',
+                    },
+                    fontFamily: {
+                        display: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos base globais */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.foreground'); }
+        .card-elevated { background: theme('colors.card'); border: 1px solid theme('colors.border'); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .bg-gradient-section { background: linear-gradient(180deg, theme('colors.background') 0%, theme('colors.muted') 100%); }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-primary py-5">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between">
+                <a href="#" class="flex items-center gap-2 flex-shrink-0">
+                    <img src="https://storage.googleapis.com/gpt-engineer-file-uploads/7RSvFsgLvgaAIgdfdOqaxLVBFTr2/uploads/1768862234508-logo-efpv-BC43gkzO.jpeg" alt="EFPV - Eu Faço Por Você" class="h-12 sm:h-14 lg:h-16 w-auto rounded-full">
+                </a>
+                <nav class="hidden lg:flex items-center gap-8">
+                    <a href="#como-funciona" class="font-medium text-white transition-colors hover:text-accent">Como funciona</a>
+                    <a href="#beneficios" class="font-medium text-white transition-colors hover:text-accent">Benefícios</a>
+                    <a href="#servicos" class="font-medium text-white transition-colors hover:text-accent">Serviços</a>
+                    <a href="#regioes" class="font-medium text-white transition-colors hover:text-accent">Regiões</a>
+                </nav>
+                <div class="hidden lg:flex items-center gap-4">
+                    <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light text-white font-bold h-12 px-6 py-3 hover:scale-105 transition-transform">
+                        Baixar App
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative min-h-screen overflow-hidden bg-primary pt-32 pb-16 flex items-center">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2847] to-[#0f3460] z-0"></div>
+        
+        <div class="container mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 lg:px-8 gap-12">
+            <div class="flex-1 text-center lg:text-left w-full">
+                <h1 class="font-display text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
+                    O trabalho voltou<br>
+                    <span class="opacity-90">para quem faz.</span><br>
+                    <span class="text-accent">E para quem precisa.</span>
+                </h1>
+                <p class="text-lg lg:text-2xl text-white/90 mb-8 max-w-xl mx-auto lg:mx-0">
+                    <strong class="text-white">Simples. Direto. Justo.</strong><br>
+                    <span class="text-white/80">O app que conecta pessoas sem intermediários.</span>
+                </p>
+                <div class="mb-8">
+                    <a href="#cadastro" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent-light text-white font-bold h-16 rounded-2xl w-full sm:w-auto px-8 py-4 hover:scale-105 transition-transform text-lg">
+                        Quero me cadastrar
+                    </a>
+                </div>
+                <div class="flex items-center justify-center lg:justify-start gap-6 text-white/70">
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-white block">100%</span>
+                        <span class="text-sm">Seguro</span>
+                    </div>
+                    <div class="w-px h-10 bg-white/30"></div>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-white block">Zero</span>
+                        <span class="text-sm">Burocracia</span>
+                    </div>
+                    <div class="w-px h-10 bg-white/30"></div>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-white block">Você</span>
+                        <span class="text-sm">no Controle</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full lg:flex-1 flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-sm">
+                    <div class="bg-gray-900 rounded-[3rem] p-3 shadow-2xl border-4 border-gray-800">
+                        <div class="bg-black rounded-[2.5rem] overflow-hidden relative aspect-[9/19] flex items-center justify-center">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-gray-900 rounded-b-2xl z-20"></div>
+                            
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="App Preview">
+                            <span class="absolute text-white text-sm font-semibold text-center px-4">Pré-visualização do App</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="overflow-hidden py-4 bg-accent flex whitespace-nowrap">
+        <div class="animate-marquee flex gap-8 px-4 items-center">
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Ganhe dinheiro com o que sabe</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Seja seu próprio chefe</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Trabalhe quando quiser</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Sem taxas abusivas</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Ganhe dinheiro com o que sabe</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Seja seu próprio chefe</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Trabalhe quando quiser</span>
+            <span class="text-white font-semibold flex items-center"><span class="w-2 h-2 bg-white rounded-full mr-3"></span>Sem taxas abusivas</span>
+        </div>
+    </div>
+
+    <section id="beneficios" class="py-24 bg-background">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6">SOBRE A PLATAFORMA</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-foreground mb-6">Conexão <span class="text-accent">direta e segura</span></h2>
+                <p class="text-xl text-muted-foreground">O Eu Faço Por Você conecta quem precisa de serviços com quem pode realizá-los — sem complicação e sem plataformas controlando o seu preço.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-elevated p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl">🤝</div>
+                    <h3 class="text-xl font-bold mb-3">Sem plataformas controlando</h3>
+                    <p class="text-muted-foreground">Você negocia diretamente com a outra parte, sem algoritmos definindo o seu valor.</p>
+                </div>
+                <div class="card-elevated p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl">⚡</div>
+                    <h3 class="text-xl font-bold mb-3">Sem burocracia</h3>
+                    <p class="text-muted-foreground">Cadastro rápido, uso intuitivo. Comece a usar em minutos, não em dias.</p>
+                </div>
+                <div class="card-elevated p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl">🛡️</div>
+                    <h3 class="text-xl font-bold mb-3">100% Seguro</h3>
+                    <p class="text-muted-foreground">Pagamento seguro, comunicação direta, e uma experiência pensada para pessoas reais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cadastro" class="py-24 bg-gradient-to-br from-primary via-primary-dark to-slate-900 relative">
+        <div class="container mx-auto px-4 lg:px-8 relative z-10">
+            <div class="max-w-xl mx-auto bg-white rounded-3xl p-8 shadow-2xl">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-foreground">Faça seu Pré-Cadastro</h3>
+                    <p class="text-muted-foreground mt-2">Garanta seu acesso antecipado e benefícios exclusivos</p>
+                </div>
+                
+                <form class="space-y-4">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Nome Completo</label>
+                        <input type="text" placeholder="Seu nome" class="w-full h-12 px-4 rounded-xl border border-border focus:ring-2 focus:ring-accent outline-none transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">WhatsApp</label>
+                        <input type="tel" placeholder="(00) 00000-0000" class="w-full h-12 px-4 rounded-xl border border-border focus:ring-2 focus:ring-accent outline-none transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">E-mail</label>
+                        <input type="email" placeholder="seuemail@exemplo.com" class="w-full h-12 px-4 rounded-xl border border-border focus:ring-2 focus:ring-accent outline-none transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-foreground">Você quer:</label>
+                        <select class="w-full h-12 px-4 rounded-xl border border-border focus:ring-2 focus:ring-accent outline-none transition-all bg-white">
+                            <option value="profissional">Oferecer Serviços (Profissional)</option>
+                            <option value="cliente">Contratar Serviços (Cliente)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="w-full h-14 mt-4 bg-accent hover:bg-accent-light text-white font-bold rounded-xl transition-colors">
+                        Quero meu acesso antecipado
+                    </button>
+                    <p class="text-center text-xs text-muted-foreground mt-4">Ao continuar, você concorda com nossos Termos de Uso e Política de Privacidade.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-foreground py-16 text-center text-white">
+        <div class="container mx-auto px-4">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold italic mb-2">Eu Faço Por Você</h2>
+                <p class="text-white/60">Simples. Direto. Justo.</p>
+            </div>
+            
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="px-6 py-3 border border-white/20 rounded-xl hover:bg-white/10 transition-colors">App Store</a>
+                <a href="#" class="px-6 py-3 border border-white/20 rounded-xl hover:bg-white/10 transition-colors">Google Play</a>
+            </div>
+
+            <a href="https://wa.me/5511999999999" target="_blank" class="inline-block bg-[#25D366] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#20BD5A] transition-colors mb-12">
+                Fale conosco no WhatsApp
+            </a>
+
+            <div class="border-t border-white/10 pt-8 text-white/40 text-sm">
+                <p>© 2026 Eu Faço Por Você. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
