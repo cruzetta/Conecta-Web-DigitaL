@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,20 +28,6 @@
                             DEFAULT: '#0284c7', // Azul lago profundo
                             dark: '#075985',
                             accent: '#10b981' // Verde esperança/sustentabilidade
-                        }
-                    },
-                    animation: {
-                        'ken-burns': 'kenBurns 20s ease-out infinite alternate',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                    },
-                    keyframes: {
-                        kenBurns: {
-                            '0%': { transform: 'scale(1)' },
-                            '100%': { transform: 'scale(1.1)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -81,17 +67,32 @@
         .accordion-item.active .fa-chevron-down {
             transform: rotate(180deg);
         }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+            50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+        }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 antialiased selection:bg-brand selection:text-white">
+<body class="font-sans text-gray-800 bg-gray-50 antialiased selection:bg-brand selection:text-white overflow-x-hidden w-full max-w-[100vw] relative">
 
     <!-- Navegação Fixa -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <i class="fa-solid fa-water text-2xl"></i>
-                    <span class="font-serif font-bold text-xl tracking-wide">Ondas do Bem</span>
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <!-- Logo oficial -->
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FDesign%20sem%20nome%20(64).png?alt=media&token=1fbf5c1e-2fb0-487f-a202-dfe9f06fe1d7" alt="Logo Movimento Ondas do Bem" class="h-12 md:h-14 w-auto drop-shadow-md">
                 </div>
                 
                 <!-- Menu Desktop -->
@@ -131,7 +132,7 @@
         <div class="absolute inset-0 w-full h-full z-0">
             <!-- playsinline e muted garantem que funcione no celular sem abrir player gigante -->
             <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop playsinline>
-                <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FDesign%20sem%20nome%20(9).mp4?alt=media&token=6c284b55-7b18-4ebb-bf32-05c4074928f1" type="video/mp4">
+                <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FGota_Caindo_no_Lago_V%C3%ADdeo_Pronto.mp4?alt=media&token=f9c713f3-f273-4de2-b7ed-4be8b535101e" type="video/mp4">
             </video>
             <!-- Overlay Gradiente Escuro para garantir a leitura do texto -->
             <div class="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
@@ -139,14 +140,17 @@
         
         <!-- Conteúdo Criativo sobreposto -->
         <div class="relative z-10 max-w-5xl mx-auto px-4 text-center text-white mt-16 animate-fade-in-up">
-            <h1 class="text-5xl md:text-7xl font-sans font-bold tracking-widest mb-6 drop-shadow-2xl">
-                MOVIMENTO<br><span class="text-brand-light font-serif italic">ONDAS DO BEM</span>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-sans font-bold tracking-widest mb-6 drop-shadow-2xl uppercase">
+                MOVIMENTO<br>ONDAS DO BEM
             </h1>
             
             <div class="w-32 h-1 bg-[#e07a46] mx-auto mb-8 rounded shadow-[0_0_10px_rgba(224,122,70,0.8)]"></div>
             
-            <p class="text-2xl md:text-3xl font-light max-w-3xl mx-auto drop-shadow-md leading-relaxed">
-                Unindo forças para alterar o "status quo" social de quem sofre
+            <p class="text-2xl md:text-3xl font-light italic max-w-3xl mx-auto drop-shadow-md leading-relaxed">
+                Unindo forças para alterar<br>
+                o "status quo" social<br>
+                de quem sofre
             </p>
             
             <!-- Seta animada convidando para rolar a página -->
@@ -164,31 +168,31 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal">
                 
                 <!-- Textos do Convite -->
-                <div class="prose prose-lg text-gray-700">
-                    <h2 class="text-4xl font-serif font-bold text-gray-900 mb-6 leading-tight">
+                <div class="prose prose-lg text-gray-700 text-justify">
+                    <h2 class="text-4xl font-serif font-bold text-gray-900 mb-6 leading-tight text-left">
                         Olá Amigos! <br><span class="text-brand italic font-light">Sejam bem-vindos!</span>
                     </h2>
-                    <p class="text-xl font-medium text-gray-800">
+                    <p class="text-xl font-medium text-gray-800 text-left">
                         Dedico este espaço a vocês, meus convidados!
                     </p>
                     <p>
                         Um lugar nascido no desejo profundo de inspirar um movimento coletivo em prol do tema <strong>"Gratidão gera Justiça Social"</strong>; transformando boas palavras em motivação para o bem, em força às Causas que atuam onde a vontade do poder público não se mostra nem os olhos da sociedade alcançam.
                     </p>
                     <div class="bg-brand-light/30 border-l-4 border-brand p-6 my-8 rounded-r-lg shadow-sm">
-                        <p class="m-0 italic text-gray-800">
+                        <p class="m-0 italic text-gray-800 text-left">
                             A imagem que me vem é de uma pedra lançada sobre águas paradas, estagnadas, como a normalização das injustiças sobre os que menos sabem, menos podem, menos têm. O impacto deste gesto cria ondas concêntricas sucessivas para todas as direções. A ideia é modificar o cenário, expandir o bem, alterar a ordem e a posição do que parece, enganosa e comodamente, estar correto.
                         </p>
                     </div>
                     <p>
                         O convite é para doar um pouquinho da sua luz, do seu saber, desse jeito único de sentir o mundo (através de uma entrevista a mim ou um texto que venha criar). O que você entregar é dádiva à vida. Palavras que seguirão mundo afora expandindo a consciência de quem ler, além de gerar recursos às entidades indicadas por cada coautor.
                     </p>
-                    <p class="text-brand font-bold text-xl my-6">
+                    <p class="text-brand font-bold text-xl my-6 text-left">
                         A quem você deseja ajudar com parte do lucro de cada livro?
                     </p>
                     <p>
                         Familiarize-se com a proposta. Conheça um pouco da minha história. E sinta em seu coração se este chamado é para você...
                     </p>
-                    <p class="font-serif italic text-xl mt-8">
+                    <p class="font-serif italic text-xl mt-8 text-left">
                         Desde já estou a sua espera.
                     </p>
                 </div>
@@ -307,33 +311,80 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-brand uppercase mb-2">Trajetória</h2>
-                <h3 class="text-3xl md:text-4xl font-serif font-bold text-gray-900">Como Cheguei Aqui</h3>
+                <h3 class="text-3xl md:text-4xl font-serif font-bold text-gray-900">Aprendizagens do Caminho</h3>
                 <div class="w-24 h-1 bg-brand mx-auto mt-6 rounded"></div>
             </div>
 
             <!-- Layout Texto e Vídeos Lado a Lado -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start reveal">
-                <!-- Coluna de Texto -->
-                <div class="prose prose-lg text-gray-600">
-                    <p class="lead text-xl text-gray-800 font-medium">
-                        A jornada até aqui foi pavimentada por um profundo desejo de promover justiça e igualdade.
+                <!-- Coluna de Texto (Fiel ao Documento com texto justificado) -->
+                <div class="prose prose-lg text-gray-600 max-w-none text-justify">
+                    <p class="lead text-xl text-gray-800 font-medium text-left">
+                        Há vinte e seis anos caminho por ruelas e becos da periferia de São Paulo.
                     </p>
                     <p>
-                        Aqui você conta a sua história de vida, seus desafios e suas vitórias. A ideia deste formato é que a leitura não seja interrompida. Enquanto o visitante lê sobre suas motivações, ele tem os vídeos como um apoio visual logo ao lado.
+                        Levada pelas mãos de um amigo inspirador (<a href="https://www.instagram.com/ondovato/" target="_blank" class="text-brand hover:text-brand-dark transition underline">@ondovato</a>), iniciei sem entender direito o que fazia, com a arrogância inocente de quem pensa saber mais e só deseja ajudar o coitado do pobre. Não preciso dizer que apanhei um bocado né? ... Foram alguns bons anos permeados por diversas dores e perdas, até entender quem era a ignorante e quem precisava de ajuda. Mas o bom é que a persistência aperfeiçoa, a experiência cria competências, enquanto os erros, ensinam o que não se deve repetir.
                     </p>
                     <p>
-                        O <strong>Movimento Ondas do Bem</strong> não nasceu da noite para o dia. Foram anos de dedicação, observação e muito trabalho em campo com as comunidades, entendendo que a gratidão não é apenas um sentimento passivo, mas uma força ativa que deve gerar justiça social.
+                        Já os últimos treze anos foram feitos de encontros... unindo os que vieram em busca de ajuda às pessoas sensíveis e dispostas a ajudar. Neste tempo, aprendi a trabalhar sem ter uma sede, um cargo ou remuneração. Agimos numa Ação Social que se faz ponte entre um e outro - propõe estratégias criativas e faz parcerias que ampliam a força do trabalho.
                     </p>
-                    <blockquote class="border-l-4 border-brand italic pl-4 my-8 text-gray-700 bg-brand-light/30 p-4 rounded-r-lg">
-                        "Acredito que a transposição de nossos limites nos aproxima e iguala diante dos valores que realmente importam."
+                    <p class="font-bold text-gray-800 text-left">
+                        A pandemia é um capítulo à parte.
+                    </p>
+                    <p>
+                        A soma do período em que a sociedade virou pelo avesso é igual aos meses em que atravessei a cidade, dia e noite, buscando e entregando doações para acudir centenas de famílias em extrema carência. Quando as coisas voltaram mais ou menos ao normal, veio a conta. Estava exaurida, esvaziada de mim... caminhando numa névoa de tristeza e desalento pela consciência de que o tanto feito, por fim, não havia gerado mudança alguma no difícil cenário daquelas vidas. Mergulhei num abismo de angústia por minha trajetória tão miúda e impotente num mundo machucado demais.
+                    </p>
+                    <p>
+                        Em meados de 2022, numa noite imprecisa, tive uma crise daquelas que a gente chora até desmaiar de cansaço. Ao acordar, meio em torpor, havia no lugar do nevoeiro uma frase límpida: <em class="text-gray-800">"Se você não se acha boa o bastante, junte-se aos bons!"</em> Não entendi e nem dei importância, mas ela continuou lá dia após dia...
+                    </p>
+                    <p>
+                        Então comecei a orar pedindo que Deus me iluminasse, me ajudasse a compreender o que fazer com aquilo. Várias semanas depois, acordei com a nítida impressão de ter saído de uma reunião com um projeto nas mãos:
+                    </p>
+                    <blockquote class="border-l-4 border-brand italic pl-5 my-8 text-gray-700 bg-brand-light/30 p-6 rounded-r-lg shadow-sm text-base md:text-lg text-left">
+                        "Procure pessoas que considere boas e capazes para serem coautoras de um livro sobre o impacto social que a gratidão pode causar no mundo. Convide profissionais de diferentes áreas, reconhecidos por seu interesse social - sensíveis ao sofrimento alheio, dispostas a contribuírem com o bem estar da vida no planeta. Dos que aceitarem virão palavras e a indicação de uma instituição a ser beneficiada com uma parte dos lucros, dividida igualmente, entre todos os participantes deste projeto. Confie, dedique-se e o campo se abrirá."
                     </blockquote>
+                    <p>
+                        Por três anos estive paralisada de medo, avaliando se queria aceitar o convite. Analisando se era real ou pura imaginação. A rigidez foi me adoecendo... uma complicação sobre a outra gerando diversos desconfortos e limitações.
+                    </p>
+                    <p class="font-medium text-gray-800 text-left">
+                        O que mudou? Acabei por refletir: Por que não tentar?
+                    </p>
+                    <p>
+                        De certa forma continuo sendo ponte entre os que podem doar a sua luz e o seu saber em favor de um mundo dormente de consciência sobre as injustiças sociais; cada livro vendido, entrega mais energia às instituições e ao final todos ganham. Pensar desta forma gerou serenidade para iniciar.
+                    </p>
+                    <p>
+                        Gosto da frase final do poema "Mandamentos Paradoxais" de Kent M. Keith: <em class="text-gray-800">"No final descobri que tudo sempre foi entre mim e Deus, nunca foi entre mim e as outras pessoas."</em> <span class="text-sm">(poema, cuja autoria, erroneamente, é atribuída à Madre Thereza de Calcutá por haver uma cópia na parede da casa Nirmala Shishu Bhavan para atender crianças abandonadas, em Calcutá.)</span>
+                    </p>
+                    <div class="mt-10 font-serif text-left">
+                        <p class="text-xl italic text-brand-dark mb-4">
+                            Com esta certeza sigo em busca dos que fazem parte desta história.
+                        </p>
+                        <p class="text-2xl font-bold tracking-wide text-gray-900">Hozana</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">SP OUT/2025</p>
+                    </div>
                 </div>
 
                 <!-- Coluna de Vídeos (2 e 3) -->
-                <div class="space-y-8">
+                <div class="space-y-8 lg:sticky lg:top-24">
+                    
+                    <!-- Novo Vídeo: ONG Educacional Projeto Pão Nosso -->
                     <div class="rounded-xl overflow-hidden shadow-lg border border-gray-100 group">
                         <div class="bg-gray-800 relative pb-[56.25%]">
-                            <!-- Vídeo Cesta Nossa Solidária -->
+                            <!-- Substitua o link no 'src' abaixo pelo link real do vídeo no Firebase -->
+                            <video class="absolute top-0 left-0 w-full h-full" controls poster="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                Seu navegador não suporta a tag de vídeo.
+                            </video>
+                        </div>
+                        <div class="p-4 bg-gray-50 border-t border-gray-100">
+                            <h4 class="font-bold text-gray-800">ONG Educacional Projeto Pão Nosso</h4>
+                            <p class="text-sm text-gray-500 mt-1">14 anos de gestão pedagógica e captação de recursos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Vídeo Cesta Nossa Solidária (Agora o segundo da lista) -->
+                    <div class="rounded-xl overflow-hidden shadow-lg border border-gray-100 group">
+                        <div class="bg-gray-800 relative pb-[56.25%]">
                             <video class="absolute top-0 left-0 w-full h-full" controls poster="https://images.unsplash.com/photo-1593113563332-ce147f8dd723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
                                 <source src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FV%C3%ADdeo%20Cesta%20Nossa%20Solid%C3%A1ria%20(1).mp4?alt=media&token=8989aae6-b306-42ee-84fc-ba63fcbe0621" type="video/mp4">
                                 Seu navegador não suporta a tag de vídeo.
@@ -341,7 +392,7 @@
                         </div>
                         <div class="p-4 bg-gray-50 border-t border-gray-100">
                             <h4 class="font-bold text-gray-800">Ação Cesta Nossa Solidária</h4>
-                            <p class="text-sm text-gray-500 mt-1">Nossos 12 anos de trabalho com famílias vulneráveis.</p>
+                            <p class="text-sm text-gray-500 mt-1">Nossos 12 anos de trabalho com famílias vulneráveis e campanhas em apoio a diversas instituições sociais.</p>
                         </div>
                     </div>
                 </div>
@@ -383,32 +434,75 @@
                     </div>
                 </div>
 
-                <!-- Conteúdo Diplomas (Grid de Imagens) -->
-                <div id="tab-diplomas" class="max-w-5xl mx-auto hidden grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 animate-fade-in-up">
-                    <!-- Placeholder de Diploma 1 -->
-                    <div class="bg-white p-2 rounded-xl shadow-md border border-gray-200 hover:shadow-xl transition duration-300 group cursor-pointer text-center">
-                        <div class="bg-gray-200 h-48 rounded-lg flex flex-col items-center justify-center text-gray-400 mb-3 overflow-hidden">
-                           <i class="fa-solid fa-award text-4xl mb-2 group-hover:scale-110 transition"></i>
-                           <span>Diploma Especialização</span>
+                <!-- Conteúdo Diplomas (Elemento Criativo de Selos/Medalhas) -->
+                <div id="tab-diplomas" class="max-w-5xl mx-auto hidden grid-cols-1 sm:grid-cols-3 gap-12 animate-fade-in-up px-4">
+                    
+                    <!-- Diploma 1 -->
+                    <div class="group relative flex flex-col items-center text-center cursor-default">
+                        <!-- Efeito de Onda (Ripple) no hover -->
+                        <div class="absolute top-4 w-28 h-28 bg-brand rounded-full opacity-0 group-hover:opacity-20 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] transition-all duration-300"></div>
+                        
+                        <!-- Medalha/Selo -->
+                        <div class="relative w-32 h-32 mb-6">
+                            <!-- Fundo com Sombra Suave -->
+                            <div class="absolute inset-0 bg-white rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:shadow-[0_15px_40px_rgba(2,132,199,0.2)] transition-shadow duration-500"></div>
+                            <!-- Borda Tracejada Giratória -->
+                            <div class="absolute inset-3 border-2 border-dashed border-gray-200 rounded-full group-hover:border-[#e07a46] group-hover:rotate-180 transition-all duration-1000 ease-in-out"></div>
+                            <!-- Ícone Central -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fa-solid fa-award text-4xl text-gray-300 group-hover:text-brand transition-colors duration-300 transform group-hover:scale-110"></i>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-gray-800 text-sm pb-2">Certificado de Excelência</h5>
+                        
+                        <!-- Textos -->
+                        <span class="text-xs font-bold tracking-widest text-[#e07a46] uppercase mb-2">Especialização</span>
+                        <h5 class="font-serif font-bold text-xl text-gray-900 mb-3 group-hover:text-brand transition-colors duration-300">Certificado de Excelência</h5>
+                        <div class="w-8 h-1 bg-gray-200 rounded-full mb-3 group-hover:bg-[#e07a46] transition-colors duration-300"></div>
+                        <p class="text-gray-500 text-sm px-2">Aprofundamento avançado em metodologias sociais e impacto comunitário.</p>
                     </div>
-                     <!-- Placeholder de Diploma 2 -->
-                     <div class="bg-white p-2 rounded-xl shadow-md border border-gray-200 hover:shadow-xl transition duration-300 group cursor-pointer text-center">
-                        <div class="bg-gray-200 h-48 rounded-lg flex flex-col items-center justify-center text-gray-400 mb-3 overflow-hidden">
-                           <i class="fa-solid fa-graduation-cap text-4xl mb-2 group-hover:scale-110 transition"></i>
-                           <span>Graduação</span>
+
+                    <!-- Diploma 2 -->
+                    <div class="group relative flex flex-col items-center text-center cursor-default">
+                        <!-- Efeito de Onda (Ripple) no hover -->
+                        <div class="absolute top-4 w-28 h-28 bg-brand rounded-full opacity-0 group-hover:opacity-20 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] transition-all duration-300"></div>
+                        
+                        <!-- Medalha/Selo -->
+                        <div class="relative w-32 h-32 mb-6">
+                            <div class="absolute inset-0 bg-white rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:shadow-[0_15px_40px_rgba(2,132,199,0.2)] transition-shadow duration-500"></div>
+                            <div class="absolute inset-3 border-2 border-dashed border-gray-200 rounded-full group-hover:border-[#e07a46] group-hover:rotate-180 transition-all duration-1000 ease-in-out"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fa-solid fa-graduation-cap text-4xl text-gray-300 group-hover:text-brand transition-colors duration-300 transform group-hover:scale-110"></i>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-gray-800 text-sm pb-2">Diploma Universitário</h5>
+                        
+                        <!-- Textos -->
+                        <span class="text-xs font-bold tracking-widest text-[#e07a46] uppercase mb-2">Graduação</span>
+                        <h5 class="font-serif font-bold text-xl text-gray-900 mb-3 group-hover:text-brand transition-colors duration-300">Diploma Universitário</h5>
+                        <div class="w-8 h-1 bg-gray-200 rounded-full mb-3 group-hover:bg-[#e07a46] transition-colors duration-300"></div>
+                        <p class="text-gray-500 text-sm px-2">Formação acadêmica base com foco no desenvolvimento humano integral.</p>
                     </div>
-                     <!-- Placeholder de Diploma 3 -->
-                     <div class="bg-white p-2 rounded-xl shadow-md border border-gray-200 hover:shadow-xl transition duration-300 group cursor-pointer text-center">
-                        <div class="bg-gray-200 h-48 rounded-lg flex flex-col items-center justify-center text-gray-400 mb-3 overflow-hidden">
-                           <i class="fa-solid fa-certificate text-4xl mb-2 group-hover:scale-110 transition"></i>
-                           <span>Curso Extensão</span>
+
+                    <!-- Diploma 3 -->
+                    <div class="group relative flex flex-col items-center text-center cursor-default">
+                        <!-- Efeito de Onda (Ripple) no hover -->
+                        <div class="absolute top-4 w-28 h-28 bg-brand rounded-full opacity-0 group-hover:opacity-20 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] transition-all duration-300"></div>
+                        
+                        <!-- Medalha/Selo -->
+                        <div class="relative w-32 h-32 mb-6">
+                            <div class="absolute inset-0 bg-white rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:shadow-[0_15px_40px_rgba(2,132,199,0.2)] transition-shadow duration-500"></div>
+                            <div class="absolute inset-3 border-2 border-dashed border-gray-200 rounded-full group-hover:border-[#e07a46] group-hover:rotate-180 transition-all duration-1000 ease-in-out"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fa-solid fa-certificate text-4xl text-gray-300 group-hover:text-brand transition-colors duration-300 transform group-hover:scale-110"></i>
+                            </div>
                         </div>
-                        <h5 class="font-bold text-gray-800 text-sm pb-2">Gestão de ONGs</h5>
+                        
+                        <!-- Textos -->
+                        <span class="text-xs font-bold tracking-widest text-[#e07a46] uppercase mb-2">Curso Extensão</span>
+                        <h5 class="font-serif font-bold text-xl text-gray-900 mb-3 group-hover:text-brand transition-colors duration-300">Gestão de ONGs</h5>
+                        <div class="w-8 h-1 bg-gray-200 rounded-full mb-3 group-hover:bg-[#e07a46] transition-colors duration-300"></div>
+                        <p class="text-gray-500 text-sm px-2">Capacitação direcionada ao terceiro setor e estruturação de recursos.</p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -420,13 +514,15 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start reveal">
                 
                 <!-- Imagem do Livro -->
-                <div class="lg:col-span-5 relative sticky top-24">
+                <div class="lg:col-span-5 relative lg:sticky lg:top-24 mb-10 lg:mb-0">
                     <div class="absolute -inset-4 bg-brand-light rounded-2xl transform rotate-3 scale-105 z-0"></div>
-                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Livro Gratidão gera Justiça" class="relative z-10 rounded-xl shadow-2xl object-cover h-[500px] w-full">
+                    <!-- Nova imagem do livro inserida aqui com ajustes para não cortar a capa -->
+                    <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FWhatsApp%20Image%202026-03-11%20at%2021.28.03.jpeg?alt=media&token=c4f454a0-eec4-4da6-bdb9-91c226f3e35c" alt="Livro Gratidão gera Justiça" class="relative z-10 rounded-xl shadow-2xl object-contain w-full h-auto max-h-[600px] bg-white/40 backdrop-blur-sm p-1">
                     
-                    <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur p-4 rounded-lg shadow-lg z-20 border-l-4 border-brand">
-                        <p class="font-serif font-bold text-gray-900">Pré-lançamento:</p>
-                        <p class="text-brand font-semibold text-lg">2º Semestre de 2026</p>
+                    <!-- Card realocado para fora da imagem (abaixo dela) -->
+                    <div class="relative z-10 mt-6 bg-white p-5 rounded-xl shadow-md border-l-4 border-brand">
+                        <p class="font-serif font-bold text-gray-900 text-sm md:text-base">Pré-lançamento:</p>
+                        <p class="text-brand font-semibold text-base md:text-lg">2º Semestre de 2026</p>
                     </div>
                 </div>
 
@@ -452,25 +548,26 @@
                             </div>
                         </div>
 
-                        <!-- Pergunta 2 -->
+                        <!-- Pergunta 2 (Unificada) -->
                         <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
                             <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
-                                <span class="font-bold text-gray-800">2. QUANTOS AUTORES FARÃO PARTE?</span>
+                                <span class="font-bold text-gray-800">2. QUANTOS AUTORES FARÃO PARTE E QUEM SÃO ELES?</span>
                                 <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
                             </button>
-                            <div class="accordion-content px-5 text-gray-600">
+                            <div class="accordion-content px-5 text-gray-600 space-y-3">
                                 <p>De 5 a 10, dependendo da adesão e do material proposto, na ordem das respostas de interesse.</p>
+                                <p>Aos que aceitarem abrirei os nomes. São pessoas, igualmente, sensíveis e com grande contribuição à sociedade.</p>
                             </div>
                         </div>
 
-                        <!-- Pergunta 3 -->
+                        <!-- Pergunta 3 (Nova) -->
                         <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
                             <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
-                                <span class="font-bold text-gray-800">3. QUEM SÃO OS OUTROS CONVIDADOS?</span>
+                                <span class="font-bold text-gray-800">3. QUAIS SÃO OS OBJETIVOS DO LIVRO?</span>
                                 <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
                             </button>
                             <div class="accordion-content px-5 text-gray-600">
-                                <p>Aos que aceitarem abrirei os nomes. São pessoas, igualmente, sensíveis e com grande contribuição à sociedade.</p>
+                                <p>O livro visa: inspirar e conscientizar para a paz pela potência que existe no sentimento de gratidão; divulgar pessoas e trabalhos importantes para a sociedade; servir como um excelente e contínuo instrumento de captação de recursos destinados a diversas causas.</p>
                             </div>
                         </div>
 
@@ -485,14 +582,14 @@
                             </div>
                         </div>
 
-                        <!-- Pergunta 5 -->
+                        <!-- Pergunta 5 (Antiga 5 atualizada para a nova Divisão de Lucros) -->
                         <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
                             <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
-                                <span class="font-bold text-gray-800">5. QUAL A IDEIA SOBRE A DIVISÃO DAS PARTES?</span>
+                                <span class="font-bold text-gray-800">5. COMO SERÁ FEITA A DIVISÃO DOS LUCROS?</span>
                                 <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
                             </button>
                             <div class="accordion-content px-5 text-gray-600">
-                                <p>Após a cobertura dos custos, o lucro líquido será dividido igualmente pelo número de autores + 1 parte por meu trabalho + 1 parte para o "MOVIMENTO ONDAS DO BEM" que se inaugura a partir deste livro e já acopla a Ação "Cesta Nossa Solidária" que há doze anos trabalha com famílias vulneráveis e diversas outras instituições. (vide vídeo)</p>
+                                <p>O lucro será dividido, igualmente, entre os locais que os coautores indicarem + 1 parte igual para a Hozana idealizadora e que estará empenhada nas vendas futuras até o alcance da meta + 1 parte igual ao próprio Movimento Ondas do Bem que nasce como berço ao projeto do livro, ao mesmo tempo que acolhe as Ações Sociais da Cesta Nossa Solidária.</p>
                             </div>
                         </div>
 
@@ -554,14 +651,47 @@
                             </div>
                         </div>
 
-                        <!-- Pergunta 11 -->
+                        <!-- Pergunta 11 (Nova) -->
                         <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
                             <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
-                                <span class="font-bold text-gray-800">11. SOBRE O LANÇAMENTO:</span>
+                                <span class="font-bold text-gray-800">11. QUAL SERÁ A TIRAGEM DO LIVRO?</span>
                                 <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
                             </button>
                             <div class="accordion-content px-5 text-gray-600">
-                                <p>Gostaria de alinhar com os autores, já que envolve a todos!</p>
+                                <p>A proposta é captar recursos, através de empresas parceiras, para 10.000 exemplares.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pergunta 12 (Nova) -->
+                        <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
+                                <span class="font-bold text-gray-800">12. QUAIS AS ESTRATÉGIAS PENSADAS PARA A VENDA?</span>
+                                <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
+                            </button>
+                            <div class="accordion-content px-5 text-gray-600 space-y-4">
+                                <p>Desde o Pré-Lançamento, lançamento e pós-lançamento com a assessoria de:</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>Marketing Literário;</li>
+                                    <li>Assessoria de Imprensa Literária;</li>
+                                    <li>Mix de Mídias (Mídia Paga, Própria e Orgânica);</li>
+                                    <li>Criação de Impulsos como: Um dia "D" no mês em que cada coautor será motivado a divulgá-lo nas suas redes (Apenas sugestão);</li>
+                                    <li>Por ser um livro "Presente", aproveitar datas temáticas: Páscoa, Dia das Mães, Dia dos Pais, Natal;</li>
+                                    <li>Estratégias plataforma Amazon;</li>
+                                    <li>Dedicarei 2027 a viajar pelo Brasil abrindo espaço para sensibilizar as pessoas sobre o tema, apresentar o trabalho das instituições escolhidas e vender o livro.</li>
+                                </ul>
+                                <p class="text-sm italic mt-2">Obs.: Os valores para todos os custos serão relacionados no montante a ser captado para a publicação do livro.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pergunta 13 (Nova 14 adaptada) -->
+                        <div class="accordion-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center p-5 text-left focus:outline-none">
+                                <span class="font-bold text-gray-800">13. DE QUE FORMA OS COAUTORES E AS INSTITUIÇÕES ACOMPANHARÃO AS VENDAS E REPASSES?</span>
+                                <i class="fa-solid fa-chevron-down text-brand transition-transform duration-300"></i>
+                            </button>
+                            <div class="accordion-content px-5 text-gray-600 space-y-3">
+                                <p>Nesta 1ª edição independente, trabalharemos com a plataforma Amazon. Todas as vendas serão feitas através dela. No site "ondasdobem.org" haverá uma página, aberta somente às instituições e coautores (senha) com o relatório periódico da Amazon.</p>
+                                <p>Quanto ao repasse dos valores, minha sugestão é que os percentuais já sejam depositados pela própria Amazon nas respectivas contas dos beneficários. Assim fica transparente todo o processo!</p>
                             </div>
                         </div>
 
@@ -625,14 +755,19 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 text-center border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
-            <div class="flex items-center gap-2 text-white mb-6">
-                <i class="fa-solid fa-water text-3xl text-brand"></i>
-                <span class="font-serif font-bold text-2xl">Ondas do Bem</span>
+            <div class="flex items-center justify-center mb-6">
+                <!-- Logo oficial no rodapé -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/Ondas%20do%20Bem%2FDesign%20sem%20nome%20(64).png?alt=media&token=1fbf5c1e-2fb0-487f-a202-dfe9f06fe1d7" alt="Logo Movimento Ondas do Bem" class="h-20 md:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity">
             </div>
-            <div class="flex space-x-6 mb-8">
+            <div class="flex space-x-6 mb-4">
                 <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
                 <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110"><i class="fa-solid fa-envelope text-2xl"></i></a>
+                <!-- Link de e-mail atualizado -->
+                <a href="mailto:ondasdobem10@gmail.com" class="text-gray-400 hover:text-white transition transform hover:scale-110" title="ondasdobem10@gmail.com"><i class="fa-solid fa-envelope text-2xl"></i></a>
+            </div>
+            <!-- Texto com o e-mail adicionado para facilitar o contato -->
+            <div class="mb-8 text-gray-400 font-medium">
+                <a href="mailto:ondasdobem10@gmail.com" class="hover:text-white transition">ondasdobem10@gmail.com</a>
             </div>
             <p>&copy; 2026 Movimento Gratidão e Justiça Social. Todos os direitos reservados.</p>
         </div>
