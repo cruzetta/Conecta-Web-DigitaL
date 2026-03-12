@@ -38,8 +38,8 @@
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
-                        'marquee-left': 'marquee-left 40s linear infinite',
-                        'marquee-right': 'marquee-right 40s linear infinite',
+                        'marquee': 'marquee 60s linear infinite',
+                        'marquee-right': 'marquee-right 60s linear infinite',
                         'slide-up': 'slideUp 0.5s ease-out forwards',
                         'bounce-slow': 'bounce 3s infinite',
                     },
@@ -48,12 +48,12 @@
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
                         },
-                        'marquee-left': {
+                        marquee: {
                             '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(-100%)' },
                         },
                         'marquee-right': {
-                            '0%': { transform: 'translateX(-50%)' },
+                            '0%': { transform: 'translateX(-100%)' },
                             '100%': { transform: 'translateX(0%)' },
                         },
                         slideUp: {
@@ -104,10 +104,14 @@
             transform: translateY(-5px);
         }
 
-        /* Marquee container */
-        .marquee-container {
-            display: flex;
-            width: 200%;
+        /* Suavização de logos na esteira */
+        .marquee-logo {
+            transition: all 0.3s ease;
+            filter: grayscale(10%) contrast(110%);
+        }
+        .marquee-logo:hover {
+            filter: grayscale(0%) contrast(110%);
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -449,115 +453,172 @@
         </div>
     </section>
 
-    <!-- Parceiros Infinitos (Marquee) -->
-    <section id="parceiros" class="py-20 bg-gray-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <!-- Parceiros Infinitos (Marquee Clean & Premium) -->
+    <section id="parceiros" class="py-24 bg-white overflow-hidden border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
             <div class="text-center" data-aos="fade-up">
                 <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4">Gigantes globais ao nosso lado</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Sua segurança respaldada pelas instituições mais sólidas do mercado financeiro e de saúde mundial.</p>
+                <p class="text-gray-500 max-w-2xl mx-auto">Sua segurança respaldada pelas instituições mais sólidas do mercado financeiro e de saúde mundial.</p>
             </div>
         </div>
 
-        <!-- Row 1: Left Marquee -->
-        <div class="marquee-container mb-6 group">
-            <div class="flex gap-6 animate-marquee-left whitespace-nowrap px-3 group-hover:[animation-play-state:paused]">
-                <!-- Item Set 1 -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="max-h-full max-w-full object-contain" alt="Hunter Investimentos">
-                </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="max-h-full max-w-full object-contain" alt="Dominion">
-                </div>
-                <div class="w-64 h-28 bg-blue-900 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="max-h-full max-w-full object-contain" alt="Investors Trust">
-                </div>
-                <!-- UBS Logo Image -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-8 hover:shadow-md transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/UBS_Logo_Wordmark.svg/1024px-UBS_Logo_Wordmark.svg.png" class="max-h-full max-w-full object-contain" alt="UBS">
-                </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="max-h-full max-w-full object-contain" alt="Bradesco">
-                </div>
-                <!-- Trino Logo (Text Styled) -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <span class="font-heading font-black text-3xl tracking-tighter text-[#1e3a8a]">TRINO</span>
-                </div>
+        <!-- Marquee 1 (Movendo para Esquerda) -->
+        <div class="relative flex overflow-hidden group mb-12">
+            <div class="flex w-max animate-marquee shrink-0 items-center gap-16 md:gap-24 pr-16 md:pr-24 group-hover:[animation-play-state:paused]">
+                <!-- Set 1 -->
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
                 
-                <!-- Duplicate for infinite effect -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="max-h-full max-w-full object-contain" alt="Hunter Investimentos">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="max-h-full max-w-full object-contain" alt="Dominion">
+
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+                
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-blue-900 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="max-h-full max-w-full object-contain" alt="Investors Trust">
+
+                <!-- Set 2 -->
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
+                
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-8 hover:shadow-md transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/UBS_Logo_Wordmark.svg/1024px-UBS_Logo_Wordmark.svg.png" class="max-h-full max-w-full object-contain" alt="UBS">
+
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="max-h-full max-w-full object-contain" alt="Bradesco">
+
+                <!-- Set 3 -->
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
+                
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <span class="font-heading font-black text-3xl tracking-tighter text-[#1e3a8a]">TRINO</span>
+
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
+                </div>
+            </div>
+            
+            <div class="flex w-max animate-marquee shrink-0 items-center gap-16 md:gap-24 pr-16 md:pr-24 group-hover:[animation-play-state:paused]" aria-hidden="true">
+                <!-- Duplicate Sets for smooth infinite scroll -->
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
+                </div>
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
+                </div>
+
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
+                </div>
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
+                </div>
+
+                <img src="https://hunterinvestimentos.com.br/wp-content/uploads/2020/08/Hunter-Logos-1-300x116.png" class="h-10 md:h-14 w-auto object-contain marquee-logo" alt="Hunter Investimentos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://dominion-cs.com/wp-content/uploads/2024/08/dominion.webp" class="h-8 md:h-10 w-auto object-contain" alt="Dominion" referrerpolicy="no-referrer">
+                </div>
+                <img src="https://media.licdn.com/dms/image/v2/D560BAQFAnAF4K89uzw/company-logo_200_200/B56Zj2XS6oG0AU-/0/1756479959194/eqrcapital_logo?e=2147483647&v=beta&t=VsycrAxGeZGmF2xUFtWGtYfk3Ikfw8X7txAwriXrDfI" class="h-12 md:h-16 w-auto rounded-xl shadow-md object-contain marquee-logo" alt="EQR Capital" referrerpolicy="no-referrer">
+                <img src="https://mplanosdesaude.com.br/wp-content/uploads/2021/10/bradesco-saude-logo-0-1-1536x1536-3.png" class="h-8 md:h-10 w-auto object-contain marquee-logo" alt="Bradesco" referrerpolicy="no-referrer">
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/Amil-Saude-Segurar.png" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Amil" referrerpolicy="no-referrer">
+                <div class="bg-brand-primary px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://www.investors-trust.com/images/IT_whiteandblue.png" class="h-10 md:h-12 w-auto object-contain" alt="Investors Trust" referrerpolicy="no-referrer">
                 </div>
             </div>
         </div>
 
-        <!-- Row 2: Right Marquee -->
-        <div class="marquee-container group">
-            <div class="flex gap-6 animate-marquee-right whitespace-nowrap px-3 group-hover:[animation-play-state:paused]">
-                <!-- Item Set 2 -->
-                <!-- Azos original colors -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="max-h-full max-w-full object-contain" alt="Azos">
+        <!-- Marquee 2 (Movendo para Direita) -->
+        <div class="relative flex overflow-hidden group">
+            <div class="flex w-max animate-marquee-right shrink-0 items-center gap-16 md:gap-24 pr-16 md:pr-24 group-hover:[animation-play-state:paused]">
+                <!-- Set 1 -->
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <!-- EQR original colors -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwDhKke6Ue639sHjhI67cUVNdv8u1CuQ6sHw&s" class="max-h-full max-w-full object-contain" alt="EQR Holding">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
+                
+                <!-- Set 2 -->
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-brand-dark rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="max-h-full max-w-full object-contain" alt="AG Capital">
-                </div>
-                <!-- SulAmérica Image Logo -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://logodownload.org/wp-content/uploads/2014/11/sulamerica-logo-1.png" class="max-h-14 max-w-full object-contain" alt="SulAmérica">
-                </div>
-                <!-- Amil Image Logo -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://logodownload.org/wp-content/uploads/2014/11/amil-logo-1.png" class="max-h-14 max-w-full object-contain" alt="Amil">
-                </div>
-                <!-- Other standard brands -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-red-600 hover:shadow-md transition-all">RL360°</div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-red-700 hover:shadow-md transition-all">MAPFRE</div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-blue-800 hover:shadow-md transition-all">VUMI</div>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
 
-                <!-- Duplicate for infinite effect -->
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="max-h-full max-w-full object-contain" alt="Azos">
+                <!-- Set 3 -->
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwDhKke6Ue639sHjhI67cUVNdv8u1CuQ6sHw&s" class="max-h-full max-w-full object-contain" alt="EQR Holding">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
+            </div>
+            
+            <div class="flex w-max animate-marquee-right shrink-0 items-center gap-16 md:gap-24 pr-16 md:pr-24 group-hover:[animation-play-state:paused]" aria-hidden="true">
+                <!-- Duplicate Sets -->
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-brand-dark rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="max-h-full max-w-full object-contain" alt="AG Capital">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
+                
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://logodownload.org/wp-content/uploads/2014/11/sulamerica-logo-1.png" class="max-h-14 max-w-full object-contain" alt="SulAmérica">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
+
+                <img src="https://cdn.prod.website-files.com/5ff6e763e7ffae33e474c6fe/631f1466ee7cb7541fae84e1_AZOS-imagemLogotipo%201%20(1).jpg" class="h-10 md:h-12 w-auto object-contain marquee-logo" alt="Azos" referrerpolicy="no-referrer">
+                <div class="bg-brand-dark px-6 py-3 rounded-2xl flex items-center justify-center marquee-logo">
+                    <img src="https://grupoagcapital.com.br/templates/yootheme/cache/logo-negativo-dourado-2517dbeb.webp" class="h-8 md:h-10 w-auto object-contain" alt="AG Capital" referrerpolicy="no-referrer">
                 </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center p-6 hover:shadow-md transition-all">
-                    <img src="https://logodownload.org/wp-content/uploads/2014/11/amil-logo-1.png" class="max-h-14 max-w-full object-contain" alt="Amil">
-                </div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-red-600 hover:shadow-md transition-all">RL360°</div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-red-700 hover:shadow-md transition-all">MAPFRE</div>
-                <div class="w-64 h-28 bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center font-heading font-bold text-2xl text-blue-800 hover:shadow-md transition-all">VUMI</div>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-600 marquee-logo">RL360°</span>
+                <img src="https://planodesaudesegurar.com.br/wp-content/uploads/2021/05/SulAmerica-Saude.png" class="h-16 md:h-20 w-auto object-contain marquee-logo" alt="SulAmérica" referrerpolicy="no-referrer">
+                <span class="font-heading font-bold text-3xl md:text-4xl text-red-700 marquee-logo">MAPFRE</span>
+                <span class="font-heading font-bold text-3xl md:text-4xl text-blue-800 marquee-logo">VUMI</span>
             </div>
         </div>
     </section>
 
     <!-- Contato - Direto WhatsApp -->
-    <section id="contato" class="py-24 bg-white relative">
+    <section id="contato" class="py-24 bg-gray-50 relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-brand-dark rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-5">
@@ -606,11 +667,11 @@
     </section>
 
     <!-- Footer with Address and Disclaimer -->
-    <footer class="bg-gray-900 border-t border-gray-800 text-gray-400 py-16">
+    <footer class="bg-brand-dark border-t border-gray-800 text-gray-400 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
                 <!-- Informações e Endereço -->
-                <div class="md:col-span-4 lg:col-span-4">
+                <div class="md:col-span-4 lg:col-span-3">
                     <img src="https://firebasestorage.googleapis.com/v0/b/conecta-web-digital.firebasestorage.app/o/rmassessoria%2Flogo%20(6).png?alt=media&token=677b21bc-2309-4d55-a0fa-859ce321ffb6" alt="Grupo RM Assessoria" class="h-10 w-auto object-contain opacity-90 mb-6">
                     <p class="text-sm leading-relaxed mb-4 flex items-start">
                         <i class="fa-solid fa-location-dot mt-1 mr-3 text-brand-secondary"></i>
@@ -625,12 +686,23 @@
                     </p>
                 </div>
 
-                <!-- Disclaimer -->
-                <div class="md:col-span-8 lg:col-span-8">
-                    <h4 class="text-white font-bold mb-4 text-xs uppercase tracking-widest text-brand-gold">Disclaimer</h4>
-                    <p class="text-xs leading-relaxed text-justify text-gray-500">
-                        O Grupo RM Assessoria atua de forma independente como consultoria e planejamento estratégico voltado para proteção patrimonial, securitária e de saúde global. As informações contidas neste site possuem caráter meramente informativo e não constituem recomendação de investimento, oferta ou análise de valores mobiliários. Toda contratação de serviços ou produtos deve ser precedida de análise minuciosa do perfil do cliente, bem como da leitura atenta das condições gerais, regulamentos e prospectos aplicáveis a cada produto junto aos nossos parceiros oficiais.
-                    </p>
+                <!-- Legal Disclaimer Full Section -->
+                <div class="md:col-span-8 lg:col-span-9 bg-gray-900/50 p-6 md:p-8 rounded-2xl border border-gray-800/60">
+                    <h4 class="text-white font-bold mb-4 text-xs uppercase tracking-widest text-brand-gold">Legal Disclaimer</h4>
+                    <div class="space-y-4 text-xs leading-relaxed text-justify text-gray-400/80">
+                        <p>
+                            O conteúdo apresentado neste site possui caráter exclusivamente informativo e institucional, não constituindo oferta pública, recomendação personalizada ou aconselhamento para aquisição, alienação ou manutenção de quaisquer instrumentos financeiros, seguros ou planos de saúde.
+                        </p>
+                        <p>
+                            O Grupo RM Assessoria atua como uma plataforma independente de consultoria e estruturação de soluções patrimoniais, conectando seus clientes a instituições financeiras e seguradoras devidamente autorizadas e supervisionadas pelos órgãos reguladores competentes, incluindo o Banco Central do Brasil, a Comissão de Valores Mobiliários e a Superintendência de Seguros Privados, quando aplicável.
+                        </p>
+                        <p>
+                            Investimentos envolvem riscos e podem resultar em perdas financeiras, inclusive do capital investido. Rentabilidades passadas não representam garantia de resultados futuros. Qualquer decisão de investimento deve considerar, de forma independente, o perfil de risco, os objetivos patrimoniais e o horizonte de investimento de cada investidor.
+                        </p>
+                        <p>
+                            As decisões finais relacionadas a investimentos e alocação patrimonial são de responsabilidade exclusiva do investidor.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -643,7 +715,7 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button (Updated Phone) -->
+    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/5522999196213?text=Olá!%20Gostaria%20de%20falar%20com%20um%20consultor." 
        target="_blank" 
        rel="noopener noreferrer" 
@@ -703,7 +775,7 @@
             }
         });
 
-        // Integração Form -> WhatsApp (Updated Phone)
+        // Integração Form -> WhatsApp
         document.getElementById('whatsappForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
@@ -712,7 +784,7 @@
             if(!name || !interest) return;
 
             const message = `Olá! Meu nome é *${name}* e tenho interesse em *${interest}*. Gostaria de saber mais informações sobre os serviços do Grupo RM Assessoria.`;
-            const phone = "5522999196213"; // Novo Número
+            const phone = "5522999196213";
             const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
